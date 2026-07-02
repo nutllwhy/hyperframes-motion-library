@@ -12,6 +12,14 @@
 
 https://github.com/nutllwhy/hyperframes-motion-library
 
+## 在线演示
+
+GitHub Pages 演示页：
+
+https://nutllwhy.github.io/hyperframes-motion-library/
+
+演示页可以查看模板库、使用指引和每个动效的样片。因为 GitHub Pages 只能托管静态页面，在线演示页不负责云端渲染；如果要修改文案、数据并生成新视频，请克隆项目到本地运行。
+
 ## 使用
 
 ```bash
