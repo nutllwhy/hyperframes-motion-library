@@ -1,4 +1,4 @@
-const state = { catalog: null, selected: null, values: {}, output: null, view: "library" };
+const state = { catalog: null, selected: null, values: {}, output: null, view: "library", staticDemo: false };
 const list = document.querySelector("#template-list");
 const workspace = document.querySelector("#workspace");
 const cardTemplate = document.querySelector("#template-card");
@@ -12,6 +12,23 @@ async function api(url, options) {
   const payload = await response.json();
   if (!response.ok) throw new Error(payload.error || "请求失败");
   return payload;
+}
+
+async function loadCatalog() {
+  try {
+    return await api("./api/catalog");
+  } catch {
+    state.staticDemo = true;
+    const response = await fetch("./catalog.static.json");
+    if (!response.ok) throw new Error("静态演示目录读取失败");
+    return response.json();
+  }
+}
+
+function assetUrl(value) {
+  if (!value) return value;
+  if (/^(https?:|data:|blob:)/.test(value)) return value;
+  return value.startsWith("/") ? `.${value}` : value;
 }
 
 function defaults(template) {
@@ -55,7 +72,7 @@ function renderWorkspace() {
   workspace.innerHTML = `
     <div class="workspace-grid">
       <div class="preview-panel">
-        <div class="preview" id="preview">${state.output ? `<video src="${state.output}" controls autoplay loop></video>` : `<div class="preview-placeholder"><strong>修改参数，生成第一条草稿</strong>系统会调用 HyperFrames，把当前文案与数据渲染成可播放的视频。</div>`}</div>
+        <div class="preview" id="preview">${state.output ? `<video src="${assetUrl(state.output)}" controls autoplay loop></video>` : `<div class="preview-placeholder"><strong>修改参数，生成第一条草稿</strong>${state.staticDemo ? "GitHub Pages 演示页只能查看样片；克隆到本地后可以修改参数并渲染新视频。" : "系统会调用 HyperFrames，把当前文案与数据渲染成可播放的视频。"}</div>`}</div>
         <h2 class="workspace-title">${template.name}</h2>
         <p class="workspace-description">${template.description}</p>
         <div class="tag-row">${template.tags.map((tag) => `<span class="tag">${tag}</span>`).join("")}</div>
@@ -65,7 +82,7 @@ function renderWorkspace() {
         <div class="preset-row"><select id="preset" aria-label="载入预设"><option value="">载入预设…</option>${template.presets.map((preset) => `<option value="${preset.id}">${preset.id}</option>`).join("")}</select><button class="button" type="button" id="save-preset">保存</button></div>
         <div class="field"><label for="output-format">输出格式</label><select id="output-format">${(template.formats || ["mp4"]).map((format) => `<option value="${format}" ${format === template.defaultFormat ? "selected" : ""}>${format === "webm" ? "透明叠加 WebM" : "普通 / 滤色 MP4"}</option>`).join("")}</select></div>
         ${template.schema.map(fieldMarkup).join("")}
-        <div class="action-row"><button class="button" type="button" id="reset">恢复默认</button><button class="button primary" type="submit" id="render">生成草稿</button></div>
+        <div class="action-row"><button class="button" type="button" id="reset">恢复默认</button><button class="button primary" type="submit" id="render">${state.staticDemo ? "本地运行后可渲染" : "生成草稿"}</button></div>
         <p class="status" id="status"></p>
       </form>
     </div>`;
@@ -82,6 +99,11 @@ function renderWorkspace() {
   workspace.querySelector("#reset").addEventListener("click", () => { state.values = defaults(template); renderWorkspace(); });
   workspace.querySelector("#save-preset").addEventListener("click", savePreset);
   workspace.querySelector("#editor").addEventListener("submit", renderVideo);
+  if (state.staticDemo) {
+    workspace.querySelector("#save-preset").disabled = true;
+    workspace.querySelector("#render").disabled = true;
+    workspace.querySelector("#status").textContent = "当前是 GitHub Pages 静态演示：可查看模板和样片；生成新视频需要克隆到本地运行。";
+  }
 }
 
 function updateNav() {
@@ -174,6 +196,7 @@ showLibrary.addEventListener("click", () => {
 showGuide.addEventListener("click", renderGuide);
 
 async function savePreset() {
+  if (state.staticDemo) return;
   const name = prompt("给这个预设起一个名称");
   if (!name) return;
   const status = workspace.querySelector("#status");
@@ -185,6 +208,7 @@ async function savePreset() {
 
 async function renderVideo(event) {
   event.preventDefault();
+  if (state.staticDemo) return;
   const status = workspace.querySelector("#status");
   const button = workspace.querySelector("#render");
   button.disabled = true;
@@ -200,13 +224,13 @@ async function renderVideo(event) {
       if (current.status === "failed") { status.className = "status error"; status.textContent = "渲染失败，请查看启动系统的终端信息。"; return; }
       state.output = current.output;
       status.textContent = "草稿已生成。";
-      document.querySelector("#preview").innerHTML = `<video src="${current.output}" controls autoplay loop></video>`;
+      document.querySelector("#preview").innerHTML = `<video src="${assetUrl(current.output)}" controls autoplay loop></video>`;
     }, 1200);
   } catch (error) { button.disabled = false; status.className = "status error"; status.textContent = error.message; }
 }
 
 search.addEventListener("input", () => renderList(search.value));
-state.catalog = await api("/api/catalog");
+state.catalog = await loadCatalog();
 document.querySelector("#template-count").textContent = state.catalog.templates.filter((template) => template.status === "ready").length;
 renderList();
 const initialTemplate = state.catalog.templates.find((template) => template.status === "ready" && template.preview) || state.catalog.templates[0];

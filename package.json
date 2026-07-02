@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "node scripts/server.mjs",
+    "build:pages": "node scripts/build-pages.mjs",
     "check": "node scripts/validate-catalog.mjs",
     "check:templates": "node scripts/check-templates.mjs",
     "render": "node scripts/render.mjs"
