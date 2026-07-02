@@ -1,0 +1,12 @@
+{
+  "leftLabel": "上海 SHANGHAI",
+  "leftValue": 92,
+  "leftUnit": "%",
+  "rightLabel": "亚马逊 AMAZON",
+  "rightValue": 90,
+  "rightUnit": "%",
+  "operator": ">",
+  "verdict": "上海湿度更高",
+  "accent": "#FF5A36",
+  "foreground": "#F4EFE7"
+}

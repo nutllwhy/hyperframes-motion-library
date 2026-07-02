@@ -1,0 +1,10 @@
+{
+  "title": "累计用户数",
+  "targetValue": 1285000,
+  "prefix": "",
+  "suffix": "+",
+  "note": "突破百万里程碑，持续增长中",
+  "accent": "#FF5A36",
+  "background": "#12100E",
+  "foreground": "#F4EFE7"
+}

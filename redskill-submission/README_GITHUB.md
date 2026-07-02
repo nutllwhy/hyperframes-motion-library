@@ -20,12 +20,6 @@ https://nutllwhy.github.io/hyperframes-motion-library/
 
 演示页可以查看模板库、使用指引和每个动效的样片。因为 GitHub Pages 只能托管静态页面，在线演示页不负责云端渲染；如果要修改文案、数据并生成新视频，请克隆项目到本地运行。
 
-## RedSkill 投稿版
-
-`redskill-submission/` 是给小红书 RedSkill 准备的轻量源码包，只保留 `.md`、`.html`、`.css`、`.js`、`.json` 这些更适合被读取和理解的文件。
-
-主流下载和实际使用仍然建议从 GitHub 克隆完整项目；视频样片请看在线演示页。
-
 ## 使用
 
 ```bash

@@ -1,0 +1,13 @@
+{
+  "name": "redskill-hyperframes-motion-library",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/server.js",
+    "build:pages": "node scripts/build-pages.js",
+    "check": "node scripts/validate-catalog.js",
+    "check:templates": "node scripts/check-templates.js",
+    "render": "node scripts/render.js"
+  },
+  "description": "RedSkill-friendly source package for 栗噔噔的视频动效系统"
+}

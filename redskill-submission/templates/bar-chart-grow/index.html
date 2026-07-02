@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="zh-CN" data-composition-variables='[{"id":"title","type":"string","label":"图表标题","default":"2024 年度业绩"},{"id":"subtitle","type":"string","label":"副标题","default":"各部门季度销售额对比"},{"id":"labels","type":"string","label":"标签（逗号分隔）","default":"Q1,Q2,Q3,Q4,全年"},{"id":"values","type":"string","label":"数值（逗号分隔）","default":"45,72,58,91,85"},{"id":"colors","type":"string","label":"颜色（逗号分隔）","default":"#FF5A36,#FF5A36,#B8ADA2,#FF5A36,#D8CEC4"},{"id":"accent","type":"color","label":"强调色","default":"#FF5A36"},{"id":"background","type":"color","label":"背景色","default":"#12100E"},{"id":"foreground","type":"color","label":"文字色","default":"#F4EFE7"}]'>
+  <head>
+    <meta charset="UTF-8" /><meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * { box-sizing: border-box; }
+      html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: #12100e; }
+      body { font-family: "IBM Plex Mono", monospace; }
+      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: #12100e; color: #f4efe7; }
+      .scene { position: absolute; inset: 0; width: 100%; height: 100%; padding: 96px 112px; overflow: hidden; }
+      .title-area { position: relative; z-index: 2; margin-bottom: 48px; }
+      .title { margin: 0 0 12px; font-size: 72px; font-weight: 700; line-height: 1.1; letter-spacing: -0.03em; }
+      .subtitle { margin: 0; font-size: 32px; font-weight: 400; color: #b8ada2; line-height: 1.4; }
+      .chart-area { position: relative; width: 100%; height: 640px; }
+      .chart-svg { width: 100%; height: 100%; overflow: visible; }
+      .grid-line { stroke: #3a3029; stroke-width: 1; }
+      .grid-line-strong { stroke: #5a4840; stroke-width: 1.5; }
+      .axis-text { fill: #b8ada2; font-size: 20px; font-family: "IBM Plex Mono", monospace; font-weight: 500; text-anchor: middle; }
+      .axis-text-y { text-anchor: end; dominant-baseline: middle; }
+      .bar-rect { transform-box: fill-box; transform-origin: bottom center; }
+      .bar-value { fill: #f4efe7; font-size: 28px; font-family: "IBM Plex Mono", monospace; font-weight: 700; text-anchor: middle; opacity: 0; }
+      .bar-label { fill: #b8ada2; font-size: 24px; font-family: "IBM Plex Mono", monospace; font-weight: 500; text-anchor: middle; dominant-baseline: hanging; }
+      .baseline { stroke: #5a4840; stroke-width: 2; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="6" data-width="1920" data-height="1080">
+      <section id="scene" class="scene clip" data-start="0" data-duration="6" data-track-index="1">
+        <div class="title-area">
+          <h1 class="title" id="title"></h1>
+          <p class="subtitle" id="subtitle"></p>
+        </div>
+        <div class="chart-area">
+          <svg class="chart-svg" id="chart-svg" viewBox="0 0 1696 640" preserveAspectRatio="xMidYMid meet"></svg>
+        </div>
+      </section>
+    </div>
+    <script>
+      const fallback = { title: "2024 年度业绩", subtitle: "各部门季度销售额对比", labels: "Q1,Q2,Q3,Q4,全年", values: "45,72,58,91,85", colors: "#FF5A36,#FF5A36,#B8ADA2,#FF5A36,#D8CEC4", accent: "#FF5A36", background: "#12100E", foreground: "#F4EFE7" };
+      const v = window.__hyperframes?.getVariables ? window.__hyperframes.getVariables() : fallback;
+      document.documentElement.style.setProperty("--accent", v.accent);
+      document.getElementById("root").style.backgroundColor = v.background;
+      document.getElementById("root").style.color = v.foreground;
+      for (const [id, value] of [["title", v.title], ["subtitle", v.subtitle]]) document.getElementById(id).textContent = value;
+
+      const labels = v.labels.split(",");
+      const values = v.values.split(",").map(Number);
+      const colors = v.colors.split(",");
+      const bars = labels.map((label, i) => ({ label, value: values[i] || 0, color: colors[i] || v.accent }));
+      const showValues = true;
+
+      const svg = document.getElementById("chart-svg");
+      const chartW = 1696, chartH = 640, marginLeft = 80, marginRight = 40, marginTop = 40, marginBottom = 60;
+      const plotW = chartW - marginLeft - marginRight, plotH = chartH - marginTop - marginBottom;
+      const baselineY = marginTop + plotH;
+      const maxValue = Math.max(...bars.map(b => b.value)) * 1.15;
+      const barCount = bars.length, barSlot = plotW / barCount, barWidth = Math.min(barSlot * 0.55, 200);
+
+      const gridCount = 5;
+      for (let i = 0; i <= gridCount; i++) {
+        const val = (maxValue / gridCount) * i, y = baselineY - (val / maxValue) * plotH;
+        if (i > 0) {
+          const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+          line.setAttribute("x1", marginLeft); line.setAttribute("x2", marginLeft + plotW); line.setAttribute("y1", y); line.setAttribute("y2", y);
+          line.setAttribute("class", i === gridCount ? "grid-line-strong" : "grid-line"); line.setAttribute("opacity", "0"); line.classList.add("grid-line-elem"); svg.appendChild(line);
+        }
+        const label = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        label.setAttribute("x", marginLeft - 16); label.setAttribute("y", y); label.setAttribute("class", "axis-text axis-text-y"); label.textContent = Math.round(val); label.setAttribute("opacity", "0"); label.classList.add("y-label"); svg.appendChild(label);
+      }
+
+      const baseLine = document.createElementNS("http://www.w3.org/2000/svg", "line");
+      baseLine.setAttribute("x1", marginLeft); baseLine.setAttribute("x2", marginLeft + plotW); baseLine.setAttribute("y1", baselineY); baseLine.setAttribute("y2", baselineY); baseLine.setAttribute("class", "baseline"); baseLine.setAttribute("opacity", "0"); svg.appendChild(baseLine);
+
+      const barElements = [];
+      bars.forEach((bar, i) => {
+        const x = marginLeft + barSlot * i + (barSlot - barWidth) / 2;
+        const targetH = (bar.value / maxValue) * plotH;
+        const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+        rect.setAttribute("x", x); rect.setAttribute("y", baselineY); rect.setAttribute("width", barWidth); rect.setAttribute("height", 0); rect.setAttribute("fill", bar.color); rect.setAttribute("rx", 6); rect.setAttribute("class", "bar-rect"); svg.appendChild(rect);
+        let valText = null;
+        if (showValues) {
+          valText = document.createElementNS("http://www.w3.org/2000/svg", "text"); valText.setAttribute("x", x + barWidth / 2); valText.setAttribute("y", baselineY - 16); valText.setAttribute("class", "bar-value"); valText.textContent = bar.value; svg.appendChild(valText);
+        }
+        const label = document.createElementNS("http://www.w3.org/2000/svg", "text"); label.setAttribute("x", x + barWidth / 2); label.setAttribute("y", baselineY + 28); label.setAttribute("class", "bar-label"); label.setAttribute("opacity", "0"); label.classList.add("bar-label-anim"); label.textContent = bar.label; svg.appendChild(label);
+        barElements.push({ rect, valText, targetH, baselineY });
+      });
+
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo(".title", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 0.1);
+      tl.fromTo(".subtitle", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.3);
+      tl.fromTo(".grid-line-elem", { opacity: 0 }, { opacity: 1, duration: 0.6, stagger: 0.05, ease: "sine.out" }, 0.4);
+      tl.fromTo(".y-label", { opacity: 0, x: -12 }, { opacity: 1, x: 0, duration: 0.4, stagger: 0.05, ease: "power2.out" }, 0.5);
+      tl.fromTo(".baseline", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "sine.out" }, 0.5);
+      barElements.forEach((be, i) => {
+        tl.to(be.rect, { attr: { height: be.targetH, y: be.baselineY - be.targetH }, duration: 0.9, ease: "elastic.out(1, 0.6)" }, 0.6 + i * 0.12);
+        if (be.valText) {
+          tl.fromTo(be.valText, { attr: { y: be.baselineY - 16 }, opacity: 0 }, { attr: { y: be.baselineY - be.targetH - 16 }, opacity: 1, duration: 0.5, ease: "back.out(1.5)" }, 1.5 + i * 0.12);
+        }
+      });
+      tl.fromTo(".bar-label-anim", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.4, stagger: 0.06, ease: "power2.out" }, 1.0);
+      tl.to(".scene", { opacity: 0, scale: 1.01, duration: 0.5, ease: "power2.in" }, 5.3);
+      window.__timelines.main = tl;
+    </script>
+  </body>
+</html>

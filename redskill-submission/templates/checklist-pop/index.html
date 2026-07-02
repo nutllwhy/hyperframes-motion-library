@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-CN" data-composition-variables='[{"id":"title","type":"string","label":"标题","default":"上线前检查"},{"id":"item1","type":"string","label":"清单一","default":"默认文案能直接生成视频"},{"id":"item2","type":"string","label":"清单二","default":"透明 WebM 可以叠到剪辑里"},{"id":"item3","type":"string","label":"清单三","default":"模板能通过修改数据复用"},{"id":"accent","type":"color","label":"强调色","default":"#FF5A36"},{"id":"foreground","type":"color","label":"文字色","default":"#F4EFE7"}]'>
+  <head>
+    <meta charset="UTF-8" /><meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * { box-sizing: border-box; }
+      html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: transparent; }
+      body { font-family: "IBM Plex Mono", monospace; }
+      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: transparent; color: var(--foreground); }
+      .scene { position: absolute; inset: 0; display: flex; align-items: center; justify-content: flex-start; padding: 120px 150px; }
+      .panel { position: relative; width: 760px; padding: 46px 50px 52px; border: 2px solid rgba(255,90,54,.42); border-radius: 34px; background: #12100E; box-shadow: 0 28px 86px rgba(0,0,0,.34); overflow: visible; }
+      .title { margin: 0 0 34px; font-size: 48px; line-height: 1.1; letter-spacing: -.055em; font-weight: 900; }
+      .list { display: grid; gap: 20px; }
+      .item { display: grid; grid-template-columns: 48px 1fr; gap: 18px; align-items: start; padding: 20px 22px; border: 1px solid rgba(255,90,54,.24); border-radius: 22px; background: #211C18; }
+      .check { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; color: #12100E; background: var(--accent); font-size: 28px; font-weight: 900; line-height: 1; }
+      .text { margin: 0; color: var(--foreground); font-size: 25px; line-height: 1.32; font-weight: 760; }
+      .glow { position: absolute; right: -120px; bottom: -140px; width: 320px; height: 320px; border-radius: 50%; background: radial-gradient(circle, rgba(255,90,54,.22), transparent 68%); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="5" data-width="1920" data-height="1080">
+      <section id="checklist-scene" class="scene clip" data-start="0" data-duration="5" data-track-index="1">
+        <div class="panel" data-layout-allow-overflow>
+          <div class="glow" data-layout-ignore></div>
+          <h1 class="title" id="title"></h1>
+          <div class="list">
+            <div class="item"><div class="check">✓</div><p class="text" id="item1"></p></div>
+            <div class="item"><div class="check">✓</div><p class="text" id="item2"></p></div>
+            <div class="item"><div class="check">✓</div><p class="text" id="item3"></p></div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <script>
+      const fallback = { title: "上线前检查", item1: "默认文案能直接生成视频", item2: "透明 WebM 可以叠到剪辑里", item3: "模板能通过修改数据复用", accent: "#FF5A36", foreground: "#F4EFE7" };
+      const v = window.__hyperframes?.getVariables ? window.__hyperframes.getVariables() : fallback;
+      document.documentElement.style.setProperty("--accent", v.accent); document.documentElement.style.setProperty("--foreground", v.foreground);
+      for (const id of ["title","item1","item2","item3"]) document.getElementById(id).textContent = v[id];
+      window.__timelines = window.__timelines || {}; const tl = gsap.timeline({ paused: true });
+      tl.fromTo(".panel", { opacity: 0, x: -64, scale: .97 }, { opacity: 1, x: 0, scale: 1, duration: .66, ease: "expo.out" }, .16);
+      tl.fromTo(".title", { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: .44, ease: "circ.out" }, .38);
+      tl.fromTo(".item", { opacity: 0, x: -34, y: 18 }, { opacity: 1, x: 0, y: 0, duration: .48, stagger: .28, ease: "power3.out" }, .66);
+      tl.fromTo(".check", { scale: 0, rotation: -40 }, { scale: 1, rotation: 0, duration: .36, stagger: .28, ease: "back.out(2)" }, .84);
+      tl.fromTo(".glow", { opacity: 0, scale: .7 }, { opacity: 1, scale: 1, duration: 1.1, ease: "sine.out" }, .42);
+      tl.to(".scene", { opacity: 0, x: -20, duration: .38, ease: "power2.in" }, 4.48);
+      window.__timelines.main = tl;
+    </script>
+  </body>
+</html>

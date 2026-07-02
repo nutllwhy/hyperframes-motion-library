@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="zh-CN" data-composition-variables='[{"id":"label","type":"string","label":"标签","default":"核心概念"},{"id":"term","type":"string","label":"概念名","default":"提示词工程"},{"id":"definition","type":"string","label":"解释","default":"不是把问题说复杂，而是把目标、约束和判断标准说清楚。"},{"id":"note","type":"string","label":"补充说明","default":"适合解释术语 / 方法 / 心智模型"},{"id":"accent","type":"color","label":"强调色","default":"#FF5A36"},{"id":"foreground","type":"color","label":"文字色","default":"#F4EFE7"}]'>
+  <head>
+    <meta charset="UTF-8" /><meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * { box-sizing: border-box; }
+      html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: transparent; }
+      body { font-family: "IBM Plex Mono", monospace; }
+      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: transparent; color: var(--foreground); }
+      .scene { position: absolute; inset: 0; display: grid; place-items: center; padding: 120px; }
+      .card { position: relative; width: 1080px; min-height: 430px; padding: 54px 64px 58px; border: 2px solid rgba(255,90,54,.46); border-radius: 34px; background: rgba(18,16,14,.84); box-shadow: 0 28px 90px rgba(0,0,0,.34); backdrop-filter: blur(22px); overflow: visible; }
+      .glow { position: absolute; right: -170px; top: -230px; width: 520px; height: 520px; border-radius: 50%; background: radial-gradient(circle, rgba(255,90,54,.26), transparent 66%); }
+      .label { position: relative; display: inline-flex; padding: 10px 18px; border: 1px solid rgba(255,90,54,.52); border-radius: 999px; color: var(--accent); font-size: 22px; font-weight: 800; letter-spacing: .14em; }
+      .term { position: relative; margin: 36px 0 24px; font-size: 96px; line-height: 1.02; letter-spacing: -.065em; font-weight: 900; }
+      .definition { position: relative; max-width: 870px; margin: 0; color: var(--foreground); font-size: 38px; line-height: 1.42; font-weight: 760; }
+      .note { position: relative; margin-top: 34px; padding-left: 28px; color: #B8ADA2; font-size: 22px; line-height: 1.35; font-weight: 650; }
+      .note::before { content: ""; position: absolute; left: 0; top: 4px; bottom: 4px; width: 5px; border-radius: 99px; background: var(--accent); }
+      .scan { position: absolute; left: 64px; bottom: 46px; width: 0; height: 4px; border-radius: 99px; background: var(--accent); box-shadow: 0 0 22px rgba(255,90,54,.8); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="5" data-width="1920" data-height="1080">
+      <section id="concept-scene" class="scene clip" data-start="0" data-duration="5" data-track-index="1">
+        <div class="card" data-layout-allow-overflow>
+          <div class="glow" data-layout-ignore></div>
+          <div class="label" id="label"></div>
+          <h1 class="term" id="term"></h1>
+          <p class="definition" id="definition"></p>
+          <div class="note" id="note"></div>
+          <div class="scan" data-layout-ignore></div>
+        </div>
+      </section>
+    </div>
+    <script>
+      const fallback = { label: "核心概念", term: "提示词工程", definition: "不是把问题说复杂，而是把目标、约束和判断标准说清楚。", note: "适合解释术语 / 方法 / 心智模型", accent: "#FF5A36", foreground: "#F4EFE7" };
+      const v = window.__hyperframes?.getVariables ? window.__hyperframes.getVariables() : fallback;
+      document.documentElement.style.setProperty("--accent", v.accent); document.documentElement.style.setProperty("--foreground", v.foreground);
+      for (const [id, value] of [["label", v.label], ["term", v.term], ["definition", v.definition], ["note", v.note]]) document.getElementById(id).textContent = value;
+      window.__timelines = window.__timelines || {}; const tl = gsap.timeline({ paused: true });
+      tl.fromTo(".card", { opacity: 0, y: 54, scale: .96 }, { opacity: 1, y: 0, scale: 1, duration: .68, ease: "expo.out" }, .18);
+      tl.fromTo(".label", { opacity: 0, x: -34 }, { opacity: 1, x: 0, duration: .38, ease: "circ.out" }, .42);
+      tl.fromTo(".term", { opacity: 0, y: 46, letterSpacing: "-.02em" }, { opacity: 1, y: 0, letterSpacing: "-.065em", duration: .72, ease: "power4.out" }, .52);
+      tl.fromTo(".definition", { opacity: 0, y: 32 }, { opacity: 1, y: 0, duration: .54, ease: "power3.out" }, .88);
+      tl.fromTo(".note", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: .46, ease: "sine.out" }, 1.16);
+      tl.fromTo(".scan", { width: 0, opacity: 0 }, { width: 520, opacity: 1, duration: .68, ease: "power3.out" }, 1.34);
+      tl.fromTo(".glow", { opacity: 0, scale: .7 }, { opacity: 1, scale: 1, duration: 1.2, ease: "sine.out" }, .35);
+      tl.to(".scene", { opacity: 0, y: -20, duration: .38, ease: "power2.in" }, 4.48);
+      window.__timelines.main = tl;
+    </script>
+  </body>
+</html>

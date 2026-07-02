@@ -1,0 +1,10 @@
+{
+  "title": "2024 年度业绩",
+  "subtitle": "各部门季度销售额对比",
+  "labels": "Q1,Q2,Q3,Q4,全年",
+  "values": "45,72,58,91,85",
+  "colors": "#FF5A36,#FF5A36,#B8ADA2,#FF5A36,#D8CEC4",
+  "accent": "#FF5A36",
+  "background": "#12100E",
+  "foreground": "#F4EFE7"
+}

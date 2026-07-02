@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="zh-CN" data-composition-variables='[{"id":"leftTitle","type":"string","label":"左侧状态","default":"往年常规"},{"id":"leftTag","type":"string","label":"左侧标签","default":"稳定期"},{"id":"rightTitle","type":"string","label":"右侧状态","default":"2026 异常"},{"id":"rightTag","type":"string","label":"右侧标签","default":"高温 · 潮湿"},{"id":"connector","type":"string","label":"转折词","default":"转向"},{"id":"accent","type":"color","label":"强调色","default":"#FF5A36"},{"id":"foreground","type":"color","label":"文字色","default":"#F4EFE7"}]'>
+  <head>
+    <meta charset="UTF-8" /><meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * { box-sizing: border-box; }
+      html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: transparent; }
+      body { font-family: "IBM Plex Mono", monospace; }
+      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: transparent; color: var(--foreground); }
+      .scene { position: absolute; inset: 0; display: grid; place-items: center; width: 100%; height: 100%; padding: 110px 130px; }
+      .cluster { position: relative; width: 1230px; height: 380px; display: grid; grid-template-columns: 450px 120px 520px; gap: 36px; align-items: center; }
+      .side { position: relative; z-index: 2; overflow: visible; padding: 46px 48px; border: 2px solid rgba(255,90,54,.4); border-radius: 28px; background: rgba(18,16,14,.82); box-shadow: 0 24px 70px rgba(0,0,0,.3); backdrop-filter: blur(20px); }
+      .side.left { height: 300px; text-align: right; }
+      .side.right { height: 340px; text-align: left; border-color: rgba(255,90,54,.66); }
+      .tag { display: inline-block; margin-bottom: 26px; padding: 10px 20px; color: #071a16; background: var(--accent); border-radius: 999px; font-size: 20px; font-weight: 800; }
+      .title { position: relative; z-index: 2; margin: 0; font-size: 78px; font-weight: 850; line-height: 1.08; letter-spacing: -.055em; }
+      .connector { position: relative; z-index: 2; display: grid; place-items: center; gap: 14px; color: var(--accent); }
+      .connector-word { font-size: 20px; font-weight: 700; letter-spacing: .16em; }
+      .arrow { position: relative; width: 104px; height: 4px; background: var(--accent); transform-origin: left center; }
+      .arrow::after { content: ""; position: absolute; right: -1px; top: -8px; width: 18px; height: 18px; border-top: 4px solid var(--accent); border-right: 4px solid var(--accent); transform: rotate(45deg); }
+      .wash { position: absolute; right: -160px; top: -190px; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(255,90,54,.2), transparent 68%); }
+      .wash-mask { position: absolute; inset: 0; overflow: hidden; border-radius: inherit; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="5" data-width="1920" data-height="1080">
+      <section id="status-scene" class="scene clip" data-start="0" data-duration="5" data-track-index="1">
+        <div class="cluster">
+          <div class="side left" data-layout-allow-overflow><span class="tag" id="left-tag"></span><h1 class="title" id="left-title"></h1></div>
+          <div class="connector"><span class="connector-word" id="connector"></span><span class="arrow"></span></div>
+          <div class="side right" data-layout-allow-overflow><div class="wash-mask" data-layout-ignore><div class="wash"></div></div><span class="tag" id="right-tag"></span><h1 class="title" id="right-title"></h1></div>
+        </div>
+      </section>
+    </div>
+    <script>
+      const fallback = { leftTitle: "往年常规", leftTag: "稳定期", rightTitle: "2026 异常", rightTag: "高温 · 潮湿", connector: "转向", accent: "#FF5A36", foreground: "#F4EFE7" };
+      const v = window.__hyperframes?.getVariables ? window.__hyperframes.getVariables() : fallback;
+      document.documentElement.style.setProperty("--accent", v.accent); document.documentElement.style.setProperty("--foreground", v.foreground);
+      for (const [id,value] of [["left-title",v.leftTitle],["left-tag",v.leftTag],["right-title",v.rightTitle],["right-tag",v.rightTag],["connector",v.connector]]) document.getElementById(id).textContent = value;
+      window.__timelines = window.__timelines || {}; const tl = gsap.timeline({ paused: true });
+      tl.fromTo(".left", { opacity: 0, x: -70, rotation: -2 }, { opacity: 1, x: 0, rotation: 0, duration: .68, ease: "expo.out" }, .18);
+      tl.fromTo(".right", { opacity: 0, x: 76 }, { opacity: 1, x: 0, duration: .74, ease: "power4.out" }, .26);
+      tl.fromTo(".left .tag", { opacity: 0, x: -38 }, { opacity: 1, x: 0, duration: .38, ease: "circ.out" }, .48);
+      tl.fromTo("#left-title", { opacity: 0, y: 56 }, { opacity: 1, y: 0, duration: .62, ease: "power4.out" }, .58);
+      tl.fromTo(".connector-word", { opacity: 0, letterSpacing: ".5em" }, { opacity: 1, letterSpacing: ".16em", duration: .44, ease: "sine.out" }, .78);
+      tl.fromTo(".arrow", { opacity: 0, scaleX: 0 }, { opacity: 1, scaleX: 1, duration: .55, ease: "power3.out" }, .9);
+      tl.fromTo(".right .tag", { opacity: 0, x: 38 }, { opacity: 1, x: 0, duration: .42, ease: "back.out(1.35)" }, .88);
+      tl.fromTo("#right-title", { opacity: 0, y: -48 }, { opacity: 1, y: 0, duration: .68, ease: "expo.out" }, .98);
+      tl.fromTo(".wash", { opacity: 0, scale: .65 }, { opacity: 1, scale: 1, duration: 1.1, ease: "sine.out" }, .5);
+      tl.to(".wash", { scale: 1.08, opacity: .72, duration: 1.2, yoyo: true, repeat: 1, ease: "sine.inOut" }, 1.65);
+      tl.to(".scene", { opacity: 0, scale: 1.015, duration: .4, ease: "power2.in" }, 4.45);
+      window.__timelines.main = tl;
+    </script>
+  </body>
+</html>

@@ -1,0 +1,9 @@
+{
+  "hero": "汉",
+  "label": "体感湿度",
+  "value": 100,
+  "unit": "%",
+  "caption": "接近饱和",
+  "accent": "#FF5A36",
+  "foreground": "#F4EFE7"
+}

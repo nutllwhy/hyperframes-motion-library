@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="zh-CN" data-composition-variables='[{"id":"mythLabel","type":"string","label":"误区标签","default":"常见误区"},{"id":"myth","type":"string","label":"误区","default":"AI 会直接替你思考"},{"id":"factLabel","type":"string","label":"事实标签","default":"更准确的说法"},{"id":"fact","type":"string","label":"事实","default":"AI 会放大你的问题定义能力"},{"id":"caption","type":"string","label":"总结","default":"重点不是替代，而是协作结构"},{"id":"accent","type":"color","label":"强调色","default":"#FF5A36"},{"id":"foreground","type":"color","label":"文字色","default":"#F4EFE7"}]'>
+  <head>
+    <meta charset="UTF-8" /><meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * { box-sizing: border-box; }
+      html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: transparent; }
+      body { font-family: "IBM Plex Mono", monospace; }
+      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: transparent; color: var(--foreground); }
+      .scene { position: absolute; inset: 0; display: grid; place-items: center; padding: 120px; perspective: 1200px; }
+      .wrap { position: relative; width: 1200px; display: grid; grid-template-columns: 1fr 80px 1.16fr; gap: 28px; align-items: center; }
+      .card { min-height: 300px; padding: 38px 42px; border-radius: 30px; background: rgba(18,16,14,.84); border: 2px solid rgba(255,90,54,.34); box-shadow: 0 28px 86px rgba(0,0,0,.32); backdrop-filter: blur(22px); }
+      .myth-card { border-color: rgba(255,90,54,.44); }
+      .fact-card { border-color: rgba(255,90,54,.64); background: rgba(24,18,14,.88); }
+      .label { margin-bottom: 30px; font-size: 20px; font-weight: 850; letter-spacing: .16em; color: #B8ADA2; }
+      .myth-card .label { color: #FF8A70; }
+      .fact-card .label { color: var(--accent); }
+      .text { margin: 0; font-size: 44px; line-height: 1.18; letter-spacing: -.055em; font-weight: 860; }
+      .myth-text { position: relative; color: rgba(244,239,231,.64); }
+      .strike { position: absolute; left: 38px; right: 38px; top: 57%; height: 5px; border-radius: 99px; background: #FF5A36; transform-origin: left center; }
+      .swap { display: grid; place-items: center; width: 76px; height: 76px; border: 2px solid rgba(255,90,54,.48); border-radius: 24px; color: var(--accent); font-size: 42px; font-weight: 900; }
+      .caption { position: absolute; left: 50%; bottom: -92px; transform: translateX(-50%); padding: 13px 28px; border-radius: 999px; color: #12100E; background: var(--accent); font-size: 24px; font-weight: 900; white-space: nowrap; }
+      .pulse { position: absolute; right: -110px; top: -120px; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle, rgba(255,90,54,.22), transparent 68%); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="5.5" data-width="1920" data-height="1080">
+      <section id="myth-fact-scene" class="scene clip" data-start="0" data-duration="5.5" data-track-index="1">
+        <div class="wrap" data-layout-allow-overflow>
+          <article class="card myth-card"><div class="label" id="mythLabel"></div><p class="text myth-text" id="myth"></p><div class="strike" data-layout-ignore></div></article>
+          <div class="swap">→</div>
+          <article class="card fact-card"><div class="pulse" data-layout-ignore></div><div class="label" id="factLabel"></div><p class="text fact-text" id="fact"></p></article>
+          <div class="caption" id="caption"></div>
+        </div>
+      </section>
+    </div>
+    <script>
+      const fallback = { mythLabel: "常见误区", myth: "AI 会直接替你思考", factLabel: "更准确的说法", fact: "AI 会放大你的问题定义能力", caption: "重点不是替代，而是协作结构", accent: "#FF5A36", foreground: "#F4EFE7" };
+      const v = window.__hyperframes?.getVariables ? window.__hyperframes.getVariables() : fallback;
+      document.documentElement.style.setProperty("--accent", v.accent); document.documentElement.style.setProperty("--foreground", v.foreground);
+      for (const id of ["mythLabel","myth","factLabel","fact","caption"]) document.getElementById(id).textContent = v[id];
+      window.__timelines = window.__timelines || {}; const tl = gsap.timeline({ paused: true });
+      tl.fromTo(".myth-card", { opacity: 0, x: -70, rotationY: -10 }, { opacity: 1, x: 0, rotationY: 0, duration: .62, ease: "expo.out" }, .18);
+      tl.fromTo(".myth-card .label", { opacity: 0, y: -18 }, { opacity: 1, y: 0, duration: .34, ease: "circ.out" }, .4);
+      tl.fromTo(".myth-text", { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: .45, ease: "power3.out" }, .52);
+      tl.fromTo(".strike", { scaleX: 0, opacity: 0 }, { scaleX: 1, opacity: 1, duration: .36, ease: "power4.out" }, 1.16);
+      tl.fromTo(".swap", { opacity: 0, scale: .6, rotation: -45 }, { opacity: 1, scale: 1, rotation: 0, duration: .48, ease: "back.out(1.8)" }, 1.34);
+      tl.fromTo(".fact-card", { opacity: 0, x: 80, rotationY: 10 }, { opacity: 1, x: 0, rotationY: 0, duration: .68, ease: "power4.out" }, 1.48);
+      tl.fromTo(".fact-card .label", { opacity: 0, x: 24 }, { opacity: 1, x: 0, duration: .36, ease: "sine.out" }, 1.72);
+      tl.fromTo(".fact-text", { opacity: 0, y: 34, scale: .98 }, { opacity: 1, y: 0, scale: 1, duration: .58, ease: "expo.out" }, 1.84);
+      tl.fromTo(".caption", { opacity: 0, y: 18, scale: .92 }, { opacity: 1, y: 0, scale: 1, duration: .44, ease: "back.out(1.4)" }, 2.24);
+      tl.fromTo(".pulse", { opacity: 0, scale: .65 }, { opacity: 1, scale: 1.08, duration: 1.1, ease: "sine.out" }, 1.6);
+      tl.to(".scene", { opacity: 0, scale: 1.015, duration: .4, ease: "power2.in" }, 4.92);
+      window.__timelines.main = tl;
+    </script>
+  </body>
+</html>

@@ -1,0 +1,22 @@
+{
+  "name": "视频动效系统 RedSkill 投稿版",
+  "author": "栗噔噔",
+  "repository": "https://github.com/nutllwhy/hyperframes-motion-library",
+  "demo": "https://nutllwhy.github.io/hyperframes-motion-library/",
+  "supportedFileTypes": [
+    ".md",
+    ".html",
+    ".css",
+    ".js",
+    ".json"
+  ],
+  "excludedFileTypes": [
+    ".mp4",
+    ".webm",
+    ".png",
+    ".jpg",
+    ".mjs"
+  ],
+  "templateCount": 14,
+  "note": "主流分发请引导用户从 GitHub 下载完整项目；本目录用于 RedSkill 读取项目结构、源码和扩展方法。"
+}

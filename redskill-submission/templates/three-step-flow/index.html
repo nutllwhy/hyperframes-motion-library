@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="zh-CN" data-composition-variables='[{"id":"title","type":"string","label":"标题","default":"把知识讲清楚的三步"},{"id":"step1","type":"string","label":"步骤一","default":"定义问题"},{"id":"desc1","type":"string","label":"步骤一说明","default":"先说它解决什么"},{"id":"step2","type":"string","label":"步骤二","default":"拆开机制"},{"id":"desc2","type":"string","label":"步骤二说明","default":"再讲为什么成立"},{"id":"step3","type":"string","label":"步骤三","default":"给出动作"},{"id":"desc3","type":"string","label":"步骤三说明","default":"最后落到怎么做"},{"id":"accent","type":"color","label":"强调色","default":"#FF5A36"},{"id":"foreground","type":"color","label":"文字色","default":"#F4EFE7"}]'>
+  <head>
+    <meta charset="UTF-8" /><meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * { box-sizing: border-box; }
+      html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: transparent; }
+      body { font-family: "IBM Plex Mono", monospace; }
+      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: transparent; color: var(--foreground); }
+      .scene { position: absolute; inset: 0; display: grid; place-items: center; padding: 120px; }
+      .panel { position: relative; width: 1260px; padding: 42px 48px 52px; border: 2px solid rgba(255,90,54,.42); border-radius: 34px; background: rgba(18,16,14,.82); box-shadow: 0 28px 86px rgba(0,0,0,.32); backdrop-filter: blur(22px); }
+      .title { margin: 0 0 38px; color: var(--foreground); font-size: 42px; font-weight: 850; letter-spacing: -.04em; }
+      .steps { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); gap: 34px; }
+      .rail { position: absolute; left: 130px; right: 130px; top: 44px; height: 4px; border-radius: 99px; background: rgba(255,90,54,.2); overflow: hidden; }
+      .rail-fill { width: 100%; height: 100%; background: var(--accent); transform-origin: left center; box-shadow: 0 0 22px rgba(255,90,54,.8); }
+      .step { position: relative; min-height: 196px; padding: 74px 28px 28px; border: 1px solid rgba(255,90,54,.26); border-radius: 26px; background: rgba(255,255,255,.035); }
+      .index { position: absolute; top: 20px; left: 28px; display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; color: #12100E; background: var(--accent); font-size: 22px; font-weight: 900; }
+      .step-title { margin: 0 0 14px; color: var(--foreground); font-size: 34px; font-weight: 880; letter-spacing: -.05em; }
+      .desc { margin: 0; color: #B8ADA2; font-size: 21px; font-weight: 650; line-height: 1.35; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="6" data-width="1920" data-height="1080">
+      <section id="flow-scene" class="scene clip" data-start="0" data-duration="6" data-track-index="1">
+        <div class="panel">
+          <h1 class="title" id="title"></h1>
+          <div class="steps">
+            <div class="rail" data-layout-ignore><div class="rail-fill"></div></div>
+            <article class="step s1"><div class="index">01</div><h2 class="step-title" id="step1"></h2><p class="desc" id="desc1"></p></article>
+            <article class="step s2"><div class="index">02</div><h2 class="step-title" id="step2"></h2><p class="desc" id="desc2"></p></article>
+            <article class="step s3"><div class="index">03</div><h2 class="step-title" id="step3"></h2><p class="desc" id="desc3"></p></article>
+          </div>
+        </div>
+      </section>
+    </div>
+    <script>
+      const fallback = { title: "把知识讲清楚的三步", step1: "定义问题", desc1: "先说它解决什么", step2: "拆开机制", desc2: "再讲为什么成立", step3: "给出动作", desc3: "最后落到怎么做", accent: "#FF5A36", foreground: "#F4EFE7" };
+      const v = window.__hyperframes?.getVariables ? window.__hyperframes.getVariables() : fallback;
+      document.documentElement.style.setProperty("--accent", v.accent); document.documentElement.style.setProperty("--foreground", v.foreground);
+      for (const id of ["title","step1","desc1","step2","desc2","step3","desc3"]) document.getElementById(id).textContent = v[id];
+      window.__timelines = window.__timelines || {}; const tl = gsap.timeline({ paused: true });
+      tl.fromTo(".panel", { opacity: 0, scale: .965, y: 42 }, { opacity: 1, scale: 1, y: 0, duration: .62, ease: "expo.out" }, .16);
+      tl.fromTo(".title", { opacity: 0, x: -36 }, { opacity: 1, x: 0, duration: .45, ease: "circ.out" }, .36);
+      tl.fromTo(".rail-fill", { scaleX: 0 }, { scaleX: 1, duration: 1.45, ease: "power3.inOut" }, .78);
+      tl.fromTo(".step", { opacity: 0, y: 42, scale: .95 }, { opacity: 1, y: 0, scale: 1, duration: .56, stagger: .28, ease: "back.out(1.2)" }, .62);
+      tl.fromTo(".index", { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: .38, stagger: .28, ease: "back.out(2)" }, .82);
+      tl.fromTo(".step-title", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: .4, stagger: .28, ease: "power3.out" }, 1.0);
+      tl.fromTo(".desc", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: .36, stagger: .28, ease: "sine.out" }, 1.18);
+      tl.to(".scene", { opacity: 0, y: -18, duration: .42, ease: "power2.in" }, 5.42);
+      window.__timelines.main = tl;
+    </script>
+  </body>
+</html>

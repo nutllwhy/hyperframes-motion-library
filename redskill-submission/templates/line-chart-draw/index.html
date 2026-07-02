@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="zh-CN" data-composition-variables='[{"id":"title","type":"string","label":"图表标题","default":"月活跃用户增长趋势"},{"id":"subtitle","type":"string","label":"副标题","default":"2024.01 — 2024.12"},{"id":"labels","type":"string","label":"X轴标签（逗号分隔）","default":"1月,2月,3月,4月,5月,6月,7月,8月,9月,10月,11月,12月"},{"id":"values","type":"string","label":"Y轴数值（逗号分隔）","default":"120,145,180,210,260,340,420,480,510,580,640,720"},{"id":"accent","type":"color","label":"强调色","default":"#FF5A36"},{"id":"background","type":"color","label":"背景色","default":"#12100E"},{"id":"foreground","type":"color","label":"文字色","default":"#F4EFE7"}]'>
+  <head>
+    <meta charset="UTF-8" /><meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * { box-sizing: border-box; }
+      html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: #12100e; }
+      body { font-family: "IBM Plex Mono", monospace; }
+      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: #12100e; color: #f4efe7; }
+      .scene { position: absolute; inset: 0; width: 100%; height: 100%; padding: 96px 112px; overflow: hidden; }
+      .title-area { position: relative; z-index: 2; margin-bottom: 40px; }
+      .title { margin: 0 0 10px; font-size: 64px; font-weight: 700; line-height: 1.1; letter-spacing: -0.03em; }
+      .subtitle { margin: 0; font-size: 28px; font-weight: 400; color: #b8ada2; line-height: 1.4; }
+      .chart-area { position: relative; width: 100%; height: 660px; }
+      .chart-svg { width: 100%; height: 100%; overflow: visible; }
+      .grid-line { stroke: #3a3029; stroke-width: 1; }
+      .grid-line-strong { stroke: #5a4840; stroke-width: 1.5; }
+      .axis-text { fill: #b8ada2; font-size: 18px; font-family: "IBM Plex Mono", monospace; font-weight: 500; text-anchor: middle; }
+      .axis-text-y { text-anchor: end; dominant-baseline: middle; }
+      .area-path { fill: var(--accent); opacity: 0.12; }
+      .line-path { fill: none; stroke: var(--accent); stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+      .data-point { fill: #12100e; stroke: var(--accent); stroke-width: 5; }
+      .baseline { stroke: #5a4840; stroke-width: 2; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="7" data-width="1920" data-height="1080">
+      <section id="scene" class="scene clip" data-start="0" data-duration="7" data-track-index="1">
+        <div class="title-area">
+          <h1 class="title" id="title"></h1>
+          <p class="subtitle" id="subtitle"></p>
+        </div>
+        <div class="chart-area">
+          <svg class="chart-svg" id="chart-svg" viewBox="0 0 1696 660" preserveAspectRatio="xMidYMid meet"></svg>
+        </div>
+      </section>
+    </div>
+    <script>
+      const fallback = { title: "月活跃用户增长趋势", subtitle: "2024.01 — 2024.12", labels: "1月,2月,3月,4月,5月,6月,7月,8月,9月,10月,11月,12月", values: "120,145,180,210,260,340,420,480,510,580,640,720", accent: "#FF5A36", background: "#12100E", foreground: "#F4EFE7" };
+      const v = window.__hyperframes?.getVariables ? window.__hyperframes.getVariables() : fallback;
+      document.documentElement.style.setProperty("--accent", v.accent);
+      document.getElementById("root").style.backgroundColor = v.background;
+      document.getElementById("root").style.color = v.foreground;
+      for (const [id, value] of [["title", v.title], ["subtitle", v.subtitle]]) document.getElementById(id).textContent = value;
+
+      const labels = v.labels.split(",");
+      const values = v.values.split(",").map(Number);
+      const points = labels.map((label, i) => ({ x: label, y: values[i] || 0 }));
+
+      const svg = document.getElementById("chart-svg");
+      const chartW = 1696, chartH = 660, marginLeft = 90, marginRight = 50, marginTop = 50, marginBottom = 60;
+      const plotW = chartW - marginLeft - marginRight, plotH = chartH - marginTop - marginBottom;
+      const baselineY = marginTop + plotH;
+      const maxValue = Math.max(...points.map(p => p.y)) * 1.15;
+      const pointCount = points.length, stepX = plotW / (pointCount - 1);
+
+      function getX(i) { return marginLeft + i * stepX; }
+      function getY(v) { return baselineY - (v / maxValue) * plotH; }
+
+      const gridCount = 5;
+      for (let i = 0; i <= gridCount; i++) {
+        const val = (maxValue / gridCount) * i, y = baselineY - (val / maxValue) * plotH;
+        const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+        line.setAttribute("x1", marginLeft); line.setAttribute("x2", marginLeft + plotW); line.setAttribute("y1", y); line.setAttribute("y2", y);
+        line.setAttribute("class", i === gridCount ? "grid-line-strong" : "grid-line"); line.setAttribute("opacity", "0"); line.classList.add("grid-line-elem"); svg.appendChild(line);
+        const label = document.createElementNS("http://www.w3.org/2000/svg", "text"); label.setAttribute("x", marginLeft - 16); label.setAttribute("y", y); label.setAttribute("class", "axis-text axis-text-y"); label.textContent = Math.round(val); label.setAttribute("opacity", "0"); label.classList.add("y-label"); svg.appendChild(label);
+      }
+
+      points.forEach((p, i) => {
+        const label = document.createElementNS("http://www.w3.org/2000/svg", "text"); label.setAttribute("x", getX(i)); label.setAttribute("y", baselineY + 32); label.setAttribute("class", "axis-text"); label.textContent = p.x; label.setAttribute("opacity", "0"); label.classList.add("x-label"); svg.appendChild(label);
+      });
+
+      const baseLine = document.createElementNS("http://www.w3.org/2000/svg", "line");
+      baseLine.setAttribute("x1", marginLeft); baseLine.setAttribute("x2", marginLeft + plotW); baseLine.setAttribute("y1", baselineY); baseLine.setAttribute("y2", baselineY); baseLine.setAttribute("class", "baseline"); baseLine.setAttribute("opacity", "0"); svg.appendChild(baseLine);
+
+      const px = points.map((_, i) => getX(i));
+      const py = points.map(p => getY(p.y));
+      let lineD = "M " + px[0] + " " + py[0];
+      for (let i = 0; i < pointCount - 1; i++) {
+        const cp1x = px[i] + (px[i+1] - px[i]) * 0.5, cp1y = py[i], cp2x = px[i] + (px[i+1] - px[i]) * 0.5, cp2y = py[i+1];
+        lineD += " C " + cp1x + " " + cp1y + ", " + cp2x + " " + cp2y + ", " + px[i+1] + " " + py[i+1];
+      }
+      const areaD = lineD + " L " + px[pointCount-1] + " " + baselineY + " L " + px[0] + " " + baselineY + " Z";
+
+      const areaPath = document.createElementNS("http://www.w3.org/2000/svg", "path"); areaPath.setAttribute("d", areaD); areaPath.setAttribute("class", "area-path"); areaPath.setAttribute("opacity", "0"); svg.appendChild(areaPath);
+      const linePath = document.createElementNS("http://www.w3.org/2000/svg", "path"); linePath.setAttribute("d", lineD); linePath.setAttribute("class", "line-path"); svg.appendChild(linePath);
+      const pathLength = linePath.getTotalLength ? linePath.getTotalLength() : 2000;
+      linePath.style.strokeDasharray = pathLength; linePath.style.strokeDashoffset = pathLength;
+
+      const dots = [];
+      points.forEach((p, i) => {
+        const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle"); circle.setAttribute("cx", px[i]); circle.setAttribute("cy", py[i]); circle.setAttribute("r", 0); circle.setAttribute("class", "data-point"); circle.setAttribute("opacity", "0"); svg.appendChild(circle); dots.push(circle);
+      });
+
+      const lastPoint = points[pointCount - 1];
+      const endLabel = document.createElementNS("http://www.w3.org/2000/svg", "text"); endLabel.setAttribute("x", px[pointCount - 1] + 16); endLabel.setAttribute("y", py[pointCount - 1] - 12); endLabel.setAttribute("class", "axis-text"); endLabel.setAttribute("fill", v.accent); endLabel.setAttribute("font-size", "24"); endLabel.setAttribute("font-weight", "700"); endLabel.setAttribute("text-anchor", "start"); endLabel.textContent = lastPoint.y; endLabel.setAttribute("opacity", "0"); svg.appendChild(endLabel);
+
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo(".title", { opacity: 0, y: 36 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 0.1);
+      tl.fromTo(".subtitle", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.3);
+      tl.fromTo(".grid-line-elem", { opacity: 0 }, { opacity: 1, duration: 0.5, stagger: 0.04, ease: "sine.out" }, 0.4);
+      tl.fromTo(".y-label", { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: 0.35, stagger: 0.04, ease: "power2.out" }, 0.5);
+      tl.fromTo(".baseline", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "sine.out" }, 0.5);
+      tl.fromTo(".x-label", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.35, stagger: 0.03, ease: "power2.out" }, 0.8);
+      tl.to(linePath, { strokeDashoffset: 0, duration: 2.2, ease: "power2.inOut" }, 0.8);
+      tl.fromTo(areaPath, { opacity: 0 }, { opacity: 0.12, duration: 1.2, ease: "sine.out" }, 1.2);
+      dots.forEach((dot, i) => { const appearTime = 0.8 + (i / (pointCount - 1)) * 2.0; tl.to(dot, { attr: { r: 8 }, opacity: 1, duration: 0.35, ease: "back.out(2)" }, appearTime); });
+      tl.fromTo(endLabel, { opacity: 0, x: 8 }, { opacity: 1, x: 0, duration: 0.5, ease: "back.out(1.5)" }, 2.8);
+      tl.to(".scene", { opacity: 0, scale: 1.01, duration: 0.5, ease: "power2.in" }, 6.3);
+      window.__timelines.main = tl;
+    </script>
+  </body>
+</html>

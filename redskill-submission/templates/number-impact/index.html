@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="zh-CN" data-composition-variables='[{"id":"hero","type":"string","label":"巨型关键词","default":"汉"},{"id":"label","type":"string","label":"指标名称","default":"体感湿度"},{"id":"value","type":"number","label":"百分比数值","default":100},{"id":"unit","type":"string","label":"单位","default":"%"},{"id":"caption","type":"string","label":"结论","default":"接近饱和"},{"id":"accent","type":"color","label":"强调色","default":"#FF5A36"},{"id":"foreground","type":"color","label":"文字色","default":"#F4EFE7"}]'>
+  <head>
+    <meta charset="UTF-8" /><meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * { box-sizing: border-box; }
+      html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: transparent; }
+      body { font-family: "IBM Plex Mono", monospace; }
+      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: transparent; color: var(--foreground); }
+      .scene { position: absolute; inset: 0; display: flex; align-items: center; width: 100%; height: 100%; padding: 90px 120px; }
+      .card { position: relative; width: 940px; height: 760px; display: grid; grid-template-columns: 1fr 170px; gap: 54px; align-items: center; padding: 64px 76px; border-left: 8px solid var(--accent); border-radius: 0 34px 34px 0; background: rgba(18,16,14,.8); backdrop-filter: blur(20px); overflow: hidden; }
+      .hero { position: absolute; right: 168px; bottom: -58px; color: var(--accent); opacity: .15; font-size: 520px; font-weight: 900; line-height: .8; }
+      .content { position: relative; z-index: 2; align-self: start; padding-top: 36px; }
+      .label { color: #a8c9bf; font-size: 28px; font-weight: 600; letter-spacing: .12em; }
+      .value-row { display: flex; align-items: flex-end; gap: 14px; margin: 42px 0 38px; }
+      .value { color: var(--accent); font-size: 230px; font-weight: 900; line-height: .7; letter-spacing: -.08em; font-variant-numeric: tabular-nums; }
+      .unit { padding-bottom: 12px; color: var(--accent); font-size: 62px; font-weight: 800; }
+      .caption { display: inline-block; padding: 12px 24px; color: #071a16; background: var(--accent); border-radius: 999px; font-size: 24px; font-weight: 850; }
+      .meter { position: relative; z-index: 2; width: 88px; height: 520px; margin: auto; overflow: hidden; border: 3px solid rgba(255,90,54,.5); border-radius: 999px; background: rgba(18,16,14,.66); }
+      .meter-fill { position: absolute; left: 10px; right: 10px; bottom: 10px; height: calc(var(--meter) - 20px); border-radius: 999px; background: linear-gradient(to top, var(--accent), #F4EFE7); transform-origin: bottom center; }
+      .meter-cap { position: absolute; left: 50%; top: 18px; width: 22px; height: 22px; border-radius: 50%; background: #F4EFE7; transform: translateX(-50%); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="5" data-width="1920" data-height="1080">
+      <section id="number-scene" class="scene clip" data-start="0" data-duration="5" data-track-index="1">
+        <div class="card">
+          <div class="hero" id="hero" data-layout-ignore></div>
+          <div class="content" data-layout-allow-overlap><div class="label" id="label"></div><div class="value-row"><span class="value" id="value"></span><span class="unit" id="unit"></span></div><div class="caption" id="caption"></div></div>
+          <div class="meter"><div class="meter-fill"></div><div class="meter-cap"></div></div>
+        </div>
+      </section>
+    </div>
+    <script>
+      const fallback = { hero: "汉", label: "体感湿度", value: 100, unit: "%", caption: "接近饱和", accent: "#FF5A36", foreground: "#F4EFE7" };
+      const v = window.__hyperframes?.getVariables ? window.__hyperframes.getVariables() : fallback;
+      const meter = Math.max(0, Math.min(100, v.value));
+      document.documentElement.style.setProperty("--accent", v.accent); document.documentElement.style.setProperty("--foreground", v.foreground); document.documentElement.style.setProperty("--meter", `${meter}%`);
+      for (const [id,value] of [["hero",v.hero],["label",v.label],["value",v.value],["unit",v.unit],["caption",v.caption]]) document.getElementById(id).textContent = value;
+      window.__timelines = window.__timelines || {}; const tl = gsap.timeline({ paused: true });
+      tl.fromTo(".card", { opacity: 0, x: -110 }, { opacity: 1, x: 0, duration: .72, ease: "expo.out" }, .18);
+      tl.fromTo(".hero", { opacity: 0, scale: .7, rotation: -8 }, { opacity: .15, scale: 1, rotation: 0, duration: .9, ease: "power4.out" }, .28);
+      tl.fromTo(".label", { opacity: 0, y: -30 }, { opacity: 1, y: 0, duration: .4, ease: "circ.out" }, .5);
+      tl.fromTo(".value", { opacity: 0, scale: .68, transformOrigin: "left bottom" }, { opacity: 1, scale: 1, duration: .72, ease: "back.out(1.55)" }, .62);
+      tl.fromTo(".unit", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: .36, ease: "power2.out" }, .95);
+      tl.fromTo(".caption", { opacity: 0, x: -38 }, { opacity: 1, x: 0, duration: .45, ease: "power3.out" }, 1.08);
+      tl.fromTo(".meter", { opacity: 0, scaleY: .82 }, { opacity: 1, scaleY: 1, duration: .48, ease: "sine.out" }, .6);
+      tl.fromTo(".meter-fill", { scaleY: 0 }, { scaleY: 1, duration: 1.05, ease: "power3.out" }, .88);
+      tl.fromTo(".meter-cap", { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: .38, ease: "back.out(2)" }, 1.72);
+      tl.to(".scene", { opacity: 0, x: -30, duration: .4, ease: "power2.in" }, 4.45);
+      window.__timelines.main = tl;
+    </script>
+  </body>
+</html>
