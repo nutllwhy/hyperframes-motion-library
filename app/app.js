@@ -5,6 +5,7 @@ const cardTemplate = document.querySelector("#template-card");
 const search = document.querySelector("#search");
 const showLibrary = document.querySelector("#show-library");
 const showGuide = document.querySelector("#show-guide");
+const GITHUB_REPO = "https://github.com/nutllwhy/hyperframes-motion-library";
 
 async function api(url, options) {
   const response = await fetch(url, options);
@@ -109,15 +110,15 @@ function renderGuide() {
           <span class="creator-chip">即刻</span>
           <span class="creator-chip">栗噔噔</span>
         </div>
-        <div class="star-callout">如果这个项目对你有启发，欢迎关注 <strong>栗噔噔</strong>，也欢迎给 GitHub 项目点一个 <strong>Star</strong>，让更多做视频的人看到这套工作流。</div>
+        <div class="star-callout">如果这个项目对你有启发，欢迎关注 <strong>栗噔噔</strong>，也欢迎去 <a href="${GITHUB_REPO}" target="_blank" rel="noreferrer">GitHub 项目</a> 点一个 <strong>Star</strong>，让更多做视频的人看到这套工作流。</div>
       </div>
       <div class="guide-grid">
         <article class="guide-card">
           <strong>STEP 01</strong>
           <h3>下载到本地</h3>
           <p>把项目克隆到自己的电脑，然后进入目录安装依赖。展示站里看到的每个动效，都对应一个独立模板文件夹。</p>
-          <pre>git clone &lt;你的仓库地址&gt;
-cd 视频动效系统
+          <pre>git clone ${GITHUB_REPO}.git
+cd hyperframes-motion-library
 npm install</pre>
         </article>
         <article class="guide-card">

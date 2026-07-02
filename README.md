@@ -8,11 +8,15 @@
 
 小红书、抖音、视频号、公众号、B站、X、YouTube、即刻都是同一个 ID：**栗噔噔**。
 
-如果这个项目对你有帮助，欢迎关注 **栗噔噔**，也欢迎给这个 GitHub 项目点一个 Star，让更多做视频的人看到这套工作流。
+如果这个项目对你有帮助，欢迎关注 **栗噔噔**，也欢迎给这个 GitHub 项目点一个 Star，让更多做视频的人看到这套工作流：
+
+https://github.com/nutllwhy/hyperframes-motion-library
 
 ## 使用
 
 ```bash
+git clone https://github.com/nutllwhy/hyperframes-motion-library.git
+cd hyperframes-motion-library
 npm install
 npm run dev
 ```
@@ -46,7 +50,9 @@ npm run render -- metric-pulse templates/metric-pulse/presets/default.json
 4. `catalog.json`
 5. `templates/` 下已有模板
 
-更多提示词和入库要求见 `AGENT_GUIDE.md`。如果你基于这个项目长出了自己的动效库，也欢迎回到原项目点 Star 支持一下。
+更多提示词和入库要求见 `AGENT_GUIDE.md`。如果你基于这个项目长出了自己的动效库，也欢迎回到原项目点 Star 支持一下：
+
+https://github.com/nutllwhy/hyperframes-motion-library
 
 ## 系统结构
 

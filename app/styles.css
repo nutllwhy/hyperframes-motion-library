@@ -11,6 +11,7 @@
 * { box-sizing: border-box; }
 body { margin: 0; height: 100vh; overflow: hidden; background: var(--bg); color: var(--fg); font-family: "PingFang SC", "Microsoft YaHei", sans-serif; }
 button, input, select { font: inherit; }
+a { color: inherit; }
 .topbar { min-height: 148px; padding: 30px 42px; display: flex; align-items: flex-end; justify-content: space-between; gap: 28px; border-bottom: 1px solid var(--line); }
 .kicker { margin: 0 0 10px; color: var(--accent); font: 600 12px/1 "IBM Plex Mono", monospace; letter-spacing: .14em; }
 h1 { margin: 0; font-size: clamp(34px, 4vw, 62px); letter-spacing: -.055em; }
@@ -19,6 +20,7 @@ h1 { margin: 0; font-size: clamp(34px, 4vw, 62px); letter-spacing: -.055em; }
 .topbar-right { display: flex; align-items: flex-end; gap: 28px; }
 .topbar-actions { display: flex; gap: 10px; padding-bottom: 10px; }
 .nav-pill { padding: 10px 14px; border: 1px solid var(--line); border-radius: 999px; background: transparent; color: var(--muted); cursor: pointer; transition: 160ms ease; }
+.nav-link { display: inline-flex; align-items: center; text-decoration: none; }
 .nav-pill:hover, .nav-pill.active { border-color: var(--accent); color: var(--fg); background: rgba(255,90,54,.1); }
 .library-count { display: flex; gap: 12px; align-items: baseline; }
 .library-count span { color: var(--accent); font-size: 46px; font-weight: 800; }
@@ -73,6 +75,7 @@ input:focus, select:focus { border-color: var(--accent); }
 .creator-chip { padding: 8px 12px; border: 1px solid rgba(255,90,54,.34); border-radius: 999px; color: var(--fg); background: rgba(255,90,54,.08); font-size: 13px; }
 .star-callout { margin-top: 22px; padding: 16px 18px; border: 1px solid rgba(255,90,54,.28); border-radius: 16px; background: #211c18; color: var(--fg); line-height: 1.7; }
 .star-callout strong { color: var(--accent); }
+.star-callout a { color: var(--accent); font-weight: 800; text-decoration: none; border-bottom: 1px solid rgba(255,90,54,.45); }
 .guide-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
 .guide-card { padding: 24px; border: 1px solid var(--line); border-radius: 20px; background: var(--panel); }
 .guide-card strong { display: block; margin-bottom: 10px; color: var(--accent); font: 800 13px/1 "IBM Plex Mono", monospace; letter-spacing: .12em; }
