@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>视频动效系统</title>
+    <link rel="stylesheet" href="/app/styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <p class="kicker">HYPERFRAMES MOTION LIBRARY</p>
+        <h1>视频动效系统</h1>
+        <p class="author-line">by <strong>栗噔噔</strong> · 小红书 / 抖音 / 视频号 / 公众号 / B站 / X / YouTube / 即刻 同名</p>
+      </div>
+      <div class="topbar-right">
+        <div class="topbar-actions" aria-label="站点导航">
+          <button class="nav-pill active" type="button" id="show-library">模板库</button>
+          <button class="nav-pill" type="button" id="show-guide">使用指引</button>
+        </div>
+        <div class="library-count"><span id="template-count">0</span><small>个可复用模板</small></div>
+      </div>
+    </header>
+    <main>
+      <aside class="sidebar">
+        <div class="search-wrap"><input id="search" type="search" placeholder="搜索模板、分类或标签" /></div>
+        <nav id="template-list" aria-label="动效模板"></nav>
+      </aside>
+      <section id="workspace" class="workspace">
+        <div class="empty-state">正在读取动效库…</div>
+      </section>
+    </main>
+    <template id="template-card">
+      <button class="template-card">
+        <span class="template-category"></span>
+        <strong class="template-name"></strong>
+        <span class="template-description"></span>
+        <span class="template-meta"></span>
+      </button>
+    </template>
+    <script type="module" src="/app/app.js"></script>
+  </body>
+</html>

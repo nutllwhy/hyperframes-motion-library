@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="zh-CN" data-composition-variables='[{"id":"headline","type":"string","label":"主标题","default":"本周内容增长"},{"id":"value","type":"number","label":"核心数字","default":286},{"id":"unit","type":"string","label":"数字单位","default":"%"},{"id":"note","type":"string","label":"补充说明","default":"连续四周保持上升，爆款内容贡献了主要增量。"},{"id":"accent","type":"color","label":"强调色","default":"#FF5A36"},{"id":"background","type":"color","label":"背景色","default":"#12100E"},{"id":"foreground","type":"color","label":"文字色","default":"#F4EFE7"}]'>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * { box-sizing: border-box; }
+      html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; }
+      body { font-family: "IBM Plex Mono", monospace; }
+      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: #12100e; color: #f4efe7; }
+      .scene { position: absolute; inset: 0; width: 100%; height: 100%; padding: 96px 112px; overflow: hidden; }
+      .grid { position: absolute; inset: 0; opacity: .18; background-image: linear-gradient(#3a3029 2px, transparent 2px), linear-gradient(90deg, #3a3029 2px, transparent 2px); background-size: 120px 120px; mask-image: linear-gradient(to right, #000, transparent 72%); }
+      .orb { position: absolute; right: -90px; top: -150px; width: 780px; height: 780px; border-radius: 50%; background: radial-gradient(circle, var(--accent) 0%, transparent 68%); opacity: .24; }
+      .ghost { position: absolute; right: -12px; bottom: 38px; color: var(--accent); opacity: .13; font-size: 270px; font-weight: 900; line-height: .8; letter-spacing: -.08em; }
+      .content { position: relative; z-index: 2; display: grid; grid-template-columns: 1.08fr .92fr; gap: 96px; width: 100%; height: 100%; align-items: center; }
+      .headline { max-width: 780px; margin: 0 0 52px; font-size: 98px; font-weight: 850; line-height: 1.04; letter-spacing: -.055em; }
+      .metric { display: flex; align-items: flex-end; gap: 18px; }
+      .value { color: var(--accent); font-size: 316px; font-weight: 900; line-height: .75; letter-spacing: -.085em; font-variant-numeric: tabular-nums; }
+      .unit { padding-bottom: 18px; color: var(--accent); font: 700 68px/1 "IBM Plex Mono", monospace; }
+      .right { align-self: center; padding: 24px 0 24px 64px; border-left: 3px solid #5a4840; }
+      .note { max-width: 640px; margin: 0; color: #d8cec4; font-size: 42px; font-weight: 500; line-height: 1.52; }
+      .trend-chart { display: block; width: 100%; max-width: 620px; height: 170px; margin-top: 42px; overflow: visible; }
+      .trend-area { fill: var(--accent); opacity: .1; }
+      .trend-curve { fill: none; stroke: var(--accent); stroke-width: 9; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 0; }
+      .trend-point { fill: #12100e; stroke: var(--accent); stroke-width: 6; transform-box: fill-box; transform-origin: center; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="6" data-width="1920" data-height="1080">
+      <section id="scene" class="scene clip" data-start="0" data-duration="6" data-track-index="1">
+        <div class="grid" data-layout-ignore></div>
+        <div class="orb" data-layout-ignore></div>
+        <div class="ghost" data-layout-ignore>DATA</div>
+        <div class="content">
+          <div class="left">
+            <h1 class="headline" id="headline"></h1>
+            <div class="metric"><span class="value" id="value"></span><span class="unit" id="unit"></span></div>
+          </div>
+          <div class="right">
+            <p class="note" id="note"></p>
+            <svg class="trend-chart" viewBox="0 0 620 170" aria-hidden="true" data-layout-ignore>
+              <path class="trend-area" d="M10 142 C92 137 145 119 205 114 S319 101 385 83 S508 59 610 22 L610 166 L10 166 Z"></path>
+              <path class="trend-curve" pathLength="1" d="M10 142 C92 137 145 119 205 114 S319 101 385 83 S508 59 610 22"></path>
+              <circle class="trend-point point-1" cx="10" cy="142" r="9"></circle>
+              <circle class="trend-point point-2" cx="205" cy="114" r="9"></circle>
+              <circle class="trend-point point-3" cx="385" cy="83" r="9"></circle>
+              <circle class="trend-point point-4" cx="610" cy="22" r="11"></circle>
+            </svg>
+          </div>
+        </div>
+      </section>
+    </div>
+    <script>
+      const fallback = { headline: "本周内容增长", value: 286, unit: "%", note: "连续四周保持上升，爆款内容贡献了主要增量。", accent: "#FF5A36", background: "#12100E", foreground: "#F4EFE7" };
+      const variables = window.__hyperframes?.getVariables ? window.__hyperframes.getVariables() : fallback;
+      document.documentElement.style.setProperty("--accent", variables.accent);
+      document.getElementById("root").style.backgroundColor = variables.background;
+      document.getElementById("root").style.color = variables.foreground;
+      document.getElementById("headline").textContent = variables.headline;
+      document.getElementById("value").textContent = variables.value;
+      document.getElementById("unit").textContent = variables.unit;
+      document.getElementById("note").textContent = variables.note;
+
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo(".grid", { opacity: 0 }, { opacity: .18, duration: .8, ease: "sine.out" }, .15);
+      tl.fromTo(".orb", { opacity: 0, scale: .72 }, { opacity: .24, scale: 1, duration: 1.05, ease: "expo.out" }, .18);
+      tl.fromTo(".ghost", { opacity: 0, x: 120 }, { opacity: .13, x: 0, duration: .85, ease: "power4.out" }, .24);
+      tl.fromTo(".headline", { opacity: 0, y: 62 }, { opacity: 1, y: 0, duration: .7, ease: "power3.out" }, .28);
+      tl.fromTo(".value", { opacity: 0, scale: .74, transformOrigin: "left bottom" }, { opacity: 1, scale: 1, duration: .78, ease: "expo.out" }, .58);
+      tl.fromTo(".unit", { opacity: 0, rotation: -8, y: 24 }, { opacity: 1, rotation: 0, y: 0, duration: .38, ease: "back.out(1.8)" }, 1.02);
+      tl.fromTo(".right", { opacity: 0, x: 62 }, { opacity: 1, x: 0, duration: .62, ease: "power4.out" }, .72);
+      tl.fromTo(".note", { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: .44, ease: "circ.out" }, 1.02);
+      tl.fromTo(".trend-area", { opacity: 0 }, { opacity: .1, duration: .72, ease: "sine.out" }, 1.18);
+      tl.fromTo(".trend-curve", { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 1.15, ease: "power2.inOut" }, 1.18);
+      tl.fromTo(".point-1", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: .3, ease: "back.out(2)" }, 1.18);
+      tl.fromTo(".point-2", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: .34, ease: "circ.out" }, 1.52);
+      tl.fromTo(".point-3", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: .38, ease: "expo.out" }, 1.82);
+      tl.fromTo(".point-4", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: .44, ease: "back.out(1.7)" }, 2.08);
+      tl.to(".orb", { scale: 1.07, opacity: .19, duration: 1.2, yoyo: true, repeat: 1, ease: "sine.inOut" }, 1.5);
+      tl.to(".ghost", { x: -28, duration: 2.5, ease: "none" }, 1.55);
+      tl.to(".scene", { opacity: 0, scale: 1.015, duration: .48, ease: "power2.in" }, 5.35);
+      window.__timelines.main = tl;
+    </script>
+  </body>
+</html>

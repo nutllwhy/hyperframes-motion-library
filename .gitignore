@@ -1,0 +1,18 @@
+.DS_Store
+node_modules/
+.env
+.env.*
+
+# 原始参考素材较大，不进入开源仓库
+参考视频.mp4.mp4
+
+# 保留展示站需要的 sample 预览，忽略本地临时渲染结果
+renders/**
+!renders/
+!renders/*/
+!renders/*/sample.mp4
+!renders/*/sample.webm
+
+# HyperFrames / 本地工具缓存
+.hyperframes/
+capture/

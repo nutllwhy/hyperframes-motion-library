@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="zh-CN" data-composition-variables='[{"id":"kicker","type":"string","label":"提示词","default":"记住这一点"},{"id":"point","type":"string","label":"重点句","default":"真正拉开差距的不是工具，而是你拆问题的能力。"},{"id":"source","type":"string","label":"说明","default":"适合结论句 / 金句 / 操作提醒"},{"id":"accent","type":"color","label":"强调色","default":"#FF5A36"},{"id":"foreground","type":"color","label":"文字色","default":"#F4EFE7"}]'>
+  <head>
+    <meta charset="UTF-8" /><meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * { box-sizing: border-box; }
+      html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: transparent; }
+      body { font-family: "IBM Plex Mono", monospace; }
+      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: transparent; color: var(--foreground); }
+      .scene { position: absolute; inset: 0; display: flex; align-items: flex-end; justify-content: center; padding: 0 120px 148px; }
+      .marker { position: relative; width: 1180px; padding: 42px 54px 46px; border-radius: 30px; background: linear-gradient(135deg, rgba(18,16,14,.9), rgba(18,16,14,.72)); border: 2px solid rgba(255,90,54,.38); box-shadow: 0 28px 86px rgba(0,0,0,.32); backdrop-filter: blur(22px); }
+      .corner { position: absolute; width: 78px; height: 78px; border-color: var(--accent); border-style: solid; opacity: .95; }
+      .c1 { left: -10px; top: -10px; border-width: 4px 0 0 4px; border-radius: 20px 0 0 0; }
+      .c2 { right: -10px; bottom: -10px; border-width: 0 4px 4px 0; border-radius: 0 0 20px 0; }
+      .kicker { display: inline-block; margin-bottom: 22px; color: var(--accent); font-size: 22px; font-weight: 900; letter-spacing: .18em; }
+      .point { margin: 0; max-width: 1040px; color: var(--foreground); font-size: 46px; line-height: 1.28; font-weight: 880; letter-spacing: -.045em; }
+      .source { margin-top: 24px; color: #B8ADA2; font-size: 21px; font-weight: 650; }
+      .underline { position: absolute; left: 54px; right: 54px; bottom: 36px; height: 4px; border-radius: 99px; background: var(--accent); transform-origin: left center; box-shadow: 0 0 22px rgba(255,90,54,.72); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="4.5" data-width="1920" data-height="1080">
+      <section id="marker-scene" class="scene clip" data-start="0" data-duration="4.5" data-track-index="1">
+        <div class="marker" data-layout-allow-overflow>
+          <div class="corner c1" data-layout-ignore></div>
+          <div class="corner c2" data-layout-ignore></div>
+          <div class="kicker" id="kicker"></div>
+          <p class="point" id="point"></p>
+          <div class="source" id="source"></div>
+          <div class="underline" data-layout-ignore></div>
+        </div>
+      </section>
+    </div>
+    <script>
+      const fallback = { kicker: "记住这一点", point: "真正拉开差距的不是工具，而是你拆问题的能力。", source: "适合结论句 / 金句 / 操作提醒", accent: "#FF5A36", foreground: "#F4EFE7" };
+      const v = window.__hyperframes?.getVariables ? window.__hyperframes.getVariables() : fallback;
+      document.documentElement.style.setProperty("--accent", v.accent); document.documentElement.style.setProperty("--foreground", v.foreground);
+      for (const id of ["kicker","point","source"]) document.getElementById(id).textContent = v[id];
+      window.__timelines = window.__timelines || {}; const tl = gsap.timeline({ paused: true });
+      tl.fromTo(".marker", { opacity: 0, y: 70, scale: .97 }, { opacity: 1, y: 0, scale: 1, duration: .62, ease: "expo.out" }, .14);
+      tl.fromTo(".corner", { opacity: 0, scale: .55 }, { opacity: 1, scale: 1, duration: .46, stagger: .08, ease: "back.out(1.8)" }, .32);
+      tl.fromTo(".kicker", { opacity: 0, x: -34 }, { opacity: 1, x: 0, duration: .36, ease: "circ.out" }, .42);
+      tl.fromTo(".point", { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: .56, ease: "power4.out" }, .62);
+      tl.fromTo(".source", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: .36, ease: "sine.out" }, .94);
+      tl.fromTo(".underline", { scaleX: 0, opacity: 0 }, { scaleX: 1, opacity: 1, duration: .72, ease: "power3.out" }, 1.08);
+      tl.to(".scene", { opacity: 0, y: 24, duration: .36, ease: "power2.in" }, 4.02);
+      window.__timelines.main = tl;
+    </script>
+  </body>
+</html>

@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="zh-CN" data-composition-variables='[{"id":"leftLabel","type":"string","label":"左侧标签","default":"上海 SHANGHAI"},{"id":"leftValue","type":"number","label":"左侧数值","default":92},{"id":"leftUnit","type":"string","label":"左侧单位","default":"%"},{"id":"rightLabel","type":"string","label":"右侧标签","default":"亚马逊 AMAZON"},{"id":"rightValue","type":"number","label":"右侧数值","default":90},{"id":"rightUnit","type":"string","label":"右侧单位","default":"%"},{"id":"operator","type":"enum","label":"比较符号","default":">","options":[{"value":">","label":"大于"},{"value":"=","label":"等于"},{"value":"<","label":"小于"}]},{"id":"verdict","type":"string","label":"结论","default":"上海湿度更高"},{"id":"accent","type":"color","label":"强调色","default":"#FF5A36"},{"id":"foreground","type":"color","label":"文字色","default":"#F4EFE7"}]'>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * { box-sizing: border-box; }
+      html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: transparent; }
+      body { font-family: "IBM Plex Mono", monospace; }
+      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: transparent; color: var(--foreground); }
+      .scene { position: absolute; inset: 0; display: flex; align-items: flex-end; justify-content: center; width: 100%; height: 100%; padding: 100px 120px; }
+      .panel { position: relative; width: 1120px; height: 410px; overflow: hidden; padding: 46px 50px; border: 2px solid rgba(255,90,54,.44); border-radius: 30px; background: rgba(18,16,14,.82); box-shadow: 0 24px 68px rgba(0,0,0,.32); backdrop-filter: blur(22px); }
+      .sheen { position: absolute; inset: 0; background: linear-gradient(105deg, transparent 20%, rgba(255,90,54,.09) 48%, transparent 72%); }
+      .duel { position: relative; z-index: 2; width: 100%; height: 270px; display: grid; grid-template-columns: 360px 110px 360px; gap: 30px; align-items: center; justify-content: center; }
+      .stat { position: relative; z-index: 2; }
+      .stat.left { text-align: right; }
+      .stat.right { text-align: left; }
+      .label { margin-bottom: 24px; color: #a8c9bf; font-size: 24px; font-weight: 600; letter-spacing: .06em; }
+      .value-row { display: flex; align-items: flex-end; gap: 14px; }
+      .left .value-row { justify-content: flex-end; }
+      .right .value-row { justify-content: flex-start; }
+      .value { color: var(--accent); font-size: 168px; font-weight: 900; line-height: .72; letter-spacing: -.075em; font-variant-numeric: tabular-nums; }
+      .unit { padding-bottom: 12px; color: var(--accent); font-size: 50px; font-weight: 800; }
+      .operator { position: relative; z-index: 2; display: grid; place-items: center; width: 88px; height: 88px; margin: auto; color: var(--accent); border: 2px solid rgba(255,90,54,.58); transform: rotate(45deg); background: rgba(255,90,54,.08); }
+      .operator span { font-size: 54px; font-weight: 500; transform: rotate(-45deg); }
+      .verdict { position: absolute; z-index: 3; left: 50%; bottom: 26px; min-width: 330px; padding: 13px 28px; color: #071a16; background: var(--accent); border-radius: 999px; font-size: 22px; font-weight: 800; text-align: center; transform: translateX(-50%); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="5" data-width="1920" data-height="1080">
+      <section id="comparison-scene" class="scene clip" data-start="0" data-duration="5" data-track-index="1">
+        <div class="panel">
+          <div class="sheen" data-layout-ignore></div>
+          <div class="duel">
+            <div class="stat left" data-layout-allow-overlap><div class="label" id="left-label"></div><div class="value-row"><span class="value" id="left-value"></span><span class="unit" id="left-unit"></span></div></div>
+            <div class="operator"><span id="operator"></span></div>
+            <div class="stat right" data-layout-allow-overlap><div class="label" id="right-label"></div><div class="value-row"><span class="value" id="right-value"></span><span class="unit" id="right-unit"></span></div></div>
+          </div>
+          <div class="verdict" id="verdict"></div>
+        </div>
+      </section>
+    </div>
+    <script>
+      const fallback = { leftLabel: "上海 SHANGHAI", leftValue: 92, leftUnit: "%", rightLabel: "亚马逊 AMAZON", rightValue: 90, rightUnit: "%", operator: ">", verdict: "上海湿度更高", accent: "#FF5A36", foreground: "#F4EFE7" };
+      const v = window.__hyperframes?.getVariables ? window.__hyperframes.getVariables() : fallback;
+      document.documentElement.style.setProperty("--accent", v.accent);
+      document.documentElement.style.setProperty("--foreground", v.foreground);
+      for (const [id, value] of [["left-label",v.leftLabel],["left-value",v.leftValue],["left-unit",v.leftUnit],["right-label",v.rightLabel],["right-value",v.rightValue],["right-unit",v.rightUnit],["operator",v.operator],["verdict",v.verdict]]) document.getElementById(id).textContent = value;
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo(".panel", { opacity: 0, y: 90, scale: .96 }, { opacity: 1, y: 0, scale: 1, duration: .7, ease: "expo.out" }, .18);
+      tl.fromTo(".left .label", { opacity: 0, x: -42 }, { opacity: 1, x: 0, duration: .42, ease: "circ.out" }, .5);
+      tl.fromTo("#left-value", { opacity: 0, scale: .72, transformOrigin: "left bottom" }, { opacity: 1, scale: 1, duration: .62, ease: "back.out(1.55)" }, .62);
+      tl.fromTo("#left-unit", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: .32, ease: "power2.out" }, .9);
+      tl.fromTo(".operator", { opacity: 0, scale: 0, rotation: 0 }, { opacity: 1, scale: 1, rotation: 45, duration: .58, ease: "back.out(1.8)" }, .82);
+      tl.fromTo(".right .label", { opacity: 0, x: 42 }, { opacity: 1, x: 0, duration: .46, ease: "power4.out" }, .68);
+      tl.fromTo("#right-value", { opacity: 0, scale: .72, transformOrigin: "right bottom" }, { opacity: 1, scale: 1, duration: .66, ease: "expo.out" }, .82);
+      tl.fromTo("#right-unit", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: .34, ease: "circ.out" }, 1.1);
+      tl.fromTo(".verdict", { opacity: 0, y: 28, xPercent: -50 }, { opacity: 1, y: 0, xPercent: -50, duration: .46, ease: "back.out(1.45)" }, 1.28);
+      tl.fromTo(".sheen", { xPercent: -100 }, { xPercent: 100, duration: 1.2, ease: "sine.inOut" }, 1.35);
+      tl.to(".scene", { opacity: 0, y: -24, duration: .38, ease: "power2.in" }, 4.48);
+      window.__timelines.main = tl;
+    </script>
+  </body>
+</html>

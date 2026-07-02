@@ -1,0 +1,257 @@
+{
+  "version": 1,
+  "templates": [
+    {
+      "id": "bar-chart-grow",
+      "name": "柱状图增长",
+      "description": "3–7 根垂直柱形从底部弹性增长，带数值标签与网格线，适合业绩对比、多维度数据分布。",
+      "path": "templates/bar-chart-grow",
+      "category": "数据可视化",
+      "tags": ["柱状图", "增长", "对比", "多系列"],
+      "duration": 6,
+      "size": "1920×1080",
+      "formats": ["mp4"],
+      "defaultFormat": "mp4",
+      "preview": "/renders/bar-chart-grow/sample.mp4",
+      "status": "ready"
+    },
+    {
+      "id": "number-counter",
+      "name": "数字计数器",
+      "description": "巨型数字从 0 滚动到目标值，可选环形进度条，适合里程碑、KPI、累计数据展示。",
+      "path": "templates/number-counter",
+      "category": "数据可视化",
+      "tags": ["数字", "计数器", "滚动", "KPI", "里程碑"],
+      "duration": 5,
+      "size": "1920×1080",
+      "formats": ["mp4"],
+      "defaultFormat": "mp4",
+      "preview": "/renders/number-counter/sample.mp4",
+      "status": "ready"
+    },
+    {
+      "id": "line-chart-draw",
+      "name": "折线绘制",
+      "description": "折线从左侧逐段绘制到右侧，数据点依次弹出，下方填充区域晕染展开，适合时间序列趋势。",
+      "path": "templates/line-chart-draw",
+      "category": "数据可视化",
+      "tags": ["折线图", "趋势", "时间序列", "绘制动画"],
+      "duration": 7,
+      "size": "1920×1080",
+      "formats": ["mp4"],
+      "defaultFormat": "mp4",
+      "preview": "/renders/line-chart-draw/sample.mp4",
+      "status": "ready"
+    },
+    {
+      "id": "metric-pulse",
+      "name": "数据脉冲",
+      "description": "适合增长数据、里程碑、成绩与单项 KPI 的横屏数据动效。",
+      "path": "templates/metric-pulse",
+      "category": "数据可视化",
+      "tags": ["数据", "增长", "里程碑", "横屏"],
+      "duration": 6,
+      "size": "1920×1080",
+      "formats": ["mp4"],
+      "defaultFormat": "mp4",
+      "preview": "/renders/metric-pulse/sample.mp4",
+      "status": "ready"
+    },
+    {
+      "id": "stat-duel",
+      "name": "双数据对比",
+      "description": "两组明确数据的横向对比，可透明叠加在实拍画面底部。",
+      "path": "templates/stat-duel",
+      "category": "透明叠加",
+      "tags": ["对比", "百分比", "透明", "纪录片"],
+      "duration": 5,
+      "size": "1920×1080",
+      "formats": ["webm", "mp4"],
+      "defaultFormat": "webm",
+      "preview": "/renders/stat-duel/sample.webm",
+      "status": "ready"
+    },
+    {
+      "id": "status-split",
+      "name": "状态转折",
+      "description": "把常规与异常、过去与现在等两种状态做成章节式对照。",
+      "path": "templates/status-split",
+      "category": "透明叠加",
+      "tags": ["对照", "章节", "透明", "转折"],
+      "duration": 5,
+      "size": "1920×1080",
+      "formats": ["webm", "mp4"],
+      "defaultFormat": "webm",
+      "preview": "/renders/status-split/sample.webm",
+      "status": "ready"
+    },
+    {
+      "id": "number-impact",
+      "name": "极值刻度",
+      "description": "巨型关键词、单项百分比与同值刻度组成的冲击型叠加动效。",
+      "path": "templates/number-impact",
+      "category": "透明叠加",
+      "tags": ["数字", "刻度", "百分比", "透明"],
+      "duration": 5,
+      "size": "1920×1080",
+      "formats": ["webm", "mp4"],
+      "defaultFormat": "webm",
+      "preview": "/renders/number-impact/sample.webm",
+      "status": "ready"
+    },
+    {
+      "id": "concept-spotlight",
+      "name": "概念解释卡",
+      "description": "透明玻璃卡片聚焦一个概念名、解释句和补充提示，适合知识视频里的术语解释、方法论定义。",
+      "path": "templates/concept-spotlight",
+      "category": "知识讲解",
+      "tags": [
+        "概念",
+        "解释",
+        "术语",
+        "透明"
+      ],
+      "duration": 5,
+      "size": "1920×1080",
+      "formats": [
+        "webm",
+        "mp4"
+      ],
+      "defaultFormat": "webm",
+      "preview": "/renders/concept-spotlight/sample.webm",
+      "status": "ready"
+    },
+    {
+      "id": "three-step-flow",
+      "name": "三步流程",
+      "description": "三个步骤卡片与连接线依次生长，适合 SOP、教程步骤、知识框架的口播叠加。",
+      "path": "templates/three-step-flow",
+      "category": "知识讲解",
+      "tags": [
+        "步骤",
+        "流程",
+        "教程",
+        "透明"
+      ],
+      "duration": 6,
+      "size": "1920×1080",
+      "formats": [
+        "webm",
+        "mp4"
+      ],
+      "defaultFormat": "webm",
+      "preview": "/renders/three-step-flow/sample.webm",
+      "status": "ready"
+    },
+    {
+      "id": "myth-fact-swap",
+      "name": "误区纠正",
+      "description": "把“常见误区”划掉并切换到“真实情况”，适合观点纠偏、认知反转、知识澄清。",
+      "path": "templates/myth-fact-swap",
+      "category": "知识讲解",
+      "tags": [
+        "误区",
+        "纠正",
+        "反转",
+        "透明"
+      ],
+      "duration": 5.5,
+      "size": "1920×1080",
+      "formats": [
+        "webm",
+        "mp4"
+      ],
+      "defaultFormat": "webm",
+      "preview": "/renders/myth-fact-swap/sample.webm",
+      "status": "ready"
+    },
+    {
+      "id": "key-point-marker",
+      "name": "重点标注",
+      "description": "下三分之一的重点句标注动效，带角标和扫描下划线，适合金句、结论和操作提醒。",
+      "path": "templates/key-point-marker",
+      "category": "知识讲解",
+      "tags": [
+        "重点",
+        "标注",
+        "金句",
+        "透明"
+      ],
+      "duration": 4.5,
+      "size": "1920×1080",
+      "formats": [
+        "webm",
+        "mp4"
+      ],
+      "defaultFormat": "webm",
+      "preview": "/renders/key-point-marker/sample.webm",
+      "status": "ready"
+    },
+    {
+      "id": "checklist-pop",
+      "name": "清单核对",
+      "description": "三条检查项逐条弹出并完成勾选，适合总结步骤、注意事项、行动清单。",
+      "path": "templates/checklist-pop",
+      "category": "知识讲解",
+      "tags": [
+        "清单",
+        "勾选",
+        "总结",
+        "透明"
+      ],
+      "duration": 5,
+      "size": "1920×1080",
+      "formats": [
+        "webm",
+        "mp4"
+      ],
+      "defaultFormat": "webm",
+      "preview": "/renders/checklist-pop/sample.webm",
+      "status": "ready"
+    },
+    {
+      "id": "timeline-scan",
+      "name": "时间线推进",
+      "description": "三个时间节点沿路径依次点亮，适合讲版本变化、阶段推进、历史演变。",
+      "path": "templates/timeline-scan",
+      "category": "知识讲解",
+      "tags": [
+        "时间线",
+        "阶段",
+        "演变",
+        "透明"
+      ],
+      "duration": 5.5,
+      "size": "1920×1080",
+      "formats": [
+        "webm",
+        "mp4"
+      ],
+      "defaultFormat": "webm",
+      "preview": "/renders/timeline-scan/sample.webm",
+      "status": "ready"
+    },
+    {
+      "id": "cause-chain",
+      "name": "因果链路",
+      "description": "原因、机制、结果三段式链路，适合解释为什么、怎么发生、带来什么结果。",
+      "path": "templates/cause-chain",
+      "category": "知识讲解",
+      "tags": [
+        "因果",
+        "机制",
+        "解释",
+        "透明"
+      ],
+      "duration": 5.5,
+      "size": "1920×1080",
+      "formats": [
+        "webm",
+        "mp4"
+      ],
+      "defaultFormat": "webm",
+      "preview": "/renders/cause-chain/sample.webm",
+      "status": "ready"
+    }
+  ]
+}

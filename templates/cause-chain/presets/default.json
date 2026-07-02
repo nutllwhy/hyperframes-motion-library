@@ -1,0 +1,8 @@
+{
+  "title": "为什么效率会提升？",
+  "cause": "重复动效被模板化",
+  "mechanism": "只修改文案和数据",
+  "result": "新视频能快速生成",
+  "accent": "#FF5A36",
+  "foreground": "#F4EFE7"
+}

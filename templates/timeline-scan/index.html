@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="zh-CN" data-composition-variables='[{"id":"title","type":"string","label":"标题","default":"从想法到系统"},{"id":"time1","type":"string","label":"节点一编号","default":"01"},{"id":"label1","type":"string","label":"节点一","default":"做一次"},{"id":"time2","type":"string","label":"节点二编号","default":"02"},{"id":"label2","type":"string","label":"节点二","default":"存模板"},{"id":"time3","type":"string","label":"节点三编号","default":"03"},{"id":"label3","type":"string","label":"节点三","default":"反复生成"},{"id":"accent","type":"color","label":"强调色","default":"#FF5A36"},{"id":"foreground","type":"color","label":"文字色","default":"#F4EFE7"}]'>
+  <head>
+    <meta charset="UTF-8" /><meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * { box-sizing: border-box; }
+      html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: transparent; }
+      body { font-family: "IBM Plex Mono", monospace; }
+      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: transparent; color: var(--foreground); }
+      .scene { position: absolute; inset: 0; display: grid; place-items: center; padding: 120px; }
+      .panel { width: 1160px; padding: 44px 56px 52px; border: 2px solid rgba(255,90,54,.38); border-radius: 32px; background: rgba(18,16,14,.84); box-shadow: 0 28px 86px rgba(0,0,0,.32); backdrop-filter: blur(22px); }
+      .title { margin: 0 0 58px; font-size: 44px; line-height: 1.1; letter-spacing: -.055em; font-weight: 900; }
+      .timeline { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); gap: 44px; }
+      .line { position: absolute; left: 86px; right: 86px; top: 38px; height: 4px; border-radius: 99px; background: rgba(255,90,54,.18); overflow: hidden; }
+      .line-fill { width: 100%; height: 100%; background: var(--accent); transform-origin: left center; box-shadow: 0 0 22px rgba(255,90,54,.8); }
+      .node { position: relative; z-index: 2; display: grid; justify-items: center; gap: 18px; text-align: center; }
+      .dot { display: grid; place-items: center; width: 80px; height: 80px; border-radius: 50%; color: #12100E; background: var(--accent); font-size: 24px; font-weight: 950; box-shadow: 0 0 0 10px rgba(255,90,54,.14); }
+      .label { color: var(--foreground); font-size: 34px; line-height: 1.15; letter-spacing: -.05em; font-weight: 880; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="5.5" data-width="1920" data-height="1080">
+      <section id="timeline-scene" class="scene clip" data-start="0" data-duration="5.5" data-track-index="1">
+        <div class="panel">
+          <h1 class="title" id="title"></h1>
+          <div class="timeline">
+            <div class="line" data-layout-ignore><div class="line-fill"></div></div>
+            <div class="node"><div class="dot" id="time1"></div><div class="label" id="label1"></div></div>
+            <div class="node"><div class="dot" id="time2"></div><div class="label" id="label2"></div></div>
+            <div class="node"><div class="dot" id="time3"></div><div class="label" id="label3"></div></div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <script>
+      const fallback = { title: "从想法到系统", time1: "01", label1: "做一次", time2: "02", label2: "存模板", time3: "03", label3: "反复生成", accent: "#FF5A36", foreground: "#F4EFE7" };
+      const v = window.__hyperframes?.getVariables ? window.__hyperframes.getVariables() : fallback;
+      document.documentElement.style.setProperty("--accent", v.accent); document.documentElement.style.setProperty("--foreground", v.foreground);
+      for (const id of ["title","time1","label1","time2","label2","time3","label3"]) document.getElementById(id).textContent = v[id];
+      window.__timelines = window.__timelines || {}; const tl = gsap.timeline({ paused: true });
+      tl.fromTo(".panel", { opacity: 0, y: 44, scale: .97 }, { opacity: 1, y: 0, scale: 1, duration: .64, ease: "expo.out" }, .18);
+      tl.fromTo(".title", { opacity: 0, x: -36 }, { opacity: 1, x: 0, duration: .42, ease: "circ.out" }, .4);
+      tl.fromTo(".line-fill", { scaleX: 0 }, { scaleX: 1, duration: 1.5, ease: "power3.inOut" }, .78);
+      tl.fromTo(".dot", { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: .42, stagger: .38, ease: "back.out(2)" }, .62);
+      tl.fromTo(".label", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: .42, stagger: .38, ease: "power3.out" }, .9);
+      tl.to(".scene", { opacity: 0, y: -18, duration: .4, ease: "power2.in" }, 4.92);
+      window.__timelines.main = tl;
+    </script>
+  </body>
+</html>

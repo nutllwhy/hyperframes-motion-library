@@ -1,0 +1,11 @@
+{
+  "name": "motion-library",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/server.mjs",
+    "check": "node scripts/validate-catalog.mjs",
+    "check:templates": "node scripts/check-templates.mjs",
+    "render": "node scripts/render.mjs"
+  }
+}

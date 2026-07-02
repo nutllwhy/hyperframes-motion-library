@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="zh-CN" data-composition-variables='[{"id":"title","type":"string","label":"标题","default":"累计用户数"},{"id":"targetValue","type":"number","label":"目标数值","default":1285000},{"id":"prefix","type":"string","label":"前缀","default":""},{"id":"suffix","type":"string","label":"后缀","default":"+"},{"id":"note","type":"string","label":"补充说明","default":"突破百万里程碑，持续增长中"},{"id":"accent","type":"color","label":"强调色","default":"#FF5A36"},{"id":"background","type":"color","label":"背景色","default":"#12100E"},{"id":"foreground","type":"color","label":"文字色","default":"#F4EFE7"}]'>
+  <head>
+    <meta charset="UTF-8" /><meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * { box-sizing: border-box; }
+      html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: #12100e; }
+      body { font-family: "IBM Plex Mono", monospace; }
+      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: #12100e; color: #f4efe7; }
+      .scene { position: absolute; inset: 0; width: 100%; height: 100%; padding: 96px 112px; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+      .title { margin: 0 0 80px; font-size: 56px; font-weight: 600; letter-spacing: 0.02em; color: #b8ada2; text-align: center; }
+      .counter-wrap { position: relative; display: flex; align-items: flex-end; gap: 24px; }
+      .value { font-size: 280px; font-weight: 900; line-height: 0.85; letter-spacing: -0.06em; font-variant-numeric: tabular-nums; color: var(--accent); }
+      .suffix { font-size: 80px; font-weight: 700; line-height: 1; color: var(--accent); padding-bottom: 28px; }
+      .ring-svg { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 680px; height: 680px; pointer-events: none; }
+      .ring-track { fill: none; stroke: #3a3029; stroke-width: 12; stroke-linecap: round; }
+      .ring-fill { fill: none; stroke: var(--accent); stroke-width: 12; stroke-linecap: round; transform: rotate(-90deg); transform-origin: center; }
+      .note { margin: 60px 0 0; font-size: 32px; font-weight: 400; line-height: 1.5; color: #d8cec4; text-align: center; max-width: 900px; }
+      .ghost { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); font-size: 200px; font-weight: 900; color: var(--accent); opacity: 0.06; line-height: 1; letter-spacing: -0.08em; pointer-events: none; white-space: nowrap; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="5" data-width="1920" data-height="1080">
+      <section id="scene" class="scene clip" data-start="0" data-duration="5" data-track-index="1">
+        <div class="ghost" data-layout-ignore>COUNT</div>
+        <div class="title" id="title"></div>
+        <div class="counter-wrap">
+          <svg class="ring-svg" id="ring-svg" viewBox="0 0 680 680" data-layout-ignore>
+            <circle class="ring-track" cx="340" cy="340" r="310" />
+            <circle class="ring-fill" id="ring-fill" cx="340" cy="340" r="310" stroke-dasharray="0 1948" />
+          </svg>
+          <span class="value" id="value">0</span>
+          <span class="suffix" id="suffix"></span>
+        </div>
+        <div class="note" id="note"></div>
+      </section>
+    </div>
+    <script>
+      const fallback = { title: "累计用户数", targetValue: 1285000, prefix: "", suffix: "+", note: "突破百万里程碑，持续增长中", accent: "#FF5A36", background: "#12100E", foreground: "#F4EFE7" };
+      const v = window.__hyperframes?.getVariables ? window.__hyperframes.getVariables() : fallback;
+      document.documentElement.style.setProperty("--accent", v.accent);
+      document.getElementById("root").style.backgroundColor = v.background;
+      document.getElementById("root").style.color = v.foreground;
+      for (const [id, value] of [["title", v.title], ["suffix", v.suffix], ["note", v.note]]) document.getElementById(id).textContent = value;
+
+      const targetValue = Number(v.targetValue) || 0;
+      const prefix = v.prefix || "";
+      const circumference = 2 * Math.PI * 310;
+      const ringEl = document.getElementById("ring-fill");
+      const ringSvg = document.getElementById("ring-svg");
+      ringEl.setAttribute("stroke-dasharray", `${circumference} ${circumference}`);
+      ringEl.setAttribute("stroke-dashoffset", circumference);
+
+      const valueEl = document.getElementById("value");
+      function formatNumber(n) { return n.toLocaleString("en-US"); }
+
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo(".title", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0.1);
+      tl.fromTo(".ring-svg", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "sine.out" }, 0.2);
+      tl.to(ringEl, { attr: { strokeDashoffset: 0 }, duration: 2.2, ease: "power2.out" }, 0.4);
+      const counterObj = { val: 0 };
+      tl.to(counterObj, { val: targetValue, duration: 2.5, ease: "power2.out", onUpdate: () => { valueEl.textContent = prefix + formatNumber(Math.round(counterObj.val)); } }, 0.4);
+      tl.fromTo(".suffix", { opacity: 0, x: 20 }, { opacity: 1, x: 0, duration: 0.5, ease: "back.out(1.5)" }, 2.2);
+      tl.fromTo(".note", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 2.0);
+      tl.fromTo(".value", { scale: 1 }, { scale: 1.02, duration: 0.15, ease: "power2.out", yoyo: true, repeat: 1 }, 2.9);
+      tl.to(".scene", { opacity: 0, scale: 1.01, duration: 0.5, ease: "power2.in" }, 4.3);
+      window.__timelines.main = tl;
+    </script>
+  </body>
+</html>
