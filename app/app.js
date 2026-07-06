@@ -6,7 +6,7 @@ const search = document.querySelector("#search");
 const showLibrary = document.querySelector("#show-library");
 const showGuide = document.querySelector("#show-guide");
 const GITHUB_REPO = "https://github.com/nutllwhy/hyperframes-motion-library";
-const STATIC_CATALOG_VERSION = "20260706-knowledge-data";
+const STATIC_CATALOG_VERSION = "20260706-preview-renders";
 
 async function api(url, options) {
   const response = await fetch(url, options);
