@@ -351,6 +351,7 @@
         "mp4"
       ],
       "defaultFormat": "webm",
+      "preview": "/renders/big-number-card/sample.webm",
       "status": "ready",
       "schema": [
         {
@@ -430,6 +431,7 @@
         "mp4"
       ],
       "defaultFormat": "webm",
+      "preview": "/renders/before-after-stat/sample.webm",
       "status": "ready",
       "schema": [
         {
@@ -523,6 +525,7 @@
         "mp4"
       ],
       "defaultFormat": "webm",
+      "preview": "/renders/horizontal-bar-compare/sample.webm",
       "status": "ready",
       "schema": [
         {
@@ -616,6 +619,7 @@
         "mp4"
       ],
       "defaultFormat": "webm",
+      "preview": "/renders/top-rank-list/sample.webm",
       "status": "ready",
       "schema": [
         {
@@ -723,6 +727,7 @@
         "mp4"
       ],
       "defaultFormat": "webm",
+      "preview": "/renders/turning-point-line/sample.webm",
       "status": "ready",
       "schema": [
         {
@@ -795,6 +800,7 @@
         "mp4"
       ],
       "defaultFormat": "webm",
+      "preview": "/renders/source-citation-card/sample.webm",
       "status": "ready",
       "schema": [
         {
