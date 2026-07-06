@@ -333,6 +333,536 @@
       ]
     },
     {
+      "id": "big-number-card",
+      "name": "大数字结论卡",
+      "description": "用一个巨型数字和一句解释承接核心结论，适合知识视频里的效率、成本、提升幅度表达。",
+      "path": "templates/big-number-card",
+      "category": "数据可视化",
+      "tags": [
+        "数字",
+        "结论",
+        "效率",
+        "知识视频"
+      ],
+      "duration": 5,
+      "size": "1920×1080",
+      "formats": [
+        "webm",
+        "mp4"
+      ],
+      "defaultFormat": "webm",
+      "status": "ready",
+      "schema": [
+        {
+          "id": "eyebrow",
+          "type": "string",
+          "label": "角标",
+          "default": "核心结论"
+        },
+        {
+          "id": "prefix",
+          "type": "string",
+          "label": "前缀",
+          "default": "效率提升"
+        },
+        {
+          "id": "value",
+          "type": "number",
+          "label": "数字",
+          "default": 3.2
+        },
+        {
+          "id": "unit",
+          "type": "string",
+          "label": "单位",
+          "default": "倍"
+        },
+        {
+          "id": "caption",
+          "type": "string",
+          "label": "说明",
+          "default": "同样的选题流程，AI 参与后从整理资料到产出初稿明显提速。"
+        },
+        {
+          "id": "accent",
+          "type": "color",
+          "label": "强调色",
+          "default": "#FF5A36"
+        },
+        {
+          "id": "foreground",
+          "type": "color",
+          "label": "文字色",
+          "default": "#F4EFE7"
+        }
+      ],
+      "presets": [
+        {
+          "id": "default",
+          "values": {
+            "eyebrow": "核心结论",
+            "prefix": "效率提升",
+            "value": 3.2,
+            "unit": "倍",
+            "caption": "同样的选题流程，AI 参与后从整理资料到产出初稿明显提速。",
+            "accent": "#FF5A36",
+            "foreground": "#F4EFE7"
+          }
+        }
+      ]
+    },
+    {
+      "id": "before-after-stat",
+      "name": "前后对比数字",
+      "description": "把过去与现在、旧方法与新方法的关键数字做成强对比，适合讲工具提效和流程改造。",
+      "path": "templates/before-after-stat",
+      "category": "数据可视化",
+      "tags": [
+        "前后对比",
+        "效率",
+        "数字",
+        "方法论"
+      ],
+      "duration": 5.5,
+      "size": "1920×1080",
+      "formats": [
+        "webm",
+        "mp4"
+      ],
+      "defaultFormat": "webm",
+      "status": "ready",
+      "schema": [
+        {
+          "id": "label",
+          "type": "string",
+          "label": "主题",
+          "default": "做一条知识视频"
+        },
+        {
+          "id": "beforeLabel",
+          "type": "string",
+          "label": "之前标签",
+          "default": "过去"
+        },
+        {
+          "id": "beforeValue",
+          "type": "number",
+          "label": "之前数值",
+          "default": 12
+        },
+        {
+          "id": "afterLabel",
+          "type": "string",
+          "label": "之后标签",
+          "default": "现在"
+        },
+        {
+          "id": "afterValue",
+          "type": "number",
+          "label": "之后数值",
+          "default": 3
+        },
+        {
+          "id": "unit",
+          "type": "string",
+          "label": "单位",
+          "default": "小时"
+        },
+        {
+          "id": "conclusion",
+          "type": "string",
+          "label": "结论",
+          "default": "流程被压缩到原来的 1/4"
+        },
+        {
+          "id": "accent",
+          "type": "color",
+          "label": "强调色",
+          "default": "#FF5A36"
+        },
+        {
+          "id": "foreground",
+          "type": "color",
+          "label": "文字色",
+          "default": "#F4EFE7"
+        }
+      ],
+      "presets": [
+        {
+          "id": "default",
+          "values": {
+            "label": "做一条知识视频",
+            "beforeLabel": "过去",
+            "beforeValue": 12,
+            "afterLabel": "现在",
+            "afterValue": 3,
+            "unit": "小时",
+            "conclusion": "流程被压缩到原来的 1/4",
+            "accent": "#FF5A36",
+            "foreground": "#F4EFE7"
+          }
+        }
+      ]
+    },
+    {
+      "id": "horizontal-bar-compare",
+      "name": "横向条形对比",
+      "description": "两组指标横向条形展开，适合传统方法 vs 新方法、两个工具或两个对象的快速比较。",
+      "path": "templates/horizontal-bar-compare",
+      "category": "数据可视化",
+      "tags": [
+        "条形图",
+        "对比",
+        "方法",
+        "百分比"
+      ],
+      "duration": 5.5,
+      "size": "1920×1080",
+      "formats": [
+        "webm",
+        "mp4"
+      ],
+      "defaultFormat": "webm",
+      "status": "ready",
+      "schema": [
+        {
+          "id": "title",
+          "type": "string",
+          "label": "标题",
+          "default": "两种方法的效率差距"
+        },
+        {
+          "id": "itemA",
+          "type": "string",
+          "label": "项目 A",
+          "default": "传统整理"
+        },
+        {
+          "id": "valueA",
+          "type": "number",
+          "label": "数值 A",
+          "default": 42
+        },
+        {
+          "id": "itemB",
+          "type": "string",
+          "label": "项目 B",
+          "default": "AI 辅助"
+        },
+        {
+          "id": "valueB",
+          "type": "number",
+          "label": "数值 B",
+          "default": 86
+        },
+        {
+          "id": "unit",
+          "type": "string",
+          "label": "单位",
+          "default": "%"
+        },
+        {
+          "id": "caption",
+          "type": "string",
+          "label": "结论",
+          "default": "AI 辅助在资料聚合和初稿生成阶段优势更明显。"
+        },
+        {
+          "id": "accent",
+          "type": "color",
+          "label": "强调色",
+          "default": "#FF5A36"
+        },
+        {
+          "id": "foreground",
+          "type": "color",
+          "label": "文字色",
+          "default": "#F4EFE7"
+        }
+      ],
+      "presets": [
+        {
+          "id": "default",
+          "values": {
+            "title": "两种方法的效率差距",
+            "itemA": "传统整理",
+            "valueA": 42,
+            "itemB": "AI 辅助",
+            "valueB": 86,
+            "unit": "%",
+            "caption": "AI 辅助在资料聚合和初稿生成阶段优势更明显。",
+            "accent": "#FF5A36",
+            "foreground": "#F4EFE7"
+          }
+        }
+      ]
+    },
+    {
+      "id": "top-rank-list",
+      "name": "Top 排名卡",
+      "description": "三条排名逐条弹出，适合工具推荐、影响因素排序、原因权重和 Top 3/Top 5 类内容。",
+      "path": "templates/top-rank-list",
+      "category": "数据可视化",
+      "tags": [
+        "排名",
+        "Top3",
+        "列表",
+        "权重"
+      ],
+      "duration": 5.5,
+      "size": "1920×1080",
+      "formats": [
+        "webm",
+        "mp4"
+      ],
+      "defaultFormat": "webm",
+      "status": "ready",
+      "schema": [
+        {
+          "id": "title",
+          "type": "string",
+          "label": "标题",
+          "default": "影响效率的 Top 3 因素"
+        },
+        {
+          "id": "rank1",
+          "type": "string",
+          "label": "第一名",
+          "default": "资料分散"
+        },
+        {
+          "id": "value1",
+          "type": "number",
+          "label": "第一名数值",
+          "default": 48
+        },
+        {
+          "id": "rank2",
+          "type": "string",
+          "label": "第二名",
+          "default": "缺少模板"
+        },
+        {
+          "id": "value2",
+          "type": "number",
+          "label": "第二名数值",
+          "default": 31
+        },
+        {
+          "id": "rank3",
+          "type": "string",
+          "label": "第三名",
+          "default": "反复改稿"
+        },
+        {
+          "id": "value3",
+          "type": "number",
+          "label": "第三名数值",
+          "default": 21
+        },
+        {
+          "id": "unit",
+          "type": "string",
+          "label": "单位",
+          "default": "%"
+        },
+        {
+          "id": "caption",
+          "type": "string",
+          "label": "说明",
+          "default": "真正拖慢生产的，往往不是创意，而是重复整理和重复决策。"
+        },
+        {
+          "id": "accent",
+          "type": "color",
+          "label": "强调色",
+          "default": "#FF5A36"
+        },
+        {
+          "id": "foreground",
+          "type": "color",
+          "label": "文字色",
+          "default": "#F4EFE7"
+        }
+      ],
+      "presets": [
+        {
+          "id": "default",
+          "values": {
+            "title": "影响效率的 Top 3 因素",
+            "rank1": "资料分散",
+            "value1": 48,
+            "rank2": "缺少模板",
+            "value2": 31,
+            "rank3": "反复改稿",
+            "value3": 21,
+            "unit": "%",
+            "caption": "真正拖慢生产的，往往不是创意，而是重复整理和重复决策。",
+            "accent": "#FF5A36",
+            "foreground": "#F4EFE7"
+          }
+        }
+      ]
+    },
+    {
+      "id": "turning-point-line",
+      "name": "拐点趋势线",
+      "description": "趋势线绘制后点亮关键拐点，适合讲增长变化、版本演进、方法生效的关键时刻。",
+      "path": "templates/turning-point-line",
+      "category": "数据可视化",
+      "tags": [
+        "趋势",
+        "拐点",
+        "折线",
+        "增长"
+      ],
+      "duration": 6,
+      "size": "1920×1080",
+      "formats": [
+        "webm",
+        "mp4"
+      ],
+      "defaultFormat": "webm",
+      "status": "ready",
+      "schema": [
+        {
+          "id": "title",
+          "type": "string",
+          "label": "标题",
+          "default": "增长真正的拐点"
+        },
+        {
+          "id": "subtitle",
+          "type": "string",
+          "label": "副标题",
+          "default": "不是换工具，而是把流程模板化之后"
+        },
+        {
+          "id": "pointLabel",
+          "type": "string",
+          "label": "拐点标签",
+          "default": "模板化开始"
+        },
+        {
+          "id": "caption",
+          "type": "string",
+          "label": "结论",
+          "default": "拐点出现后，内容生产从单次项目变成可复用系统。"
+        },
+        {
+          "id": "accent",
+          "type": "color",
+          "label": "强调色",
+          "default": "#FF5A36"
+        },
+        {
+          "id": "foreground",
+          "type": "color",
+          "label": "文字色",
+          "default": "#F4EFE7"
+        }
+      ],
+      "presets": [
+        {
+          "id": "default",
+          "values": {
+            "title": "增长真正的拐点",
+            "subtitle": "不是换工具，而是把流程模板化之后",
+            "pointLabel": "模板化开始",
+            "caption": "拐点出现后，内容生产从单次项目变成可复用系统。",
+            "accent": "#FF5A36",
+            "foreground": "#F4EFE7"
+          }
+        }
+      ]
+    },
+    {
+      "id": "source-citation-card",
+      "name": "数据来源引用卡",
+      "description": "下三分之一引用卡展示来源、日期、核心数字和统计口径，适合给知识视频增加可信度。",
+      "path": "templates/source-citation-card",
+      "category": "知识讲解",
+      "tags": [
+        "引用",
+        "来源",
+        "证据",
+        "数据"
+      ],
+      "duration": 5,
+      "size": "1920×1080",
+      "formats": [
+        "webm",
+        "mp4"
+      ],
+      "defaultFormat": "webm",
+      "status": "ready",
+      "schema": [
+        {
+          "id": "source",
+          "type": "string",
+          "label": "来源",
+          "default": "数据来源：项目复盘记录"
+        },
+        {
+          "id": "date",
+          "type": "string",
+          "label": "日期",
+          "default": "2026.07"
+        },
+        {
+          "id": "claim",
+          "type": "string",
+          "label": "结论",
+          "default": "模板化之后，重复动效制作时间明显下降"
+        },
+        {
+          "id": "value",
+          "type": "number",
+          "label": "数字",
+          "default": 68
+        },
+        {
+          "id": "unit",
+          "type": "string",
+          "label": "单位",
+          "default": "%"
+        },
+        {
+          "id": "note",
+          "type": "string",
+          "label": "补充说明",
+          "default": "统计口径：同类型知识视频中的数据展示片段。"
+        },
+        {
+          "id": "accent",
+          "type": "color",
+          "label": "强调色",
+          "default": "#FF5A36"
+        },
+        {
+          "id": "foreground",
+          "type": "color",
+          "label": "文字色",
+          "default": "#F4EFE7"
+        }
+      ],
+      "presets": [
+        {
+          "id": "default",
+          "values": {
+            "source": "数据来源：项目复盘记录",
+            "date": "2026.07",
+            "claim": "模板化之后，重复动效制作时间明显下降",
+            "value": 68,
+            "unit": "%",
+            "note": "统计口径：同类型知识视频中的数据展示片段。",
+            "accent": "#FF5A36",
+            "foreground": "#F4EFE7"
+          }
+        }
+      ]
+    },
+    {
       "id": "stat-duel",
       "name": "双数据对比",
       "description": "两组明确数据的横向对比，可透明叠加在实拍画面底部。",
