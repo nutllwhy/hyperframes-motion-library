@@ -7,10 +7,17 @@
       "description": "3–7 根垂直柱形从底部弹性增长，带数值标签与网格线，适合业绩对比、多维度数据分布。",
       "path": "templates/bar-chart-grow",
       "category": "数据可视化",
-      "tags": ["柱状图", "增长", "对比", "多系列"],
+      "tags": [
+        "柱状图",
+        "增长",
+        "对比",
+        "多系列"
+      ],
       "duration": 6,
       "size": "1920×1080",
-      "formats": ["mp4"],
+      "formats": [
+        "mp4"
+      ],
       "defaultFormat": "mp4",
       "preview": "/renders/bar-chart-grow/sample.mp4",
       "status": "ready"
@@ -21,10 +28,18 @@
       "description": "巨型数字从 0 滚动到目标值，可选环形进度条，适合里程碑、KPI、累计数据展示。",
       "path": "templates/number-counter",
       "category": "数据可视化",
-      "tags": ["数字", "计数器", "滚动", "KPI", "里程碑"],
+      "tags": [
+        "数字",
+        "计数器",
+        "滚动",
+        "KPI",
+        "里程碑"
+      ],
       "duration": 5,
       "size": "1920×1080",
-      "formats": ["mp4"],
+      "formats": [
+        "mp4"
+      ],
       "defaultFormat": "mp4",
       "preview": "/renders/number-counter/sample.mp4",
       "status": "ready"
@@ -35,10 +50,17 @@
       "description": "折线从左侧逐段绘制到右侧，数据点依次弹出，下方填充区域晕染展开，适合时间序列趋势。",
       "path": "templates/line-chart-draw",
       "category": "数据可视化",
-      "tags": ["折线图", "趋势", "时间序列", "绘制动画"],
+      "tags": [
+        "折线图",
+        "趋势",
+        "时间序列",
+        "绘制动画"
+      ],
       "duration": 7,
       "size": "1920×1080",
-      "formats": ["mp4"],
+      "formats": [
+        "mp4"
+      ],
       "defaultFormat": "mp4",
       "preview": "/renders/line-chart-draw/sample.mp4",
       "status": "ready"
@@ -49,10 +71,17 @@
       "description": "适合增长数据、里程碑、成绩与单项 KPI 的横屏数据动效。",
       "path": "templates/metric-pulse",
       "category": "数据可视化",
-      "tags": ["数据", "增长", "里程碑", "横屏"],
+      "tags": [
+        "数据",
+        "增长",
+        "里程碑",
+        "横屏"
+      ],
       "duration": 6,
       "size": "1920×1080",
-      "formats": ["mp4"],
+      "formats": [
+        "mp4"
+      ],
       "defaultFormat": "mp4",
       "preview": "/renders/metric-pulse/sample.mp4",
       "status": "ready"
@@ -63,11 +92,19 @@
       "description": "用一个巨型数字和一句解释承接核心结论，适合知识视频里的效率、成本、提升幅度表达。",
       "path": "templates/big-number-card",
       "category": "数据可视化",
-      "tags": ["数字", "结论", "效率", "知识视频"],
+      "tags": [
+        "数字",
+        "结论",
+        "效率",
+        "知识视频"
+      ],
       "duration": 5,
       "size": "1920×1080",
-      "formats": ["webm", "mp4"],
-      "defaultFormat": "webm",
+      "formats": [
+        "mp4",
+        "webm"
+      ],
+      "defaultFormat": "mp4",
       "preview": "/renders/big-number-card/sample.webm",
       "status": "ready"
     },
@@ -77,11 +114,19 @@
       "description": "把过去与现在、旧方法与新方法的关键数字做成强对比，适合讲工具提效和流程改造。",
       "path": "templates/before-after-stat",
       "category": "数据可视化",
-      "tags": ["前后对比", "效率", "数字", "方法论"],
+      "tags": [
+        "前后对比",
+        "效率",
+        "数字",
+        "方法论"
+      ],
       "duration": 5.5,
       "size": "1920×1080",
-      "formats": ["webm", "mp4"],
-      "defaultFormat": "webm",
+      "formats": [
+        "mp4",
+        "webm"
+      ],
+      "defaultFormat": "mp4",
       "preview": "/renders/before-after-stat/sample.webm",
       "status": "ready"
     },
@@ -91,11 +136,19 @@
       "description": "两组指标横向条形展开，适合传统方法 vs 新方法、两个工具或两个对象的快速比较。",
       "path": "templates/horizontal-bar-compare",
       "category": "数据可视化",
-      "tags": ["条形图", "对比", "方法", "百分比"],
+      "tags": [
+        "条形图",
+        "对比",
+        "方法",
+        "百分比"
+      ],
       "duration": 5.5,
       "size": "1920×1080",
-      "formats": ["webm", "mp4"],
-      "defaultFormat": "webm",
+      "formats": [
+        "mp4",
+        "webm"
+      ],
+      "defaultFormat": "mp4",
       "preview": "/renders/horizontal-bar-compare/sample.webm",
       "status": "ready"
     },
@@ -105,11 +158,19 @@
       "description": "三条排名逐条弹出，适合工具推荐、影响因素排序、原因权重和 Top 3/Top 5 类内容。",
       "path": "templates/top-rank-list",
       "category": "数据可视化",
-      "tags": ["排名", "Top3", "列表", "权重"],
+      "tags": [
+        "排名",
+        "Top3",
+        "列表",
+        "权重"
+      ],
       "duration": 5.5,
       "size": "1920×1080",
-      "formats": ["webm", "mp4"],
-      "defaultFormat": "webm",
+      "formats": [
+        "mp4",
+        "webm"
+      ],
+      "defaultFormat": "mp4",
       "preview": "/renders/top-rank-list/sample.webm",
       "status": "ready"
     },
@@ -119,11 +180,19 @@
       "description": "趋势线绘制后点亮关键拐点，适合讲增长变化、版本演进、方法生效的关键时刻。",
       "path": "templates/turning-point-line",
       "category": "数据可视化",
-      "tags": ["趋势", "拐点", "折线", "增长"],
+      "tags": [
+        "趋势",
+        "拐点",
+        "折线",
+        "增长"
+      ],
       "duration": 6,
       "size": "1920×1080",
-      "formats": ["webm", "mp4"],
-      "defaultFormat": "webm",
+      "formats": [
+        "mp4",
+        "webm"
+      ],
+      "defaultFormat": "mp4",
       "preview": "/renders/turning-point-line/sample.webm",
       "status": "ready"
     },
@@ -133,11 +202,19 @@
       "description": "下三分之一引用卡展示来源、日期、核心数字和统计口径，适合给知识视频增加可信度。",
       "path": "templates/source-citation-card",
       "category": "知识讲解",
-      "tags": ["引用", "来源", "证据", "数据"],
+      "tags": [
+        "引用",
+        "来源",
+        "证据",
+        "数据"
+      ],
       "duration": 5,
       "size": "1920×1080",
-      "formats": ["webm", "mp4"],
-      "defaultFormat": "webm",
+      "formats": [
+        "mp4",
+        "webm"
+      ],
+      "defaultFormat": "mp4",
       "preview": "/renders/source-citation-card/sample.webm",
       "status": "ready"
     },
@@ -147,11 +224,19 @@
       "description": "两组明确数据的横向对比，可透明叠加在实拍画面底部。",
       "path": "templates/stat-duel",
       "category": "透明叠加",
-      "tags": ["对比", "百分比", "透明", "纪录片"],
+      "tags": [
+        "对比",
+        "百分比",
+        "透明",
+        "纪录片"
+      ],
       "duration": 5,
       "size": "1920×1080",
-      "formats": ["webm", "mp4"],
-      "defaultFormat": "webm",
+      "formats": [
+        "mp4",
+        "webm"
+      ],
+      "defaultFormat": "mp4",
       "preview": "/renders/stat-duel/sample.webm",
       "status": "ready"
     },
@@ -161,11 +246,19 @@
       "description": "把常规与异常、过去与现在等两种状态做成章节式对照。",
       "path": "templates/status-split",
       "category": "透明叠加",
-      "tags": ["对照", "章节", "透明", "转折"],
+      "tags": [
+        "对照",
+        "章节",
+        "透明",
+        "转折"
+      ],
       "duration": 5,
       "size": "1920×1080",
-      "formats": ["webm", "mp4"],
-      "defaultFormat": "webm",
+      "formats": [
+        "mp4",
+        "webm"
+      ],
+      "defaultFormat": "mp4",
       "preview": "/renders/status-split/sample.webm",
       "status": "ready"
     },
@@ -175,11 +268,19 @@
       "description": "巨型关键词、单项百分比与同值刻度组成的冲击型叠加动效。",
       "path": "templates/number-impact",
       "category": "透明叠加",
-      "tags": ["数字", "刻度", "百分比", "透明"],
+      "tags": [
+        "数字",
+        "刻度",
+        "百分比",
+        "透明"
+      ],
       "duration": 5,
       "size": "1920×1080",
-      "formats": ["webm", "mp4"],
-      "defaultFormat": "webm",
+      "formats": [
+        "mp4",
+        "webm"
+      ],
+      "defaultFormat": "mp4",
       "preview": "/renders/number-impact/sample.webm",
       "status": "ready"
     },
@@ -198,10 +299,10 @@
       "duration": 5,
       "size": "1920×1080",
       "formats": [
-        "webm",
-        "mp4"
+        "mp4",
+        "webm"
       ],
-      "defaultFormat": "webm",
+      "defaultFormat": "mp4",
       "preview": "/renders/concept-spotlight/sample.webm",
       "status": "ready"
     },
@@ -220,10 +321,10 @@
       "duration": 6,
       "size": "1920×1080",
       "formats": [
-        "webm",
-        "mp4"
+        "mp4",
+        "webm"
       ],
-      "defaultFormat": "webm",
+      "defaultFormat": "mp4",
       "preview": "/renders/three-step-flow/sample.webm",
       "status": "ready"
     },
@@ -242,10 +343,10 @@
       "duration": 5.5,
       "size": "1920×1080",
       "formats": [
-        "webm",
-        "mp4"
+        "mp4",
+        "webm"
       ],
-      "defaultFormat": "webm",
+      "defaultFormat": "mp4",
       "preview": "/renders/myth-fact-swap/sample.webm",
       "status": "ready"
     },
@@ -264,10 +365,10 @@
       "duration": 4.5,
       "size": "1920×1080",
       "formats": [
-        "webm",
-        "mp4"
+        "mp4",
+        "webm"
       ],
-      "defaultFormat": "webm",
+      "defaultFormat": "mp4",
       "preview": "/renders/key-point-marker/sample.webm",
       "status": "ready"
     },
@@ -286,10 +387,10 @@
       "duration": 5,
       "size": "1920×1080",
       "formats": [
-        "webm",
-        "mp4"
+        "mp4",
+        "webm"
       ],
-      "defaultFormat": "webm",
+      "defaultFormat": "mp4",
       "preview": "/renders/checklist-pop/sample.webm",
       "status": "ready"
     },
@@ -308,10 +409,10 @@
       "duration": 5.5,
       "size": "1920×1080",
       "formats": [
-        "webm",
-        "mp4"
+        "mp4",
+        "webm"
       ],
-      "defaultFormat": "webm",
+      "defaultFormat": "mp4",
       "preview": "/renders/timeline-scan/sample.webm",
       "status": "ready"
     },
@@ -330,10 +431,10 @@
       "duration": 5.5,
       "size": "1920×1080",
       "formats": [
-        "webm",
-        "mp4"
+        "mp4",
+        "webm"
       ],
-      "defaultFormat": "webm",
+      "defaultFormat": "mp4",
       "preview": "/renders/cause-chain/sample.webm",
       "status": "ready"
     }
