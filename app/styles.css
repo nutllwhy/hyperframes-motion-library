@@ -78,12 +78,15 @@ input:focus, select:focus { border-color: var(--accent); }
 .star-callout a { color: var(--accent); font-weight: 800; text-decoration: none; border-bottom: 1px solid rgba(255,90,54,.45); }
 .guide-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
 .guide-card { padding: 24px; border: 1px solid var(--line); border-radius: 20px; background: var(--panel); }
+.guide-card-top { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-bottom: 10px; }
 .guide-card strong { display: block; margin-bottom: 10px; color: var(--accent); font: 800 13px/1 "IBM Plex Mono", monospace; letter-spacing: .12em; }
+.guide-card-top strong { margin-bottom: 0; }
 .guide-card h3 { margin: 0 0 12px; font-size: 26px; letter-spacing: -.04em; }
 .guide-card p, .guide-card li { color: var(--muted); line-height: 1.7; }
 .guide-card ul, .guide-card ol { margin: 10px 0 0; padding-left: 20px; }
 .guide-card pre { overflow-x: auto; margin: 16px 0 0; padding: 16px; border: 1px solid var(--line); border-radius: 14px; background: #090807; color: var(--fg); font: 13px/1.6 "IBM Plex Mono", monospace; }
 .guide-card.wide { grid-column: 1 / -1; }
+.guide-copy { flex: 0 0 auto; padding: 9px 12px; border-color: rgba(255,90,54,.5); color: var(--accent); }
 .guide-prompt { white-space: pre-wrap; }
 @media (max-width: 900px) {
   body { height: auto; overflow: auto; }
