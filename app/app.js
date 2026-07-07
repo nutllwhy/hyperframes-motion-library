@@ -46,6 +46,38 @@ function assetUrl(value) {
   return value.startsWith("/") ? `.${value}` : value;
 }
 
+function fileExtension(value) {
+  const clean = String(value || "").split("?")[0];
+  return clean.includes(".") ? clean.split(".").pop() : "mp4";
+}
+
+function downloadName(template) {
+  return `${template.id}-${state.staticDemo ? "sample" : "render"}.${fileExtension(state.output)}`;
+}
+
+function previewMarkup(template) {
+  if (!state.output) {
+    return `
+      <div class="preview-placeholder">
+        <strong>修改参数，生成第一条草稿</strong>
+        ${state.staticDemo ? "GitHub Pages 演示页只能查看样片；克隆到本地后可以修改参数并渲染新视频。" : "系统会调用 HyperFrames，把当前文案与数据渲染成可播放的视频。"}
+      </div>`;
+  }
+  return `<video src="${assetUrl(state.output)}" controls controlsList="nodownload" autoplay loop></video>`;
+}
+
+function previewDownloadMarkup(template) {
+  if (!state.output) return "";
+  const hint = state.staticDemo
+    ? "线上演示下载的是预渲染样片，不会根据右侧参数重新生成；WebM 是透明叠加视频格式，不是网页文件。"
+    : "这是当前参数生成的视频文件，可以下载后导入剪映或其他剪辑软件。";
+  return `
+    <div class="preview-download-row">
+      <a class="button preview-download" href="${assetUrl(state.output)}" download="${downloadName(template)}">${state.staticDemo ? "下载当前样片" : "下载当前视频"}</a>
+      <span>${hint}</span>
+    </div>`;
+}
+
 function defaults(template) {
   return Object.fromEntries(template.schema.map((item) => [item.id, item.default]));
 }
@@ -91,7 +123,8 @@ function renderWorkspace() {
   workspace.innerHTML = `
     <div class="workspace-grid">
       <div class="preview-panel">
-        <div class="preview" id="preview">${state.output ? `<video src="${assetUrl(state.output)}" controls autoplay loop></video>` : `<div class="preview-placeholder"><strong>修改参数，生成第一条草稿</strong>${state.staticDemo ? "GitHub Pages 演示页只能查看样片；克隆到本地后可以修改参数并渲染新视频。" : "系统会调用 HyperFrames，把当前文案与数据渲染成可播放的视频。"}</div>`}</div>
+        <div class="preview" id="preview">${previewMarkup(template)}</div>
+        <div id="preview-download">${previewDownloadMarkup(template)}</div>
         <h2 class="workspace-title">${template.name}</h2>
         <p class="workspace-description">${template.description}</p>
         <div class="tag-row">${template.tags.map((tag) => `<span class="tag">${tag}</span>`).join("")}</div>
@@ -254,7 +287,8 @@ async function renderVideo(event) {
       if (current.status === "failed") { status.className = "status error"; status.textContent = "渲染失败，请查看启动系统的终端信息。"; return; }
       state.output = current.output;
       status.textContent = "草稿已生成。";
-      document.querySelector("#preview").innerHTML = `<video src="${assetUrl(current.output)}" controls autoplay loop></video>`;
+      document.querySelector("#preview").innerHTML = previewMarkup(state.selected);
+      document.querySelector("#preview-download").innerHTML = previewDownloadMarkup(state.selected);
     }, 1200);
   } catch (error) { button.disabled = false; status.className = "status error"; status.textContent = error.message; }
 }

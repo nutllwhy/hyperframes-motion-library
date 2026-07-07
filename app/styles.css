@@ -45,6 +45,8 @@ input:focus, select:focus { border-color: var(--accent); }
 .preview-panel { min-width: 0; position: sticky; top: 0; align-self: start; }
 .preview { position: relative; aspect-ratio: 16/9; overflow: hidden; display: grid; place-items: center; background: #090807; border: 1px solid var(--line); border-radius: 18px; }
 .preview video { width: 100%; height: 100%; object-fit: contain; }
+.preview-download-row { margin-top: 12px; display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 12px; color: var(--muted); font-size: 12px; line-height: 1.55; }
+.preview-download { padding: 9px 12px; border-color: rgba(255,90,54,.5); color: var(--accent); text-decoration: none; white-space: nowrap; }
 .preview-placeholder { max-width: 420px; padding: 30px; text-align: center; color: var(--muted); line-height: 1.7; }
 .preview-placeholder strong { display: block; margin-bottom: 8px; color: var(--fg); font-size: 24px; }
 .workspace-title { margin: 24px 0 8px; font-size: 34px; letter-spacing: -.04em; }
