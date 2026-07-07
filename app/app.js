@@ -7,6 +7,20 @@ const showLibrary = document.querySelector("#show-library");
 const showGuide = document.querySelector("#show-guide");
 const GITHUB_REPO = "https://github.com/nutllwhy/hyperframes-motion-library";
 const STATIC_CATALOG_VERSION = "20260706-preview-renders";
+const AGENT_INSTALL_PROMPT = `请帮我在本地安装并启动这个开源视频动效系统：
+
+GitHub 仓库：
+https://github.com/nutllwhy/hyperframes-motion-library
+
+请按下面步骤执行：
+1. 选择一个合适的本地目录，克隆这个仓库。
+2. 进入 hyperframes-motion-library 目录。
+3. 运行 npm install 安装依赖。
+4. 运行 npm run dev 启动本地服务。
+5. 启动成功后，把本地访问地址发给我。
+6. 先不要修改源码，也不要删除任何模板；如果遇到 Node、npm、Chrome、FFmpeg 或端口占用问题，请先告诉我原因和解决建议。
+
+我希望先体验模板库，之后再让你基于这个项目继续帮我添加新的视频动效模板。`;
 
 async function api(url, options) {
   const response = await fetch(url, options);
@@ -34,6 +48,10 @@ function assetUrl(value) {
 
 function defaults(template) {
   return Object.fromEntries(template.schema.map((item) => [item.id, item.default]));
+}
+
+function escapeHtml(value) {
+  return String(value).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
 }
 
 function renderList(query = "") {
@@ -136,10 +154,16 @@ function renderGuide() {
         <div class="star-callout">如果这个项目对你有启发，欢迎关注 <strong>栗噔噔</strong>，也欢迎去 <a href="${GITHUB_REPO}" target="_blank" rel="noreferrer">GitHub 项目</a> 点一个 <strong>Star</strong>，让更多做视频的人看到这套工作流。</div>
       </div>
       <div class="guide-grid">
+        <article class="guide-card wide">
+          <div class="guide-card-top"><strong>RECOMMENDED</strong><button class="button guide-copy" type="button" data-copy-prompt="install">复制提示词</button></div>
+          <h3>让 Agent 自动安装</h3>
+          <p>如果你不想自己敲命令，直接把下面这段话复制给自己的 Agent。让它帮你克隆项目、安装依赖、启动本地服务。</p>
+          <pre class="guide-prompt">${escapeHtml(AGENT_INSTALL_PROMPT)}</pre>
+        </article>
         <article class="guide-card">
           <strong>STEP 01</strong>
-          <h3>下载到本地</h3>
-          <p>把项目克隆到自己的电脑，然后进入目录安装依赖。展示站里看到的每个动效，都对应一个独立模板文件夹。</p>
+          <h3>手动安装</h3>
+          <p>如果你熟悉命令行，也可以自己把项目克隆到电脑，然后进入目录安装依赖。</p>
           <pre>git clone ${GITHUB_REPO}.git
 cd hyperframes-motion-library
 npm install</pre>
@@ -179,6 +203,11 @@ npm run render -- metric-pulse templates/metric-pulse/presets/default.json</pre>
         </article>
       </div>
     </section>`;
+  workspace.querySelector("[data-copy-prompt='install']")?.addEventListener("click", async (event) => {
+    await navigator.clipboard.writeText(AGENT_INSTALL_PROMPT);
+    event.currentTarget.textContent = "已复制";
+    setTimeout(() => { event.currentTarget.textContent = "复制提示词"; }, 1600);
+  });
   workspace.scrollTo({ top: 0, behavior: "smooth" });
 }
 
