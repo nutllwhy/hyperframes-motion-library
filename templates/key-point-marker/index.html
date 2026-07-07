@@ -1,9 +1,10 @@
 <!doctype html>
-<html lang="zh-CN" data-composition-variables='[{"id":"kicker","type":"string","label":"提示词","default":"记住这一点"},{"id":"point","type":"string","label":"重点句","default":"真正拉开差距的不是工具，而是你拆问题的能力。"},{"id":"source","type":"string","label":"说明","default":"适合结论句 / 金句 / 操作提醒"},{"id":"accent","type":"color","label":"强调色","default":"#FF5A36"},{"id":"foreground","type":"color","label":"文字色","default":"#F4EFE7"}]'>
+<html lang="zh-CN" data-composition-variables='[{"id":"kicker","type":"string","label":"提示词","default":"记住这一点"},{"id":"point","type":"string","label":"重点句","default":"真正拉开差距的不是工具，而是你拆问题的能力。"},{"id":"source","type":"string","label":"说明","default":"适合结论句 / 金句 / 操作提醒"},{"id":"accent","type":"color","label":"强调色","default":"#FF5A36"},{"id":"foreground","type":"color","label":"文字色","default":"#F4EFE7"},{"id":"exportMode","type":"enum","label":"导出模式","default":"transparent","hidden":true,"options":[{"value":"transparent","label":"透明背景"},{"value":"mp4","label":"剪映 MP4 深色底"}]}]'>
   <head>
     <meta charset="UTF-8" /><meta name="viewport" content="width=1920, height=1080" />
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
     <style>
+      html[data-export-mode="mp4"] body,html[data-export-mode="mp4"] #root{background:#12100E!important}
       * { box-sizing: border-box; }
       html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: transparent; }
       body { font-family: "IBM Plex Mono", monospace; }
@@ -35,6 +36,7 @@
     <script>
       const fallback = { kicker: "记住这一点", point: "真正拉开差距的不是工具，而是你拆问题的能力。", source: "适合结论句 / 金句 / 操作提醒", accent: "#FF5A36", foreground: "#F4EFE7" };
       const v = window.__hyperframes?.getVariables ? window.__hyperframes.getVariables() : fallback;
+      document.documentElement.dataset.exportMode=v.exportMode||"transparent";
       document.documentElement.style.setProperty("--accent", v.accent); document.documentElement.style.setProperty("--foreground", v.foreground);
       for (const id of ["kicker","point","source"]) document.getElementById(id).textContent = v[id];
       window.__timelines = window.__timelines || {}; const tl = gsap.timeline({ paused: true });

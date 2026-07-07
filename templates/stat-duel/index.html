@@ -1,10 +1,11 @@
 <!doctype html>
-<html lang="zh-CN" data-composition-variables='[{"id":"leftLabel","type":"string","label":"左侧标签","default":"上海 SHANGHAI"},{"id":"leftValue","type":"number","label":"左侧数值","default":92},{"id":"leftUnit","type":"string","label":"左侧单位","default":"%"},{"id":"rightLabel","type":"string","label":"右侧标签","default":"亚马逊 AMAZON"},{"id":"rightValue","type":"number","label":"右侧数值","default":90},{"id":"rightUnit","type":"string","label":"右侧单位","default":"%"},{"id":"operator","type":"enum","label":"比较符号","default":">","options":[{"value":">","label":"大于"},{"value":"=","label":"等于"},{"value":"<","label":"小于"}]},{"id":"verdict","type":"string","label":"结论","default":"上海湿度更高"},{"id":"accent","type":"color","label":"强调色","default":"#FF5A36"},{"id":"foreground","type":"color","label":"文字色","default":"#F4EFE7"}]'>
+<html lang="zh-CN" data-composition-variables='[{"id":"leftLabel","type":"string","label":"左侧标签","default":"上海 SHANGHAI"},{"id":"leftValue","type":"number","label":"左侧数值","default":92},{"id":"leftUnit","type":"string","label":"左侧单位","default":"%"},{"id":"rightLabel","type":"string","label":"右侧标签","default":"亚马逊 AMAZON"},{"id":"rightValue","type":"number","label":"右侧数值","default":90},{"id":"rightUnit","type":"string","label":"右侧单位","default":"%"},{"id":"operator","type":"enum","label":"比较符号","default":">","options":[{"value":">","label":"大于"},{"value":"=","label":"等于"},{"value":"<","label":"小于"}]},{"id":"verdict","type":"string","label":"结论","default":"上海湿度更高"},{"id":"accent","type":"color","label":"强调色","default":"#FF5A36"},{"id":"foreground","type":"color","label":"文字色","default":"#F4EFE7"},{"id":"exportMode","type":"enum","label":"导出模式","default":"transparent","hidden":true,"options":[{"value":"transparent","label":"透明背景"},{"value":"mp4","label":"剪映 MP4 深色底"}]}]'>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=1920, height=1080" />
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
     <style>
+      html[data-export-mode="mp4"] body,html[data-export-mode="mp4"] #root{background:#12100E!important}
       * { box-sizing: border-box; }
       html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: transparent; }
       body { font-family: "IBM Plex Mono", monospace; }
@@ -44,6 +45,7 @@
     <script>
       const fallback = { leftLabel: "上海 SHANGHAI", leftValue: 92, leftUnit: "%", rightLabel: "亚马逊 AMAZON", rightValue: 90, rightUnit: "%", operator: ">", verdict: "上海湿度更高", accent: "#FF5A36", foreground: "#F4EFE7" };
       const v = window.__hyperframes?.getVariables ? window.__hyperframes.getVariables() : fallback;
+      document.documentElement.dataset.exportMode=v.exportMode||"transparent";
       document.documentElement.style.setProperty("--accent", v.accent);
       document.documentElement.style.setProperty("--foreground", v.foreground);
       for (const [id, value] of [["left-label",v.leftLabel],["left-value",v.leftValue],["left-unit",v.leftUnit],["right-label",v.rightLabel],["right-value",v.rightValue],["right-unit",v.rightUnit],["operator",v.operator],["verdict",v.verdict]]) document.getElementById(id).textContent = value;

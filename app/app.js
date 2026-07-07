@@ -104,6 +104,7 @@ function renderList(query = "") {
 }
 
 function fieldMarkup(declaration) {
+  if (declaration.hidden) return "";
   const value = state.values[declaration.id];
   if (declaration.type === "color") {
     return `<div class="field"><label for="field-${declaration.id}-text">${declaration.label}</label><div class="color-field"><input aria-label="${declaration.label}色板" type="color" data-key="${declaration.id}" value="${value}"><input id="field-${declaration.id}-text" type="text" data-key="${declaration.id}" value="${value}"></div></div>`;

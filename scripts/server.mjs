@@ -37,9 +37,12 @@ async function listPresets(template) {
   })));
 }
 
-async function startRender(template, values, quality, requestedFormat) {
+async function startRender(template, schema, values, quality, requestedFormat) {
   const allowedFormats = template.formats || ["mp4"];
   const format = allowedFormats.includes(requestedFormat) ? requestedFormat : (template.defaultFormat || allowedFormats[0]);
+  const renderValues = schema.some((item) => item.id === "exportMode")
+    ? { ...values, exportMode: format === "mp4" ? "mp4" : "transparent" }
+    : values;
   const jobId = randomUUID();
   const renderDir = path.join(root, "renders", template.id);
   await fs.mkdir(renderDir, { recursive: true });
@@ -47,7 +50,7 @@ async function startRender(template, values, quality, requestedFormat) {
   const outputPath = path.join(renderDir, outputName);
   const job = { id: jobId, status: "running", templateId: template.id, output: null, log: "" };
   jobs.set(jobId, job);
-  const child = spawn("npx", ["--yes", "hyperframes@0.6.115", "render", "--quality", quality, "--format", format, "--strict-variables", "--variables", JSON.stringify(values), "--output", outputPath], {
+  const child = spawn("npx", ["--yes", "hyperframes@0.6.115", "render", "--quality", quality, "--format", format, "--strict-variables", "--variables", JSON.stringify(renderValues), "--output", outputPath], {
     cwd: template.absolutePath,
     env: process.env
   });
@@ -97,7 +100,7 @@ const server = http.createServer(async (request, response) => {
       const template = await getTemplate(body.templateId);
       const schema = await readVariableSchema(template.absolutePath);
       validateVariables(schema, body.variables || {});
-      const job = await startRender(template, body.variables || {}, body.quality === "high" ? "high" : "draft", body.format);
+      const job = await startRender(template, schema, body.variables || {}, body.quality === "high" ? "high" : "draft", body.format);
       return json(response, 202, job);
     }
     if (request.method === "POST" && url.pathname === "/api/presets") {

@@ -1,9 +1,10 @@
 <!doctype html>
-<html lang="zh-CN" data-composition-variables='[{"id":"eyebrow","type":"string","label":"角标","default":"核心结论"},{"id":"prefix","type":"string","label":"前缀","default":"效率提升"},{"id":"value","type":"number","label":"数字","default":3.2},{"id":"unit","type":"string","label":"单位","default":"倍"},{"id":"caption","type":"string","label":"说明","default":"同样的选题流程，AI 参与后从整理资料到产出初稿明显提速。"},{"id":"accent","type":"color","label":"强调色","default":"#FF5A36"},{"id":"foreground","type":"color","label":"文字色","default":"#F4EFE7"}]'>
+<html lang="zh-CN" data-composition-variables='[{"id":"eyebrow","type":"string","label":"角标","default":"核心结论"},{"id":"prefix","type":"string","label":"前缀","default":"效率提升"},{"id":"value","type":"number","label":"数字","default":3.2},{"id":"unit","type":"string","label":"单位","default":"倍"},{"id":"caption","type":"string","label":"说明","default":"同样的选题流程，AI 参与后从整理资料到产出初稿明显提速。"},{"id":"accent","type":"color","label":"强调色","default":"#FF5A36"},{"id":"foreground","type":"color","label":"文字色","default":"#F4EFE7"},{"id":"exportMode","type":"enum","label":"导出模式","default":"transparent","hidden":true,"options":[{"value":"transparent","label":"透明背景"},{"value":"mp4","label":"剪映 MP4 深色底"}]}]'>
   <head>
     <meta charset="UTF-8" /><meta name="viewport" content="width=1920, height=1080" />
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
     <style>
+      html[data-export-mode="mp4"] body,html[data-export-mode="mp4"] #root{background:#12100E!important}
       *{box-sizing:border-box} html,body{margin:0;width:1920px;height:1080px;overflow:hidden;background:transparent} body{font-family:sans-serif}
       #root{position:relative;width:1920px;height:1080px;color:var(--fg);background:transparent;overflow:hidden}
       .scene{width:100%;height:100%;display:flex;align-items:center;justify-content:center;padding:120px}
@@ -24,7 +25,7 @@
     </div>
     <script>
       const fallback={eyebrow:"核心结论",prefix:"效率提升",value:3.2,unit:"倍",caption:"同样的选题流程，AI 参与后从整理资料到产出初稿明显提速。",accent:"#FF5A36",foreground:"#F4EFE7"};
-      const v=window.__hyperframes?.getVariables?window.__hyperframes.getVariables():fallback;document.documentElement.style.setProperty("--accent",v.accent);document.documentElement.style.setProperty("--fg",v.foreground);
+      const v=window.__hyperframes?.getVariables?window.__hyperframes.getVariables():fallback;document.documentElement.dataset.exportMode=v.exportMode||"transparent";document.documentElement.style.setProperty("--accent",v.accent);document.documentElement.style.setProperty("--fg",v.foreground);
       for(const id of ["eyebrow","prefix","value","unit","caption"])document.getElementById(id).textContent=v[id];
       window.__timelines=window.__timelines||{};const tl=gsap.timeline({paused:true});
       tl.from(".card",{opacity:0,y:70,scale:.96,duration:.7,ease:"expo.out"},.15).from(".eyebrow",{opacity:0,x:-30,duration:.35,ease:"power3.out"},.45).from(".prefix",{opacity:0,y:35,duration:.45,ease:"power3.out"},.58).from(".value",{opacity:0,scale:.55,transformOrigin:"left bottom",duration:.75,ease:"back.out(1.5)"},.78).from(".unit",{opacity:0,y:36,duration:.36,ease:"power2.out"},1.12).from(".caption",{opacity:0,y:28,duration:.45,ease:"power3.out"},1.28).from(".slash",{scaleX:0,transformOrigin:"left center",duration:.5,ease:"power3.out"},1.42).to(".scene",{opacity:0,y:-30,duration:.42,ease:"power2.in"},4.45);
