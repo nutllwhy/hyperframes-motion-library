@@ -347,10 +347,10 @@
       "duration": 5,
       "size": "1920×1080",
       "formats": [
-        "webm",
-        "mp4"
+        "mp4",
+        "webm"
       ],
-      "defaultFormat": "webm",
+      "defaultFormat": "mp4",
       "preview": "/renders/big-number-card/sample.webm",
       "status": "ready",
       "schema": [
@@ -427,10 +427,10 @@
       "duration": 5.5,
       "size": "1920×1080",
       "formats": [
-        "webm",
-        "mp4"
+        "mp4",
+        "webm"
       ],
-      "defaultFormat": "webm",
+      "defaultFormat": "mp4",
       "preview": "/renders/before-after-stat/sample.webm",
       "status": "ready",
       "schema": [
@@ -521,10 +521,10 @@
       "duration": 5.5,
       "size": "1920×1080",
       "formats": [
-        "webm",
-        "mp4"
+        "mp4",
+        "webm"
       ],
-      "defaultFormat": "webm",
+      "defaultFormat": "mp4",
       "preview": "/renders/horizontal-bar-compare/sample.webm",
       "status": "ready",
       "schema": [
@@ -615,10 +615,10 @@
       "duration": 5.5,
       "size": "1920×1080",
       "formats": [
-        "webm",
-        "mp4"
+        "mp4",
+        "webm"
       ],
-      "defaultFormat": "webm",
+      "defaultFormat": "mp4",
       "preview": "/renders/top-rank-list/sample.webm",
       "status": "ready",
       "schema": [
@@ -723,10 +723,10 @@
       "duration": 6,
       "size": "1920×1080",
       "formats": [
-        "webm",
-        "mp4"
+        "mp4",
+        "webm"
       ],
-      "defaultFormat": "webm",
+      "defaultFormat": "mp4",
       "preview": "/renders/turning-point-line/sample.webm",
       "status": "ready",
       "schema": [
@@ -796,10 +796,10 @@
       "duration": 5,
       "size": "1920×1080",
       "formats": [
-        "webm",
-        "mp4"
+        "mp4",
+        "webm"
       ],
-      "defaultFormat": "webm",
+      "defaultFormat": "mp4",
       "preview": "/renders/source-citation-card/sample.webm",
       "status": "ready",
       "schema": [
@@ -883,10 +883,10 @@
       "duration": 5,
       "size": "1920×1080",
       "formats": [
-        "webm",
-        "mp4"
+        "mp4",
+        "webm"
       ],
-      "defaultFormat": "webm",
+      "defaultFormat": "mp4",
       "preview": "/renders/stat-duel/sample.webm",
       "status": "ready",
       "schema": [
@@ -998,10 +998,10 @@
       "duration": 5,
       "size": "1920×1080",
       "formats": [
-        "webm",
-        "mp4"
+        "mp4",
+        "webm"
       ],
-      "defaultFormat": "webm",
+      "defaultFormat": "mp4",
       "preview": "/renders/status-split/sample.webm",
       "status": "ready",
       "schema": [
@@ -1078,10 +1078,10 @@
       "duration": 5,
       "size": "1920×1080",
       "formats": [
-        "webm",
-        "mp4"
+        "mp4",
+        "webm"
       ],
-      "defaultFormat": "webm",
+      "defaultFormat": "mp4",
       "preview": "/renders/number-impact/sample.webm",
       "status": "ready",
       "schema": [
@@ -1158,10 +1158,10 @@
       "duration": 5,
       "size": "1920×1080",
       "formats": [
-        "webm",
-        "mp4"
+        "mp4",
+        "webm"
       ],
-      "defaultFormat": "webm",
+      "defaultFormat": "mp4",
       "preview": "/renders/concept-spotlight/sample.webm",
       "status": "ready",
       "schema": [
@@ -1231,10 +1231,10 @@
       "duration": 6,
       "size": "1920×1080",
       "formats": [
-        "webm",
-        "mp4"
+        "mp4",
+        "webm"
       ],
-      "defaultFormat": "webm",
+      "defaultFormat": "mp4",
       "preview": "/renders/three-step-flow/sample.webm",
       "status": "ready",
       "schema": [
@@ -1325,10 +1325,10 @@
       "duration": 5.5,
       "size": "1920×1080",
       "formats": [
-        "webm",
-        "mp4"
+        "mp4",
+        "webm"
       ],
-      "defaultFormat": "webm",
+      "defaultFormat": "mp4",
       "preview": "/renders/myth-fact-swap/sample.webm",
       "status": "ready",
       "schema": [
@@ -1405,10 +1405,10 @@
       "duration": 4.5,
       "size": "1920×1080",
       "formats": [
-        "webm",
-        "mp4"
+        "mp4",
+        "webm"
       ],
-      "defaultFormat": "webm",
+      "defaultFormat": "mp4",
       "preview": "/renders/key-point-marker/sample.webm",
       "status": "ready",
       "schema": [
@@ -1471,10 +1471,10 @@
       "duration": 5,
       "size": "1920×1080",
       "formats": [
-        "webm",
-        "mp4"
+        "mp4",
+        "webm"
       ],
-      "defaultFormat": "webm",
+      "defaultFormat": "mp4",
       "preview": "/renders/checklist-pop/sample.webm",
       "status": "ready",
       "schema": [
@@ -1544,10 +1544,10 @@
       "duration": 5.5,
       "size": "1920×1080",
       "formats": [
-        "webm",
-        "mp4"
+        "mp4",
+        "webm"
       ],
-      "defaultFormat": "webm",
+      "defaultFormat": "mp4",
       "preview": "/renders/timeline-scan/sample.webm",
       "status": "ready",
       "schema": [
@@ -1638,10 +1638,10 @@
       "duration": 5.5,
       "size": "1920×1080",
       "formats": [
-        "webm",
-        "mp4"
+        "mp4",
+        "webm"
       ],
-      "defaultFormat": "webm",
+      "defaultFormat": "mp4",
       "preview": "/renders/cause-chain/sample.webm",
       "status": "ready",
       "schema": [
