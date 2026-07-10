@@ -1,14 +1,17 @@
 <!doctype html>
-<html lang="zh-CN" data-composition-variables='[{"id":"title","type":"string","label":"标题","default":"累计用户数"},{"id":"targetValue","type":"number","label":"目标数值","default":1285000},{"id":"prefix","type":"string","label":"前缀","default":""},{"id":"suffix","type":"string","label":"后缀","default":"+"},{"id":"note","type":"string","label":"补充说明","default":"突破百万里程碑，持续增长中"},{"id":"accent","type":"color","label":"强调色","default":"#FF5A36"},{"id":"background","type":"color","label":"背景色","default":"#12100E"},{"id":"foreground","type":"color","label":"文字色","default":"#F4EFE7"}]'>
+<html lang="zh-CN" data-composition-variables='[{"id":"title","type":"string","label":"标题","default":"累计用户数"},{"id":"targetValue","type":"number","label":"目标数值","default":1285000},{"id":"prefix","type":"string","label":"前缀","default":""},{"id":"suffix","type":"string","label":"后缀","default":"+"},{"id":"note","type":"string","label":"补充说明","default":"突破百万里程碑，持续增长中"},{"id":"accent","type":"color","label":"强调色","default":"#FF5A36"},{"id":"background","type":"color","label":"背景色","default":"#12100E"},{"id":"foreground","type":"color","label":"文字色","default":"#F4EFE7"},{"id":"exportMode","type":"enum","label":"导出模式","default":"transparent","hidden":true,"options":[{"value":"transparent","label":"透明背景"},{"value":"mp4","label":"剪映 MP4 深色底"}]}]'>
   <head>
     <meta charset="UTF-8" /><meta name="viewport" content="width=1920, height=1080" />
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
     <style>
       * { box-sizing: border-box; }
-      html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: #12100e; }
+      html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: transparent; }
+      html[data-export-mode="mp4"] body, html[data-export-mode="mp4"] #root { background: var(--background, #12100e) !important; }
       body { font-family: "IBM Plex Mono", monospace; }
-      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: #12100e; color: #f4efe7; }
+      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: transparent; color: var(--foreground, #f4efe7); }
       .scene { position: absolute; inset: 0; width: 100%; height: 100%; padding: 96px 112px; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+      html[data-export-mode="transparent"] .scene::before { content: ""; position: absolute; left: 50%; top: 50%; width: 1320px; height: 820px; transform: translate(-50%, -50%); z-index: 0; border: 1px solid rgba(255,90,54,.28); border-radius: 38px; background: rgba(18,16,14,.86); }
+      .title, .counter-wrap, .note { position: relative; z-index: 2; }
       .title { margin: 0 0 80px; font-size: 56px; font-weight: 600; letter-spacing: 0.02em; color: #b8ada2; text-align: center; }
       .counter-wrap { position: relative; display: flex; align-items: flex-end; gap: 24px; }
       .value { font-size: 280px; font-weight: 900; line-height: 0.85; letter-spacing: -0.06em; font-variant-numeric: tabular-nums; color: var(--accent); }
@@ -37,11 +40,12 @@
       </section>
     </div>
     <script>
-      const fallback = { title: "累计用户数", targetValue: 1285000, prefix: "", suffix: "+", note: "突破百万里程碑，持续增长中", accent: "#FF5A36", background: "#12100E", foreground: "#F4EFE7" };
+      const fallback = { title: "累计用户数", targetValue: 1285000, prefix: "", suffix: "+", note: "突破百万里程碑，持续增长中", accent: "#FF5A36", background: "#12100E", foreground: "#F4EFE7", exportMode: "transparent" };
       const v = window.__hyperframes?.getVariables ? window.__hyperframes.getVariables() : fallback;
+      document.documentElement.dataset.exportMode = v.exportMode || "transparent";
       document.documentElement.style.setProperty("--accent", v.accent);
-      document.getElementById("root").style.backgroundColor = v.background;
-      document.getElementById("root").style.color = v.foreground;
+      document.documentElement.style.setProperty("--background", v.background);
+      document.documentElement.style.setProperty("--foreground", v.foreground);
       for (const [id, value] of [["title", v.title], ["suffix", v.suffix], ["note", v.note]]) document.getElementById(id).textContent = value;
 
       const targetValue = Number(v.targetValue) || 0;
