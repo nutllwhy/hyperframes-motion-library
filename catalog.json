@@ -461,6 +461,112 @@
       "defaultFormat": "mp4",
       "preview": "/renders/cause-chain/sample.webm",
       "status": "ready"
+    },
+    {
+      "id": "globe-route-journey",
+      "name": "动态地球航线",
+      "description": "正射投影的扁平动态地球沿经纬度路线转动，航线逐段生长、节点依次点亮，并可显示沿线移动的载具，适合历史航行、国际业务、物流和传播路径。",
+      "path": "templates/globe-route-journey",
+      "category": "地图与空间",
+      "tags": [
+        "地球",
+        "地图",
+        "航线",
+        "经纬度",
+        "路径"
+      ],
+      "duration": 10,
+      "size": "1080×1920",
+      "formats": [
+        "mp4"
+      ],
+      "defaultFormat": "mp4",
+      "preview": "/renders/globe-route-journey/sample.mp4",
+      "status": "ready"
+    },
+    {
+      "id": "mac-terminal-typewriter",
+      "name": "Mac 终端打字机",
+      "description": "macOS 深色终端窗口依次输入命令并显示执行反馈，适合开发工具、AI 工作流与自动化流程演示。",
+      "path": "templates/mac-terminal-typewriter",
+      "category": "界面与设备",
+      "tags": [
+        "Mac",
+        "终端",
+        "打字机",
+        "开发工具"
+      ],
+      "duration": 8,
+      "size": "1920×1080",
+      "formats": [
+        "mp4"
+      ],
+      "defaultFormat": "mp4",
+      "preview": "/renders/mac-terminal-typewriter/sample.mp4",
+      "status": "ready"
+    },
+    {
+      "id": "iphone-device-frame",
+      "name": "深银色 iPhone 外壳",
+      "description": "窄银边、黑色内沿和灵动岛组成的现代 iPhone 产品演示容器，适合承载 App、网页和数据看板。",
+      "path": "templates/iphone-device-frame",
+      "category": "界面与设备",
+      "tags": [
+        "iPhone",
+        "手机外壳",
+        "产品演示",
+        "设备框"
+      ],
+      "duration": 8,
+      "size": "1920×1080",
+      "formats": [
+        "mp4"
+      ],
+      "defaultFormat": "mp4",
+      "preview": "/renders/iphone-device-frame/sample.mp4",
+      "status": "ready"
+    },
+    {
+      "id": "wechat-desktop-chat",
+      "name": "微信对话 · 电脑版",
+      "description": "真实桌面微信结构的宽聊天区、大输入编辑器和工具栏，支持文本、图片面板与语音消息。",
+      "path": "templates/wechat-desktop-chat",
+      "category": "界面与设备",
+      "tags": [
+        "微信",
+        "电脑版",
+        "聊天",
+        "界面动画"
+      ],
+      "duration": 8,
+      "size": "1920×1080",
+      "formats": [
+        "mp4"
+      ],
+      "defaultFormat": "mp4",
+      "preview": "/renders/wechat-desktop-chat/sample.mp4",
+      "status": "ready"
+    },
+    {
+      "id": "wechat-mobile-chat",
+      "name": "微信对话 · 手机版",
+      "description": "1080×1920 手机微信对话，支持图片、长文本、语音、真实输入栏和自动滚动。",
+      "path": "templates/wechat-mobile-chat",
+      "category": "界面与设备",
+      "tags": [
+        "微信",
+        "手机版",
+        "聊天",
+        "竖屏"
+      ],
+      "duration": 8,
+      "size": "1080×1920",
+      "formats": [
+        "mp4"
+      ],
+      "defaultFormat": "mp4",
+      "preview": "/renders/wechat-mobile-chat/sample.mp4",
+      "status": "ready"
     }
   ]
 }

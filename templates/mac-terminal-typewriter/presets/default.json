@@ -1,0 +1,10 @@
+{
+  "title": "Mac 终端打字机",
+  "subtitle": "命令输入、执行反馈与光标节奏",
+  "command1": "codex --project motion-library",
+  "output1": "✓ loaded 24 reusable components",
+  "command2": "render wechat-mobile-chat --preview",
+  "output2": "✓ preview ready at localhost:4312",
+  "accent": "#72F2C2",
+  "background": "#09111F"
+}

@@ -1,0 +1,12 @@
+{
+  "title": "ZHENG HE VOYAGES",
+  "era": "1405–1433 / MING MARITIME ROUTES",
+  "routeLabel": "LIUJIAGANG TO THE INDIAN OCEAN",
+  "routeJson": "[{\"name\":\"刘家港 / 南京\",\"lon\":121,\"lat\":31.7},{\"name\":\"占城\",\"lon\":108.9,\"lat\":11.6},{\"name\":\"马六甲\",\"lon\":102.25,\"lat\":2.2},{\"name\":\"锡兰\",\"lon\":80.8,\"lat\":7.2},{\"name\":\"古里\",\"lon\":75.8,\"lat\":11.3},{\"name\":\"忽鲁谟斯\",\"lon\":56.45,\"lat\":27},{\"name\":\"木骨都束\",\"lon\":45.32,\"lat\":2.05},{\"name\":\"麻林地\",\"lon\":40.1,\"lat\":-3.2}]",
+  "landColor": "#BFE98F",
+  "oceanColor": "#49A8E3",
+  "routeColor": "#FF655E",
+  "background": "#071321",
+  "foreground": "#F4EFE7",
+  "showVehicle": true
+}
