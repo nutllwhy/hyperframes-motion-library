@@ -10,14 +10,14 @@
       body { font-family: "IBM Plex Mono", monospace; }
       #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: transparent; color: var(--foreground); }
       .scene { position: absolute; inset: 0; display: grid; place-items: center; padding: 120px; }
-      .card { position: relative; width: 1080px; min-height: 430px; padding: 54px 64px 58px; border: 2px solid rgba(255,90,54,.46); border-radius: 34px; background: rgba(18,16,14,.84); box-shadow: 0 28px 90px rgba(0,0,0,.34); backdrop-filter: blur(22px); overflow: visible; }
-      .glow { position: absolute; right: -170px; top: -230px; width: 520px; height: 520px; border-radius: 50%; background: radial-gradient(circle, rgba(255,90,54,.26), transparent 66%); }
-      .label { position: relative; display: inline-flex; padding: 10px 18px; border: 1px solid rgba(255,90,54,.52); border-radius: 999px; color: var(--accent); font-size: 22px; font-weight: 800; letter-spacing: .14em; }
+      .card { position: relative; width: 1080px; min-height: 430px; padding: 54px 64px 58px; border: 2px solid color-mix(in srgb, var(--accent) 46%, transparent); border-radius: 34px; background: rgba(18,16,14,.84); box-shadow: 0 28px 90px rgba(0,0,0,.34); backdrop-filter: blur(22px); overflow: visible; }
+      .glow { position: absolute; right: -170px; top: -230px; width: 520px; height: 520px; border-radius: 50%; background: radial-gradient(circle, color-mix(in srgb, var(--accent) 26%, transparent), transparent 66%); }
+      .label { position: relative; display: inline-flex; padding: 10px 18px; border: 1px solid color-mix(in srgb, var(--accent) 52%, transparent); border-radius: 999px; color: var(--accent); font-size: 22px; font-weight: 800; letter-spacing: .14em; }
       .term { position: relative; margin: 36px 0 24px; font-size: 96px; line-height: 1.02; letter-spacing: -.065em; font-weight: 900; }
       .definition { position: relative; max-width: 870px; margin: 0; color: var(--foreground); font-size: 38px; line-height: 1.42; font-weight: 760; }
       .note { position: relative; margin-top: 34px; padding-left: 28px; color: #B8ADA2; font-size: 22px; line-height: 1.35; font-weight: 650; }
       .note::before { content: ""; position: absolute; left: 0; top: 4px; bottom: 4px; width: 5px; border-radius: 99px; background: var(--accent); }
-      .scan { position: absolute; left: 64px; bottom: 46px; width: 0; height: 4px; border-radius: 99px; background: var(--accent); box-shadow: 0 0 22px rgba(255,90,54,.8); }
+      .scan { position: absolute; left: 64px; bottom: 46px; width: 0; height: 4px; border-radius: 99px; background: var(--accent); box-shadow: 0 0 22px color-mix(in srgb, var(--accent) 80%, transparent); }
     </style>
   </head>
   <body>

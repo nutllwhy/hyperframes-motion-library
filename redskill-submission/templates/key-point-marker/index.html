@@ -9,14 +9,14 @@
       body { font-family: "IBM Plex Mono", monospace; }
       #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: transparent; color: var(--foreground); }
       .scene { position: absolute; inset: 0; display: flex; align-items: flex-end; justify-content: center; padding: 0 120px 148px; }
-      .marker { position: relative; width: 1180px; padding: 42px 54px 46px; border-radius: 30px; background: linear-gradient(135deg, rgba(18,16,14,.9), rgba(18,16,14,.72)); border: 2px solid rgba(255,90,54,.38); box-shadow: 0 28px 86px rgba(0,0,0,.32); backdrop-filter: blur(22px); }
+      .marker { position: relative; width: 1180px; padding: 42px 54px 46px; border-radius: 30px; background: linear-gradient(135deg, rgba(18,16,14,.9), rgba(18,16,14,.72)); border: 2px solid color-mix(in srgb, var(--accent) 38%, transparent); box-shadow: 0 28px 86px rgba(0,0,0,.32); backdrop-filter: blur(22px); }
       .corner { position: absolute; width: 78px; height: 78px; border-color: var(--accent); border-style: solid; opacity: .95; }
       .c1 { left: -10px; top: -10px; border-width: 4px 0 0 4px; border-radius: 20px 0 0 0; }
       .c2 { right: -10px; bottom: -10px; border-width: 0 4px 4px 0; border-radius: 0 0 20px 0; }
       .kicker { display: inline-block; margin-bottom: 22px; color: var(--accent); font-size: 22px; font-weight: 900; letter-spacing: .18em; }
       .point { margin: 0; max-width: 1040px; color: var(--foreground); font-size: 46px; line-height: 1.28; font-weight: 880; letter-spacing: -.045em; }
       .source { margin-top: 24px; color: #B8ADA2; font-size: 21px; font-weight: 650; }
-      .underline { position: absolute; left: 54px; right: 54px; bottom: 36px; height: 4px; border-radius: 99px; background: var(--accent); transform-origin: left center; box-shadow: 0 0 22px rgba(255,90,54,.72); }
+      .underline { position: absolute; left: 54px; right: 54px; bottom: 36px; height: 4px; border-radius: 99px; background: var(--accent); transform-origin: left center; box-shadow: 0 0 22px color-mix(in srgb, var(--accent) 72%, transparent); }
     </style>
   </head>
   <body>

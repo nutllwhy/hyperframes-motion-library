@@ -10,7 +10,7 @@
       body { font-family: "IBM Plex Mono", monospace; }
       #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: transparent; color: var(--foreground, #f4efe7); }
       .scene { position: absolute; inset: 0; width: 100%; height: 100%; padding: 96px 112px; overflow: hidden; }
-      html[data-export-mode="transparent"] .scene::before { content: ""; position: absolute; inset: 58px 72px; z-index: 0; border: 1px solid rgba(255,90,54,.28); border-radius: 34px; background: rgba(18,16,14,.86); }
+      html[data-export-mode="transparent"] .scene::before { content: ""; position: absolute; inset: 58px 72px; z-index: 0; border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent); border-radius: 34px; background: rgba(18,16,14,.86); }
       .title-area { position: relative; z-index: 2; margin-bottom: 40px; }
       .title { margin: 0 0 10px; font-size: 64px; font-weight: 700; line-height: 1.1; letter-spacing: -0.03em; }
       .subtitle { margin: 0; font-size: 28px; font-weight: 400; color: #b8ada2; line-height: 1.4; }

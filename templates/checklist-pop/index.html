@@ -10,13 +10,13 @@
       body { font-family: "IBM Plex Mono", monospace; }
       #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: transparent; color: var(--foreground); }
       .scene { position: absolute; inset: 0; display: flex; align-items: center; justify-content: flex-start; padding: 120px 150px; }
-      .panel { position: relative; width: 760px; padding: 46px 50px 52px; border: 2px solid rgba(255,90,54,.42); border-radius: 34px; background: #12100E; box-shadow: 0 28px 86px rgba(0,0,0,.34); overflow: visible; }
+      .panel { position: relative; width: 760px; padding: 46px 50px 52px; border: 2px solid color-mix(in srgb, var(--accent) 42%, transparent); border-radius: 34px; background: #12100E; box-shadow: 0 28px 86px rgba(0,0,0,.34); overflow: visible; }
       .title { margin: 0 0 34px; font-size: 48px; line-height: 1.1; letter-spacing: -.055em; font-weight: 900; }
       .list { display: grid; gap: 20px; }
-      .item { display: grid; grid-template-columns: 48px 1fr; gap: 18px; align-items: start; padding: 20px 22px; border: 1px solid rgba(255,90,54,.24); border-radius: 22px; background: #211C18; }
+      .item { display: grid; grid-template-columns: 48px 1fr; gap: 18px; align-items: start; padding: 20px 22px; border: 1px solid color-mix(in srgb, var(--accent) 24%, transparent); border-radius: 22px; background: #211C18; }
       .check { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; color: #12100E; background: var(--accent); font-size: 28px; font-weight: 900; line-height: 1; }
       .text { margin: 0; color: var(--foreground); font-size: 25px; line-height: 1.32; font-weight: 760; }
-      .glow { position: absolute; right: -120px; bottom: -140px; width: 320px; height: 320px; border-radius: 50%; background: radial-gradient(circle, rgba(255,90,54,.22), transparent 68%); }
+      .glow { position: absolute; right: -120px; bottom: -140px; width: 320px; height: 320px; border-radius: 50%; background: radial-gradient(circle, color-mix(in srgb, var(--accent) 22%, transparent), transparent 68%); }
     </style>
   </head>
   <body>
