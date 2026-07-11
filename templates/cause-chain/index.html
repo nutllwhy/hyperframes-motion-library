@@ -10,14 +10,14 @@
       body { font-family: "IBM Plex Mono", monospace; }
       #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: transparent; color: var(--foreground); }
       .scene { position: absolute; inset: 0; display: grid; place-items: center; padding: 120px; }
-      .cluster { position: relative; width: 1240px; padding: 44px 52px 56px; border-radius: 34px; background: #12100E; border: 2px solid rgba(255,90,54,.34); box-shadow: 0 28px 86px rgba(0,0,0,.34); }
+      .cluster { position: relative; width: 1240px; padding: 44px 52px 56px; border-radius: 34px; background: #12100E; border: 2px solid color-mix(in srgb, var(--accent) 34%, transparent); box-shadow: 0 28px 86px rgba(0,0,0,.34); }
       .title { margin: 0 0 44px; font-size: 46px; line-height: 1.1; letter-spacing: -.055em; font-weight: 900; }
       .cards { display: grid; grid-template-columns: 1fr 76px 1fr 76px 1fr; align-items: center; gap: 22px; }
-      .card { min-height: 160px; display: grid; align-content: center; gap: 16px; padding: 26px 28px; border: 1px solid rgba(255,90,54,.28); border-radius: 26px; background: #211C18; }
+      .card { min-height: 160px; display: grid; align-content: center; gap: 16px; padding: 26px 28px; border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent); border-radius: 26px; background: #211C18; }
       .tag { color: var(--accent); font-size: 18px; font-weight: 900; letter-spacing: .16em; }
       .text { margin: 0; color: var(--foreground); font-size: 30px; line-height: 1.22; letter-spacing: -.045em; font-weight: 850; }
       .arrow { color: var(--accent); font-size: 54px; font-weight: 900; text-align: center; }
-      .halo { position: absolute; right: -130px; top: -150px; width: 360px; height: 360px; border-radius: 50%; background: radial-gradient(circle, rgba(255,90,54,.2), transparent 68%); }
+      .halo { position: absolute; right: -130px; top: -150px; width: 360px; height: 360px; border-radius: 50%; background: radial-gradient(circle, color-mix(in srgb, var(--accent) 20%, transparent), transparent 68%); }
     </style>
   </head>
   <body>

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN" data-composition-variables='[{"id":"title","type":"string","label":"标题","default":"上线前检查"},{"id":"item1","type":"string","label":"清单一","default":"默认文案能直接生成视频"},{"id":"item2","type":"string","label":"清单二","default":"透明 WebM 可以叠到剪辑里"},{"id":"item3","type":"string","label":"清单三","default":"模板能通过修改数据复用"},{"id":"accent","type":"color","label":"强调色","default":"#FF5A36"},{"id":"foreground","type":"color","label":"文字色","default":"#F4EFE7"},{"id":"exportMode","type":"enum","label":"导出模式","default":"transparent","hidden":true,"options":[{"value":"transparent","label":"透明背景"},{"value":"mp4","label":"剪映 MP4 深色底"}]}]'>
+<html lang="zh-CN" data-composition-variables='[{"id":"title","type":"string","label":"标题","default":"上线前检查"},{"id":"item1","type":"string","label":"清单一","default":"默认文案能直接生成视频"},{"id":"item2","type":"string","label":"清单二","default":"透明 MOV 可以叠到剪辑里"},{"id":"item3","type":"string","label":"清单三","default":"模板能通过修改数据复用"},{"id":"accent","type":"color","label":"强调色","default":"#FF5A36"},{"id":"foreground","type":"color","label":"文字色","default":"#F4EFE7"},{"id":"exportMode","type":"enum","label":"导出模式","default":"transparent","hidden":true,"options":[{"value":"transparent","label":"透明背景"},{"value":"mp4","label":"剪映 MP4 深色底"}]}]'>
   <head>
     <meta charset="UTF-8" /><meta name="viewport" content="width=1920, height=1080" />
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
@@ -10,13 +10,13 @@
       body { font-family: "IBM Plex Mono", monospace; }
       #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: transparent; color: var(--foreground); }
       .scene { position: absolute; inset: 0; display: flex; align-items: center; justify-content: flex-start; padding: 120px 150px; }
-      .panel { position: relative; width: 760px; padding: 46px 50px 52px; border: 2px solid rgba(255,90,54,.42); border-radius: 34px; background: #12100E; box-shadow: 0 28px 86px rgba(0,0,0,.34); overflow: visible; }
+      .panel { position: relative; width: 760px; padding: 46px 50px 52px; border: 2px solid color-mix(in srgb, var(--accent) 42%, transparent); border-radius: 34px; background: #12100E; box-shadow: 0 28px 86px rgba(0,0,0,.34); overflow: visible; }
       .title { margin: 0 0 34px; font-size: 48px; line-height: 1.1; letter-spacing: -.055em; font-weight: 900; }
       .list { display: grid; gap: 20px; }
-      .item { display: grid; grid-template-columns: 48px 1fr; gap: 18px; align-items: start; padding: 20px 22px; border: 1px solid rgba(255,90,54,.24); border-radius: 22px; background: #211C18; }
+      .item { display: grid; grid-template-columns: 48px 1fr; gap: 18px; align-items: start; padding: 20px 22px; border: 1px solid color-mix(in srgb, var(--accent) 24%, transparent); border-radius: 22px; background: #211C18; }
       .check { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; color: #12100E; background: var(--accent); font-size: 28px; font-weight: 900; line-height: 1; }
       .text { margin: 0; color: var(--foreground); font-size: 25px; line-height: 1.32; font-weight: 760; }
-      .glow { position: absolute; right: -120px; bottom: -140px; width: 320px; height: 320px; border-radius: 50%; background: radial-gradient(circle, rgba(255,90,54,.22), transparent 68%); }
+      .glow { position: absolute; right: -120px; bottom: -140px; width: 320px; height: 320px; border-radius: 50%; background: radial-gradient(circle, color-mix(in srgb, var(--accent) 22%, transparent), transparent 68%); }
     </style>
   </head>
   <body>
@@ -34,7 +34,7 @@
       </section>
     </div>
     <script>
-      const fallback = { title: "上线前检查", item1: "默认文案能直接生成视频", item2: "透明 WebM 可以叠到剪辑里", item3: "模板能通过修改数据复用", accent: "#FF5A36", foreground: "#F4EFE7" };
+      const fallback = { title: "上线前检查", item1: "默认文案能直接生成视频", item2: "透明 MOV 可以叠到剪辑里", item3: "模板能通过修改数据复用", accent: "#FF5A36", foreground: "#F4EFE7" };
       const v = window.__hyperframes?.getVariables ? window.__hyperframes.getVariables() : fallback;
       document.documentElement.dataset.exportMode=v.exportMode||"transparent";
       document.documentElement.style.setProperty("--accent", v.accent); document.documentElement.style.setProperty("--foreground", v.foreground);

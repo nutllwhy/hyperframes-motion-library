@@ -8,10 +8,10 @@
       *{box-sizing:border-box} html,body{margin:0;width:1920px;height:1080px;overflow:hidden;background:transparent} body{font-family:sans-serif}
       #root{position:relative;width:1920px;height:1080px;color:var(--fg);background:transparent;overflow:hidden}
       .scene{width:100%;height:100%;display:flex;align-items:center;justify-content:center;padding:120px}
-      .card{position:relative;width:1160px;min-height:520px;padding:64px 76px;border:1px solid rgba(255,90,54,.48);border-radius:34px;background:linear-gradient(135deg,rgba(27,23,20,.9),rgba(10,9,8,.72));box-shadow:0 0 80px rgba(255,90,54,.12);overflow:hidden}
-      .card:before{content:"";position:absolute;right:-120px;top:-150px;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(255,90,54,.34),transparent 62%)}
+      .card{position:relative;width:1160px;min-height:520px;padding:64px 76px;border:1px solid color-mix(in srgb, var(--accent) 48%, transparent);border-radius:34px;background:linear-gradient(135deg,rgba(27,23,20,.9),rgba(10,9,8,.72));box-shadow:0 0 80px color-mix(in srgb, var(--accent) 12%, transparent);overflow:hidden}
+      .card:before{content:"";position:absolute;right:-120px;top:-150px;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb, var(--accent) 34%, transparent),transparent 62%)}
       .grid{position:absolute;inset:0;background:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:120px 120px;opacity:.35}
-      .content{position:relative;z-index:2}.eyebrow{display:inline-flex;padding:10px 16px;border:1px solid rgba(255,90,54,.5);border-radius:999px;color:var(--accent);font:800 22px/1 "IBM Plex Mono",monospace;letter-spacing:.12em}
+      .content{position:relative;z-index:2}.eyebrow{display:inline-flex;padding:10px 16px;border:1px solid color-mix(in srgb, var(--accent) 50%, transparent);border-radius:999px;color:var(--accent);font:800 22px/1 "IBM Plex Mono",monospace;letter-spacing:.12em}
       .prefix{margin-top:42px;font-size:62px;font-weight:900;letter-spacing:-.04em}.number-row{display:flex;align-items:flex-end;gap:18px;margin:30px 0 36px}
       .value{color:var(--accent);font-size:210px;font-weight:950;line-height:.75;letter-spacing:-.08em;font-variant-numeric:tabular-nums}.unit{padding-bottom:18px;color:var(--accent);font-size:68px;font-weight:900}
       .caption{max-width:820px;color:rgba(244,239,231,.78);font-size:34px;line-height:1.55}.slash{position:absolute;right:80px;bottom:58px;width:220px;height:12px;background:var(--accent);transform:skewX(-22deg)}

@@ -11,18 +11,18 @@
       #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: transparent; color: var(--foreground); }
       .scene { position: absolute; inset: 0; display: grid; place-items: center; padding: 120px; perspective: 1200px; }
       .wrap { position: relative; width: 1200px; display: grid; grid-template-columns: 1fr 80px 1.16fr; gap: 28px; align-items: center; }
-      .card { min-height: 300px; padding: 38px 42px; border-radius: 30px; background: rgba(18,16,14,.84); border: 2px solid rgba(255,90,54,.34); box-shadow: 0 28px 86px rgba(0,0,0,.32); backdrop-filter: blur(22px); }
-      .myth-card { border-color: rgba(255,90,54,.44); }
-      .fact-card { border-color: rgba(255,90,54,.64); background: rgba(24,18,14,.88); }
+      .card { min-height: 300px; padding: 38px 42px; border-radius: 30px; background: rgba(18,16,14,.84); border: 2px solid color-mix(in srgb, var(--accent) 34%, transparent); box-shadow: 0 28px 86px rgba(0,0,0,.32); backdrop-filter: blur(22px); }
+      .myth-card { border-color: color-mix(in srgb, var(--accent) 44%, transparent); }
+      .fact-card { border-color: color-mix(in srgb, var(--accent) 64%, transparent); background: rgba(24,18,14,.88); }
       .label { margin-bottom: 30px; font-size: 20px; font-weight: 850; letter-spacing: .16em; color: #B8ADA2; }
-      .myth-card .label { color: #FF8A70; }
+      .myth-card .label { color: var(--accent); }
       .fact-card .label { color: var(--accent); }
       .text { margin: 0; font-size: 44px; line-height: 1.18; letter-spacing: -.055em; font-weight: 860; }
       .myth-text { position: relative; color: rgba(244,239,231,.64); }
-      .strike { position: absolute; left: 38px; right: 38px; top: 57%; height: 5px; border-radius: 99px; background: #FF5A36; transform-origin: left center; }
-      .swap { display: grid; place-items: center; width: 76px; height: 76px; border: 2px solid rgba(255,90,54,.48); border-radius: 24px; color: var(--accent); font-size: 42px; font-weight: 900; }
+      .strike { position: absolute; left: 38px; right: 38px; top: 57%; height: 5px; border-radius: 99px; background: var(--accent); transform-origin: left center; }
+      .swap { display: grid; place-items: center; width: 76px; height: 76px; border: 2px solid color-mix(in srgb, var(--accent) 48%, transparent); border-radius: 24px; color: var(--accent); font-size: 42px; font-weight: 900; }
       .caption { position: absolute; left: 50%; bottom: -92px; transform: translateX(-50%); padding: 13px 28px; border-radius: 999px; color: #12100E; background: var(--accent); font-size: 24px; font-weight: 900; white-space: nowrap; }
-      .pulse { position: absolute; right: -110px; top: -120px; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle, rgba(255,90,54,.22), transparent 68%); }
+      .pulse { position: absolute; right: -110px; top: -120px; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle, color-mix(in srgb, var(--accent) 22%, transparent), transparent 68%); }
     </style>
   </head>
   <body>

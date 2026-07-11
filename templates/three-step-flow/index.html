@@ -10,12 +10,12 @@
       body { font-family: "IBM Plex Mono", monospace; }
       #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: transparent; color: var(--foreground); }
       .scene { position: absolute; inset: 0; display: grid; place-items: center; padding: 120px; }
-      .panel { position: relative; width: 1260px; padding: 42px 48px 52px; border: 2px solid rgba(255,90,54,.42); border-radius: 34px; background: rgba(18,16,14,.82); box-shadow: 0 28px 86px rgba(0,0,0,.32); backdrop-filter: blur(22px); }
+      .panel { position: relative; width: 1260px; padding: 42px 48px 52px; border: 2px solid color-mix(in srgb, var(--accent) 42%, transparent); border-radius: 34px; background: rgba(18,16,14,.82); box-shadow: 0 28px 86px rgba(0,0,0,.32); backdrop-filter: blur(22px); }
       .title { margin: 0 0 38px; color: var(--foreground); font-size: 42px; font-weight: 850; letter-spacing: -.04em; }
       .steps { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); gap: 34px; }
-      .rail { position: absolute; left: 130px; right: 130px; top: 44px; height: 4px; border-radius: 99px; background: rgba(255,90,54,.2); overflow: hidden; }
-      .rail-fill { width: 100%; height: 100%; background: var(--accent); transform-origin: left center; box-shadow: 0 0 22px rgba(255,90,54,.8); }
-      .step { position: relative; min-height: 196px; padding: 74px 28px 28px; border: 1px solid rgba(255,90,54,.26); border-radius: 26px; background: rgba(255,255,255,.035); }
+      .rail { position: absolute; left: 130px; right: 130px; top: 44px; height: 4px; border-radius: 99px; background: color-mix(in srgb, var(--accent) 20%, transparent); overflow: hidden; }
+      .rail-fill { width: 100%; height: 100%; background: var(--accent); transform-origin: left center; box-shadow: 0 0 22px color-mix(in srgb, var(--accent) 80%, transparent); }
+      .step { position: relative; min-height: 196px; padding: 74px 28px 28px; border: 1px solid color-mix(in srgb, var(--accent) 26%, transparent); border-radius: 26px; background: rgba(255,255,255,.035); }
       .index { position: absolute; top: 20px; left: 28px; display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; color: #12100E; background: var(--accent); font-size: 22px; font-weight: 900; }
       .step-title { margin: 0 0 14px; color: var(--foreground); font-size: 34px; font-weight: 880; letter-spacing: -.05em; }
       .desc { margin: 0; color: #B8ADA2; font-size: 21px; font-weight: 650; line-height: 1.35; }

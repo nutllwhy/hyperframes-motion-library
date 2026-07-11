@@ -1,4 +1,4 @@
-const state = { catalog: null, selected: null, values: {}, output: null, view: "library", staticDemo: false };
+const state = { catalog: null, selected: null, values: {}, output: null, previewOutput: null, view: "library", staticDemo: false };
 const list = document.querySelector("#template-list");
 const workspace = document.querySelector("#workspace");
 const cardTemplate = document.querySelector("#template-card");
@@ -6,7 +6,21 @@ const search = document.querySelector("#search");
 const showLibrary = document.querySelector("#show-library");
 const showGuide = document.querySelector("#show-guide");
 const GITHUB_REPO = "https://github.com/nutllwhy/hyperframes-motion-library";
-const STATIC_CATALOG_VERSION = "20260706-preview-renders";
+const STATIC_CATALOG_VERSION = "20260710-alpha-exports";
+const FORMAT_META = {
+  mp4: {
+    label: "纯色底 MP4（剪映直接使用）",
+    note: "保留模板的黑色背景与橙色设计，兼容性最好。"
+  },
+  mov: {
+    label: "透明 MOV（推荐剪映，文件较大）",
+    note: "保留透明通道，适合叠在口播画面上；本地会自动转成 ProRes 4444 MOV。"
+  },
+  webm: {
+    label: "透明 WebM（部分软件不支持）",
+    note: "文件更小并保留透明通道，适合网页和支持 WebM 的剪辑软件。"
+  }
+};
 const AGENT_INSTALL_PROMPT = `请帮我在本地安装并启动这个开源视频动效系统：
 
 GitHub 仓库：
@@ -56,21 +70,29 @@ function downloadName(template) {
 }
 
 function previewMarkup(template) {
-  if (!state.output) {
+  if (!state.previewOutput) {
     return `
       <div class="preview-placeholder">
         <strong>修改参数，生成第一条草稿</strong>
         ${state.staticDemo ? "GitHub Pages 演示页只能查看样片；克隆到本地后可以修改参数并渲染新视频。" : "系统会调用 HyperFrames，把当前文案与数据渲染成可播放的视频。"}
       </div>`;
   }
-  return `<video src="${assetUrl(state.output)}" controls controlsList="nodownload" autoplay loop></video>`;
+  const extension = fileExtension(state.previewOutput);
+  const transparent = extension === "webm" || extension === "mov";
+  return `<div class="preview-media ${transparent ? "transparent" : "solid"}"><video src="${assetUrl(state.previewOutput)}" controls controlsList="nodownload" autoplay loop></video></div>`;
 }
 
 function previewDownloadMarkup(template) {
   if (!state.output) return "";
+  const extension = fileExtension(state.output);
+  const localHint = extension === "mov"
+    ? "这是带透明通道的 MOV，可叠加在口播画面上；文件较大属于正常情况。"
+    : extension === "webm"
+      ? "这是透明 WebM；如果剪映无法导入，请改选透明 MOV。"
+      : "这是纯色底 MP4，可以直接导入剪映或其他剪辑软件。";
   const hint = state.staticDemo
     ? "线上演示下载的是预渲染样片，不会根据右侧参数重新生成；WebM 是透明叠加视频格式，不是网页文件。"
-    : "这是当前参数生成的视频文件，可以下载后导入剪映或其他剪辑软件。";
+    : localHint;
   return `
     <div class="preview-download-row">
       <a class="button preview-download" href="${assetUrl(state.output)}" download="${downloadName(template)}">${state.staticDemo ? "下载当前样片" : "下载当前视频"}</a>
@@ -117,6 +139,15 @@ function fieldMarkup(declaration) {
   return `<div class="field"><label for="field-${declaration.id}">${declaration.label}</label><input id="field-${declaration.id}" type="${type}" data-key="${declaration.id}" value="${String(value).replaceAll('"', '&quot;')}"></div>`;
 }
 
+function formatOption(format, selected) {
+  const meta = FORMAT_META[format] || { label: format.toUpperCase(), note: "" };
+  return `<option value="${format}" ${format === selected ? "selected" : ""}>${meta.label}</option>`;
+}
+
+function formatNote(format) {
+  return FORMAT_META[format]?.note || "";
+}
+
 function renderWorkspace() {
   state.view = "library";
   updateNav();
@@ -133,7 +164,7 @@ function renderWorkspace() {
       <form class="editor" id="editor">
         <h2>内容与数据</h2>
         <div class="preset-row"><select id="preset" aria-label="载入预设"><option value="">载入预设…</option>${template.presets.map((preset) => `<option value="${preset.id}">${preset.id}</option>`).join("")}</select><button class="button" type="button" id="save-preset">保存</button></div>
-        <div class="field"><label for="output-format">输出格式</label><select id="output-format">${(template.formats || ["mp4"]).map((format) => `<option value="${format}" ${format === template.defaultFormat ? "selected" : ""}>${format === "webm" ? "透明 WebM（部分剪辑软件不支持）" : "剪映可用 MP4"}</option>`).join("")}</select></div>
+        <div class="field"><label for="output-format">输出格式</label><select id="output-format">${(template.formats || ["mp4"]).map((format) => formatOption(format, template.defaultFormat)).join("")}</select><p class="field-note" id="format-note">${formatNote(template.defaultFormat)}</p></div>
         ${template.schema.map(fieldMarkup).join("")}
         <div class="action-row"><button class="button" type="button" id="reset">恢复默认</button><button class="button primary" type="submit" id="render">${state.staticDemo ? "本地运行后可渲染" : "生成草稿"}</button></div>
         <p class="status" id="status"></p>
@@ -151,6 +182,9 @@ function renderWorkspace() {
   });
   workspace.querySelector("#reset").addEventListener("click", () => { state.values = defaults(template); renderWorkspace(); });
   workspace.querySelector("#save-preset").addEventListener("click", savePreset);
+  workspace.querySelector("#output-format").addEventListener("change", (event) => {
+    workspace.querySelector("#format-note").textContent = formatNote(event.target.value);
+  });
   workspace.querySelector("#editor").addEventListener("submit", renderVideo);
   if (state.staticDemo) {
     workspace.querySelector("#save-preset").disabled = true;
@@ -249,6 +283,7 @@ function selectTemplate(template) {
   state.selected = template;
   state.values = defaults(template);
   state.output = template.preview || null;
+  state.previewOutput = template.preview || null;
   renderList(search.value);
   renderWorkspace();
   workspace.scrollTo({ top: 0, behavior: "smooth" });
@@ -282,11 +317,15 @@ async function renderVideo(event) {
     const job = await api("/api/render", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ templateId: state.selected.id, variables: state.values, quality: "draft", format }) });
     const timer = setInterval(async () => {
       const current = await api(`/api/jobs/${job.id}`);
-      if (current.status === "running") return;
+      if (current.status === "running") {
+        status.textContent = current.phase === "converting" ? "视频已渲染，正在转换透明 MOV…" : "正在渲染视频画面…";
+        return;
+      }
       clearInterval(timer);
       button.disabled = false;
       if (current.status === "failed") { status.className = "status error"; status.textContent = "渲染失败，请查看启动系统的终端信息。"; return; }
       state.output = current.output;
+      state.previewOutput = current.preview || current.output;
       status.textContent = "草稿已生成。";
       document.querySelector("#preview").innerHTML = previewMarkup(state.selected);
       document.querySelector("#preview-download").innerHTML = previewDownloadMarkup(state.selected);

@@ -1,14 +1,15 @@
 <!doctype html>
-<html lang="zh-CN" data-composition-variables='[{"id":"headline","type":"string","label":"主标题","default":"本周内容增长"},{"id":"value","type":"number","label":"核心数字","default":286},{"id":"unit","type":"string","label":"数字单位","default":"%"},{"id":"note","type":"string","label":"补充说明","default":"连续四周保持上升，爆款内容贡献了主要增量。"},{"id":"accent","type":"color","label":"强调色","default":"#FF5A36"},{"id":"background","type":"color","label":"背景色","default":"#12100E"},{"id":"foreground","type":"color","label":"文字色","default":"#F4EFE7"}]'>
+<html lang="zh-CN" data-composition-variables='[{"id":"headline","type":"string","label":"主标题","default":"本周内容增长"},{"id":"value","type":"number","label":"核心数字","default":286},{"id":"unit","type":"string","label":"数字单位","default":"%"},{"id":"note","type":"string","label":"补充说明","default":"连续四周保持上升，爆款内容贡献了主要增量。"},{"id":"accent","type":"color","label":"强调色","default":"#FF5A36"},{"id":"background","type":"color","label":"背景色","default":"#12100E"},{"id":"foreground","type":"color","label":"文字色","default":"#F4EFE7"},{"id":"exportMode","type":"enum","label":"导出模式","default":"transparent","hidden":true,"options":[{"value":"transparent","label":"透明背景"},{"value":"mp4","label":"剪映 MP4 深色底"}]}]'>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=1920, height=1080" />
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
     <style>
       * { box-sizing: border-box; }
-      html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; }
+      html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: transparent; }
+      html[data-export-mode="mp4"] body, html[data-export-mode="mp4"] #root { background: var(--background, #12100e) !important; }
       body { font-family: "IBM Plex Mono", monospace; }
-      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: #12100e; color: #f4efe7; }
+      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: transparent; color: var(--foreground, #f4efe7); }
       .scene { position: absolute; inset: 0; width: 100%; height: 100%; padding: 96px 112px; overflow: hidden; }
       .grid { position: absolute; inset: 0; opacity: .18; background-image: linear-gradient(#3a3029 2px, transparent 2px), linear-gradient(90deg, #3a3029 2px, transparent 2px); background-size: 120px 120px; mask-image: linear-gradient(to right, #000, transparent 72%); }
       .orb { position: absolute; right: -90px; top: -150px; width: 780px; height: 780px; border-radius: 50%; background: radial-gradient(circle, var(--accent) 0%, transparent 68%); opacity: .24; }
@@ -23,7 +24,10 @@
       .trend-chart { display: block; width: 100%; max-width: 620px; height: 170px; margin-top: 42px; overflow: visible; }
       .trend-area { fill: var(--accent); opacity: .1; }
       .trend-curve { fill: none; stroke: var(--accent); stroke-width: 9; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 0; }
-      .trend-point { fill: #12100e; stroke: var(--accent); stroke-width: 6; transform-box: fill-box; transform-origin: center; }
+      .trend-point { fill: var(--point-fill, #12100e); stroke: var(--accent); stroke-width: 6; transform-box: fill-box; transform-origin: center; }
+      html[data-export-mode="transparent"] .scene { display: flex; align-items: center; }
+      html[data-export-mode="transparent"] .content { height: auto; min-height: 780px; padding: 72px 78px; border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent); border-radius: 38px; background: rgba(18,16,14,.86); }
+      html[data-export-mode="transparent"] .grid, html[data-export-mode="transparent"] .orb, html[data-export-mode="transparent"] .ghost { display: none; }
     </style>
   </head>
   <body>
@@ -52,11 +56,13 @@
       </section>
     </div>
     <script>
-      const fallback = { headline: "本周内容增长", value: 286, unit: "%", note: "连续四周保持上升，爆款内容贡献了主要增量。", accent: "#FF5A36", background: "#12100E", foreground: "#F4EFE7" };
+      const fallback = { headline: "本周内容增长", value: 286, unit: "%", note: "连续四周保持上升，爆款内容贡献了主要增量。", accent: "#FF5A36", background: "#12100E", foreground: "#F4EFE7", exportMode: "transparent" };
       const variables = window.__hyperframes?.getVariables ? window.__hyperframes.getVariables() : fallback;
+      document.documentElement.dataset.exportMode = variables.exportMode || "transparent";
       document.documentElement.style.setProperty("--accent", variables.accent);
-      document.getElementById("root").style.backgroundColor = variables.background;
-      document.getElementById("root").style.color = variables.foreground;
+      document.documentElement.style.setProperty("--background", variables.background);
+      document.documentElement.style.setProperty("--foreground", variables.foreground);
+      document.documentElement.style.setProperty("--point-fill", variables.exportMode === "mp4" ? variables.background : "rgba(18,16,14,.92)");
       document.getElementById("headline").textContent = variables.headline;
       document.getElementById("value").textContent = variables.value;
       document.getElementById("unit").textContent = variables.unit;

@@ -9,13 +9,13 @@
       body { font-family: "IBM Plex Mono", monospace; }
       #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: transparent; color: var(--foreground); }
       .scene { position: absolute; inset: 0; display: grid; place-items: center; padding: 120px; }
-      .panel { width: 1160px; padding: 44px 56px 52px; border: 2px solid rgba(255,90,54,.38); border-radius: 32px; background: rgba(18,16,14,.84); box-shadow: 0 28px 86px rgba(0,0,0,.32); backdrop-filter: blur(22px); }
+      .panel { width: 1160px; padding: 44px 56px 52px; border: 2px solid color-mix(in srgb, var(--accent) 38%, transparent); border-radius: 32px; background: rgba(18,16,14,.84); box-shadow: 0 28px 86px rgba(0,0,0,.32); backdrop-filter: blur(22px); }
       .title { margin: 0 0 58px; font-size: 44px; line-height: 1.1; letter-spacing: -.055em; font-weight: 900; }
       .timeline { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); gap: 44px; }
-      .line { position: absolute; left: 86px; right: 86px; top: 38px; height: 4px; border-radius: 99px; background: rgba(255,90,54,.18); overflow: hidden; }
-      .line-fill { width: 100%; height: 100%; background: var(--accent); transform-origin: left center; box-shadow: 0 0 22px rgba(255,90,54,.8); }
+      .line { position: absolute; left: 86px; right: 86px; top: 38px; height: 4px; border-radius: 99px; background: color-mix(in srgb, var(--accent) 18%, transparent); overflow: hidden; }
+      .line-fill { width: 100%; height: 100%; background: var(--accent); transform-origin: left center; box-shadow: 0 0 22px color-mix(in srgb, var(--accent) 80%, transparent); }
       .node { position: relative; z-index: 2; display: grid; justify-items: center; gap: 18px; text-align: center; }
-      .dot { display: grid; place-items: center; width: 80px; height: 80px; border-radius: 50%; color: #12100E; background: var(--accent); font-size: 24px; font-weight: 950; box-shadow: 0 0 0 10px rgba(255,90,54,.14); }
+      .dot { display: grid; place-items: center; width: 80px; height: 80px; border-radius: 50%; color: #12100E; background: var(--accent); font-size: 24px; font-weight: 950; box-shadow: 0 0 0 10px color-mix(in srgb, var(--accent) 14%, transparent); }
       .label { color: var(--foreground); font-size: 34px; line-height: 1.15; letter-spacing: -.05em; font-weight: 880; }
     </style>
   </head>

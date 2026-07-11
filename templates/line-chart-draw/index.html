@@ -1,18 +1,20 @@
 <!doctype html>
-<html lang="zh-CN" data-composition-variables='[{"id":"title","type":"string","label":"图表标题","default":"月活跃用户增长趋势"},{"id":"subtitle","type":"string","label":"副标题","default":"2024.01 — 2024.12"},{"id":"labels","type":"string","label":"X轴标签（逗号分隔）","default":"1月,2月,3月,4月,5月,6月,7月,8月,9月,10月,11月,12月"},{"id":"values","type":"string","label":"Y轴数值（逗号分隔）","default":"120,145,180,210,260,340,420,480,510,580,640,720"},{"id":"accent","type":"color","label":"强调色","default":"#FF5A36"},{"id":"background","type":"color","label":"背景色","default":"#12100E"},{"id":"foreground","type":"color","label":"文字色","default":"#F4EFE7"}]'>
+<html lang="zh-CN" data-composition-variables='[{"id":"title","type":"string","label":"图表标题","default":"月活跃用户增长趋势"},{"id":"subtitle","type":"string","label":"副标题","default":"2024.01 — 2024.12"},{"id":"labels","type":"string","label":"X轴标签（逗号分隔）","default":"1月,2月,3月,4月,5月,6月,7月,8月,9月,10月,11月,12月"},{"id":"values","type":"string","label":"Y轴数值（逗号分隔）","default":"120,145,180,210,260,340,420,480,510,580,640,720"},{"id":"accent","type":"color","label":"强调色","default":"#FF5A36"},{"id":"background","type":"color","label":"背景色","default":"#12100E"},{"id":"foreground","type":"color","label":"文字色","default":"#F4EFE7"},{"id":"exportMode","type":"enum","label":"导出模式","default":"transparent","hidden":true,"options":[{"value":"transparent","label":"透明背景"},{"value":"mp4","label":"剪映 MP4 深色底"}]}]'>
   <head>
     <meta charset="UTF-8" /><meta name="viewport" content="width=1920, height=1080" />
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
     <style>
       * { box-sizing: border-box; }
-      html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: #12100e; }
+      html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: transparent; }
+      html[data-export-mode="mp4"] body, html[data-export-mode="mp4"] #root { background: var(--background, #12100e) !important; }
       body { font-family: "IBM Plex Mono", monospace; }
-      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: #12100e; color: #f4efe7; }
+      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: transparent; color: var(--foreground, #f4efe7); }
       .scene { position: absolute; inset: 0; width: 100%; height: 100%; padding: 96px 112px; overflow: hidden; }
+      html[data-export-mode="transparent"] .scene::before { content: ""; position: absolute; inset: 58px 72px; z-index: 0; border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent); border-radius: 34px; background: rgba(18,16,14,.86); }
       .title-area { position: relative; z-index: 2; margin-bottom: 40px; }
       .title { margin: 0 0 10px; font-size: 64px; font-weight: 700; line-height: 1.1; letter-spacing: -0.03em; }
       .subtitle { margin: 0; font-size: 28px; font-weight: 400; color: #b8ada2; line-height: 1.4; }
-      .chart-area { position: relative; width: 100%; height: 660px; }
+      .chart-area { position: relative; z-index: 1; width: 100%; height: 660px; }
       .chart-svg { width: 100%; height: 100%; overflow: visible; }
       .grid-line { stroke: #3a3029; stroke-width: 1; }
       .grid-line-strong { stroke: #5a4840; stroke-width: 1.5; }
@@ -20,7 +22,7 @@
       .axis-text-y { text-anchor: end; dominant-baseline: middle; }
       .area-path { fill: var(--accent); opacity: 0.12; }
       .line-path { fill: none; stroke: var(--accent); stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
-      .data-point { fill: #12100e; stroke: var(--accent); stroke-width: 5; }
+      .data-point { fill: var(--point-fill, #12100e); stroke: var(--accent); stroke-width: 5; }
       .baseline { stroke: #5a4840; stroke-width: 2; }
     </style>
   </head>
@@ -37,11 +39,13 @@
       </section>
     </div>
     <script>
-      const fallback = { title: "月活跃用户增长趋势", subtitle: "2024.01 — 2024.12", labels: "1月,2月,3月,4月,5月,6月,7月,8月,9月,10月,11月,12月", values: "120,145,180,210,260,340,420,480,510,580,640,720", accent: "#FF5A36", background: "#12100E", foreground: "#F4EFE7" };
+      const fallback = { title: "月活跃用户增长趋势", subtitle: "2024.01 — 2024.12", labels: "1月,2月,3月,4月,5月,6月,7月,8月,9月,10月,11月,12月", values: "120,145,180,210,260,340,420,480,510,580,640,720", accent: "#FF5A36", background: "#12100E", foreground: "#F4EFE7", exportMode: "transparent" };
       const v = window.__hyperframes?.getVariables ? window.__hyperframes.getVariables() : fallback;
+      document.documentElement.dataset.exportMode = v.exportMode || "transparent";
       document.documentElement.style.setProperty("--accent", v.accent);
-      document.getElementById("root").style.backgroundColor = v.background;
-      document.getElementById("root").style.color = v.foreground;
+      document.documentElement.style.setProperty("--background", v.background);
+      document.documentElement.style.setProperty("--foreground", v.foreground);
+      document.documentElement.style.setProperty("--point-fill", v.exportMode === "mp4" ? v.background : "rgba(18,16,14,.92)");
       for (const [id, value] of [["title", v.title], ["subtitle", v.subtitle]]) document.getElementById(id).textContent = value;
 
       const labels = v.labels.split(",");

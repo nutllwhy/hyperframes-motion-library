@@ -16,7 +16,9 @@
       "duration": 6,
       "size": "1920×1080",
       "formats": [
-        "mp4"
+        "mp4",
+        "mov",
+        "webm"
       ],
       "defaultFormat": "mp4",
       "preview": "/renders/bar-chart-grow/sample.mp4",
@@ -38,7 +40,9 @@
       "duration": 5,
       "size": "1920×1080",
       "formats": [
-        "mp4"
+        "mp4",
+        "mov",
+        "webm"
       ],
       "defaultFormat": "mp4",
       "preview": "/renders/number-counter/sample.mp4",
@@ -59,7 +63,9 @@
       "duration": 7,
       "size": "1920×1080",
       "formats": [
-        "mp4"
+        "mp4",
+        "mov",
+        "webm"
       ],
       "defaultFormat": "mp4",
       "preview": "/renders/line-chart-draw/sample.mp4",
@@ -80,7 +86,9 @@
       "duration": 6,
       "size": "1920×1080",
       "formats": [
-        "mp4"
+        "mp4",
+        "mov",
+        "webm"
       ],
       "defaultFormat": "mp4",
       "preview": "/renders/metric-pulse/sample.mp4",
@@ -102,6 +110,7 @@
       "size": "1920×1080",
       "formats": [
         "mp4",
+        "mov",
         "webm"
       ],
       "defaultFormat": "mp4",
@@ -124,6 +133,7 @@
       "size": "1920×1080",
       "formats": [
         "mp4",
+        "mov",
         "webm"
       ],
       "defaultFormat": "mp4",
@@ -146,6 +156,7 @@
       "size": "1920×1080",
       "formats": [
         "mp4",
+        "mov",
         "webm"
       ],
       "defaultFormat": "mp4",
@@ -168,6 +179,7 @@
       "size": "1920×1080",
       "formats": [
         "mp4",
+        "mov",
         "webm"
       ],
       "defaultFormat": "mp4",
@@ -190,6 +202,7 @@
       "size": "1920×1080",
       "formats": [
         "mp4",
+        "mov",
         "webm"
       ],
       "defaultFormat": "mp4",
@@ -212,6 +225,7 @@
       "size": "1920×1080",
       "formats": [
         "mp4",
+        "mov",
         "webm"
       ],
       "defaultFormat": "mp4",
@@ -234,6 +248,7 @@
       "size": "1920×1080",
       "formats": [
         "mp4",
+        "mov",
         "webm"
       ],
       "defaultFormat": "mp4",
@@ -256,6 +271,7 @@
       "size": "1920×1080",
       "formats": [
         "mp4",
+        "mov",
         "webm"
       ],
       "defaultFormat": "mp4",
@@ -278,6 +294,7 @@
       "size": "1920×1080",
       "formats": [
         "mp4",
+        "mov",
         "webm"
       ],
       "defaultFormat": "mp4",
@@ -300,6 +317,7 @@
       "size": "1920×1080",
       "formats": [
         "mp4",
+        "mov",
         "webm"
       ],
       "defaultFormat": "mp4",
@@ -322,6 +340,7 @@
       "size": "1920×1080",
       "formats": [
         "mp4",
+        "mov",
         "webm"
       ],
       "defaultFormat": "mp4",
@@ -344,6 +363,7 @@
       "size": "1920×1080",
       "formats": [
         "mp4",
+        "mov",
         "webm"
       ],
       "defaultFormat": "mp4",
@@ -366,6 +386,7 @@
       "size": "1920×1080",
       "formats": [
         "mp4",
+        "mov",
         "webm"
       ],
       "defaultFormat": "mp4",
@@ -388,6 +409,7 @@
       "size": "1920×1080",
       "formats": [
         "mp4",
+        "mov",
         "webm"
       ],
       "defaultFormat": "mp4",
@@ -410,6 +432,7 @@
       "size": "1920×1080",
       "formats": [
         "mp4",
+        "mov",
         "webm"
       ],
       "defaultFormat": "mp4",
@@ -432,6 +455,7 @@
       "size": "1920×1080",
       "formats": [
         "mp4",
+        "mov",
         "webm"
       ],
       "defaultFormat": "mp4",
