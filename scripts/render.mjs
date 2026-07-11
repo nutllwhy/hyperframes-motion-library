@@ -14,5 +14,13 @@ const renderValues = schema.some((item) => item.id === "exportMode") ? { ...valu
 const outputDir = path.join(root, "renders", templateId);
 await fs.mkdir(outputDir, { recursive: true });
 const output = path.join(outputDir, `${path.basename(presetPath, ".json")}.mp4`);
-const result = spawnSync("npx", ["--yes", "hyperframes@0.6.115", "render", "--strict-variables", "--variables", JSON.stringify(renderValues), "--output", output], { cwd: template.absolutePath, stdio: "inherit" });
-process.exit(result.status || 0);
+const renderVariablesPath = path.join(outputDir, `.${path.basename(presetPath, ".json")}.render-vars.json`);
+await fs.writeFile(renderVariablesPath, JSON.stringify(renderValues), "utf8");
+const renderArgs = ["--yes", "hyperframes@0.6.115", "render", "--workers", "3", "--strict-variables", "--variables-file", renderVariablesPath, "--output", output];
+const npxCli = path.join(path.dirname(process.execPath), "node_modules", "npm", "bin", "npx-cli.js");
+const command = process.platform === "win32" ? process.execPath : "npx";
+const commandArgs = process.platform === "win32" ? [npxCli, ...renderArgs] : renderArgs;
+const result = spawnSync(command, commandArgs, { cwd: template.absolutePath, stdio: "inherit" });
+await fs.rm(renderVariablesPath, { force: true });
+if (result.error) throw result.error;
+process.exit(result.status ?? 1);

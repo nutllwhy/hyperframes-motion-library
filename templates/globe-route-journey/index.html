@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="zh-CN" data-composition-variables='[{"id":"title","type":"string","label":"左上标题","default":"ZHENG HE VOYAGES"},{"id":"era","type":"string","label":"年代说明","default":"1405–1433 / MING MARITIME ROUTES"},{"id":"routeLabel","type":"string","label":"航线说明","default":"LIUJIAGANG TO THE INDIAN OCEAN"},{"id":"routeJson","type":"string","label":"航线节点 JSON","default":"[{\"name\":\"刘家港 / 南京\",\"lon\":121,\"lat\":31.7},{\"name\":\"占城\",\"lon\":108.9,\"lat\":11.6},{\"name\":\"马六甲\",\"lon\":102.25,\"lat\":2.2},{\"name\":\"锡兰\",\"lon\":80.8,\"lat\":7.2},{\"name\":\"古里\",\"lon\":75.8,\"lat\":11.3},{\"name\":\"忽鲁谟斯\",\"lon\":56.45,\"lat\":27},{\"name\":\"木骨都束\",\"lon\":45.32,\"lat\":2.05},{\"name\":\"麻林地\",\"lon\":40.1,\"lat\":-3.2}]"},{"id":"landColor","type":"color","label":"陆地颜色","default":"#BFE98F"},{"id":"oceanColor","type":"color","label":"海洋颜色","default":"#49A8E3"},{"id":"routeColor","type":"color","label":"航线颜色","default":"#FF655E"},{"id":"background","type":"color","label":"背景颜色","default":"#071321"},{"id":"foreground","type":"color","label":"文字颜色","default":"#F4EFE7"},{"id":"showVehicle","type":"boolean","label":"显示移动载具","default":true}]'>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="vendor/gsap.min.js"></script>
+    <script src="vendor/d3.min.js"></script>
+    <script src="vendor/topojson-client.min.js"></script>
+    <style>
+      * { box-sizing: border-box; }
+      html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; }
+      body { font-family: "IBM Plex Mono", monospace; }
+      #root {
+        position: relative;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        color: var(--foreground);
+        background:
+          radial-gradient(circle at 68% 30%, color-mix(in srgb, var(--ocean) 30%, transparent), transparent 38%),
+          radial-gradient(circle at 26% 76%, rgba(255, 134, 74, .12), transparent 34%),
+          var(--background);
+      }
+      #root::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        opacity: .24;
+        background-image:
+          linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+        background-size: 72px 72px;
+        mask-image: radial-gradient(circle at center, #000, transparent 82%);
+      }
+      .noise {
+        position: absolute;
+        inset: -30px;
+        pointer-events: none;
+        opacity: .13;
+        background-image: repeating-linear-gradient(0deg, transparent 0 3px, rgba(255,255,255,.025) 3px 4px);
+      }
+      canvas { position: absolute; inset: 0; width: 1080px; height: 1920px; }
+      .hud {
+        position: absolute;
+        z-index: 3;
+        top: 58px;
+        left: 58px;
+        right: 58px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 42px;
+        color: rgba(244,239,231,.82);
+        font-size: 18px;
+        line-height: 1.45;
+        letter-spacing: .08em;
+      }
+      .hud-left { max-width: 540px; }
+      .hud-title { margin-bottom: 20px; font-weight: 700; letter-spacing: .12em; }
+      .hud-era { color: rgba(244,239,231,.7); }
+      .hud-right { width: 265px; padding-top: 8px; text-align: left; }
+      .hud-line { width: 100%; height: 2px; margin-bottom: 18px; transform-origin: left center; background: linear-gradient(90deg, #f2c861, #64d6c8); }
+      .route-key { color: rgba(244,239,231,.84); }
+      #labels { position: absolute; inset: 0; z-index: 4; pointer-events: none; }
+      .map-label {
+        position: absolute;
+        max-width: 220px;
+        transform: translate(-50%, -100%);
+        padding: 10px 15px;
+        border: 1px solid color-mix(in srgb, var(--route) 70%, white);
+        border-radius: 8px;
+        color: var(--foreground);
+        background: var(--background);
+        box-shadow: 0 8px 24px rgba(0,0,0,.24);
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 1.15;
+        text-align: center;
+        white-space: nowrap;
+        opacity: 0;
+      }
+      .loading {
+        position: absolute;
+        z-index: 5;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        color: rgba(244,239,231,.56);
+        font-size: 18px;
+        letter-spacing: .16em;
+      }
+      .footer {
+        position: absolute;
+        z-index: 3;
+        left: 58px;
+        right: 58px;
+        bottom: 54px;
+        display: flex;
+        justify-content: space-between;
+        color: rgba(244,239,231,.52);
+        font-size: 15px;
+        letter-spacing: .12em;
+      }
+      .footer::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: -18px;
+        height: 2px;
+        background: linear-gradient(90deg, var(--route), rgba(100,214,200,.6), transparent);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="10" data-width="1080" data-height="1920">
+      <section id="route-scene" class="clip" data-start="0" data-duration="10" data-track-index="1">
+        <canvas id="globe" width="1080" height="1920"></canvas>
+        <div id="labels"></div>
+        <div class="hud">
+          <div class="hud-left">
+            <div class="hud-title" id="title"></div>
+            <div class="hud-era" id="era"></div>
+          </div>
+          <div class="hud-right">
+            <div class="hud-line"></div>
+            <div class="route-key" id="route-label"></div>
+          </div>
+        </div>
+        <div class="footer"><span>ROUTE / ORTHOGRAPHIC</span><span id="point-count"></span></div>
+        <div class="noise"></div>
+        <div class="loading" id="loading">LOADING NATURAL EARTH MAP</div>
+      </section>
+    </div>
+    <script>
+      const fallback = {
+        title: "ZHENG HE VOYAGES",
+        era: "1405–1433 / MING MARITIME ROUTES",
+        routeLabel: "LIUJIAGANG TO THE INDIAN OCEAN",
+        routeJson: JSON.stringify([
+          { name: "刘家港 / 南京", lon: 121, lat: 31.7 },
+          { name: "占城", lon: 108.9, lat: 11.6 },
+          { name: "马六甲", lon: 102.25, lat: 2.2 },
+          { name: "锡兰", lon: 80.8, lat: 7.2 },
+          { name: "古里", lon: 75.8, lat: 11.3 },
+          { name: "忽鲁谟斯", lon: 56.45, lat: 27 },
+          { name: "木骨都束", lon: 45.32, lat: 2.05 },
+          { name: "麻林地", lon: 40.1, lat: -3.2 },
+        ]),
+        landColor: "#BFE98F",
+        oceanColor: "#49A8E3",
+        routeColor: "#FF655E",
+        background: "#071321",
+        foreground: "#F4EFE7",
+        showVehicle: true,
+      };
+
+      const input = window.__hyperframes?.getVariables ? window.__hyperframes.getVariables() : fallback;
+      const variables = { ...fallback, ...input };
+      const root = document.getElementById("root");
+      root.style.setProperty("--background", variables.background);
+      root.style.setProperty("--foreground", variables.foreground);
+      root.style.setProperty("--ocean", variables.oceanColor);
+      root.style.setProperty("--route", variables.routeColor);
+      document.getElementById("title").textContent = variables.title;
+      document.getElementById("era").textContent = variables.era;
+      document.getElementById("route-label").textContent = variables.routeLabel;
+
+      function parseRoute(value) {
+        try {
+          const parsed = JSON.parse(value);
+          const valid = parsed
+            .map((point, index) => ({
+              id: `point-${index}`,
+              name: String(point.name || `POINT ${index + 1}`),
+              lon: Number(point.lon),
+              lat: Number(point.lat),
+            }))
+            .filter((point) => Number.isFinite(point.lon) && Number.isFinite(point.lat));
+          if (valid.length >= 2) return valid;
+        } catch {}
+        return JSON.parse(fallback.routeJson).map((point, index) => ({ ...point, id: `point-${index}` }));
+      }
+
+      const route = parseRoute(variables.routeJson);
+      document.getElementById("point-count").textContent = `${route.length} WAYPOINTS`;
+      const labelsRoot = document.getElementById("labels");
+      const labels = route.map((point) => {
+        const label = document.createElement("div");
+        label.className = "map-label";
+        label.setAttribute("data-layout-allow-occlusion", "");
+        label.textContent = point.name;
+        labelsRoot.appendChild(label);
+        return label;
+      });
+
+      const state = { routeProgress: 0, focusProgress: 0, opacity: 1 };
+      let projection;
+      let geoPath;
+      let landFeatures = [];
+      let countryFeatures = [];
+      let routeSamples = [];
+      let ready = false;
+      const canvas = document.getElementById("globe");
+      const ctx = canvas.getContext("2d");
+
+      function hexToRgba(hex, alpha) {
+        const value = String(hex).replace("#", "");
+        const r = parseInt(value.slice(0, 2), 16);
+        const g = parseInt(value.slice(2, 4), 16);
+        const b = parseInt(value.slice(4, 6), 16);
+        return `rgba(${r},${g},${b},${alpha})`;
+      }
+
+      function lonLatToVector(lon, lat) {
+        const phi = (lat * Math.PI) / 180;
+        const theta = (lon * Math.PI) / 180;
+        return [Math.cos(phi) * Math.cos(theta), Math.sin(phi), -Math.cos(phi) * Math.sin(theta)];
+      }
+
+      function interpolateSphere(a, b, t) {
+        const va = lonLatToVector(a.lon, a.lat);
+        const vb = lonLatToVector(b.lon, b.lat);
+        const dot = Math.max(-1, Math.min(1, va[0] * vb[0] + va[1] * vb[1] + va[2] * vb[2]));
+        const omega = Math.acos(dot);
+        const sinOmega = Math.sin(omega);
+        const left = sinOmega < .0001 ? 1 - t : Math.sin((1 - t) * omega) / sinOmega;
+        const right = sinOmega < .0001 ? t : Math.sin(t * omega) / sinOmega;
+        const x = va[0] * left + vb[0] * right;
+        const y = va[1] * left + vb[1] * right;
+        const z = va[2] * left + vb[2] * right;
+        return { lon: Math.atan2(-z, x) * 180 / Math.PI, lat: Math.asin(y) * 180 / Math.PI };
+      }
+
+      function buildRouteSamples() {
+        const samples = [];
+        for (let index = 0; index < route.length - 1; index += 1) {
+          const steps = Math.max(70, Math.ceil(d3.geoDistance([route[index].lon, route[index].lat], [route[index + 1].lon, route[index + 1].lat]) * 300));
+          for (let step = 0; step <= steps; step += 1) {
+            if (index > 0 && step === 0) continue;
+            samples.push(interpolateSphere(route[index], route[index + 1], step / steps));
+          }
+        }
+        routeSamples = samples;
+      }
+
+      function sampleAt(progress) {
+        const position = Math.max(0, Math.min(routeSamples.length - 1, progress * (routeSamples.length - 1)));
+        const index = Math.floor(position);
+        const fraction = position - index;
+        const a = routeSamples[index] || route[0];
+        const b = routeSamples[Math.min(routeSamples.length - 1, index + 1)] || a;
+        return { lon: a.lon + (b.lon - a.lon) * fraction, lat: a.lat + (b.lat - a.lat) * fraction };
+      }
+
+      function project(point) {
+        const result = projection([point.lon, point.lat]);
+        if (!result) return null;
+        const focus = sampleAt(state.focusProgress);
+        const lambda = (point.lon - focus.lon) * Math.PI / 180;
+        const phi = point.lat * Math.PI / 180;
+        const phi0 = focus.lat * Math.PI / 180;
+        const visible = Math.sin(phi0) * Math.sin(phi) + Math.cos(phi0) * Math.cos(phi) * Math.cos(lambda) >= 0;
+        return { x: result[0], y: result[1], visible };
+      }
+
+      function drawRoute(progress, width, color, blur) {
+        const count = Math.max(1, Math.floor((routeSamples.length - 1) * progress));
+        ctx.save();
+        ctx.beginPath();
+        ctx.lineCap = "round";
+        ctx.lineJoin = "round";
+        ctx.lineWidth = width;
+        ctx.strokeStyle = color;
+        ctx.shadowColor = color;
+        ctx.shadowBlur = blur;
+        let started = false;
+        for (let index = 0; index <= count; index += 1) {
+          const point = project(routeSamples[index]);
+          if (!point?.visible) { started = false; continue; }
+          if (!started) ctx.moveTo(point.x, point.y);
+          else ctx.lineTo(point.x, point.y);
+          started = true;
+        }
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      function drawVehicle() {
+        if (!variables.showVehicle || state.routeProgress <= .015 || state.routeProgress >= .995) return;
+        const current = project(sampleAt(state.routeProgress));
+        const previous = project(sampleAt(Math.max(0, state.routeProgress - .012)));
+        if (!current?.visible || !previous?.visible) return;
+        const angle = Math.atan2(current.y - previous.y, current.x - previous.x);
+        ctx.save();
+        ctx.translate(current.x, current.y);
+        ctx.rotate(angle + Math.PI / 2);
+        ctx.shadowColor = variables.routeColor;
+        ctx.shadowBlur = 22;
+        ctx.fillStyle = variables.foreground;
+        ctx.beginPath();
+        ctx.moveTo(0, -23);
+        ctx.lineTo(13, 17);
+        ctx.lineTo(0, 10);
+        ctx.lineTo(-13, 17);
+        ctx.closePath();
+        ctx.fill();
+        ctx.restore();
+      }
+
+      function render() {
+        if (!ready) return;
+        ctx.clearRect(0, 0, 1080, 1920);
+        ctx.globalAlpha = state.opacity;
+        const focus = sampleAt(state.focusProgress);
+        const zoom = 525 + Math.sin(state.focusProgress * Math.PI) * 185;
+        projection.translate([540, 910]).scale(zoom).rotate([-focus.lon, -focus.lat, 0]).clipAngle(90);
+
+        const glow = ctx.createRadialGradient(540, 910, zoom * .78, 540, 910, zoom * 1.3);
+        glow.addColorStop(0, hexToRgba(variables.oceanColor, .32));
+        glow.addColorStop(1, hexToRgba(variables.oceanColor, 0));
+        ctx.fillStyle = glow;
+        ctx.beginPath();
+        ctx.arc(540, 910, zoom * 1.3, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(540, 910, zoom, 0, Math.PI * 2);
+        ctx.clip();
+        const ocean = ctx.createLinearGradient(540 - zoom, 910 - zoom, 540 + zoom, 910 + zoom);
+        ocean.addColorStop(0, hexToRgba(variables.oceanColor, .76));
+        ocean.addColorStop(.5, variables.oceanColor);
+        ocean.addColorStop(1, hexToRgba(variables.oceanColor, .62));
+        ctx.fillStyle = ocean;
+        ctx.fillRect(540 - zoom, 910 - zoom, zoom * 2, zoom * 2);
+
+        ctx.beginPath();
+        geoPath({ type: "FeatureCollection", features: landFeatures });
+        ctx.fillStyle = variables.landColor;
+        ctx.fill();
+        ctx.lineWidth = 4;
+        ctx.strokeStyle = hexToRgba(variables.foreground, .9);
+        ctx.stroke();
+
+        ctx.beginPath();
+        geoPath({ type: "FeatureCollection", features: countryFeatures });
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = hexToRgba(variables.foreground, .62);
+        ctx.stroke();
+
+        drawRoute(state.routeProgress, 16, hexToRgba(variables.routeColor, .28), 18);
+        drawRoute(state.routeProgress, 7, variables.routeColor, 9);
+
+        route.forEach((point, index) => {
+          const threshold = index / Math.max(1, route.length - 1);
+          const screen = project(point);
+          if (!screen?.visible || state.routeProgress + .01 < threshold) return;
+          ctx.fillStyle = hexToRgba(variables.routeColor, .24);
+          ctx.beginPath(); ctx.arc(screen.x, screen.y, 18, 0, Math.PI * 2); ctx.fill();
+          ctx.fillStyle = variables.foreground;
+          ctx.beginPath(); ctx.arc(screen.x, screen.y, 9, 0, Math.PI * 2); ctx.fill();
+          ctx.lineWidth = 5; ctx.strokeStyle = variables.routeColor; ctx.stroke();
+        });
+        drawVehicle();
+        ctx.restore();
+
+        ctx.beginPath();
+        ctx.arc(540, 910, zoom, 0, Math.PI * 2);
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = hexToRgba(variables.foreground, .34);
+        ctx.stroke();
+
+        route.forEach((point, index) => {
+          const screen = project(point);
+          const active = state.routeProgress + .01 >= index / Math.max(1, route.length - 1);
+          const recent = index >= Math.floor(state.routeProgress * (route.length - 1)) - 2;
+          const visible = Boolean(active && recent && screen?.visible && screen.x > 85 && screen.x < 995 && screen.y > 180 && screen.y < 1680);
+          labels[index].style.opacity = visible ? "1" : "0";
+          if (screen) { labels[index].style.left = `${screen.x}px`; labels[index].style.top = `${screen.y - 24}px`; }
+        });
+      }
+
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true, onUpdate: render });
+      tl.fromTo(".hud", { opacity: 0, y: -24 }, { opacity: 1, y: 0, duration: .75, ease: "power3.out" }, .15);
+      tl.fromTo(".hud-line", { scaleX: 0 }, { scaleX: 1, duration: .8, ease: "power3.out" }, .3);
+      tl.fromTo(".footer", { opacity: 0 }, { opacity: 1, duration: .7 }, .45);
+      tl.to(state, { routeProgress: 1, focusProgress: 1, duration: 7.5, ease: "power1.inOut" }, .75);
+      tl.to(state, { opacity: 0, duration: .55, ease: "power2.in" }, 9.35);
+      tl.to(".hud, .footer, #labels", { opacity: 0, duration: .45, ease: "power2.in" }, 9.4);
+      window.__timelines.main = tl;
+
+      fetch("assets/countries-110m.json")
+        .then((response) => response.json())
+        .then((topology) => {
+          landFeatures = topojson.feature(topology, topology.objects.land).features;
+          countryFeatures = topojson.feature(topology, topology.objects.countries).features;
+          projection = d3.geoOrthographic();
+          geoPath = d3.geoPath(projection, ctx);
+          buildRouteSamples();
+          ready = true;
+          document.getElementById("loading").style.display = "none";
+          render();
+        });
+    </script>
+  </body>
+</html>

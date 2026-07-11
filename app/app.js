@@ -337,5 +337,9 @@ search.addEventListener("input", () => renderList(search.value));
 state.catalog = await loadCatalog();
 document.querySelector("#template-count").textContent = state.catalog.templates.filter((template) => template.status === "ready").length;
 renderList();
-const initialTemplate = state.catalog.templates.find((template) => template.status === "ready" && template.preview) || state.catalog.templates[0];
+const requestedTemplateId = new URLSearchParams(location.search).get("template");
+const requestedTemplate = requestedTemplateId
+  ? state.catalog.templates.find((template) => template.id === requestedTemplateId && template.status === "ready")
+  : null;
+const initialTemplate = requestedTemplate || state.catalog.templates.find((template) => template.status === "ready" && template.preview) || state.catalog.templates[0];
 if (initialTemplate) selectTemplate(initialTemplate);

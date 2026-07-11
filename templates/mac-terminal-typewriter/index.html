@@ -1,0 +1,26 @@
+﻿<!doctype html>
+<html lang="zh-CN" data-composition-variables='[{"id":"title","type":"string","label":"标题","default":"Mac 终端打字机"},{"id":"subtitle","type":"string","label":"副标题","default":"命令输入、执行反馈与光标节奏"},{"id":"command1","type":"string","label":"命令一","default":"codex --project motion-library"},{"id":"output1","type":"string","label":"反馈一","default":"✓ loaded 24 reusable components"},{"id":"command2","type":"string","label":"命令二","default":"render wechat-mobile-chat --preview"},{"id":"output2","type":"string","label":"反馈二","default":"✓ preview ready at localhost:4312"},{"id":"accent","type":"color","label":"强调色","default":"#72F2C2"},{"id":"background","type":"color","label":"背景色","default":"#09111F"}]'>
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=1920, height=1080">
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <style>
+    *{box-sizing:border-box}html,body{margin:0;width:1920px;height:1080px;overflow:hidden;background:#09111f}body{font-family:Arial,sans-serif}#root{position:relative;width:1920px;height:1080px;overflow:hidden;color:#f5f7ff;background:radial-gradient(circle at 50% 42%,#193251 0%,var(--bg) 50%,#050811 100%)}
+    .grid{position:absolute;inset:0;opacity:.22;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:54px 54px}.heading{position:absolute;left:86px;top:72px}.eyebrow{font:800 22px ui-monospace,monospace;letter-spacing:3.4px;color:var(--accent)}h1{margin:14px 0 0;font-size:68px;line-height:1;font-weight:900;letter-spacing:-4px}.subtitle{margin-top:14px;color:#9ca8bb;font-size:28px}
+    .terminal{position:absolute;left:210px;right:210px;top:300px;height:650px;border-radius:28px;overflow:hidden;background:rgba(8,12,20,.97);border:1px solid rgba(255,255,255,.16);box-shadow:0 45px 110px rgba(0,0,0,.55),0 0 0 1px rgba(0,0,0,.8)}.bar{height:74px;display:flex;align-items:center;padding:0 26px;background:linear-gradient(#353943,#252933);border-bottom:1px solid #11151c}.dots{display:flex;gap:14px}.dot{width:19px;height:19px;border-radius:50%}.caption{position:absolute;left:0;right:0;text-align:center;color:#c8ced9;font:650 23px -apple-system,BlinkMacSystemFont,sans-serif}.body{padding:54px 60px;font:32px/1.72 SFMono-Regular,Consolas,ui-monospace,monospace}.line{min-height:56px}.path{color:#6fb7ff}.prompt,.success,.cursor{color:var(--accent)}#command1,#command2{display:inline-block;overflow:hidden;white-space:nowrap;vertical-align:bottom}.badge{position:absolute;right:28px;bottom:22px;padding:9px 14px;border-radius:999px;color:#8491a6;background:#121824;font:18px ui-monospace,monospace}
+  </style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="8" data-width="1920" data-height="1080">
+  <section id="terminal-scene" class="scene clip" data-start="0" data-duration="8" data-track-index="1">
+    <div class="grid"></div><div class="heading"><div class="eyebrow">TERMINAL MOTION</div><h1 id="title"></h1><div class="subtitle" id="subtitle"></div></div>
+    <div class="terminal"><div class="bar"><div class="dots"><i class="dot" style="background:#ff5f57"></i><i class="dot" style="background:#febc2e"></i><i class="dot" style="background:#28c840"></i></div><div class="caption">motion-library — zsh</div></div>
+      <div class="body"><div class="line command c1"><span class="prompt">➜</span> <span class="path">~/motion-library </span><span id="command1" data-layout-ignore></span><span class="cursor">▋</span></div><div class="line success o1" id="output1"></div><div class="line command c2"><span class="prompt">➜</span> <span class="path">~/motion-library </span><span id="command2" data-layout-ignore></span><span class="cursor">▋</span></div><div class="line success o2" id="output2"></div></div><div class="badge">8s · SEEKABLE</div>
+    </div>
+  </section>
+</div>
+<script>
+  const fallback={title:"Mac 终端打字机",subtitle:"命令输入、执行反馈与光标节奏",command1:"codex --project motion-library",output1:"✓ loaded 24 reusable components",command2:"render wechat-mobile-chat --preview",output2:"✓ preview ready at localhost:4312",accent:"#72F2C2",background:"#09111F"};
+  const v=window.__hyperframes?.getVariables?window.__hyperframes.getVariables():fallback;document.documentElement.style.setProperty("--accent",v.accent);document.documentElement.style.setProperty("--bg",v.background);for(const id of ["title","subtitle","command1","output1","command2","output2"])document.getElementById(id).textContent=v[id];
+  window.__timelines=window.__timelines||{};const tl=gsap.timeline({paused:true});tl.fromTo(".terminal",{opacity:0,y:55,scale:.965},{opacity:1,y:0,scale:1,duration:.72,ease:"expo.out"},.05).fromTo(".c1",{opacity:0},{opacity:1,duration:.15},.7).fromTo("#command1",{width:0},{width:"auto",duration:1.25,ease:"steps(29)"},.78).fromTo(".o1",{opacity:0,y:10},{opacity:1,y:0,duration:.3},2.05).fromTo(".c2",{opacity:0},{opacity:1,duration:.2},2.65).fromTo("#command2",{width:0},{width:"auto",duration:1.35,ease:"steps(34)"},2.72).fromTo(".o2",{opacity:0,y:10},{opacity:1,y:0,duration:.3},4.12).to(".cursor",{opacity:.15,duration:.18,repeat:9,yoyo:true,ease:"none"},.8).to(".scene",{opacity:0,y:-18,duration:.4,ease:"power2.in"},7.5);window.__timelines.main=tl;
+</script>
+</body></html>
