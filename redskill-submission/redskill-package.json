@@ -1,6 +1,7 @@
 {
   "name": "视频动效系统 RedSkill 投稿版",
   "author": "栗噔噔",
+  "license": "MIT",
   "repository": "https://github.com/nutllwhy/hyperframes-motion-library",
   "demo": "https://nutllwhy.github.io/hyperframes-motion-library/",
   "supportedFileTypes": [

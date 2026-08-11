@@ -30,6 +30,10 @@ https://nutllwhy.github.io/hyperframes-motion-library/
 
 ## 更新记录
 
+### 2026-08-12 · 补充开源协议
+
+- 项目正式采用 MIT License，明确允许个人及商业使用、修改和再发布，同时须保留原作者版权与许可声明。
+
 ### 2026-08-11 · V1.1 模板库维护
 
 - 模板库增加分类筛选和结果数量提示，20 个模板更容易定位。
@@ -114,6 +118,10 @@ npm run render -- metric-pulse templates/metric-pulse/presets/default.json
 更多提示词和入库要求见 `AGENT_GUIDE.md`。如果你基于这个项目长出了自己的动效库，也欢迎回到原项目点 Star 支持一下：
 
 https://github.com/nutllwhy/hyperframes-motion-library
+
+## 开源协议
+
+本项目采用 [MIT License](LICENSE)。你可以将它用于个人或商业项目，也可以修改和继续发布，但需要在副本或主要代码中保留原作者版权与许可声明。
 
 ## 系统结构
 

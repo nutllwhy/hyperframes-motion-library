@@ -51,6 +51,7 @@ npm run dev
 
 - `PROJECT_OVERVIEW.md`：给 RedSkill 和读者看的结构速览。
 - `README_GITHUB.md`：完整项目的原始 README。
+- `LICENSE.md`：MIT 开源协议，明确项目的使用与再发布条件。
 - `SYSTEM.md`：动效资产入库规范。
 - `AGENT_GUIDE.md`：让 Agent 继续加动效的指南。
 - `AGENT_PROMPT.md`：可以直接复制给 Agent 的提示词。
@@ -58,3 +59,7 @@ npm run dev
 - `app/`：本地模板库界面源码。
 - `scripts/`：已改成 `.js` 后缀的本地工具脚本。
 - `templates/`：20 个动效模板的源码、设计说明和默认数据。
+
+## 开源协议
+
+这个投稿包与 GitHub 完整项目均采用 [MIT License](LICENSE.md)。允许个人及商业使用、修改和再发布，但需要保留原作者版权与许可声明。

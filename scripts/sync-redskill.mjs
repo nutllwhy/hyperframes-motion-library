@@ -63,8 +63,14 @@ async function main() {
     await copyFile(path.join(root, "scripts", entry.name), path.join(destination, "scripts", targetName), (content) => content.replaceAll(".mjs\"", ".js\"").replaceAll(".mjs'", ".js'"));
   }
 
-  for (const [source, target] of [["catalog.json", "catalog.json"], ["AGENT_GUIDE.md", "AGENT_GUIDE.md"], ["SYSTEM.md", "SYSTEM.md"], ["README.md", "README_GITHUB.md"]]) {
-    await copyFile(path.join(root, source), path.join(destination, target));
+  for (const [source, target, transform] of [
+    ["catalog.json", "catalog.json"],
+    ["AGENT_GUIDE.md", "AGENT_GUIDE.md"],
+    ["SYSTEM.md", "SYSTEM.md"],
+    ["README.md", "README_GITHUB.md", (content) => content.replaceAll("(LICENSE)", "(LICENSE.md)")],
+    ["LICENSE", "LICENSE.md"]
+  ]) {
+    await copyFile(path.join(root, source), path.join(destination, target), transform);
   }
 
   const rootPackage = JSON.parse(await fs.readFile(path.join(root, "package.json"), "utf8"));
@@ -80,6 +86,7 @@ async function main() {
   await fs.writeFile(path.join(destination, "redskill-package.json"), `${JSON.stringify({
     name: "视频动效系统 RedSkill 投稿版",
     author: "栗噔噔",
+    license: rootPackage.license,
     repository: "https://github.com/nutllwhy/hyperframes-motion-library",
     demo: "https://nutllwhy.github.io/hyperframes-motion-library/",
     supportedFileTypes: [...allowedExtensions],
