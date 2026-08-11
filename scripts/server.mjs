@@ -4,6 +4,7 @@ import path from "node:path";
 import { spawn } from "node:child_process";
 import { randomUUID } from "node:crypto";
 import { getTemplate, readCatalog, readVariableSchema, root, safeName, validateVariables } from "./library.mjs";
+import { cleanupGeneratedRenders } from "./cleanup-renders.mjs";
 
 const port = Number(process.env.PORT || 4312);
 const jobs = new Map();
@@ -31,7 +32,11 @@ function json(response, status, payload) {
 async function listPresets(template) {
   const directory = path.join(template.absolutePath, "presets");
   await fs.mkdir(directory, { recursive: true });
-  const files = (await fs.readdir(directory)).filter((file) => file.endsWith(".json"));
+  const files = (await fs.readdir(directory)).filter((file) => file.endsWith(".json")).sort((a, b) => {
+    if (a === "default.json") return -1;
+    if (b === "default.json") return 1;
+    return a.localeCompare(b, "zh-CN");
+  });
   return Promise.all(files.map(async (file) => ({
     id: file.replace(/\.json$/, ""),
     values: JSON.parse(await fs.readFile(path.join(directory, file), "utf8"))
@@ -63,6 +68,7 @@ async function startRender(template, schema, values, quality, requestedFormat) {
     job.phase = "failed";
     job.code = code;
     if (message) job.log += `\n${message}\n`;
+    setTimeout(() => jobs.delete(jobId), 30 * 60 * 1000).unref();
   };
 
   const complete = () => {
@@ -71,6 +77,10 @@ async function startRender(template, schema, values, quality, requestedFormat) {
     job.code = 0;
     job.output = outputUrl;
     job.preview = previewUrl;
+    setTimeout(() => jobs.delete(jobId), 30 * 60 * 1000).unref();
+    cleanupGeneratedRenders({ maxJobsPerTemplate: Number(process.env.RENDER_KEEP_JOBS || 8) }).catch((error) => {
+      console.warn(`清理旧渲染失败：${error.message}`);
+    });
   };
 
   const child = spawn("npx", ["--yes", "hyperframes@0.6.115", "render", "--quality", quality, "--format", renderFormat, "--strict-variables", "--variables", JSON.stringify(renderValues), "--output", previewPath], {
@@ -165,4 +175,7 @@ const server = http.createServer(async (request, response) => {
 
 server.listen(port, () => {
   console.log(`视频动效系统已启动：http://localhost:${port}`);
+  cleanupGeneratedRenders({ maxJobsPerTemplate: Number(process.env.RENDER_KEEP_JOBS || 8) }).then((report) => {
+    if (report.deletedFiles) console.log(`已自动清理 ${report.deletedJobs} 组旧渲染，释放 ${report.formattedBytes}.`);
+  }).catch((error) => console.warn(`清理旧渲染失败：${error.message}`));
 });

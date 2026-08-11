@@ -1,0 +1,11 @@
+{
+  "title": "两种写稿方式对比",
+  "itemA": "完全手动",
+  "valueA": 38,
+  "itemB": "AI 协作",
+  "valueB": 82,
+  "unit": "%",
+  "caption": "AI 更适合承担资料聚合、结构整理和初稿生成。",
+  "accent": "#FF5A36",
+  "foreground": "#F4EFE7"
+}

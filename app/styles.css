@@ -17,9 +17,12 @@ a { color: inherit; }
 h1 { margin: 0; font-size: clamp(34px, 4vw, 62px); letter-spacing: -.055em; }
 .author-line { margin: 12px 0 0; color: var(--muted); font-size: 14px; line-height: 1.5; }
 .author-line strong { color: var(--accent); }
+.author-link { display: inline-flex; align-items: baseline; gap: 7px; text-decoration: none; }
+.author-link span { color: var(--fg); font: 600 11px/1 "IBM Plex Mono", monospace; letter-spacing: .04em; opacity: .82; }
+.author-link:hover span { color: var(--accent); opacity: 1; }
 .topbar-right { display: flex; align-items: flex-end; gap: 28px; }
 .topbar-actions { display: flex; gap: 10px; padding-bottom: 10px; }
-.nav-pill { padding: 10px 14px; border: 1px solid var(--line); border-radius: 999px; background: transparent; color: var(--muted); cursor: pointer; transition: 160ms ease; }
+.nav-pill { flex: 0 0 auto; padding: 10px 14px; border: 1px solid var(--line); border-radius: 999px; background: transparent; color: var(--muted); cursor: pointer; transition: 160ms ease; white-space: nowrap; }
 .nav-link { display: inline-flex; align-items: center; text-decoration: none; }
 .nav-pill:hover, .nav-pill.active { border-color: var(--accent); color: var(--fg); background: rgba(255,90,54,.1); }
 .library-count { display: flex; gap: 12px; align-items: baseline; }
@@ -27,7 +30,13 @@ h1 { margin: 0; font-size: clamp(34px, 4vw, 62px); letter-spacing: -.055em; }
 .library-count small { color: var(--muted); }
 main { display: grid; grid-template-columns: 340px minmax(0, 1fr); height: calc(100vh - 148px); overflow: hidden; }
 .sidebar { min-height: 0; padding: 24px 18px 24px 24px; border-right: 1px solid var(--line); display: flex; flex-direction: column; overflow: hidden; }
-.search-wrap { flex: 0 0 auto; margin-bottom: 18px; padding-right: 6px; }
+.search-wrap { flex: 0 0 auto; margin-bottom: 12px; padding-right: 6px; }
+.category-filters { flex: 0 0 auto; display: flex; flex-wrap: wrap; gap: 7px; padding-right: 6px; }
+.category-filter { padding: 8px 10px; border: 1px solid var(--line); border-radius: 999px; background: transparent; color: var(--muted); font-size: 11px; cursor: pointer; transition: 160ms ease; }
+.category-filter span { margin-left: 4px; color: var(--fg); opacity: .68; }
+.category-filter:hover, .category-filter.active { border-color: var(--accent); background: rgba(255,90,54,.1); color: var(--fg); }
+.category-filter.active span { color: var(--accent); opacity: 1; }
+.filter-summary { flex: 0 0 auto; min-height: 30px; padding: 10px 8px 5px 2px; color: var(--muted); font: 600 10px/1.4 "IBM Plex Mono", monospace; letter-spacing: .06em; }
 #template-list { min-height: 0; overflow-y: auto; padding: 12px 16px 32px 0; scroll-padding: 22px 0 34px; }
 #template-list::-webkit-scrollbar, .workspace::-webkit-scrollbar { width: 8px; }
 #template-list::-webkit-scrollbar-thumb, .workspace::-webkit-scrollbar-thumb { background: #3a3029; border-radius: 999px; }
@@ -40,6 +49,7 @@ input:focus, select:focus { border-color: var(--accent); }
 .template-name { font-size: 20px; }
 .template-description { color: var(--muted); font-size: 13px; line-height: 1.55; }
 .template-meta { margin-top: 5px; color: var(--muted); }
+.template-list-empty { padding: 24px 14px; border: 1px dashed var(--line); border-radius: 14px; color: var(--muted); font-size: 13px; line-height: 1.7; text-align: center; }
 .workspace { min-width: 0; height: 100%; overflow-y: auto; padding: 34px; scroll-behavior: smooth; }
 .workspace-grid { display: grid; grid-template-columns: minmax(420px, 1.4fr) minmax(310px, .8fr); gap: 28px; }
 .preview-panel { min-width: 0; position: sticky; top: 0; align-self: start; }
@@ -98,9 +108,18 @@ input:focus, select:focus { border-color: var(--accent); }
   main { grid-template-columns: 1fr; height: auto; overflow: visible; }
   .topbar { align-items: flex-start; flex-direction: column; }
   .topbar-right { width: 100%; justify-content: space-between; }
+  .topbar-actions { flex-wrap: wrap; }
   .sidebar { max-height: 45vh; border-right: 0; border-bottom: 1px solid var(--line); }
+  .category-filters { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; }
   .workspace { height: auto; overflow: visible; }
   .preview-panel { position: static; }
   .workspace-grid { grid-template-columns: 1fr; }
   .guide-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 1300px) and (min-width: 901px) {
+  .topbar { padding-inline: 30px; gap: 18px; }
+  .topbar-right { gap: 14px; }
+  .topbar-actions { gap: 7px; }
+  .nav-pill { padding: 9px 11px; }
+  .library-count span { font-size: 40px; }
 }

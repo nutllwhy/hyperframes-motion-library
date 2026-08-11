@@ -1,9 +1,10 @@
 <!doctype html>
-<html lang="zh-CN" data-composition-variables='[{"id":"title","type":"string","label":"标题","default":"把知识讲清楚的三步"},{"id":"step1","type":"string","label":"步骤一","default":"定义问题"},{"id":"desc1","type":"string","label":"步骤一说明","default":"先说它解决什么"},{"id":"step2","type":"string","label":"步骤二","default":"拆开机制"},{"id":"desc2","type":"string","label":"步骤二说明","default":"再讲为什么成立"},{"id":"step3","type":"string","label":"步骤三","default":"给出动作"},{"id":"desc3","type":"string","label":"步骤三说明","default":"最后落到怎么做"},{"id":"accent","type":"color","label":"强调色","default":"#FF5A36"},{"id":"foreground","type":"color","label":"文字色","default":"#F4EFE7"}]'>
+<html lang="zh-CN" data-composition-variables='[{"id":"title","type":"string","label":"标题","default":"把知识讲清楚的三步"},{"id":"step1","type":"string","label":"步骤一","default":"定义问题"},{"id":"desc1","type":"string","label":"步骤一说明","default":"先说它解决什么"},{"id":"step2","type":"string","label":"步骤二","default":"拆开机制"},{"id":"desc2","type":"string","label":"步骤二说明","default":"再讲为什么成立"},{"id":"step3","type":"string","label":"步骤三","default":"给出动作"},{"id":"desc3","type":"string","label":"步骤三说明","default":"最后落到怎么做"},{"id":"accent","type":"color","label":"强调色","default":"#FF5A36"},{"id":"foreground","type":"color","label":"文字色","default":"#F4EFE7"},{"id":"exportMode","type":"enum","label":"导出模式","default":"transparent","hidden":true,"options":[{"value":"transparent","label":"透明背景"},{"value":"mp4","label":"剪映 MP4 深色底"}]}]'>
   <head>
     <meta charset="UTF-8" /><meta name="viewport" content="width=1920, height=1080" />
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
     <style>
+      html[data-export-mode="mp4"] body,html[data-export-mode="mp4"] #root{background:#12100E!important}
       * { box-sizing: border-box; }
       html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: transparent; }
       body { font-family: "IBM Plex Mono", monospace; }
@@ -37,6 +38,7 @@
     <script>
       const fallback = { title: "把知识讲清楚的三步", step1: "定义问题", desc1: "先说它解决什么", step2: "拆开机制", desc2: "再讲为什么成立", step3: "给出动作", desc3: "最后落到怎么做", accent: "#FF5A36", foreground: "#F4EFE7" };
       const v = window.__hyperframes?.getVariables ? window.__hyperframes.getVariables() : fallback;
+      document.documentElement.dataset.exportMode=v.exportMode||"transparent";
       document.documentElement.style.setProperty("--accent", v.accent); document.documentElement.style.setProperty("--foreground", v.foreground);
       for (const id of ["title","step1","desc1","step2","desc2","step3","desc3"]) document.getElementById(id).textContent = v[id];
       window.__timelines = window.__timelines || {}; const tl = gsap.timeline({ paused: true });

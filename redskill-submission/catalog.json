@@ -1,5 +1,6 @@
 {
   "version": 1,
+  "release": "1.1.0",
   "templates": [
     {
       "id": "bar-chart-grow",
@@ -16,12 +17,13 @@
       "duration": 6,
       "size": "1920×1080",
       "formats": [
-        "mp4"
+        "mp4",
+        "mov",
+        "webm"
       ],
       "defaultFormat": "mp4",
-      "status": "ready",
-      "preview": null,
-      "sourcePreview": "/renders/bar-chart-grow/sample.mp4"
+      "preview": "/renders/bar-chart-grow/sample.mp4",
+      "status": "ready"
     },
     {
       "id": "number-counter",
@@ -39,12 +41,13 @@
       "duration": 5,
       "size": "1920×1080",
       "formats": [
-        "mp4"
+        "mp4",
+        "mov",
+        "webm"
       ],
       "defaultFormat": "mp4",
-      "status": "ready",
-      "preview": null,
-      "sourcePreview": "/renders/number-counter/sample.mp4"
+      "preview": "/renders/number-counter/sample.mp4",
+      "status": "ready"
     },
     {
       "id": "line-chart-draw",
@@ -61,12 +64,13 @@
       "duration": 7,
       "size": "1920×1080",
       "formats": [
-        "mp4"
+        "mp4",
+        "mov",
+        "webm"
       ],
       "defaultFormat": "mp4",
-      "status": "ready",
-      "preview": null,
-      "sourcePreview": "/renders/line-chart-draw/sample.mp4"
+      "preview": "/renders/line-chart-draw/sample.mp4",
+      "status": "ready"
     },
     {
       "id": "metric-pulse",
@@ -83,12 +87,151 @@
       "duration": 6,
       "size": "1920×1080",
       "formats": [
-        "mp4"
+        "mp4",
+        "mov",
+        "webm"
       ],
       "defaultFormat": "mp4",
-      "status": "ready",
-      "preview": null,
-      "sourcePreview": "/renders/metric-pulse/sample.mp4"
+      "preview": "/renders/metric-pulse/sample.mp4",
+      "status": "ready"
+    },
+    {
+      "id": "big-number-card",
+      "name": "大数字结论卡",
+      "description": "用一个巨型数字和一句解释承接核心结论，适合知识视频里的效率、成本、提升幅度表达。",
+      "path": "templates/big-number-card",
+      "category": "数据可视化",
+      "tags": [
+        "数字",
+        "结论",
+        "效率",
+        "知识视频"
+      ],
+      "duration": 5,
+      "size": "1920×1080",
+      "formats": [
+        "mp4",
+        "mov",
+        "webm"
+      ],
+      "defaultFormat": "mp4",
+      "preview": "/renders/big-number-card/sample.webm",
+      "status": "ready"
+    },
+    {
+      "id": "before-after-stat",
+      "name": "前后对比数字",
+      "description": "把过去与现在、旧方法与新方法的关键数字做成强对比，适合讲工具提效和流程改造。",
+      "path": "templates/before-after-stat",
+      "category": "数据可视化",
+      "tags": [
+        "前后对比",
+        "效率",
+        "数字",
+        "方法论"
+      ],
+      "duration": 5.5,
+      "size": "1920×1080",
+      "formats": [
+        "mp4",
+        "mov",
+        "webm"
+      ],
+      "defaultFormat": "mp4",
+      "preview": "/renders/before-after-stat/sample.webm",
+      "status": "ready"
+    },
+    {
+      "id": "horizontal-bar-compare",
+      "name": "横向条形对比",
+      "description": "两组指标横向条形展开，适合传统方法 vs 新方法、两个工具或两个对象的快速比较。",
+      "path": "templates/horizontal-bar-compare",
+      "category": "数据可视化",
+      "tags": [
+        "条形图",
+        "对比",
+        "方法",
+        "百分比"
+      ],
+      "duration": 5.5,
+      "size": "1920×1080",
+      "formats": [
+        "mp4",
+        "mov",
+        "webm"
+      ],
+      "defaultFormat": "mp4",
+      "preview": "/renders/horizontal-bar-compare/sample.webm",
+      "status": "ready"
+    },
+    {
+      "id": "top-rank-list",
+      "name": "Top 排名卡",
+      "description": "三条排名逐条弹出，适合工具推荐、影响因素排序、原因权重和 Top 3/Top 5 类内容。",
+      "path": "templates/top-rank-list",
+      "category": "数据可视化",
+      "tags": [
+        "排名",
+        "Top3",
+        "列表",
+        "权重"
+      ],
+      "duration": 5.5,
+      "size": "1920×1080",
+      "formats": [
+        "mp4",
+        "mov",
+        "webm"
+      ],
+      "defaultFormat": "mp4",
+      "preview": "/renders/top-rank-list/sample.webm",
+      "status": "ready"
+    },
+    {
+      "id": "turning-point-line",
+      "name": "拐点趋势线",
+      "description": "趋势线绘制后点亮关键拐点，适合讲增长变化、版本演进、方法生效的关键时刻。",
+      "path": "templates/turning-point-line",
+      "category": "数据可视化",
+      "tags": [
+        "趋势",
+        "拐点",
+        "折线",
+        "增长"
+      ],
+      "duration": 6,
+      "size": "1920×1080",
+      "formats": [
+        "mp4",
+        "mov",
+        "webm"
+      ],
+      "defaultFormat": "mp4",
+      "preview": "/renders/turning-point-line/sample.webm",
+      "status": "ready"
+    },
+    {
+      "id": "source-citation-card",
+      "name": "数据来源引用卡",
+      "description": "下三分之一引用卡展示来源、日期、核心数字和统计口径，适合给知识视频增加可信度。",
+      "path": "templates/source-citation-card",
+      "category": "知识讲解",
+      "tags": [
+        "引用",
+        "来源",
+        "证据",
+        "数据"
+      ],
+      "duration": 5,
+      "size": "1920×1080",
+      "formats": [
+        "mp4",
+        "mov",
+        "webm"
+      ],
+      "defaultFormat": "mp4",
+      "preview": "/renders/source-citation-card/sample.webm",
+      "status": "ready"
     },
     {
       "id": "stat-duel",
@@ -105,13 +248,13 @@
       "duration": 5,
       "size": "1920×1080",
       "formats": [
-        "webm",
-        "mp4"
+        "mp4",
+        "mov",
+        "webm"
       ],
-      "defaultFormat": "webm",
-      "status": "ready",
-      "preview": null,
-      "sourcePreview": "/renders/stat-duel/sample.webm"
+      "defaultFormat": "mp4",
+      "preview": "/renders/stat-duel/sample.webm",
+      "status": "ready"
     },
     {
       "id": "status-split",
@@ -128,13 +271,13 @@
       "duration": 5,
       "size": "1920×1080",
       "formats": [
-        "webm",
-        "mp4"
+        "mp4",
+        "mov",
+        "webm"
       ],
-      "defaultFormat": "webm",
-      "status": "ready",
-      "preview": null,
-      "sourcePreview": "/renders/status-split/sample.webm"
+      "defaultFormat": "mp4",
+      "preview": "/renders/status-split/sample.webm",
+      "status": "ready"
     },
     {
       "id": "number-impact",
@@ -151,13 +294,13 @@
       "duration": 5,
       "size": "1920×1080",
       "formats": [
-        "webm",
-        "mp4"
+        "mp4",
+        "mov",
+        "webm"
       ],
-      "defaultFormat": "webm",
-      "status": "ready",
-      "preview": null,
-      "sourcePreview": "/renders/number-impact/sample.webm"
+      "defaultFormat": "mp4",
+      "preview": "/renders/number-impact/sample.webm",
+      "status": "ready"
     },
     {
       "id": "concept-spotlight",
@@ -174,13 +317,13 @@
       "duration": 5,
       "size": "1920×1080",
       "formats": [
-        "webm",
-        "mp4"
+        "mp4",
+        "mov",
+        "webm"
       ],
-      "defaultFormat": "webm",
-      "status": "ready",
-      "preview": null,
-      "sourcePreview": "/renders/concept-spotlight/sample.webm"
+      "defaultFormat": "mp4",
+      "preview": "/renders/concept-spotlight/sample.webm",
+      "status": "ready"
     },
     {
       "id": "three-step-flow",
@@ -197,13 +340,13 @@
       "duration": 6,
       "size": "1920×1080",
       "formats": [
-        "webm",
-        "mp4"
+        "mp4",
+        "mov",
+        "webm"
       ],
-      "defaultFormat": "webm",
-      "status": "ready",
-      "preview": null,
-      "sourcePreview": "/renders/three-step-flow/sample.webm"
+      "defaultFormat": "mp4",
+      "preview": "/renders/three-step-flow/sample.webm",
+      "status": "ready"
     },
     {
       "id": "myth-fact-swap",
@@ -220,13 +363,13 @@
       "duration": 5.5,
       "size": "1920×1080",
       "formats": [
-        "webm",
-        "mp4"
+        "mp4",
+        "mov",
+        "webm"
       ],
-      "defaultFormat": "webm",
-      "status": "ready",
-      "preview": null,
-      "sourcePreview": "/renders/myth-fact-swap/sample.webm"
+      "defaultFormat": "mp4",
+      "preview": "/renders/myth-fact-swap/sample.webm",
+      "status": "ready"
     },
     {
       "id": "key-point-marker",
@@ -243,13 +386,13 @@
       "duration": 4.5,
       "size": "1920×1080",
       "formats": [
-        "webm",
-        "mp4"
+        "mp4",
+        "mov",
+        "webm"
       ],
-      "defaultFormat": "webm",
-      "status": "ready",
-      "preview": null,
-      "sourcePreview": "/renders/key-point-marker/sample.webm"
+      "defaultFormat": "mp4",
+      "preview": "/renders/key-point-marker/sample.webm",
+      "status": "ready"
     },
     {
       "id": "checklist-pop",
@@ -266,13 +409,13 @@
       "duration": 5,
       "size": "1920×1080",
       "formats": [
-        "webm",
-        "mp4"
+        "mp4",
+        "mov",
+        "webm"
       ],
-      "defaultFormat": "webm",
-      "status": "ready",
-      "preview": null,
-      "sourcePreview": "/renders/checklist-pop/sample.webm"
+      "defaultFormat": "mp4",
+      "preview": "/renders/checklist-pop/sample.webm",
+      "status": "ready"
     },
     {
       "id": "timeline-scan",
@@ -289,13 +432,13 @@
       "duration": 5.5,
       "size": "1920×1080",
       "formats": [
-        "webm",
-        "mp4"
+        "mp4",
+        "mov",
+        "webm"
       ],
-      "defaultFormat": "webm",
-      "status": "ready",
-      "preview": null,
-      "sourcePreview": "/renders/timeline-scan/sample.webm"
+      "defaultFormat": "mp4",
+      "preview": "/renders/timeline-scan/sample.webm",
+      "status": "ready"
     },
     {
       "id": "cause-chain",
@@ -312,16 +455,13 @@
       "duration": 5.5,
       "size": "1920×1080",
       "formats": [
-        "webm",
-        "mp4"
+        "mp4",
+        "mov",
+        "webm"
       ],
-      "defaultFormat": "webm",
-      "status": "ready",
-      "preview": null,
-      "sourcePreview": "/renders/cause-chain/sample.webm"
+      "defaultFormat": "mp4",
+      "preview": "/renders/cause-chain/sample.webm",
+      "status": "ready"
     }
-  ],
-  "note": "RedSkill 投稿版不包含 mp4/webm 样片。完整预览请访问 GitHub Pages 演示页。",
-  "demoUrl": "https://nutllwhy.github.io/hyperframes-motion-library/",
-  "repository": "https://github.com/nutllwhy/hyperframes-motion-library"
+  ]
 }

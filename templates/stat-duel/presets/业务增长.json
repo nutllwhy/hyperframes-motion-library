@@ -1,0 +1,12 @@
+{
+  "leftLabel": "旧版转化率",
+  "leftValue": 24,
+  "leftUnit": "%",
+  "rightLabel": "新版转化率",
+  "rightValue": 41,
+  "rightUnit": "%",
+  "operator": "<",
+  "verdict": "新版流程提升 17 个百分点",
+  "accent": "#FF5A36",
+  "foreground": "#F4EFE7"
+}

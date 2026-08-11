@@ -1,9 +1,10 @@
 <!doctype html>
-<html lang="zh-CN" data-composition-variables='[{"id":"leftTitle","type":"string","label":"左侧状态","default":"往年常规"},{"id":"leftTag","type":"string","label":"左侧标签","default":"稳定期"},{"id":"rightTitle","type":"string","label":"右侧状态","default":"2026 异常"},{"id":"rightTag","type":"string","label":"右侧标签","default":"高温 · 潮湿"},{"id":"connector","type":"string","label":"转折词","default":"转向"},{"id":"accent","type":"color","label":"强调色","default":"#FF5A36"},{"id":"foreground","type":"color","label":"文字色","default":"#F4EFE7"}]'>
+<html lang="zh-CN" data-composition-variables='[{"id":"leftTitle","type":"string","label":"左侧状态","default":"往年常规"},{"id":"leftTag","type":"string","label":"左侧标签","default":"稳定期"},{"id":"rightTitle","type":"string","label":"右侧状态","default":"2026 异常"},{"id":"rightTag","type":"string","label":"右侧标签","default":"高温 · 潮湿"},{"id":"connector","type":"string","label":"转折词","default":"转向"},{"id":"accent","type":"color","label":"强调色","default":"#FF5A36"},{"id":"foreground","type":"color","label":"文字色","default":"#F4EFE7"},{"id":"exportMode","type":"enum","label":"导出模式","default":"transparent","hidden":true,"options":[{"value":"transparent","label":"透明背景"},{"value":"mp4","label":"剪映 MP4 深色底"}]}]'>
   <head>
     <meta charset="UTF-8" /><meta name="viewport" content="width=1920, height=1080" />
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
     <style>
+      html[data-export-mode="mp4"] body,html[data-export-mode="mp4"] #root{background:#12100E!important}
       * { box-sizing: border-box; }
       html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: transparent; }
       body { font-family: "IBM Plex Mono", monospace; }
@@ -36,6 +37,7 @@
     <script>
       const fallback = { leftTitle: "往年常规", leftTag: "稳定期", rightTitle: "2026 异常", rightTag: "高温 · 潮湿", connector: "转向", accent: "#FF5A36", foreground: "#F4EFE7" };
       const v = window.__hyperframes?.getVariables ? window.__hyperframes.getVariables() : fallback;
+      document.documentElement.dataset.exportMode=v.exportMode||"transparent";
       document.documentElement.style.setProperty("--accent", v.accent); document.documentElement.style.setProperty("--foreground", v.foreground);
       for (const [id,value] of [["left-title",v.leftTitle],["left-tag",v.leftTag],["right-title",v.rightTitle],["right-tag",v.rightTag],["connector",v.connector]]) document.getElementById(id).textContent = value;
       window.__timelines = window.__timelines || {}; const tl = gsap.timeline({ paused: true });

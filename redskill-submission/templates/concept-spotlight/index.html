@@ -1,9 +1,10 @@
 <!doctype html>
-<html lang="zh-CN" data-composition-variables='[{"id":"label","type":"string","label":"标签","default":"核心概念"},{"id":"term","type":"string","label":"概念名","default":"提示词工程"},{"id":"definition","type":"string","label":"解释","default":"不是把问题说复杂，而是把目标、约束和判断标准说清楚。"},{"id":"note","type":"string","label":"补充说明","default":"适合解释术语 / 方法 / 心智模型"},{"id":"accent","type":"color","label":"强调色","default":"#FF5A36"},{"id":"foreground","type":"color","label":"文字色","default":"#F4EFE7"}]'>
+<html lang="zh-CN" data-composition-variables='[{"id":"label","type":"string","label":"标签","default":"核心概念"},{"id":"term","type":"string","label":"概念名","default":"提示词工程"},{"id":"definition","type":"string","label":"解释","default":"不是把问题说复杂，而是把目标、约束和判断标准说清楚。"},{"id":"note","type":"string","label":"补充说明","default":"适合解释术语 / 方法 / 心智模型"},{"id":"accent","type":"color","label":"强调色","default":"#FF5A36"},{"id":"foreground","type":"color","label":"文字色","default":"#F4EFE7"},{"id":"exportMode","type":"enum","label":"导出模式","default":"transparent","hidden":true,"options":[{"value":"transparent","label":"透明背景"},{"value":"mp4","label":"剪映 MP4 深色底"}]}]'>
   <head>
     <meta charset="UTF-8" /><meta name="viewport" content="width=1920, height=1080" />
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
     <style>
+      html[data-export-mode="mp4"] body,html[data-export-mode="mp4"] #root{background:#12100E!important}
       * { box-sizing: border-box; }
       html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: transparent; }
       body { font-family: "IBM Plex Mono", monospace; }
@@ -35,6 +36,7 @@
     <script>
       const fallback = { label: "核心概念", term: "提示词工程", definition: "不是把问题说复杂，而是把目标、约束和判断标准说清楚。", note: "适合解释术语 / 方法 / 心智模型", accent: "#FF5A36", foreground: "#F4EFE7" };
       const v = window.__hyperframes?.getVariables ? window.__hyperframes.getVariables() : fallback;
+      document.documentElement.dataset.exportMode=v.exportMode||"transparent";
       document.documentElement.style.setProperty("--accent", v.accent); document.documentElement.style.setProperty("--foreground", v.foreground);
       for (const [id, value] of [["label", v.label], ["term", v.term], ["definition", v.definition], ["note", v.note]]) document.getElementById(id).textContent = value;
       window.__timelines = window.__timelines || {}; const tl = gsap.timeline({ paused: true });

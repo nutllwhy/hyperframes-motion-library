@@ -1,0 +1,10 @@
+{
+  "title": "AI 工作流效率对比",
+  "subtitle": "不同环节平均耗时（分钟）",
+  "labels": "资料收集,结构整理,初稿生成,人工校对",
+  "values": "42,28,16,24",
+  "colors": "#B8ADA2,#FF5A36,#FF5A36,#D8CEC4",
+  "accent": "#FF5A36",
+  "background": "#12100E",
+  "foreground": "#F4EFE7"
+}

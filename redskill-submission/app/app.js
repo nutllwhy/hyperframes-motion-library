@@ -1,11 +1,41 @@
-const state = { catalog: null, selected: null, values: {}, output: null, view: "library", staticDemo: false };
+const state = { catalog: null, selected: null, values: {}, output: null, previewOutput: null, view: "library", staticDemo: false, category: "全部" };
 const list = document.querySelector("#template-list");
 const workspace = document.querySelector("#workspace");
 const cardTemplate = document.querySelector("#template-card");
 const search = document.querySelector("#search");
+const categoryFilters = document.querySelector("#category-filters");
+const filterSummary = document.querySelector("#filter-summary");
 const showLibrary = document.querySelector("#show-library");
 const showGuide = document.querySelector("#show-guide");
 const GITHUB_REPO = "https://github.com/nutllwhy/hyperframes-motion-library";
+const FORMAT_META = {
+  mp4: {
+    label: "纯色底 MP4（剪映直接使用）",
+    note: "保留模板的黑色背景与橙色设计，兼容性最好。"
+  },
+  mov: {
+    label: "透明 MOV（推荐剪映，文件较大）",
+    note: "保留透明通道，适合叠在口播画面上；本地会自动转成 ProRes 4444 MOV。"
+  },
+  webm: {
+    label: "透明 WebM（部分软件不支持）",
+    note: "文件更小并保留透明通道，适合网页和支持 WebM 的剪辑软件。"
+  }
+};
+const AGENT_INSTALL_PROMPT = `请帮我在本地安装并启动这个开源视频动效系统：
+
+GitHub 仓库：
+https://github.com/nutllwhy/hyperframes-motion-library
+
+请按下面步骤执行：
+1. 选择一个合适的本地目录，克隆这个仓库。
+2. 进入 hyperframes-motion-library 目录。
+3. 运行 npm install 安装依赖。
+4. 运行 npm run dev 启动本地服务。
+5. 启动成功后，把本地访问地址发给我。
+6. 先不要修改源码，也不要删除任何模板；如果遇到 Node、npm、Chrome、FFmpeg 或端口占用问题，请先告诉我原因和解决建议。
+
+我希望先体验模板库，之后再让你基于这个项目继续帮我添加新的视频动效模板。`;
 
 async function api(url, options) {
   const response = await fetch(url, options);
@@ -19,7 +49,7 @@ async function loadCatalog() {
     return await api("./api/catalog");
   } catch {
     state.staticDemo = true;
-    const response = await fetch("./catalog.static.json");
+    const response = await fetch("./catalog.static.json", { cache: "no-store" });
     if (!response.ok) throw new Error("静态演示目录读取失败");
     return response.json();
   }
@@ -31,14 +61,91 @@ function assetUrl(value) {
   return value.startsWith("/") ? `.${value}` : value;
 }
 
+function fileExtension(value) {
+  const clean = String(value || "").split("?")[0];
+  return clean.includes(".") ? clean.split(".").pop() : "mp4";
+}
+
+function downloadName(template) {
+  return `${template.id}-${state.staticDemo ? "sample" : "render"}.${fileExtension(state.output)}`;
+}
+
+function previewMarkup(template) {
+  if (!state.previewOutput) {
+    return `
+      <div class="preview-placeholder">
+        <strong>修改参数，生成第一条草稿</strong>
+        ${state.staticDemo ? "GitHub Pages 演示页只能查看样片；克隆到本地后可以修改参数并渲染新视频。" : "系统会调用 HyperFrames，把当前文案与数据渲染成可播放的视频。"}
+      </div>`;
+  }
+  const extension = fileExtension(state.previewOutput);
+  const transparent = extension === "webm" || extension === "mov";
+  return `<div class="preview-media ${transparent ? "transparent" : "solid"}"><video src="${assetUrl(state.previewOutput)}" controls controlsList="nodownload" autoplay loop></video></div>`;
+}
+
+function previewDownloadMarkup(template) {
+  if (!state.output) return "";
+  const extension = fileExtension(state.output);
+  const localHint = extension === "mov"
+    ? "这是带透明通道的 MOV，可叠加在口播画面上；文件较大属于正常情况。"
+    : extension === "webm"
+      ? "这是透明 WebM；如果剪映无法导入，请改选透明 MOV。"
+      : "这是纯色底 MP4，可以直接导入剪映或其他剪辑软件。";
+  const hint = state.staticDemo
+    ? "线上演示下载的是预渲染样片，不会根据右侧参数重新生成；WebM 是透明叠加视频格式，不是网页文件。"
+    : localHint;
+  return `
+    <div class="preview-download-row">
+      <a class="button preview-download" href="${assetUrl(state.output)}" download="${downloadName(template)}">${state.staticDemo ? "下载当前样片" : "下载当前视频"}</a>
+      <span>${hint}</span>
+    </div>`;
+}
+
 function defaults(template) {
   return Object.fromEntries(template.schema.map((item) => [item.id, item.default]));
 }
 
+function escapeHtml(value) {
+  return String(value).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+}
+
+function escapeAttribute(value) {
+  return escapeHtml(value).replaceAll('"', "&quot;").replaceAll("'", "&#39;");
+}
+
+function filteredTemplates(query = search.value) {
+  const needle = query.trim().toLowerCase();
+  return state.catalog.templates.filter((template) => {
+    const categoryMatches = state.category === "全部" || template.category === state.category;
+    const searchMatches = !needle || JSON.stringify(template).toLowerCase().includes(needle);
+    return categoryMatches && searchMatches;
+  });
+}
+
+function renderCategoryFilters() {
+  const categories = ["全部", ...new Set(state.catalog.templates.map((template) => template.category))];
+  categoryFilters.innerHTML = categories.map((category) => {
+    const count = category === "全部" ? state.catalog.templates.length : state.catalog.templates.filter((template) => template.category === category).length;
+    return `<button class="category-filter ${state.category === category ? "active" : ""}" type="button" data-category="${escapeAttribute(category)}">${escapeHtml(category)}<span>${count}</span></button>`;
+  }).join("");
+  categoryFilters.querySelectorAll("[data-category]").forEach((button) => button.addEventListener("click", () => {
+    state.category = button.dataset.category;
+    renderCategoryFilters();
+    const visible = filteredTemplates();
+    if (visible.length && !visible.some((template) => template.id === state.selected?.id)) selectTemplate(visible[0]);
+    else renderList();
+  }));
+}
+
 function renderList(query = "") {
   list.innerHTML = "";
-  const needle = query.trim().toLowerCase();
-  state.catalog.templates.filter((template) => JSON.stringify(template).toLowerCase().includes(needle)).forEach((template) => {
+  const visible = filteredTemplates(query);
+  filterSummary.textContent = `显示 ${visible.length} / ${state.catalog.templates.length} 个模板`;
+  if (!visible.length) {
+    list.innerHTML = `<div class="template-list-empty">没有找到匹配的模板。<br>可以换一个分类或关键词。</div>`;
+    return;
+  }
+  visible.forEach((template) => {
     const fragment = cardTemplate.content.cloneNode(true);
     const button = fragment.querySelector("button");
     button.dataset.id = template.id;
@@ -46,13 +153,14 @@ function renderList(query = "") {
     fragment.querySelector(".template-category").textContent = template.category;
     fragment.querySelector(".template-name").textContent = template.name;
     fragment.querySelector(".template-description").textContent = template.description;
-    fragment.querySelector(".template-meta").textContent = `${template.duration}s · ${template.size}`;
+    fragment.querySelector(".template-meta").textContent = `${template.duration}s · ${template.size} · ${template.presets.length} 个预设`;
     button.addEventListener("click", () => selectTemplate(template));
     list.append(fragment);
   });
 }
 
 function fieldMarkup(declaration) {
+  if (declaration.hidden) return "";
   const value = state.values[declaration.id];
   if (declaration.type === "color") {
     return `<div class="field"><label for="field-${declaration.id}-text">${declaration.label}</label><div class="color-field"><input aria-label="${declaration.label}色板" type="color" data-key="${declaration.id}" value="${value}"><input id="field-${declaration.id}-text" type="text" data-key="${declaration.id}" value="${value}"></div></div>`;
@@ -62,7 +170,21 @@ function fieldMarkup(declaration) {
     return `<div class="field"><label for="field-${declaration.id}">${declaration.label}</label><select id="field-${declaration.id}" data-key="${declaration.id}">${options}</select></div>`;
   }
   const type = declaration.type === "number" ? "number" : "text";
-  return `<div class="field"><label for="field-${declaration.id}">${declaration.label}</label><input id="field-${declaration.id}" type="${type}" data-key="${declaration.id}" value="${String(value).replaceAll('"', '&quot;')}"></div>`;
+  return `<div class="field"><label for="field-${declaration.id}">${declaration.label}</label><input id="field-${declaration.id}" type="${type}" data-key="${declaration.id}" value="${escapeAttribute(value)}"></div>`;
+}
+
+function presetLabel(id) {
+  if (id === "default") return "默认示例";
+  return id;
+}
+
+function formatOption(format, selected) {
+  const meta = FORMAT_META[format] || { label: format.toUpperCase(), note: "" };
+  return `<option value="${format}" ${format === selected ? "selected" : ""}>${meta.label}</option>`;
+}
+
+function formatNote(format) {
+  return FORMAT_META[format]?.note || "";
 }
 
 function renderWorkspace() {
@@ -72,15 +194,16 @@ function renderWorkspace() {
   workspace.innerHTML = `
     <div class="workspace-grid">
       <div class="preview-panel">
-        <div class="preview" id="preview">${state.output ? `<video src="${assetUrl(state.output)}" controls autoplay loop></video>` : `<div class="preview-placeholder"><strong>修改参数，生成第一条草稿</strong>${state.staticDemo ? "GitHub Pages 演示页只能查看样片；克隆到本地后可以修改参数并渲染新视频。" : "系统会调用 HyperFrames，把当前文案与数据渲染成可播放的视频。"}</div>`}</div>
+        <div class="preview" id="preview">${previewMarkup(template)}</div>
+        <div id="preview-download">${previewDownloadMarkup(template)}</div>
         <h2 class="workspace-title">${template.name}</h2>
         <p class="workspace-description">${template.description}</p>
         <div class="tag-row">${template.tags.map((tag) => `<span class="tag">${tag}</span>`).join("")}</div>
       </div>
       <form class="editor" id="editor">
         <h2>内容与数据</h2>
-        <div class="preset-row"><select id="preset" aria-label="载入预设"><option value="">载入预设…</option>${template.presets.map((preset) => `<option value="${preset.id}">${preset.id}</option>`).join("")}</select><button class="button" type="button" id="save-preset">保存</button></div>
-        <div class="field"><label for="output-format">输出格式</label><select id="output-format">${(template.formats || ["mp4"]).map((format) => `<option value="${format}" ${format === template.defaultFormat ? "selected" : ""}>${format === "webm" ? "透明叠加 WebM" : "普通 / 滤色 MP4"}</option>`).join("")}</select></div>
+        <div class="preset-row"><select id="preset" aria-label="载入预设"><option value="">载入预设…</option>${template.presets.map((preset) => `<option value="${escapeAttribute(preset.id)}">${escapeHtml(presetLabel(preset.id))}</option>`).join("")}</select><button class="button" type="button" id="save-preset">保存</button></div>
+        <div class="field"><label for="output-format">输出格式</label><select id="output-format">${(template.formats || ["mp4"]).map((format) => formatOption(format, template.defaultFormat)).join("")}</select><p class="field-note" id="format-note">${formatNote(template.defaultFormat)}</p></div>
         ${template.schema.map(fieldMarkup).join("")}
         <div class="action-row"><button class="button" type="button" id="reset">恢复默认</button><button class="button primary" type="submit" id="render">${state.staticDemo ? "本地运行后可渲染" : "生成草稿"}</button></div>
         <p class="status" id="status"></p>
@@ -98,6 +221,9 @@ function renderWorkspace() {
   });
   workspace.querySelector("#reset").addEventListener("click", () => { state.values = defaults(template); renderWorkspace(); });
   workspace.querySelector("#save-preset").addEventListener("click", savePreset);
+  workspace.querySelector("#output-format").addEventListener("change", (event) => {
+    workspace.querySelector("#format-note").textContent = formatNote(event.target.value);
+  });
   workspace.querySelector("#editor").addEventListener("submit", renderVideo);
   if (state.staticDemo) {
     workspace.querySelector("#save-preset").disabled = true;
@@ -135,10 +261,16 @@ function renderGuide() {
         <div class="star-callout">如果这个项目对你有启发，欢迎关注 <strong>栗噔噔</strong>，也欢迎去 <a href="${GITHUB_REPO}" target="_blank" rel="noreferrer">GitHub 项目</a> 点一个 <strong>Star</strong>，让更多做视频的人看到这套工作流。</div>
       </div>
       <div class="guide-grid">
+        <article class="guide-card wide">
+          <div class="guide-card-top"><strong>RECOMMENDED</strong><button class="button guide-copy" type="button" data-copy-prompt="install">复制提示词</button></div>
+          <h3>让 Agent 自动安装</h3>
+          <p>如果你不想自己敲命令，直接把下面这段话复制给自己的 Agent。让它帮你克隆项目、安装依赖、启动本地服务。</p>
+          <pre class="guide-prompt">${escapeHtml(AGENT_INSTALL_PROMPT)}</pre>
+        </article>
         <article class="guide-card">
           <strong>STEP 01</strong>
-          <h3>下载到本地</h3>
-          <p>把项目克隆到自己的电脑，然后进入目录安装依赖。展示站里看到的每个动效，都对应一个独立模板文件夹。</p>
+          <h3>手动安装</h3>
+          <p>如果你熟悉命令行，也可以自己把项目克隆到电脑，然后进入目录安装依赖。</p>
           <pre>git clone ${GITHUB_REPO}.git
 cd hyperframes-motion-library
 npm install</pre>
@@ -178,6 +310,11 @@ npm run render -- metric-pulse templates/metric-pulse/presets/default.json</pre>
         </article>
       </div>
     </section>`;
+  workspace.querySelector("[data-copy-prompt='install']")?.addEventListener("click", async (event) => {
+    await navigator.clipboard.writeText(AGENT_INSTALL_PROMPT);
+    event.currentTarget.textContent = "已复制";
+    setTimeout(() => { event.currentTarget.textContent = "复制提示词"; }, 1600);
+  });
   workspace.scrollTo({ top: 0, behavior: "smooth" });
 }
 
@@ -185,6 +322,7 @@ function selectTemplate(template) {
   state.selected = template;
   state.values = defaults(template);
   state.output = template.preview || null;
+  state.previewOutput = template.preview || null;
   renderList(search.value);
   renderWorkspace();
   workspace.scrollTo({ top: 0, behavior: "smooth" });
@@ -202,7 +340,13 @@ async function savePreset() {
   const status = workspace.querySelector("#status");
   try {
     const saved = await api("/api/presets", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ templateId: state.selected.id, name, values: state.values }) });
+    const existing = state.selected.presets.findIndex((preset) => preset.id === saved.id);
+    const nextPreset = { id: saved.id, values: { ...state.values } };
+    if (existing >= 0) state.selected.presets.splice(existing, 1, nextPreset);
+    else state.selected.presets.push(nextPreset);
+    state.selected.presets.sort((a, b) => a.id === "default" ? -1 : b.id === "default" ? 1 : a.id.localeCompare(b.id, "zh-CN"));
     status.textContent = `已保存预设：${saved.id}`;
+    renderList(search.value);
   } catch (error) { status.className = "status error"; status.textContent = error.message; }
 }
 
@@ -218,13 +362,18 @@ async function renderVideo(event) {
     const job = await api("/api/render", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ templateId: state.selected.id, variables: state.values, quality: "draft", format }) });
     const timer = setInterval(async () => {
       const current = await api(`/api/jobs/${job.id}`);
-      if (current.status === "running") return;
+      if (current.status === "running") {
+        status.textContent = current.phase === "converting" ? "视频已渲染，正在转换透明 MOV…" : "正在渲染视频画面…";
+        return;
+      }
       clearInterval(timer);
       button.disabled = false;
       if (current.status === "failed") { status.className = "status error"; status.textContent = "渲染失败，请查看启动系统的终端信息。"; return; }
       state.output = current.output;
+      state.previewOutput = current.preview || current.output;
       status.textContent = "草稿已生成。";
-      document.querySelector("#preview").innerHTML = `<video src="${assetUrl(current.output)}" controls autoplay loop></video>`;
+      document.querySelector("#preview").innerHTML = previewMarkup(state.selected);
+      document.querySelector("#preview-download").innerHTML = previewDownloadMarkup(state.selected);
     }, 1200);
   } catch (error) { button.disabled = false; status.className = "status error"; status.textContent = error.message; }
 }
@@ -232,6 +381,7 @@ async function renderVideo(event) {
 search.addEventListener("input", () => renderList(search.value));
 state.catalog = await loadCatalog();
 document.querySelector("#template-count").textContent = state.catalog.templates.filter((template) => template.status === "ready").length;
+renderCategoryFilters();
 renderList();
 const initialTemplate = state.catalog.templates.find((template) => template.status === "ready" && template.preview) || state.catalog.templates[0];
 if (initialTemplate) selectTemplate(initialTemplate);

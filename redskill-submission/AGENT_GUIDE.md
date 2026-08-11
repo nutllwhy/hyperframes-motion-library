@@ -37,7 +37,9 @@ templates/<template-id>/
 ├── meta.json
 ├── package.json
 └── presets/
-    └── default.json
+    ├── default.json
+    ├── AI提效.json
+    └── 业务增长.json
 ```
 
 ## 新模板必须做到
@@ -51,6 +53,8 @@ templates/<template-id>/
 - 动画可寻帧，不依赖随机时间、无限循环或异步构建时间线。
 - 新模板登记到 `catalog.json`。
 - 至少运行 `npm run check` 验证目录结构。
+- 除默认预设外，建议提供至少两套内容明显不同的真实场景预设。
+- 不要直接手工维护 `redskill-submission/` 中的副本；发布前统一运行同步命令。
 
 ## 推荐新增的动效方向
 
@@ -67,6 +71,7 @@ templates/<template-id>/
 ```bash
 npm run check
 npm run check:templates
+npm run prepare:release
 ```
 
 如果只检查一个模板：

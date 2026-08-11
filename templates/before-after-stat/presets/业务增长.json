@@ -1,0 +1,11 @@
+{
+  "label": "新用户激活率",
+  "beforeLabel": "优化前",
+  "beforeValue": 24,
+  "afterLabel": "优化后",
+  "afterValue": 41,
+  "unit": "%",
+  "conclusion": "关键步骤减少后，激活率提升 17 个百分点",
+  "accent": "#FF5A36",
+  "foreground": "#F4EFE7"
+}

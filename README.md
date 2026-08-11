@@ -30,6 +30,14 @@ https://nutllwhy.github.io/hyperframes-motion-library/
 
 ## 更新记录
 
+### 2026-08-11 · V1.1 模板库维护
+
+- 模板库增加分类筛选和结果数量提示，20 个模板更容易定位。
+- 每个模板从单一默认数据扩展为 3 套场景预设，覆盖默认示例、AI 提效与业务增长。
+- 新增渲染清理机制：自动保留每个模板最近 8 组临时渲染，样片和命名文件不会被删除。
+- RedSkill 投稿包改为从主项目自动同步，避免模板、界面和脚本继续产生版本偏差。
+- 发布准备命令会统一检查目录、同步 RedSkill 投稿包并构建 GitHub Pages。
+
 ### 2026-07-10 · 透明导出
 
 - 20 个模板统一支持纯色底 MP4、透明 MOV 和透明 WebM。
@@ -48,6 +56,8 @@ npm run dev
 
 打开终端显示的地址，在模板库里修改参数，然后保存为预设或生成草稿视频。
 
+模板列表支持按分类和关键词组合筛选。每个模板内置多套场景预设，也可以在本地保存自己的预设。
+
 每个模板支持按用途选择输出格式：
 
 - 纯色底 MP4：保留黑色背景，兼容性最好，可直接导入剪映。
@@ -62,6 +72,24 @@ npm run dev
 npm run check
 npm run check:templates
 ```
+
+清理临时渲染：
+
+```bash
+# 只查看预计会清理什么
+npm run cleanup:renders -- --dry-run
+
+# 每个模板只保留最近 8 组临时渲染
+npm run cleanup:renders -- --keep 8
+```
+
+准备发布副本：
+
+```bash
+npm run prepare:release
+```
+
+这个命令会先校验全部模板与预设，再同步 `redskill-submission/`，最后构建 GitHub Pages 的 `dist/`。
 
 命令行渲染：
 
@@ -94,6 +122,7 @@ https://github.com/nutllwhy/hyperframes-motion-library
 - `templates/<id>/presets/*.json`：同一动效的文案/数据预设
 - `app/`：模板库与参数编辑界面
 - `renders/`：界面或命令行生成的视频
+- `redskill-submission/`：由主项目自动生成的 RedSkill 轻量源码包
 - `SYSTEM.md`：新增截图动效时的入库规范
 
 当前模板库已经包含 20 个可复用动效，覆盖数据可视化、透明叠加和知识讲解三类场景。发布前的模板盘点见 `references/上线前模板盘点.md`。

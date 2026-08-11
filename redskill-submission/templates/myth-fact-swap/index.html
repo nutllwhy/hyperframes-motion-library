@@ -1,9 +1,10 @@
 <!doctype html>
-<html lang="zh-CN" data-composition-variables='[{"id":"mythLabel","type":"string","label":"误区标签","default":"常见误区"},{"id":"myth","type":"string","label":"误区","default":"AI 会直接替你思考"},{"id":"factLabel","type":"string","label":"事实标签","default":"更准确的说法"},{"id":"fact","type":"string","label":"事实","default":"AI 会放大你的问题定义能力"},{"id":"caption","type":"string","label":"总结","default":"重点不是替代，而是协作结构"},{"id":"accent","type":"color","label":"强调色","default":"#FF5A36"},{"id":"foreground","type":"color","label":"文字色","default":"#F4EFE7"}]'>
+<html lang="zh-CN" data-composition-variables='[{"id":"mythLabel","type":"string","label":"误区标签","default":"常见误区"},{"id":"myth","type":"string","label":"误区","default":"AI 会直接替你思考"},{"id":"factLabel","type":"string","label":"事实标签","default":"更准确的说法"},{"id":"fact","type":"string","label":"事实","default":"AI 会放大你的问题定义能力"},{"id":"caption","type":"string","label":"总结","default":"重点不是替代，而是协作结构"},{"id":"accent","type":"color","label":"强调色","default":"#FF5A36"},{"id":"foreground","type":"color","label":"文字色","default":"#F4EFE7"},{"id":"exportMode","type":"enum","label":"导出模式","default":"transparent","hidden":true,"options":[{"value":"transparent","label":"透明背景"},{"value":"mp4","label":"剪映 MP4 深色底"}]}]'>
   <head>
     <meta charset="UTF-8" /><meta name="viewport" content="width=1920, height=1080" />
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
     <style>
+      html[data-export-mode="mp4"] body,html[data-export-mode="mp4"] #root{background:#12100E!important}
       * { box-sizing: border-box; }
       html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: transparent; }
       body { font-family: "IBM Plex Mono", monospace; }
@@ -38,6 +39,7 @@
     <script>
       const fallback = { mythLabel: "常见误区", myth: "AI 会直接替你思考", factLabel: "更准确的说法", fact: "AI 会放大你的问题定义能力", caption: "重点不是替代，而是协作结构", accent: "#FF5A36", foreground: "#F4EFE7" };
       const v = window.__hyperframes?.getVariables ? window.__hyperframes.getVariables() : fallback;
+      document.documentElement.dataset.exportMode=v.exportMode||"transparent";
       document.documentElement.style.setProperty("--accent", v.accent); document.documentElement.style.setProperty("--foreground", v.foreground);
       for (const id of ["mythLabel","myth","factLabel","fact","caption"]) document.getElementById(id).textContent = v[id];
       window.__timelines = window.__timelines || {}; const tl = gsap.timeline({ paused: true });

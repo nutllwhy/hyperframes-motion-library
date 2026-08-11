@@ -1,0 +1,10 @@
+{
+  "title": "本周自动生成素材",
+  "targetValue": 128,
+  "prefix": "",
+  "suffix": " 条",
+  "note": "重复动效直接调用模板，不再从零制作",
+  "accent": "#FF5A36",
+  "background": "#12100E",
+  "foreground": "#F4EFE7"
+}

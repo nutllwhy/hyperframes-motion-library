@@ -5,7 +5,9 @@
   "demo": "https://nutllwhy.github.io/hyperframes-motion-library/",
   "supportedFileTypes": [
     ".md",
+    ".markdown",
     ".html",
+    ".htm",
     ".css",
     ".js",
     ".json"
@@ -13,10 +15,12 @@
   "excludedFileTypes": [
     ".mp4",
     ".webm",
+    ".mov",
     ".png",
     ".jpg",
     ".mjs"
   ],
-  "templateCount": 14,
+  "templateCount": 20,
+  "release": "1.1.0",
   "note": "主流分发请引导用户从 GitHub 下载完整项目；本目录用于 RedSkill 读取项目结构、源码和扩展方法。"
 }

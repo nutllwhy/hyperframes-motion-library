@@ -1,0 +1,9 @@
+{
+  "hero": "快",
+  "label": "重复任务自动化",
+  "value": 72,
+  "unit": "%",
+  "caption": "时间被重新释放",
+  "accent": "#FF5A36",
+  "foreground": "#F4EFE7"
+}

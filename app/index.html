@@ -3,15 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#12100e" />
     <title>视频动效系统</title>
-    <link rel="stylesheet" href="./app/styles.css?v=20260703-clip-safe" />
+    <link rel="stylesheet" href="./app/styles.css?v=20260811-v1-1" />
   </head>
   <body>
     <header class="topbar">
       <div>
         <p class="kicker">HYPERFRAMES MOTION LIBRARY</p>
         <h1>视频动效系统</h1>
-        <p class="author-line">by <strong>栗噔噔</strong> · 小红书 / 抖音 / 视频号 / 公众号 / B站 / X / YouTube / 即刻 同名</p>
+        <p class="author-line">by <a class="author-link" href="https://github.com/nutllwhy" target="_blank" rel="noreferrer"><strong>栗噔噔</strong><span>@nutllwhy</span></a> · 全平台同名：栗噔噔</p>
       </div>
       <div class="topbar-right">
         <div class="topbar-actions" aria-label="站点导航">
@@ -25,6 +26,8 @@
     <main>
       <aside class="sidebar">
         <div class="search-wrap"><input id="search" type="search" placeholder="搜索模板、分类或标签" /></div>
+        <div id="category-filters" class="category-filters" aria-label="模板分类"></div>
+        <div id="filter-summary" class="filter-summary" aria-live="polite"></div>
         <nav id="template-list" aria-label="动效模板"></nav>
       </aside>
       <section id="workspace" class="workspace">

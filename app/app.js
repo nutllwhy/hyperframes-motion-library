@@ -1,12 +1,13 @@
-const state = { catalog: null, selected: null, values: {}, output: null, previewOutput: null, view: "library", staticDemo: false };
+const state = { catalog: null, selected: null, values: {}, output: null, previewOutput: null, view: "library", staticDemo: false, category: "全部" };
 const list = document.querySelector("#template-list");
 const workspace = document.querySelector("#workspace");
 const cardTemplate = document.querySelector("#template-card");
 const search = document.querySelector("#search");
+const categoryFilters = document.querySelector("#category-filters");
+const filterSummary = document.querySelector("#filter-summary");
 const showLibrary = document.querySelector("#show-library");
 const showGuide = document.querySelector("#show-guide");
 const GITHUB_REPO = "https://github.com/nutllwhy/hyperframes-motion-library";
-const STATIC_CATALOG_VERSION = "20260710-alpha-exports";
 const FORMAT_META = {
   mp4: {
     label: "纯色底 MP4（剪映直接使用）",
@@ -48,7 +49,7 @@ async function loadCatalog() {
     return await api("./api/catalog");
   } catch {
     state.staticDemo = true;
-    const response = await fetch(`./catalog.static.json?v=${STATIC_CATALOG_VERSION}`);
+    const response = await fetch("./catalog.static.json", { cache: "no-store" });
     if (!response.ok) throw new Error("静态演示目录读取失败");
     return response.json();
   }
@@ -108,10 +109,43 @@ function escapeHtml(value) {
   return String(value).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
 }
 
+function escapeAttribute(value) {
+  return escapeHtml(value).replaceAll('"', "&quot;").replaceAll("'", "&#39;");
+}
+
+function filteredTemplates(query = search.value) {
+  const needle = query.trim().toLowerCase();
+  return state.catalog.templates.filter((template) => {
+    const categoryMatches = state.category === "全部" || template.category === state.category;
+    const searchMatches = !needle || JSON.stringify(template).toLowerCase().includes(needle);
+    return categoryMatches && searchMatches;
+  });
+}
+
+function renderCategoryFilters() {
+  const categories = ["全部", ...new Set(state.catalog.templates.map((template) => template.category))];
+  categoryFilters.innerHTML = categories.map((category) => {
+    const count = category === "全部" ? state.catalog.templates.length : state.catalog.templates.filter((template) => template.category === category).length;
+    return `<button class="category-filter ${state.category === category ? "active" : ""}" type="button" data-category="${escapeAttribute(category)}">${escapeHtml(category)}<span>${count}</span></button>`;
+  }).join("");
+  categoryFilters.querySelectorAll("[data-category]").forEach((button) => button.addEventListener("click", () => {
+    state.category = button.dataset.category;
+    renderCategoryFilters();
+    const visible = filteredTemplates();
+    if (visible.length && !visible.some((template) => template.id === state.selected?.id)) selectTemplate(visible[0]);
+    else renderList();
+  }));
+}
+
 function renderList(query = "") {
   list.innerHTML = "";
-  const needle = query.trim().toLowerCase();
-  state.catalog.templates.filter((template) => JSON.stringify(template).toLowerCase().includes(needle)).forEach((template) => {
+  const visible = filteredTemplates(query);
+  filterSummary.textContent = `显示 ${visible.length} / ${state.catalog.templates.length} 个模板`;
+  if (!visible.length) {
+    list.innerHTML = `<div class="template-list-empty">没有找到匹配的模板。<br>可以换一个分类或关键词。</div>`;
+    return;
+  }
+  visible.forEach((template) => {
     const fragment = cardTemplate.content.cloneNode(true);
     const button = fragment.querySelector("button");
     button.dataset.id = template.id;
@@ -119,7 +153,7 @@ function renderList(query = "") {
     fragment.querySelector(".template-category").textContent = template.category;
     fragment.querySelector(".template-name").textContent = template.name;
     fragment.querySelector(".template-description").textContent = template.description;
-    fragment.querySelector(".template-meta").textContent = `${template.duration}s · ${template.size}`;
+    fragment.querySelector(".template-meta").textContent = `${template.duration}s · ${template.size} · ${template.presets.length} 个预设`;
     button.addEventListener("click", () => selectTemplate(template));
     list.append(fragment);
   });
@@ -136,7 +170,12 @@ function fieldMarkup(declaration) {
     return `<div class="field"><label for="field-${declaration.id}">${declaration.label}</label><select id="field-${declaration.id}" data-key="${declaration.id}">${options}</select></div>`;
   }
   const type = declaration.type === "number" ? "number" : "text";
-  return `<div class="field"><label for="field-${declaration.id}">${declaration.label}</label><input id="field-${declaration.id}" type="${type}" data-key="${declaration.id}" value="${String(value).replaceAll('"', '&quot;')}"></div>`;
+  return `<div class="field"><label for="field-${declaration.id}">${declaration.label}</label><input id="field-${declaration.id}" type="${type}" data-key="${declaration.id}" value="${escapeAttribute(value)}"></div>`;
+}
+
+function presetLabel(id) {
+  if (id === "default") return "默认示例";
+  return id;
 }
 
 function formatOption(format, selected) {
@@ -163,7 +202,7 @@ function renderWorkspace() {
       </div>
       <form class="editor" id="editor">
         <h2>内容与数据</h2>
-        <div class="preset-row"><select id="preset" aria-label="载入预设"><option value="">载入预设…</option>${template.presets.map((preset) => `<option value="${preset.id}">${preset.id}</option>`).join("")}</select><button class="button" type="button" id="save-preset">保存</button></div>
+        <div class="preset-row"><select id="preset" aria-label="载入预设"><option value="">载入预设…</option>${template.presets.map((preset) => `<option value="${escapeAttribute(preset.id)}">${escapeHtml(presetLabel(preset.id))}</option>`).join("")}</select><button class="button" type="button" id="save-preset">保存</button></div>
         <div class="field"><label for="output-format">输出格式</label><select id="output-format">${(template.formats || ["mp4"]).map((format) => formatOption(format, template.defaultFormat)).join("")}</select><p class="field-note" id="format-note">${formatNote(template.defaultFormat)}</p></div>
         ${template.schema.map(fieldMarkup).join("")}
         <div class="action-row"><button class="button" type="button" id="reset">恢复默认</button><button class="button primary" type="submit" id="render">${state.staticDemo ? "本地运行后可渲染" : "生成草稿"}</button></div>
@@ -301,7 +340,13 @@ async function savePreset() {
   const status = workspace.querySelector("#status");
   try {
     const saved = await api("/api/presets", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ templateId: state.selected.id, name, values: state.values }) });
+    const existing = state.selected.presets.findIndex((preset) => preset.id === saved.id);
+    const nextPreset = { id: saved.id, values: { ...state.values } };
+    if (existing >= 0) state.selected.presets.splice(existing, 1, nextPreset);
+    else state.selected.presets.push(nextPreset);
+    state.selected.presets.sort((a, b) => a.id === "default" ? -1 : b.id === "default" ? 1 : a.id.localeCompare(b.id, "zh-CN"));
     status.textContent = `已保存预设：${saved.id}`;
+    renderList(search.value);
   } catch (error) { status.className = "status error"; status.textContent = error.message; }
 }
 
@@ -336,6 +381,7 @@ async function renderVideo(event) {
 search.addEventListener("input", () => renderList(search.value));
 state.catalog = await loadCatalog();
 document.querySelector("#template-count").textContent = state.catalog.templates.filter((template) => template.status === "ready").length;
+renderCategoryFilters();
 renderList();
 const initialTemplate = state.catalog.templates.find((template) => template.status === "ready" && template.preview) || state.catalog.templates[0];
 if (initialTemplate) selectTemplate(initialTemplate);
