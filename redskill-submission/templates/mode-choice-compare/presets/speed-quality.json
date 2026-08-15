@@ -1,0 +1,10 @@
+{
+  "title": "目标不同，选择不同",
+  "leftTitle": "速度",
+  "leftDetail": "先快速验证方向",
+  "rightTitle": "质量",
+  "rightDetail": "再集中打磨细节",
+  "connector": "VS",
+  "accent": "#FF5A36",
+  "foreground": "#F4EFE7"
+}

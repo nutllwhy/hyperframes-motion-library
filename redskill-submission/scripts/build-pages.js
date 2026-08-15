@@ -1,6 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import { getTemplate, readCatalog, readVariableSchema, root } from "./library.js";
+import { getTemplate, readCatalog, readDirectorRules, readVariableSchema, root } from "./library.js";
 
 const dist = path.join(root, "dist");
 
@@ -52,6 +52,7 @@ async function listPresets(template) {
 
 async function buildStaticCatalog() {
   const catalog = await readCatalog();
+  const directorRules = await readDirectorRules();
   const templates = await Promise.all(catalog.templates.map(async (item) => {
     const template = await getTemplate(item.id);
     return {
@@ -60,7 +61,7 @@ async function buildStaticCatalog() {
       presets: await listPresets(template)
     };
   }));
-  await fs.writeFile(path.join(dist, "catalog.static.json"), JSON.stringify({ ...catalog, templates }, null, 2) + "\n");
+  await fs.writeFile(path.join(dist, "catalog.static.json"), JSON.stringify({ ...catalog, directorRules, templates }, null, 2) + "\n");
 }
 
 async function main() {
@@ -70,6 +71,9 @@ async function main() {
   await copyFile(path.join(root, "app", "index.html"), path.join(dist, "index.html"));
   await copyFile(path.join(root, "app", "app.js"), path.join(dist, "app", "app.js"));
   await copyFile(path.join(root, "app", "styles.css"), path.join(dist, "app", "styles.css"));
+  await copyFile(path.join(root, "motion-plan.schema.json"), path.join(dist, "motion-plan.schema.json"));
+  await copyFile(path.join(root, "director-rules.json"), path.join(dist, "director-rules.json"));
+  await copyDirectory(path.join(root, "examples"), path.join(dist, "examples"));
   await copyPreviewSamples(catalog);
   await buildStaticCatalog();
   await fs.writeFile(path.join(dist, ".nojekyll"), "");

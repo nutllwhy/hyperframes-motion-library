@@ -17,3 +17,7 @@ renders/**
 # HyperFrames / 本地工具缓存
 .hyperframes/
 capture/
+
+# 本地验证、批量渲染与临时投稿包
+.temp/
+redskill-upload-current/

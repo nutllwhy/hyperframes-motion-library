@@ -1,6 +1,6 @@
 ---
 name: hyperframes-motion-library
-description: 视频动效模板系统。20个可复用动效模板，支持参数化修改文案、数字和颜色，可导出纯色底 MP4、透明 MOV 与透明 WebM，并可由 Agent 按项目规范继续扩展。
+description: 视频动效模板系统。20个可复用动效模板，支持参数化修改、Agent 动效方案导入、本地批量渲染，以及纯色底 MP4、透明 MOV 与透明 WebM 导出。
 ---
 
 # 视频动效系统
@@ -16,8 +16,9 @@ description: 视频动效模板系统。20个可复用动效模板，支持参�
 1. 阅读 `README.md` 和 `PROJECT_OVERVIEW.md` 理解项目用途。
 2. 阅读 `SYSTEM.md` 与 `AGENT_GUIDE.md` 理解模板入库规范。
 3. 检查 `catalog.json` 与 `TEMPLATE_INDEX.md` 选择合适模板。
-4. 修改模板预设中的文案、数字和颜色，或按规范新增模板。
-5. 完整项目请从 GitHub 克隆后运行；RedSkill 投稿包主要用于理解源码和扩展方法。
+4. 为整条视频规划动效时，阅读 `motion-plan.schema.json` 和示例文件并输出可导入 JSON。
+5. 修改模板预设中的文案、数字和颜色，或按规范新增模板。
+6. 完整项目请从 GitHub 克隆后运行；RedSkill 投稿包主要用于理解源码和扩展方法。
 
 ## 核心能力
 
@@ -25,6 +26,7 @@ description: 视频动效模板系统。20个可复用动效模板，支持参�
 - 每个模板包含源码、设计说明、变量声明和多场景预设。
 - 默认视觉为黑色背景与橙色强调。
 - 本地支持纯色底 MP4、透明 MOV 和透明 WebM。
+- Agent 可以生成带时间码的动效方案，并由本地批量工作台顺序渲染。
 - 新模板需要登记到 `catalog.json` 并通过项目校验。
 
 ## 本地安装

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "release": "1.1.0",
+  "release": "1.3.0",
   "templates": [
     {
       "id": "bar-chart-grow",
@@ -14,6 +14,37 @@
         "对比",
         "多系列"
       ],
+      "director": {
+        "defaultMode": "data",
+        "allowedModes": [
+          "data",
+          "fullscreen"
+        ],
+        "layoutStatus": "ready",
+        "subjectSelectors": [
+          ".title-area",
+          ".chart-area"
+        ],
+        "frameSelectors": [
+          ".scene"
+        ],
+        "measuredOccupancy": 0.674,
+        "measuredSpan": {
+          "width": 0.883,
+          "height": 0.763
+        },
+        "occupancy": {
+          "min": 0.48,
+          "max": 0.94
+        },
+        "span": {
+          "minWidth": 0.76,
+          "maxWidth": 0.98,
+          "minHeight": 0.56,
+          "maxHeight": 0.96
+        },
+        "guidance": "柱形、坐标标签和数据结论共同铺满安全区；所有数值必须来自口播或明确数据源。"
+      },
       "duration": 6,
       "size": "1920×1080",
       "formats": [
@@ -38,6 +69,39 @@
         "KPI",
         "里程碑"
       ],
+      "director": {
+        "defaultMode": "fullscreen",
+        "allowedModes": [
+          "fullscreen",
+          "data"
+        ],
+        "layoutStatus": "ready",
+        "subjectSelectors": [
+          ".title",
+          ".value",
+          ".suffix",
+          ".note"
+        ],
+        "frameSelectors": [
+          ".counter-panel"
+        ],
+        "measuredOccupancy": 0.756,
+        "measuredSpan": {
+          "width": 0.887,
+          "height": 0.852
+        },
+        "occupancy": {
+          "min": 0.42,
+          "max": 0.94
+        },
+        "span": {
+          "minWidth": 0.76,
+          "maxWidth": 0.98,
+          "minHeight": 0.58,
+          "maxHeight": 0.96
+        },
+        "guidance": "只强调一个核心数字及其必要单位和解释，不补充无来源的辅助指标。"
+      },
       "duration": 5,
       "size": "1920×1080",
       "formats": [
@@ -61,6 +125,37 @@
         "时间序列",
         "绘制动画"
       ],
+      "director": {
+        "defaultMode": "data",
+        "allowedModes": [
+          "data",
+          "fullscreen"
+        ],
+        "layoutStatus": "ready",
+        "subjectSelectors": [
+          ".title-area",
+          ".chart-area"
+        ],
+        "frameSelectors": [
+          ".scene"
+        ],
+        "measuredOccupancy": 0.67,
+        "measuredSpan": {
+          "width": 0.883,
+          "height": 0.759
+        },
+        "occupancy": {
+          "min": 0.48,
+          "max": 0.94
+        },
+        "span": {
+          "minWidth": 0.76,
+          "maxWidth": 0.98,
+          "minHeight": 0.56,
+          "maxHeight": 0.96
+        },
+        "guidance": "折线、数据点、横轴标签和趋势结论形成完整画面；不添加脚本未提供的时间节点。"
+      },
       "duration": 7,
       "size": "1920×1080",
       "formats": [
@@ -84,6 +179,39 @@
         "里程碑",
         "横屏"
       ],
+      "director": {
+        "defaultMode": "fullscreen",
+        "allowedModes": [
+          "fullscreen",
+          "data"
+        ],
+        "layoutStatus": "ready",
+        "subjectSelectors": [
+          ".headline",
+          ".value",
+          ".unit",
+          ".note"
+        ],
+        "frameSelectors": [
+          ".content"
+        ],
+        "measuredOccupancy": 0.63,
+        "measuredSpan": {
+          "width": 0.785,
+          "height": 0.802
+        },
+        "occupancy": {
+          "min": 0.42,
+          "max": 0.94
+        },
+        "span": {
+          "minWidth": 0.76,
+          "maxWidth": 0.98,
+          "minHeight": 0.58,
+          "maxHeight": 0.96
+        },
+        "guidance": "用单项指标建立强视觉中心，说明文字只解释该数据的真实意义。"
+      },
       "duration": 6,
       "size": "1920×1080",
       "formats": [
@@ -107,6 +235,39 @@
         "效率",
         "知识视频"
       ],
+      "director": {
+        "defaultMode": "fullscreen",
+        "allowedModes": [
+          "fullscreen"
+        ],
+        "layoutStatus": "ready",
+        "subjectSelectors": [
+          ".eyebrow",
+          ".prefix",
+          ".value",
+          ".unit",
+          ".caption-wrap"
+        ],
+        "frameSelectors": [
+          ".card"
+        ],
+        "measuredOccupancy": 0.687,
+        "measuredSpan": {
+          "width": 0.887,
+          "height": 0.774
+        },
+        "occupancy": {
+          "min": 0.42,
+          "max": 0.94
+        },
+        "span": {
+          "minWidth": 0.76,
+          "maxWidth": 0.98,
+          "minHeight": 0.58,
+          "maxHeight": 0.96
+        },
+        "guidance": "作为独立结论画面出现，大数字与一句解释占据主体，不为其他内容预留半屏。"
+      },
       "duration": 5,
       "size": "1920×1080",
       "formats": [
@@ -130,6 +291,40 @@
         "数字",
         "方法论"
       ],
+      "director": {
+        "defaultMode": "fullscreen",
+        "allowedModes": [
+          "fullscreen",
+          "data"
+        ],
+        "layoutStatus": "ready",
+        "subjectSelectors": [
+          ".label",
+          ".tag",
+          ".value",
+          ".arrow",
+          ".conclusion"
+        ],
+        "frameSelectors": [
+          ".comparison-panel"
+        ],
+        "measuredOccupancy": 0.756,
+        "measuredSpan": {
+          "width": 0.887,
+          "height": 0.852
+        },
+        "occupancy": {
+          "min": 0.42,
+          "max": 0.94
+        },
+        "span": {
+          "minWidth": 0.76,
+          "maxWidth": 0.98,
+          "minHeight": 0.58,
+          "maxHeight": 0.96
+        },
+        "guidance": "过去与现在必须等权展示并铺满安全区，结论只能由两组真实数据推导。"
+      },
       "duration": 5.5,
       "size": "1920×1080",
       "formats": [
@@ -153,6 +348,40 @@
         "方法",
         "百分比"
       ],
+      "director": {
+        "defaultMode": "data",
+        "allowedModes": [
+          "data",
+          "fullscreen"
+        ],
+        "layoutStatus": "ready",
+        "subjectSelectors": [
+          ".title",
+          ".name",
+          ".track",
+          ".value",
+          ".caption"
+        ],
+        "frameSelectors": [
+          ".panel"
+        ],
+        "measuredOccupancy": 0.756,
+        "measuredSpan": {
+          "width": 0.887,
+          "height": 0.852
+        },
+        "occupancy": {
+          "min": 0.42,
+          "max": 0.94
+        },
+        "span": {
+          "minWidth": 0.76,
+          "maxWidth": 0.98,
+          "minHeight": 0.58,
+          "maxHeight": 0.96
+        },
+        "guidance": "两组条形和标签构成完整比较，不使用没有数据依据的百分比或排名。"
+      },
       "duration": 5.5,
       "size": "1920×1080",
       "formats": [
@@ -176,6 +405,40 @@
         "列表",
         "权重"
       ],
+      "director": {
+        "defaultMode": "fullscreen",
+        "allowedModes": [
+          "fullscreen",
+          "data"
+        ],
+        "layoutStatus": "ready",
+        "subjectSelectors": [
+          ".title",
+          ".no",
+          ".name",
+          ".score",
+          ".caption"
+        ],
+        "frameSelectors": [
+          ".panel"
+        ],
+        "measuredOccupancy": 0.756,
+        "measuredSpan": {
+          "width": 0.887,
+          "height": 0.852
+        },
+        "occupancy": {
+          "min": 0.42,
+          "max": 0.94
+        },
+        "span": {
+          "minWidth": 0.76,
+          "maxWidth": 0.98,
+          "minHeight": 0.58,
+          "maxHeight": 0.96
+        },
+        "guidance": "排名项必须有真实顺序依据；编号只承担排名含义，不添加额外英文序号。"
+      },
       "duration": 5.5,
       "size": "1920×1080",
       "formats": [
@@ -199,6 +462,40 @@
         "折线",
         "增长"
       ],
+      "director": {
+        "defaultMode": "data",
+        "allowedModes": [
+          "data",
+          "fullscreen"
+        ],
+        "layoutStatus": "ready",
+        "subjectSelectors": [
+          ".title",
+          ".subtitle",
+          ".line",
+          ".point",
+          ".caption"
+        ],
+        "frameSelectors": [
+          ".panel"
+        ],
+        "measuredOccupancy": 0.756,
+        "measuredSpan": {
+          "width": 0.887,
+          "height": 0.852
+        },
+        "occupancy": {
+          "min": 0.42,
+          "max": 0.94
+        },
+        "span": {
+          "minWidth": 0.76,
+          "maxWidth": 0.98,
+          "minHeight": 0.58,
+          "maxHeight": 0.96
+        },
+        "guidance": "只标出真正需要解释的拐点，节点时间和变化原因必须来自口播或数据源。"
+      },
       "duration": 6,
       "size": "1920×1080",
       "formats": [
@@ -222,6 +519,38 @@
         "证据",
         "数据"
       ],
+      "director": {
+        "defaultMode": "overlay",
+        "allowedModes": [
+          "overlay",
+          "fullscreen"
+        ],
+        "layoutStatus": "ready",
+        "subjectSelectors": [
+          ".main",
+          ".meta",
+          ".note"
+        ],
+        "frameSelectors": [
+          ".card"
+        ],
+        "measuredOccupancy": 0.116,
+        "measuredSpan": {
+          "width": 0.61,
+          "height": 0.19
+        },
+        "occupancy": {
+          "min": 0.08,
+          "max": 0.5
+        },
+        "span": {
+          "minWidth": 0.3,
+          "maxWidth": 0.9,
+          "minHeight": 0.12,
+          "maxHeight": 0.62
+        },
+        "guidance": "来源、日期、数字和口径必须可追溯；叠加时放在画面下方并避开字幕。"
+      },
       "duration": 5,
       "size": "1920×1080",
       "formats": [
@@ -245,6 +574,36 @@
         "透明",
         "纪录片"
       ],
+      "director": {
+        "defaultMode": "overlay",
+        "allowedModes": [
+          "overlay"
+        ],
+        "layoutStatus": "ready",
+        "subjectSelectors": [
+          ".duel",
+          ".verdict"
+        ],
+        "frameSelectors": [
+          ".panel"
+        ],
+        "measuredOccupancy": 0.164,
+        "measuredSpan": {
+          "width": 0.529,
+          "height": 0.309
+        },
+        "occupancy": {
+          "min": 0.08,
+          "max": 0.52
+        },
+        "span": {
+          "minWidth": 0.3,
+          "maxWidth": 0.9,
+          "minHeight": 0.14,
+          "maxHeight": 0.62
+        },
+        "guidance": "两组数据作为局部叠加出现，保持画面主体可见；数据标签必须说明比较对象。"
+      },
       "duration": 5,
       "size": "1920×1080",
       "formats": [
@@ -259,15 +618,48 @@
     {
       "id": "status-split",
       "name": "状态转折",
-      "description": "把常规与异常、过去与现在等两种状态做成章节式对照。",
+      "description": "把常规与异常、过去与现在等两种状态铺成完整章节式对照，适合独立转折镜头。",
       "path": "templates/status-split",
-      "category": "透明叠加",
+      "category": "知识讲解",
       "tags": [
         "对照",
         "章节",
-        "透明",
+        "全屏",
         "转折"
       ],
+      "director": {
+        "defaultMode": "transition",
+        "allowedModes": [
+          "transition",
+          "fullscreen"
+        ],
+        "layoutStatus": "ready",
+        "subjectSelectors": [
+          ".tag",
+          ".title",
+          ".connector-word",
+          ".arrow"
+        ],
+        "frameSelectors": [
+          ".cluster"
+        ],
+        "measuredOccupancy": 0.581,
+        "measuredSpan": {
+          "width": 0.863,
+          "height": 0.674
+        },
+        "occupancy": {
+          "min": 0.42,
+          "max": 0.94
+        },
+        "span": {
+          "minWidth": 0.76,
+          "maxWidth": 0.98,
+          "minHeight": 0.56,
+          "maxHeight": 0.96
+        },
+        "guidance": "只表现口播中明确存在的两种状态和转折关系，不追加虚构状态标签。"
+      },
       "duration": 5,
       "size": "1920×1080",
       "formats": [
@@ -291,6 +683,37 @@
         "百分比",
         "透明"
       ],
+      "director": {
+        "defaultMode": "overlay",
+        "allowedModes": [
+          "overlay",
+          "fullscreen"
+        ],
+        "layoutStatus": "ready",
+        "subjectSelectors": [
+          ".content",
+          ".meter"
+        ],
+        "frameSelectors": [
+          ".card"
+        ],
+        "measuredOccupancy": 0.205,
+        "measuredSpan": {
+          "width": 0.385,
+          "height": 0.533
+        },
+        "occupancy": {
+          "min": 0.12,
+          "max": 0.56
+        },
+        "span": {
+          "minWidth": 0.28,
+          "maxWidth": 0.88,
+          "minHeight": 0.22,
+          "maxHeight": 0.78
+        },
+        "guidance": "巨型数字承担唯一焦点，刻度只解释同一个数值，不引入额外指标。"
+      },
       "duration": 5,
       "size": "1920×1080",
       "formats": [
@@ -314,6 +737,39 @@
         "术语",
         "透明"
       ],
+      "director": {
+        "defaultMode": "overlay",
+        "allowedModes": [
+          "overlay",
+          "fullscreen"
+        ],
+        "layoutStatus": "ready",
+        "subjectSelectors": [
+          ".label",
+          ".term",
+          ".definition",
+          ".note"
+        ],
+        "frameSelectors": [
+          ".card"
+        ],
+        "measuredOccupancy": 0.174,
+        "measuredSpan": {
+          "width": 0.494,
+          "height": 0.353
+        },
+        "occupancy": {
+          "min": 0.1,
+          "max": 0.58
+        },
+        "span": {
+          "minWidth": 0.24,
+          "maxWidth": 0.88,
+          "minHeight": 0.2,
+          "maxHeight": 0.8
+        },
+        "guidance": "概念名、定义和一个必要提示即可；透明叠加时避开人物面部与字幕。"
+      },
       "duration": 5,
       "size": "1920×1080",
       "formats": [
@@ -328,15 +784,48 @@
     {
       "id": "three-step-flow",
       "name": "三步流程",
-      "description": "三个步骤卡片与连接线依次生长，适合 SOP、教程步骤、知识框架的口播叠加。",
+      "description": "三个步骤卡片与连接线铺满画面并依次生长，适合 SOP、教程步骤和知识框架的独立讲解镜头。",
       "path": "templates/three-step-flow",
       "category": "知识讲解",
       "tags": [
         "步骤",
         "流程",
         "教程",
-        "透明"
+        "全屏"
       ],
+      "director": {
+        "defaultMode": "fullscreen",
+        "allowedModes": [
+          "fullscreen"
+        ],
+        "layoutStatus": "ready",
+        "subjectSelectors": [
+          ".title",
+          ".index",
+          ".step-title",
+          ".desc",
+          ".rail"
+        ],
+        "frameSelectors": [
+          ".panel"
+        ],
+        "measuredOccupancy": 0.579,
+        "measuredSpan": {
+          "width": 0.887,
+          "height": 0.652
+        },
+        "occupancy": {
+          "min": 0.42,
+          "max": 0.94
+        },
+        "span": {
+          "minWidth": 0.76,
+          "maxWidth": 0.98,
+          "minHeight": 0.56,
+          "maxHeight": 0.96
+        },
+        "guidance": "三个步骤必须来自真实流程并按顺序铺满画面，不为其他内容预留半屏。"
+      },
       "duration": 6,
       "size": "1920×1080",
       "formats": [
@@ -358,8 +847,41 @@
         "误区",
         "纠正",
         "反转",
-        "透明"
+        "全屏"
       ],
+      "director": {
+        "defaultMode": "transition",
+        "allowedModes": [
+          "transition",
+          "fullscreen"
+        ],
+        "layoutStatus": "ready",
+        "subjectSelectors": [
+          ".label",
+          ".text",
+          ".swap",
+          ".caption"
+        ],
+        "frameSelectors": [
+          ".wrap"
+        ],
+        "measuredOccupancy": 0.578,
+        "measuredSpan": {
+          "width": 0.887,
+          "height": 0.651
+        },
+        "occupancy": {
+          "min": 0.42,
+          "max": 0.94
+        },
+        "span": {
+          "minWidth": 0.76,
+          "maxWidth": 0.98,
+          "minHeight": 0.56,
+          "maxHeight": 0.96
+        },
+        "guidance": "只保留错误观点与正确观点的反转，不增加无关的判断标签或解释分支。"
+      },
       "duration": 5.5,
       "size": "1920×1080",
       "formats": [
@@ -383,6 +905,37 @@
         "金句",
         "透明"
       ],
+      "director": {
+        "defaultMode": "overlay",
+        "allowedModes": [
+          "overlay"
+        ],
+        "layoutStatus": "ready",
+        "subjectSelectors": [
+          ".kicker",
+          ".point",
+          ".source"
+        ],
+        "frameSelectors": [
+          ".marker"
+        ],
+        "measuredOccupancy": 0.084,
+        "measuredSpan": {
+          "width": 0.556,
+          "height": 0.152
+        },
+        "occupancy": {
+          "min": 0.04,
+          "max": 0.42
+        },
+        "span": {
+          "minWidth": 0.18,
+          "maxWidth": 0.82,
+          "minHeight": 0.1,
+          "maxHeight": 0.6
+        },
+        "guidance": "只标注口播中正在强调的一句话，作为局部叠加，不增加眉题和英文装饰。"
+      },
       "duration": 4.5,
       "size": "1920×1080",
       "formats": [
@@ -406,6 +959,37 @@
         "总结",
         "透明"
       ],
+      "director": {
+        "defaultMode": "overlay",
+        "allowedModes": [
+          "overlay",
+          "fullscreen"
+        ],
+        "layoutStatus": "ready",
+        "subjectSelectors": [
+          ".title",
+          ".list"
+        ],
+        "frameSelectors": [
+          ".panel"
+        ],
+        "measuredOccupancy": 0.126,
+        "measuredSpan": {
+          "width": 0.342,
+          "height": 0.367
+        },
+        "occupancy": {
+          "min": 0.08,
+          "max": 0.62
+        },
+        "span": {
+          "minWidth": 0.22,
+          "maxWidth": 0.88,
+          "minHeight": 0.16,
+          "maxHeight": 0.8
+        },
+        "guidance": "每个检查项都必须来自口播中的真实清单；勾选顺序承担信息节奏。"
+      },
       "duration": 5,
       "size": "1920×1080",
       "formats": [
@@ -429,6 +1013,38 @@
         "演变",
         "透明"
       ],
+      "director": {
+        "defaultMode": "overlay",
+        "allowedModes": [
+          "overlay",
+          "fullscreen",
+          "data"
+        ],
+        "layoutStatus": "ready",
+        "subjectSelectors": [
+          ".title",
+          ".timeline"
+        ],
+        "frameSelectors": [
+          ".panel"
+        ],
+        "measuredOccupancy": 0.123,
+        "measuredSpan": {
+          "width": 0.544,
+          "height": 0.225
+        },
+        "occupancy": {
+          "min": 0.08,
+          "max": 0.58
+        },
+        "span": {
+          "minWidth": 0.22,
+          "maxWidth": 0.88,
+          "minHeight": 0.14,
+          "maxHeight": 0.76
+        },
+        "guidance": "时间节点和事件必须可追溯；当前版式更适合作为局部叠加，全屏使用前需要放大重构。"
+      },
       "duration": 5.5,
       "size": "1920×1080",
       "formats": [
@@ -452,6 +1068,37 @@
         "解释",
         "透明"
       ],
+      "director": {
+        "defaultMode": "overlay",
+        "allowedModes": [
+          "overlay",
+          "fullscreen"
+        ],
+        "layoutStatus": "ready",
+        "subjectSelectors": [
+          ".title",
+          ".cards"
+        ],
+        "frameSelectors": [
+          ".cluster"
+        ],
+        "measuredOccupancy": 0.139,
+        "measuredSpan": {
+          "width": 0.59,
+          "height": 0.236
+        },
+        "occupancy": {
+          "min": 0.1,
+          "max": 0.58
+        },
+        "span": {
+          "minWidth": 0.26,
+          "maxWidth": 0.9,
+          "minHeight": 0.18,
+          "maxHeight": 0.8
+        },
+        "guidance": "原因、机制和结果必须形成真实因果关系；当前版式适合作为局部叠加，全屏使用前需要放大重构。"
+      },
       "duration": 5.5,
       "size": "1920×1080",
       "formats": [
@@ -461,6 +1108,174 @@
       ],
       "defaultFormat": "mp4",
       "preview": "/renders/cause-chain/sample.webm",
+      "status": "ready"
+    },
+    {
+      "id": "compact-number-callout",
+      "name": "全屏数字强调",
+      "description": "用大数字和一句结果解释铺满独立画面，适合突出成本、增长、耗时与关键结论。",
+      "path": "templates/compact-number-callout",
+      "category": "数据可视化",
+      "tags": [
+        "数字",
+        "全屏",
+        "透明",
+        "口播"
+      ],
+      "director": {
+        "defaultMode": "fullscreen",
+        "allowedModes": [
+          "fullscreen"
+        ],
+        "layoutStatus": "ready",
+        "subjectSelectors": [
+          ".eyebrow",
+          ".context",
+          ".value",
+          ".unit",
+          ".note"
+        ],
+        "frameSelectors": [
+          ".statement"
+        ],
+        "measuredOccupancy": 0.705,
+        "measuredSpan": {
+          "width": 0.865,
+          "height": 0.815
+        },
+        "occupancy": {
+          "min": 0.42,
+          "max": 0.94
+        },
+        "span": {
+          "minWidth": 0.76,
+          "maxWidth": 0.98,
+          "minHeight": 0.58,
+          "maxHeight": 0.96
+        },
+        "guidance": "大数字和结果解释共同铺满画面，只保留口播中真实出现的数字、单位和结论。"
+      },
+      "duration": 3.2,
+      "size": "1920×1080",
+      "formats": [
+        "mp4",
+        "mov",
+        "webm"
+      ],
+      "defaultFormat": "mov",
+      "preview": "/renders/compact-number-callout/sample.webm",
+      "status": "ready"
+    },
+    {
+      "id": "mode-choice-compare",
+      "name": "并列模式选择",
+      "description": "两个等权方案的并列选择动效，用 VS 或短词连接，适合模式、工具和路线对比。",
+      "path": "templates/mode-choice-compare",
+      "category": "知识讲解",
+      "tags": [
+        "对比",
+        "选择",
+        "双方案",
+        "透明"
+      ],
+      "director": {
+        "defaultMode": "fullscreen",
+        "allowedModes": [
+          "fullscreen"
+        ],
+        "layoutStatus": "ready",
+        "subjectSelectors": [
+          ".title",
+          ".option-title",
+          ".option-detail",
+          ".connector"
+        ],
+        "frameSelectors": [
+          ".compare"
+        ],
+        "measuredOccupancy": 0.599,
+        "measuredSpan": {
+          "width": 0.887,
+          "height": 0.675
+        },
+        "occupancy": {
+          "min": 0.42,
+          "max": 0.94
+        },
+        "span": {
+          "minWidth": 0.76,
+          "maxWidth": 0.98,
+          "minHeight": 0.58,
+          "maxHeight": 0.96
+        },
+        "guidance": "两个方案保持等权并铺满画面，只展示名称和真实选择依据，不添加选项编号。"
+      },
+      "duration": 3.6,
+      "size": "1920×1080",
+      "formats": [
+        "mp4",
+        "mov",
+        "webm"
+      ],
+      "defaultFormat": "mov",
+      "preview": "/renders/mode-choice-compare/sample.webm",
+      "status": "ready"
+    },
+    {
+      "id": "iteration-loop",
+      "name": "迭代闭环",
+      "description": "四步循环展示问题定位、局部修复与再次生成，适合产品迭代、内容复盘和模型调优。",
+      "path": "templates/iteration-loop",
+      "category": "知识讲解",
+      "tags": [
+        "迭代",
+        "闭环",
+        "复盘",
+        "透明"
+      ],
+      "director": {
+        "defaultMode": "fullscreen",
+        "allowedModes": [
+          "fullscreen"
+        ],
+        "layoutStatus": "ready",
+        "subjectSelectors": [
+          ".title",
+          ".step-number",
+          ".step-text",
+          ".arrow",
+          ".return-path",
+          ".takeaway"
+        ],
+        "frameSelectors": [
+          ".loop"
+        ],
+        "measuredOccupancy": 0.619,
+        "measuredSpan": {
+          "width": 0.887,
+          "height": 0.698
+        },
+        "occupancy": {
+          "min": 0.42,
+          "max": 0.94
+        },
+        "span": {
+          "minWidth": 0.76,
+          "maxWidth": 0.98,
+          "minHeight": 0.58,
+          "maxHeight": 0.96
+        },
+        "guidance": "标题、必要步骤和闭环结论横向贯穿画面，不添加时间徽章、英文状态或模板编号。"
+      },
+      "duration": 4.2,
+      "size": "1920×1080",
+      "formats": [
+        "mp4",
+        "mov",
+        "webm"
+      ],
+      "defaultFormat": "mov",
+      "preview": "/renders/iteration-loop/sample.webm",
       "status": "ready"
     }
   ]

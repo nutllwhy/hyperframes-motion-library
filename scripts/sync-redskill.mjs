@@ -2,7 +2,9 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { root } from "./library.mjs";
 
-const destination = path.join(root, "redskill-submission");
+const destination = process.env.REDSKILL_DESTINATION
+  ? path.resolve(process.env.REDSKILL_DESTINATION)
+  : path.join(root, "redskill-submission");
 const allowedExtensions = new Set([".md", ".markdown", ".html", ".htm", ".css", ".js", ".json"]);
 
 async function copyFile(source, target, transform = (value) => value) {
@@ -50,13 +52,14 @@ async function updateCount(file, count) {
 async function main() {
   const catalog = JSON.parse(await fs.readFile(path.join(root, "catalog.json"), "utf8"));
   await fs.mkdir(destination, { recursive: true });
-  for (const directory of ["app", "scripts", "templates", "references"]) {
+  for (const directory of ["app", "scripts", "templates", "references", "examples"]) {
     await fs.rm(path.join(destination, directory), { recursive: true, force: true });
   }
 
   await copyTextTree(path.join(root, "app"), path.join(destination, "app"));
   await copyTextTree(path.join(root, "templates"), path.join(destination, "templates"));
   await copyTextTree(path.join(root, "references"), path.join(destination, "references"));
+  await copyTextTree(path.join(root, "examples"), path.join(destination, "examples"));
   for (const entry of await fs.readdir(path.join(root, "scripts"), { withFileTypes: true })) {
     if (!entry.isFile() || path.extname(entry.name) !== ".mjs" || entry.name === "sync-redskill.mjs") continue;
     const targetName = entry.name.replace(/\.mjs$/, ".js");
@@ -68,6 +71,8 @@ async function main() {
     ["AGENT_GUIDE.md", "AGENT_GUIDE.md"],
     ["SYSTEM.md", "SYSTEM.md"],
     ["README.md", "README_GITHUB.md", (content) => content.replaceAll("(LICENSE)", "(LICENSE.md)")],
+    ["motion-plan.schema.json", "motion-plan.schema.json"],
+    ["director-rules.json", "director-rules.json"],
     ["LICENSE", "LICENSE.md"]
   ]) {
     await copyFile(path.join(root, source), path.join(destination, target), transform);

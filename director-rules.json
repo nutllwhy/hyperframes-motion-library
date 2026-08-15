@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "layoutModes": {
+    "fullscreen": {
+      "label": "独立全屏",
+      "description": "作为独立画面出现，主体必须铺满安全区，不为人物或其他素材预留半屏空位。",
+      "occupancy": {
+        "min": 0.42,
+        "max": 0.96
+      },
+      "recommendedFormats": [
+        "mp4",
+        "mov"
+      ]
+    },
+    "overlay": {
+      "label": "透明叠加",
+      "description": "叠加在口播或实拍画面上，只占局部区域，并主动避开人物、字幕和产品主体。",
+      "occupancy": {
+        "min": 0.12,
+        "max": 0.58
+      },
+      "recommendedFormats": [
+        "mov",
+        "webm"
+      ]
+    },
+    "data": {
+      "label": "数据图表",
+      "description": "以数据关系为主体，坐标、标签和结论共同填满安全区，不添加没有来源的辅助指标。",
+      "occupancy": {
+        "min": 0.48,
+        "max": 0.96
+      },
+      "recommendedFormats": [
+        "mp4",
+        "mov"
+      ]
+    },
+    "transition": {
+      "label": "章节过渡",
+      "description": "用于观点或章节切换，可以有更强的视觉动作，但只能出现与转折有关的信息。",
+      "occupancy": {
+        "min": 0.42,
+        "max": 1
+      },
+      "recommendedFormats": [
+        "mp4",
+        "mov"
+      ]
+    }
+  },
+  "defaultForbiddenInformation": [
+    "口播未出现的时间、状态和数字",
+    "没有解释作用的英文标签与模板编号",
+    "为了填满画面而添加的装饰文案"
+  ],
+  "principles": [
+    "每个画面元素都必须服务于口播信息，不为了显得像动效而增加内容。",
+    "编号只有在表达真实步骤、顺序或排名时才能出现。",
+    "独立全屏动效必须主动填满安全区；透明叠加才允许为人物和素材预留位置。",
+    "装饰的视觉权重不能超过结论、数字、关系和必要解释。",
+    "渲染前必须能说明原始口播、表达目的、必要信息和禁止添加的信息。"
+  ]
+}
