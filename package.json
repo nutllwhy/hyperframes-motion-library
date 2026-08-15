@@ -1,12 +1,21 @@
 {
   "name": "motion-library",
+  "version": "1.3.0",
   "private": true,
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "dev": "node scripts/server.mjs",
     "build:pages": "node scripts/build-pages.mjs",
-    "check": "node scripts/validate-catalog.mjs",
+    "check": "node scripts/validate-catalog.mjs && node scripts/audit-layout.mjs --strict",
+    "audit:layouts": "node scripts/audit-layout.mjs",
     "check:templates": "node scripts/check-templates.mjs",
-    "render": "node scripts/render.mjs"
+    "render": "node scripts/render.mjs",
+    "cleanup:renders": "node scripts/cleanup-renders.mjs",
+    "sync:redskill": "node scripts/sync-redskill.mjs",
+    "prepare:release": "npm run check && npm run sync:redskill && npm run build:pages"
+  },
+  "devDependencies": {
+    "playwright-core": "^1.55.0"
   }
 }

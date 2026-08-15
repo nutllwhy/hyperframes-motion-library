@@ -7,6 +7,10 @@ export async function readCatalog() {
   return JSON.parse(await fs.readFile(path.join(root, "catalog.json"), "utf8"));
 }
 
+export async function readDirectorRules() {
+  return JSON.parse(await fs.readFile(path.join(root, "director-rules.json"), "utf8"));
+}
+
 export async function getTemplate(templateId) {
   const catalog = await readCatalog();
   const template = catalog.templates.find((item) => item.id === templateId);

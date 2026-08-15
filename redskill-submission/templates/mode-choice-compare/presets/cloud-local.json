@@ -1,0 +1,10 @@
+{
+  "title": "运行方式怎么选",
+  "leftTitle": "云端",
+  "leftDetail": "随时访问与协作",
+  "rightTitle": "本地",
+  "rightDetail": "数据与算力自己掌控",
+  "connector": "VS",
+  "accent": "#FF5A36",
+  "foreground": "#F4EFE7"
+}

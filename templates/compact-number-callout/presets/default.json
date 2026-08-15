@@ -1,0 +1,10 @@
+{
+  "eyebrow": "实测投入",
+  "context": "为了少走弯路",
+  "value": 1000,
+  "unit": "元",
+  "note": "把试错经验做成开源 Skill",
+  "position": "left",
+  "accent": "#FF5A36",
+  "foreground": "#F4EFE7"
+}

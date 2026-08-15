@@ -1,0 +1,7 @@
+{
+  "kicker": "关键判断",
+  "point": "先把重复动作做成模板，再让 AI 帮你批量调用。",
+  "source": "工作流设计 / Agent 协作",
+  "accent": "#FF5A36",
+  "foreground": "#F4EFE7"
+}

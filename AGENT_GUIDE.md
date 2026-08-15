@@ -20,6 +20,29 @@ https://github.com/nutllwhy/hyperframes-motion-library
 完成后运行 npm run check，并说明新模板的用途、变量和使用方式。
 ```
 
+## 让 Agent 为整条视频规划动效
+
+如果任务不是新增模板，而是为现有口播稿选择动效，请先读：
+
+1. `catalog.json`：只选择已经存在且状态为 `ready` 的模板。
+2. `director-rules.json`：先理解全屏、叠加、数据图表和章节过渡四种画面模式。
+3. `motion-plan.schema.json`：严格遵循项目、时间码、导演说明、模板、格式和变量的数据结构。
+4. `examples/motion-plan.example.json`：参考一份可直接导入的完整方案。
+
+推荐提示词：
+
+```text
+请先阅读 catalog.json、director-rules.json、motion-plan.schema.json 和 examples/motion-plan.example.json。
+根据我提供的带时间码口播稿，找出真正需要数据动效或知识讲解动效的位置。
+只使用目录中已有的 ready 模板，并为每个场景填写 timecode、templateId、format、完整 variables 和 director。
+director 必须引用原始口播，说明表达目的、画面模式、必须出现的信息和禁止添加的信息。
+不要添加口播或数据源中没有出现的数字、时间、状态、英文标签和模板编号。
+独立全屏动效必须填满安全区；只有透明叠加才为人物、字幕和其他素材预留位置。
+最终只输出符合 motion-plan.schema.json 的 JSON，不要添加 Markdown 代码围栏。
+```
+
+生成后，使用者可以把 JSON 导入页面顶部的“批量工作台”，继续编辑和本地批量渲染。
+
 ## Agent 应该先读哪些文件
 
 1. `README.md`：项目怎么运行、怎么渲染。
@@ -37,7 +60,9 @@ templates/<template-id>/
 ├── meta.json
 ├── package.json
 └── presets/
-    └── default.json
+    ├── default.json
+    ├── AI提效.json
+    └── 业务增长.json
 ```
 
 ## 新模板必须做到
@@ -50,7 +75,10 @@ templates/<template-id>/
 - 默认配色使用黑色背景与橙色强调。
 - 动画可寻帧，不依赖随机时间、无限循环或异步构建时间线。
 - 新模板登记到 `catalog.json`。
+- 新模板必须登记 `director.defaultMode`、`allowedModes`、真实内容的 `subjectSelectors`、外层框架的 `frameSelectors`、`occupancy`、`span` 和 `guidance`，并通过真实内容铺开检查；禁止用空面板冒充信息主体。
 - 至少运行 `npm run check` 验证目录结构。
+- 除默认预设外，建议提供至少两套内容明显不同的真实场景预设。
+- 不要直接手工维护 `redskill-submission/` 中的副本；发布前统一运行同步命令。
 
 ## 推荐新增的动效方向
 
@@ -67,6 +95,7 @@ templates/<template-id>/
 ```bash
 npm run check
 npm run check:templates
+npm run prepare:release
 ```
 
 如果只检查一个模板：

@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="zh-CN" data-composition-variables='[{"id":"eyebrow","type":"string","label":"角标","default":"实测投入"},{"id":"context","type":"string","label":"结论","default":"为了少走弯路"},{"id":"value","type":"number","label":"数字","default":1000},{"id":"unit","type":"string","label":"单位","default":"元"},{"id":"note","type":"string","label":"补充说明","default":"把试错经验做成开源 Skill"},{"id":"position","type":"enum","label":"位置","default":"left","options":[{"value":"left","label":"左侧进入"},{"value":"right","label":"右侧进入"}]},{"id":"accent","type":"color","label":"强调色","default":"#FF5A36"},{"id":"foreground","type":"color","label":"文字色","default":"#F4EFE7"},{"id":"exportMode","type":"enum","label":"导出模式","default":"transparent","hidden":true,"options":[{"value":"transparent","label":"透明背景"},{"value":"mp4","label":"剪映 MP4 深色底"}]}]'>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * { box-sizing: border-box; }
+      html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: transparent; }
+      body { font-family: sans-serif; }
+      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; color: var(--fg); background: transparent; }
+      .backdrop { position: absolute; inset: 0; opacity: 0; background: #12100e; }
+      html[data-export-mode="mp4"] .backdrop { opacity: 1; }
+      .scene { position: absolute; inset: 0; padding: 82px 108px 78px; }
+      .statement { position: relative; width: 100%; height:100%; display: grid; grid-template-columns: minmax(0, 1.18fr) minmax(500px, .82fr); grid-template-rows: auto 1fr auto; column-gap: 96px; overflow: hidden; }
+      .statement::before { content: ""; position: absolute; left: 0; top: 0; width: 100%; height: 5px; background: linear-gradient(90deg, var(--accent) 0 54%, color-mix(in srgb, var(--accent) 18%, transparent) 54%); }
+      .eyebrow { grid-column: 1 / -1; position: relative; z-index: 2; display: inline-flex; justify-self: start; padding: 12px 20px; border: 2px solid color-mix(in srgb, var(--accent) 72%, transparent); color: var(--accent); font-size: 25px; line-height: 1; font-weight: 850; letter-spacing: .12em; }
+      .main { position: relative; z-index: 2; align-self: center; min-width: 0; }
+      .context { margin-top: 34px; font-size: 74px; line-height: 1.1; font-weight: 900; letter-spacing: -.045em; }
+      .number-row { display: flex; align-items: flex-end; gap: 20px; margin-top: 40px; }
+      .value { display: block; color: var(--accent); font-size: 286px; line-height: .72; font-weight: 950; letter-spacing: -.08em; font-variant-numeric: tabular-nums; }
+      .unit { padding-bottom: 20px; color: var(--accent); font-size: 82px; line-height: 1; font-weight: 900; }
+      .meaning { position: relative; z-index: 2; align-self: end; margin-bottom:28px;padding:38px 0 8px 52px;border-top:2px solid rgba(244,239,231,.24); border-left: 5px solid var(--accent); }
+      .note { max-width: 560px; color: var(--fg); font-size: 56px; line-height: 1.35; font-weight: 800; letter-spacing: -.025em; }
+      .footer-rule { grid-column: 1 / -1; position: relative; z-index: 2; align-self: end; display: block; width: 100%; height: 4px; background: linear-gradient(90deg, var(--accent) 0 24%, color-mix(in srgb, var(--accent) 20%, transparent) 24%); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="3.2" data-width="1920" data-height="1080">
+      <div class="backdrop"></div>
+      <section id="compact-number-scene" class="scene clip" data-start="0" data-duration="3.2" data-track-index="1">
+        <div class="statement">
+          <div id="eyebrow" class="eyebrow"></div>
+          <div class="main"><div id="context" class="context"></div><div class="number-row"><span id="value" class="value"></span><span id="unit" class="unit"></span></div></div>
+          <div class="meaning"><div id="note" class="note"></div></div>
+          <span class="footer-rule"></span>
+        </div>
+      </section>
+    </div>
+    <script>
+      const fallback = { eyebrow: "实测投入", context: "为了少走弯路", value: 1000, unit: "元", note: "把试错经验做成开源 Skill", position: "left", accent: "#FF5A36", foreground: "#F4EFE7", exportMode: "transparent" };
+      const v = window.__hyperframes?.getVariables ? window.__hyperframes.getVariables() : fallback;
+      document.documentElement.dataset.exportMode = v.exportMode || "transparent";
+      document.documentElement.style.setProperty("--accent", v.accent);
+      document.documentElement.style.setProperty("--fg", v.foreground);
+      for (const id of ["eyebrow", "context", "value", "unit", "note"]) document.getElementById(id).textContent = v[id];
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      const direction = v.position === "right" ? 60 : -60;
+      tl.fromTo(".statement", { opacity: 0, x: direction, scale: .985 }, { opacity: 1, x: 0, scale: 1, duration: .42, ease: "expo.out" }, .12)
+        .fromTo(".eyebrow", { opacity: 0, x: -26 }, { opacity: 1, x: 0, duration: .28, ease: "circ.out" }, .2)
+        .fromTo(".context", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: .36, ease: "power4.out" }, .27)
+        .fromTo(".value", { opacity: 0, scale: .56, transformOrigin: "left bottom" }, { opacity: 1, scale: 1, duration: .5, ease: "expo.out" }, .34)
+        .fromTo(".unit", { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: .3, ease: "back.out(1.35)" }, .55)
+        .fromTo(".meaning", { opacity: 0, x: 34 }, { opacity: 1, x: 0, duration: .36, ease: "power3.out" }, .48)
+        .fromTo(".footer-rule", { scaleX: 0, transformOrigin: "left center" }, { scaleX: 1, duration: .38, ease: "power4.out" }, .66)
+        .to(".footer-rule", { opacity: .52, duration: .68, yoyo: true, repeat: 1, ease: "sine.inOut" }, 1.28)
+        .to(".scene", { opacity: 0, y: -20, duration: .28, ease: "power3.in" }, 2.84)
+        .set(".scene", { opacity: 0 }, 3.12);
+      window.__timelines.main = tl;
+    </script>
+  </body>
+</html>

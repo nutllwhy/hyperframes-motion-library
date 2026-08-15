@@ -1,18 +1,20 @@
 <!doctype html>
-<html lang="zh-CN" data-composition-variables='[{"id":"title","type":"string","label":"图表标题","default":"2024 年度业绩"},{"id":"subtitle","type":"string","label":"副标题","default":"各部门季度销售额对比"},{"id":"labels","type":"string","label":"标签（逗号分隔）","default":"Q1,Q2,Q3,Q4,全年"},{"id":"values","type":"string","label":"数值（逗号分隔）","default":"45,72,58,91,85"},{"id":"colors","type":"string","label":"颜色（逗号分隔）","default":"#FF5A36,#FF5A36,#B8ADA2,#FF5A36,#D8CEC4"},{"id":"accent","type":"color","label":"强调色","default":"#FF5A36"},{"id":"background","type":"color","label":"背景色","default":"#12100E"},{"id":"foreground","type":"color","label":"文字色","default":"#F4EFE7"}]'>
+<html lang="zh-CN" data-composition-variables='[{"id":"title","type":"string","label":"图表标题","default":"2024 年度业绩"},{"id":"subtitle","type":"string","label":"副标题","default":"各部门季度销售额对比"},{"id":"labels","type":"string","label":"标签（逗号分隔）","default":"Q1,Q2,Q3,Q4,全年"},{"id":"values","type":"string","label":"数值（逗号分隔）","default":"45,72,58,91,85"},{"id":"colors","type":"string","label":"颜色（逗号分隔）","default":"#FF5A36,#FF5A36,#B8ADA2,#FF5A36,#D8CEC4"},{"id":"accent","type":"color","label":"强调色","default":"#FF5A36"},{"id":"background","type":"color","label":"背景色","default":"#12100E"},{"id":"foreground","type":"color","label":"文字色","default":"#F4EFE7"},{"id":"exportMode","type":"enum","label":"导出模式","default":"transparent","hidden":true,"options":[{"value":"transparent","label":"透明背景"},{"value":"mp4","label":"剪映 MP4 深色底"}]}]'>
   <head>
     <meta charset="UTF-8" /><meta name="viewport" content="width=1920, height=1080" />
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
     <style>
       * { box-sizing: border-box; }
-      html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: #12100e; }
+      html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: transparent; }
+      html[data-export-mode="mp4"] body, html[data-export-mode="mp4"] #root { background: var(--background, #12100e) !important; }
       body { font-family: "IBM Plex Mono", monospace; }
-      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: #12100e; color: #f4efe7; }
+      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: transparent; color: var(--foreground, #f4efe7); }
       .scene { position: absolute; inset: 0; width: 100%; height: 100%; padding: 96px 112px; overflow: hidden; }
+      html[data-export-mode="transparent"] .scene::before { content: ""; position: absolute; inset: 58px 72px; z-index: 0; border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent); border-radius: 34px; background: rgba(18,16,14,.86); }
       .title-area { position: relative; z-index: 2; margin-bottom: 48px; }
       .title { margin: 0 0 12px; font-size: 72px; font-weight: 700; line-height: 1.1; letter-spacing: -0.03em; }
       .subtitle { margin: 0; font-size: 32px; font-weight: 400; color: #b8ada2; line-height: 1.4; }
-      .chart-area { position: relative; width: 100%; height: 640px; }
+      .chart-area { position: relative; z-index: 1; width: 100%; height: 640px; }
       .chart-svg { width: 100%; height: 100%; overflow: visible; }
       .grid-line { stroke: #3a3029; stroke-width: 1; }
       .grid-line-strong { stroke: #5a4840; stroke-width: 1.5; }
@@ -37,11 +39,12 @@
       </section>
     </div>
     <script>
-      const fallback = { title: "2024 年度业绩", subtitle: "各部门季度销售额对比", labels: "Q1,Q2,Q3,Q4,全年", values: "45,72,58,91,85", colors: "#FF5A36,#FF5A36,#B8ADA2,#FF5A36,#D8CEC4", accent: "#FF5A36", background: "#12100E", foreground: "#F4EFE7" };
+      const fallback = { title: "2024 年度业绩", subtitle: "各部门季度销售额对比", labels: "Q1,Q2,Q3,Q4,全年", values: "45,72,58,91,85", colors: "#FF5A36,#FF5A36,#B8ADA2,#FF5A36,#D8CEC4", accent: "#FF5A36", background: "#12100E", foreground: "#F4EFE7", exportMode: "transparent" };
       const v = window.__hyperframes?.getVariables ? window.__hyperframes.getVariables() : fallback;
+      document.documentElement.dataset.exportMode = v.exportMode || "transparent";
       document.documentElement.style.setProperty("--accent", v.accent);
-      document.getElementById("root").style.backgroundColor = v.background;
-      document.getElementById("root").style.color = v.foreground;
+      document.documentElement.style.setProperty("--background", v.background);
+      document.documentElement.style.setProperty("--foreground", v.foreground);
       for (const [id, value] of [["title", v.title], ["subtitle", v.subtitle]]) document.getElementById(id).textContent = value;
 
       const labels = v.labels.split(",");

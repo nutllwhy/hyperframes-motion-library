@@ -1,0 +1,12 @@
+{
+  "leftLabel": "手动制作",
+  "leftValue": 12,
+  "leftUnit": "小时",
+  "rightLabel": "AI + 模板",
+  "rightValue": 3,
+  "rightUnit": "小时",
+  "operator": ">",
+  "verdict": "重复制作时间减少 75%",
+  "accent": "#FF5A36",
+  "foreground": "#F4EFE7"
+}

@@ -1,0 +1,13 @@
+{
+  "title": "新增收入来源 Top 3",
+  "rank1": "老客复购",
+  "value1": 44,
+  "rank2": "新产品",
+  "value2": 35,
+  "rank3": "渠道合作",
+  "value3": 21,
+  "unit": "%",
+  "caption": "增长不是来自单一爆点，而是三条路径共同贡献。",
+  "accent": "#FF5A36",
+  "foreground": "#F4EFE7"
+}

@@ -1,0 +1,8 @@
+{
+  "title": "为什么模板能提高效率？",
+  "cause": "重复任务结构相似",
+  "mechanism": "固定版式和动画逻辑",
+  "result": "只替换内容即可复用",
+  "accent": "#FF5A36",
+  "foreground": "#F4EFE7"
+}

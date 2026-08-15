@@ -1,0 +1,13 @@
+{
+  "title": "最适合交给 AI 的 Top 3",
+  "rank1": "资料归纳",
+  "value1": 46,
+  "rank2": "结构整理",
+  "value2": 33,
+  "rank3": "格式转换",
+  "value3": 21,
+  "unit": "%",
+  "caption": "优先自动化规则明确、重复频率高的工作。",
+  "accent": "#FF5A36",
+  "foreground": "#F4EFE7"
+}

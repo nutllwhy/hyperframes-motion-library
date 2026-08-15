@@ -9,34 +9,27 @@
       html[data-export-mode="mp4"] body, html[data-export-mode="mp4"] #root { background: var(--background, #12100e) !important; }
       body { font-family: "IBM Plex Mono", monospace; }
       #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: transparent; color: var(--foreground, #f4efe7); }
-      .scene { position: absolute; inset: 0; width: 100%; height: 100%; padding: 96px 112px; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-      html[data-export-mode="transparent"] .scene::before { content: ""; position: absolute; left: 50%; top: 50%; width: 1320px; height: 820px; transform: translate(-50%, -50%); z-index: 0; border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent); border-radius: 38px; background: rgba(18,16,14,.86); }
-      .title, .counter-wrap, .note { position: relative; z-index: 2; }
-      .title { margin: 0 0 80px; font-size: 56px; font-weight: 600; letter-spacing: 0.02em; color: #b8ada2; text-align: center; }
-      .counter-wrap { position: relative; display: flex; align-items: flex-end; gap: 24px; }
-      .value { font-size: 280px; font-weight: 900; line-height: 0.85; letter-spacing: -0.06em; font-variant-numeric: tabular-nums; color: var(--accent); }
-      .suffix { font-size: 80px; font-weight: 700; line-height: 1; color: var(--accent); padding-bottom: 28px; }
-      .ring-svg { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 680px; height: 680px; pointer-events: none; }
-      .ring-track { fill: none; stroke: #3a3029; stroke-width: 12; stroke-linecap: round; }
-      .ring-fill { fill: none; stroke: var(--accent); stroke-width: 12; stroke-linecap: round; transform: rotate(-90deg); transform-origin: center; }
-      .note { margin: 60px 0 0; font-size: 32px; font-weight: 400; line-height: 1.5; color: #d8cec4; text-align: center; max-width: 900px; }
-      .ghost { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); font-size: 200px; font-weight: 900; color: var(--accent); opacity: 0.06; line-height: 1; letter-spacing: -0.08em; pointer-events: none; white-space: nowrap; }
+      .scene { position: absolute; inset: 0; width: 100%; height: 100%; padding: 82px 108px 78px; overflow: hidden; }
+      .counter-panel { position: relative; width: 100%; height: 100%; display: grid; grid-template-rows: auto 1fr auto; }
+      .counter-panel::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 8px; background: linear-gradient(90deg,var(--accent) 0 38%,color-mix(in srgb,var(--accent) 18%,transparent) 38%); }
+      .title { align-self: start; padding-top: 58px; font-family: sans-serif; font-size: 82px; font-weight: 900; letter-spacing: -0.05em; color: var(--foreground); }
+      .counter-wrap { align-self: center; display: flex; align-items: flex-end; gap: 28px; min-width: 0; }
+      .value { font-size: 292px; font-weight: 900; line-height: 0.8; letter-spacing: -0.075em; font-variant-numeric: tabular-nums; color: var(--accent); white-space: nowrap; }
+      .suffix { font-size: 104px; font-weight: 800; line-height: 1; color: var(--accent); padding-bottom: 22px; }
+      .note { justify-self: end; width: 58%; padding: 32px 0 0 44px; border-top: 2px solid rgba(244,239,231,.24); border-left: 2px solid rgba(244,239,231,.24); font-family: sans-serif; font-size: 42px; font-weight: 700; line-height: 1.42; color: rgba(244,239,231,.82); }
     </style>
   </head>
   <body>
     <div id="root" data-composition-id="main" data-start="0" data-duration="5" data-width="1920" data-height="1080">
       <section id="scene" class="scene clip" data-start="0" data-duration="5" data-track-index="1">
-        <div class="ghost" data-layout-ignore>COUNT</div>
-        <div class="title" id="title"></div>
-        <div class="counter-wrap">
-          <svg class="ring-svg" id="ring-svg" viewBox="0 0 680 680" data-layout-ignore>
-            <circle class="ring-track" cx="340" cy="340" r="310" />
-            <circle class="ring-fill" id="ring-fill" cx="340" cy="340" r="310" stroke-dasharray="0 1948" />
-          </svg>
-          <span class="value" id="value">0</span>
-          <span class="suffix" id="suffix"></span>
+        <div class="counter-panel">
+          <div class="title" id="title"></div>
+          <div class="counter-wrap">
+            <span class="value" id="value">0</span>
+            <span class="suffix" id="suffix"></span>
+          </div>
+          <div class="note" id="note"></div>
         </div>
-        <div class="note" id="note"></div>
       </section>
     </div>
     <script>
@@ -50,22 +43,15 @@
 
       const targetValue = Number(v.targetValue) || 0;
       const prefix = v.prefix || "";
-      const circumference = 2 * Math.PI * 310;
-      const ringEl = document.getElementById("ring-fill");
-      const ringSvg = document.getElementById("ring-svg");
-      ringEl.setAttribute("stroke-dasharray", `${circumference} ${circumference}`);
-      ringEl.setAttribute("stroke-dashoffset", circumference);
-
       const valueEl = document.getElementById("value");
       function formatNumber(n) { return n.toLocaleString("en-US"); }
 
       window.__timelines = window.__timelines || {};
       const tl = gsap.timeline({ paused: true });
-      tl.fromTo(".title", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0.1);
-      tl.fromTo(".ring-svg", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "sine.out" }, 0.2);
-      tl.to(ringEl, { attr: { strokeDashoffset: 0 }, duration: 2.2, ease: "power2.out" }, 0.4);
+      tl.fromTo(".counter-panel", { opacity: 0, y: 54 }, { opacity: 1, y: 0, duration: 0.65, ease: "expo.out" }, 0.1);
+      tl.fromTo(".title", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.35);
       const counterObj = { val: 0 };
-      tl.to(counterObj, { val: targetValue, duration: 2.5, ease: "power2.out", onUpdate: () => { valueEl.textContent = prefix + formatNumber(Math.round(counterObj.val)); } }, 0.4);
+      tl.to(counterObj, { val: targetValue, duration: 2.5, ease: "power2.out", onUpdate: () => { valueEl.textContent = prefix + formatNumber(Math.round(counterObj.val)); } }, 0.55);
       tl.fromTo(".suffix", { opacity: 0, x: 20 }, { opacity: 1, x: 0, duration: 0.5, ease: "back.out(1.5)" }, 2.2);
       tl.fromTo(".note", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 2.0);
       tl.fromTo(".value", { scale: 1 }, { scale: 1.02, duration: 0.15, ease: "power2.out", yoyo: true, repeat: 1 }, 2.9);

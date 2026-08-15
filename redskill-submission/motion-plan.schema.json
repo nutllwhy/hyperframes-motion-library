@@ -1,0 +1,123 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/nutllwhy/hyperframes-motion-library/blob/main/motion-plan.schema.json",
+  "title": "视频动效系统 Motion Plan",
+  "description": "Agent 为一条视频规划的可编辑、可批量渲染动效清单。",
+  "type": "object",
+  "required": ["version", "project", "scenes"],
+  "additionalProperties": false,
+  "properties": {
+    "version": {
+      "type": "string",
+      "enum": ["1.0", "1.1"]
+    },
+    "project": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80
+    },
+    "outputFormat": {
+      "type": "string",
+      "enum": ["mp4", "mov", "webm"],
+      "default": "mp4"
+    },
+    "scenes": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 50,
+      "items": {
+        "type": "object",
+        "required": ["timecode", "templateId", "variables"],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 80
+          },
+          "timecode": {
+            "type": "string",
+            "pattern": "^(?:\\d{1,2}:)?[0-5]?\\d:[0-5]\\d$"
+          },
+          "note": {
+            "type": "string",
+            "maxLength": 240
+          },
+          "director": {
+            "type": "object",
+            "required": ["sourceQuote", "intent", "layoutMode", "requiredInformation", "forbiddenInformation"],
+            "additionalProperties": false,
+            "properties": {
+              "sourceQuote": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500
+              },
+              "intent": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 240
+              },
+              "layoutMode": {
+                "type": "string",
+                "enum": ["fullscreen", "overlay", "data", "transition"]
+              },
+              "requiredInformation": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 12,
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 120
+                }
+              },
+              "forbiddenInformation": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 12,
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 120
+                }
+              }
+            }
+          },
+          "templateId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "preset": {
+            "type": "string"
+          },
+          "format": {
+            "type": "string",
+            "enum": ["mp4", "mov", "webm"]
+          },
+          "variables": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "version": { "const": "1.1" }
+        }
+      },
+      "then": {
+        "properties": {
+          "scenes": {
+            "items": {
+              "required": ["director"]
+            }
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 {
   "title": "上线前检查",
   "item1": "默认文案能直接生成视频",
-  "item2": "透明 WebM 可以叠到剪辑里",
+  "item2": "透明 MOV 可以叠到剪辑里",
   "item3": "模板能通过修改数据复用",
   "accent": "#FF5A36",
   "foreground": "#F4EFE7"

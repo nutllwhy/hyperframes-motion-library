@@ -6,6 +6,8 @@
 - SYSTEM.md：动效模板入库规范。
 - AGENT_GUIDE.md：给 Agent 继续扩展系统的操作指南。
 - catalog.json：模板库目录。
+- motion-plan.schema.json：Agent 动效方案的数据格式。
+- examples/motion-plan.example.json：可导入批量工作台的完整示例。
 - app/：本地模板库界面。
 - scripts/：本地检查、预览、渲染服务。
 - templates/：每个动效模板的源码、设计说明和默认数据。

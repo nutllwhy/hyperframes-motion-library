@@ -1,0 +1,11 @@
+{
+  "label": "整理一份研究资料",
+  "beforeLabel": "手动处理",
+  "beforeValue": 180,
+  "afterLabel": "AI 协作",
+  "afterValue": 45,
+  "unit": "分钟",
+  "conclusion": "重复整理环节减少 75%",
+  "accent": "#FF5A36",
+  "foreground": "#F4EFE7"
+}

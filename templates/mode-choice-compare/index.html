@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="zh-CN" data-composition-variables='[{"id":"title","type":"string","label":"标题","default":"两种方式怎么选"},{"id":"leftTitle","type":"string","label":"左侧选项","default":"直出"},{"id":"leftDetail","type":"string","label":"左侧说明","default":"运镜更自然"},{"id":"rightTitle","type":"string","label":"右侧选项","default":"九宫格"},{"id":"rightDetail","type":"string","label":"右侧说明","default":"先确认人物与场景"},{"id":"connector","type":"string","label":"中间文字","default":"VS"},{"id":"accent","type":"color","label":"强调色","default":"#FF5A36"},{"id":"foreground","type":"color","label":"文字色","default":"#F4EFE7"},{"id":"exportMode","type":"enum","label":"导出模式","default":"transparent","hidden":true,"options":[{"value":"transparent","label":"透明背景"},{"value":"mp4","label":"剪映 MP4 深色底"}]}]'>
+  <head>
+    <meta charset="UTF-8" /><meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * { box-sizing: border-box; }
+      html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: transparent; }
+      body { font-family: sans-serif; }
+      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; color: var(--fg); }
+      .backdrop { position: absolute; inset: 0; opacity: 0; background: #12100e; }
+      html[data-export-mode="mp4"] .backdrop { opacity: 1; }
+      .scene { position: absolute; inset: 0; padding: 82px 108px 78px; }
+      .compare { position: relative; width: 100%; height:100%; }
+      .title { position: relative; z-index: 2; padding-top:58px;text-align: left; font-size: 82px; line-height: 1.1; font-weight: 900; letter-spacing: -.045em; }
+      .title::after { content: ""; position:absolute;left:0;right:0;top:0;height:8px;background:linear-gradient(90deg,var(--accent) 0 38%,color-mix(in srgb,var(--accent) 18%,transparent) 38%)}
+      .options { position: relative; z-index: 2; display: grid; grid-template-columns: 1fr 180px 1fr; align-items: center; min-height: 680px; margin-top: 24px; }
+      .option { position: relative; min-height: 650px; padding: 108px 32px 104px; display: flex; flex-direction: column; justify-content: space-between; border-bottom: 4px solid rgba(244,239,231,.28); }
+      .option.right{border-bottom:8px solid var(--accent)}
+      .option.left { text-align: right; align-items: flex-end; }
+      .option.right { text-align: left; align-items: flex-start; }
+      .option-title { color: var(--fg); font-size: 156px; line-height: .92; font-weight: 950; letter-spacing: -.07em; }
+      .option-detail { padding: 16px 26px; color: #17130f; background: var(--accent); font-size: 38px; line-height: 1.15; font-weight: 850; }
+      .connector { position: relative; display: grid; place-items: center; width: 130px; height: 130px; margin: auto; border: 4px solid var(--accent); border-radius: 50%; color: var(--accent); background: rgba(17,15,13,.94); font-size: 38px; font-weight: 950; }
+      .connector::before, .connector::after { content: ""; position: absolute; top: 50%; width: 28px; height: 4px; background: var(--accent); }
+      .connector::before { right: 100%; }
+      .connector::after { left: 100%; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="3.6" data-width="1920" data-height="1080">
+      <div class="backdrop"></div>
+      <section id="mode-choice-scene" class="scene clip" data-start="0" data-duration="3.6" data-track-index="1">
+        <div class="compare">
+          <div id="title" class="title"></div>
+          <div class="options">
+            <article class="option left"><div id="leftTitle" class="option-title"></div><div id="leftDetail" class="option-detail"></div></article>
+            <div id="connector" class="connector"></div>
+            <article class="option right"><div id="rightTitle" class="option-title"></div><div id="rightDetail" class="option-detail"></div></article>
+          </div>
+        </div>
+      </section>
+    </div>
+    <script>
+      const fallback = { title: "两种方式怎么选", leftTitle: "直出", leftDetail: "运镜更自然", rightTitle: "九宫格", rightDetail: "先确认人物与场景", connector: "VS", accent: "#FF5A36", foreground: "#F4EFE7", exportMode: "transparent" };
+      const v = window.__hyperframes?.getVariables ? window.__hyperframes.getVariables() : fallback;
+      document.documentElement.dataset.exportMode = v.exportMode || "transparent";
+      document.documentElement.style.setProperty("--accent", v.accent); document.documentElement.style.setProperty("--fg", v.foreground);
+      for (const id of ["title", "leftTitle", "leftDetail", "rightTitle", "rightDetail", "connector"]) document.getElementById(id).textContent = v[id];
+      window.__timelines = window.__timelines || {}; const tl = gsap.timeline({ paused: true });
+      tl.fromTo(".compare", { opacity: 0, scale: .975 }, { opacity: 1, scale: 1, duration: .4, ease: "expo.out" }, .12)
+        .fromTo(".title", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: .32, ease: "circ.out" }, .18)
+        .fromTo(".option.left", { opacity: 0, x: -72 }, { opacity: 1, x: 0, duration: .46, ease: "power4.out" }, .27)
+        .fromTo(".option.right", { opacity: 0, x: 72 }, { opacity: 1, x: 0, duration: .46, ease: "expo.out" }, .3)
+        .fromTo(".option-title", { opacity: 0, y: 34 }, { opacity: 1, y: 0, duration: .38, stagger: .08, ease: "back.out(1.25)" }, .42)
+        .fromTo(".option-detail", { opacity: 0, scaleX: .72 }, { opacity: 1, scaleX: 1, duration: .32, stagger: .08, ease: "power3.out" }, .56)
+        .fromTo(".connector", { opacity: 0, scale: .45 }, { opacity: 1, scale: 1, duration: .38, ease: "back.out(1.55)" }, .52)
+        .to(".connector", { scale: 1.05, duration: .62, yoyo: true, repeat: 1, ease: "sine.inOut" }, 1.38)
+        .to(".scene", { opacity: 0, y: 20, duration: .28, ease: "power3.in" }, 3.24)
+        .set(".scene", { opacity: 0 }, 3.52);
+      window.__timelines.main = tl;
+    </script>
+  </body>
+</html>

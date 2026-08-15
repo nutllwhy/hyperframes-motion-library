@@ -1,0 +1,10 @@
+{
+  "title": "四季度线索增长",
+  "subtitle": "每季度有效咨询量",
+  "labels": "Q1,Q2,Q3,Q4",
+  "values": "320,460,610,880",
+  "colors": "#B8ADA2,#D8CEC4,#FF8A70,#FF5A36",
+  "accent": "#FF5A36",
+  "background": "#12100E",
+  "foreground": "#F4EFE7"
+}

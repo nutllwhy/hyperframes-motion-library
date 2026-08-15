@@ -33,8 +33,9 @@ RedSkill 新支持的格式主要是文本、代码和数据文件，例如 `.md
 1. 先看 `PROJECT_OVERVIEW.md`，理解项目结构。
 2. 再看 `SYSTEM.md`，理解一个动效模板怎么入库。
 3. 打开 `catalog.json`，看现在有哪些模板。
-4. 进入 `templates/` 下任意模板，查看 `index.html` 和 `presets/default.json`。
-5. 如果要继续扩展，复制 `AGENT_PROMPT.md` 里的提示词给自己的 Agent。
+4. 如果要为整条视频规划动效，查看 `motion-plan.schema.json` 和 `examples/motion-plan.example.json`。
+5. 进入 `templates/` 下任意模板，查看 `index.html` 和 `presets/default.json`。
+6. 如果要继续扩展，复制 `AGENT_PROMPT.md` 里的提示词给自己的 Agent。
 
 ## GitHub 下载
 
@@ -51,10 +52,21 @@ npm run dev
 
 - `PROJECT_OVERVIEW.md`：给 RedSkill 和读者看的结构速览。
 - `README_GITHUB.md`：完整项目的原始 README。
+- `LICENSE.md`：MIT 开源协议，明确项目的使用与再发布条件。
 - `SYSTEM.md`：动效资产入库规范。
 - `AGENT_GUIDE.md`：让 Agent 继续加动效的指南。
 - `AGENT_PROMPT.md`：可以直接复制给 Agent 的提示词。
 - `catalog.json`：去掉媒体依赖后的模板目录。
+- `motion-plan.schema.json`：Agent 生成整条视频动效方案时遵循的数据契约。
+- `examples/motion-plan.example.json`：可以导入批量工作台的完整示例。
 - `app/`：本地模板库界面源码。
 - `scripts/`：已改成 `.js` 后缀的本地工具脚本。
-- `templates/`：14 个动效模板的源码、设计说明和默认数据。
+- `templates/`：23 个动效模板的源码、设计说明和默认数据。
+
+## V1.2 批量动效工作台
+
+Agent 可以先根据带时间码的口播稿生成 `motion-plan.json`。用户在完整项目的“批量工作台”导入后，可以检查和修改每条任务、调整顺序，并在本地一次渲染整条视频需要的多个动效。
+
+## 开源协议
+
+这个投稿包与 GitHub 完整项目均采用 [MIT License](LICENSE.md)。允许个人及商业使用、修改和再发布，但需要保留原作者版权与许可声明。

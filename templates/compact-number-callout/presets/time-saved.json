@@ -1,0 +1,10 @@
+{
+  "eyebrow": "时间节省",
+  "context": "每周少做重复工作",
+  "value": 6,
+  "unit": "小时",
+  "note": "把高频步骤交给自动化流程",
+  "position": "left",
+  "accent": "#FF5A36",
+  "foreground": "#F4EFE7"
+}

@@ -1,0 +1,10 @@
+{
+  "title": "累计有效用户",
+  "targetValue": 50000,
+  "prefix": "",
+  "suffix": "+",
+  "note": "连续三个季度保持稳定增长",
+  "accent": "#FF5A36",
+  "background": "#12100E",
+  "foreground": "#F4EFE7"
+}
