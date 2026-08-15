@@ -1,5 +1,6 @@
 {
   "version": 1,
+  "release": "1.3.0",
   "templates": [
     {
       "id": "bar-chart-grow",
@@ -13,10 +14,43 @@
         "对比",
         "多系列"
       ],
+      "director": {
+        "defaultMode": "data",
+        "allowedModes": [
+          "data",
+          "fullscreen"
+        ],
+        "layoutStatus": "ready",
+        "subjectSelectors": [
+          ".title-area",
+          ".chart-area"
+        ],
+        "frameSelectors": [
+          ".scene"
+        ],
+        "measuredOccupancy": 0.674,
+        "measuredSpan": {
+          "width": 0.883,
+          "height": 0.763
+        },
+        "occupancy": {
+          "min": 0.48,
+          "max": 0.94
+        },
+        "span": {
+          "minWidth": 0.76,
+          "maxWidth": 0.98,
+          "minHeight": 0.56,
+          "maxHeight": 0.96
+        },
+        "guidance": "柱形、坐标标签和数据结论共同铺满安全区；所有数值必须来自口播或明确数据源。"
+      },
       "duration": 6,
       "size": "1920×1080",
       "formats": [
-        "mp4"
+        "mp4",
+        "mov",
+        "webm"
       ],
       "defaultFormat": "mp4",
       "preview": "/renders/bar-chart-grow/sample.mp4",
@@ -69,9 +103,39 @@
           "type": "color",
           "label": "文字色",
           "default": "#F4EFE7"
+        },
+        {
+          "id": "exportMode",
+          "type": "enum",
+          "label": "导出模式",
+          "default": "transparent",
+          "hidden": true,
+          "options": [
+            {
+              "value": "transparent",
+              "label": "透明背景"
+            },
+            {
+              "value": "mp4",
+              "label": "剪映 MP4 深色底"
+            }
+          ]
         }
       ],
       "presets": [
+        {
+          "id": "AI提效",
+          "values": {
+            "title": "AI 工作流效率对比",
+            "subtitle": "不同环节平均耗时（分钟）",
+            "labels": "资料收集,结构整理,初稿生成,人工校对",
+            "values": "42,28,16,24",
+            "colors": "#B8ADA2,#FF5A36,#FF5A36,#D8CEC4",
+            "accent": "#FF5A36",
+            "background": "#12100E",
+            "foreground": "#F4EFE7"
+          }
+        },
         {
           "id": "default",
           "values": {
@@ -80,6 +144,19 @@
             "labels": "Q1,Q2,Q3,Q4,全年",
             "values": "45,72,58,91,85",
             "colors": "#FF5A36,#FF5A36,#B8ADA2,#FF5A36,#D8CEC4",
+            "accent": "#FF5A36",
+            "background": "#12100E",
+            "foreground": "#F4EFE7"
+          }
+        },
+        {
+          "id": "业务增长",
+          "values": {
+            "title": "四季度线索增长",
+            "subtitle": "每季度有效咨询量",
+            "labels": "Q1,Q2,Q3,Q4",
+            "values": "320,460,610,880",
+            "colors": "#B8ADA2,#D8CEC4,#FF8A70,#FF5A36",
             "accent": "#FF5A36",
             "background": "#12100E",
             "foreground": "#F4EFE7"
@@ -100,10 +177,45 @@
         "KPI",
         "里程碑"
       ],
+      "director": {
+        "defaultMode": "fullscreen",
+        "allowedModes": [
+          "fullscreen",
+          "data"
+        ],
+        "layoutStatus": "ready",
+        "subjectSelectors": [
+          ".title",
+          ".value",
+          ".suffix",
+          ".note"
+        ],
+        "frameSelectors": [
+          ".counter-panel"
+        ],
+        "measuredOccupancy": 0.756,
+        "measuredSpan": {
+          "width": 0.887,
+          "height": 0.852
+        },
+        "occupancy": {
+          "min": 0.42,
+          "max": 0.94
+        },
+        "span": {
+          "minWidth": 0.76,
+          "maxWidth": 0.98,
+          "minHeight": 0.58,
+          "maxHeight": 0.96
+        },
+        "guidance": "只强调一个核心数字及其必要单位和解释，不补充无来源的辅助指标。"
+      },
       "duration": 5,
       "size": "1920×1080",
       "formats": [
-        "mp4"
+        "mp4",
+        "mov",
+        "webm"
       ],
       "defaultFormat": "mp4",
       "preview": "/renders/number-counter/sample.mp4",
@@ -156,9 +268,39 @@
           "type": "color",
           "label": "文字色",
           "default": "#F4EFE7"
+        },
+        {
+          "id": "exportMode",
+          "type": "enum",
+          "label": "导出模式",
+          "default": "transparent",
+          "hidden": true,
+          "options": [
+            {
+              "value": "transparent",
+              "label": "透明背景"
+            },
+            {
+              "value": "mp4",
+              "label": "剪映 MP4 深色底"
+            }
+          ]
         }
       ],
       "presets": [
+        {
+          "id": "AI提效",
+          "values": {
+            "title": "本周自动生成素材",
+            "targetValue": 128,
+            "prefix": "",
+            "suffix": " 条",
+            "note": "重复动效直接调用模板，不再从零制作",
+            "accent": "#FF5A36",
+            "background": "#12100E",
+            "foreground": "#F4EFE7"
+          }
+        },
         {
           "id": "default",
           "values": {
@@ -167,6 +309,19 @@
             "prefix": "",
             "suffix": "+",
             "note": "突破百万里程碑，持续增长中",
+            "accent": "#FF5A36",
+            "background": "#12100E",
+            "foreground": "#F4EFE7"
+          }
+        },
+        {
+          "id": "业务增长",
+          "values": {
+            "title": "累计有效用户",
+            "targetValue": 50000,
+            "prefix": "",
+            "suffix": "+",
+            "note": "连续三个季度保持稳定增长",
             "accent": "#FF5A36",
             "background": "#12100E",
             "foreground": "#F4EFE7"
@@ -186,10 +341,43 @@
         "时间序列",
         "绘制动画"
       ],
+      "director": {
+        "defaultMode": "data",
+        "allowedModes": [
+          "data",
+          "fullscreen"
+        ],
+        "layoutStatus": "ready",
+        "subjectSelectors": [
+          ".title-area",
+          ".chart-area"
+        ],
+        "frameSelectors": [
+          ".scene"
+        ],
+        "measuredOccupancy": 0.67,
+        "measuredSpan": {
+          "width": 0.883,
+          "height": 0.759
+        },
+        "occupancy": {
+          "min": 0.48,
+          "max": 0.94
+        },
+        "span": {
+          "minWidth": 0.76,
+          "maxWidth": 0.98,
+          "minHeight": 0.56,
+          "maxHeight": 0.96
+        },
+        "guidance": "折线、数据点、横轴标签和趋势结论形成完整画面；不添加脚本未提供的时间节点。"
+      },
       "duration": 7,
       "size": "1920×1080",
       "formats": [
-        "mp4"
+        "mp4",
+        "mov",
+        "webm"
       ],
       "defaultFormat": "mp4",
       "preview": "/renders/line-chart-draw/sample.mp4",
@@ -236,9 +424,38 @@
           "type": "color",
           "label": "文字色",
           "default": "#F4EFE7"
+        },
+        {
+          "id": "exportMode",
+          "type": "enum",
+          "label": "导出模式",
+          "default": "transparent",
+          "hidden": true,
+          "options": [
+            {
+              "value": "transparent",
+              "label": "透明背景"
+            },
+            {
+              "value": "mp4",
+              "label": "剪映 MP4 深色底"
+            }
+          ]
         }
       ],
       "presets": [
+        {
+          "id": "AI提效",
+          "values": {
+            "title": "内容生产耗时变化",
+            "subtitle": "接入 AI 工作流后的 8 周",
+            "labels": "第1周,第2周,第3周,第4周,第5周,第6周,第7周,第8周",
+            "values": "12,11,9,8,6,5,4,3",
+            "accent": "#FF5A36",
+            "background": "#12100E",
+            "foreground": "#F4EFE7"
+          }
+        },
         {
           "id": "default",
           "values": {
@@ -246,6 +463,18 @@
             "subtitle": "2024.01 — 2024.12",
             "labels": "1月,2月,3月,4月,5月,6月,7月,8月,9月,10月,11月,12月",
             "values": "120,145,180,210,260,340,420,480,510,580,640,720",
+            "accent": "#FF5A36",
+            "background": "#12100E",
+            "foreground": "#F4EFE7"
+          }
+        },
+        {
+          "id": "业务增长",
+          "values": {
+            "title": "近半年付费用户增长",
+            "subtitle": "2026.01 — 2026.06",
+            "labels": "1月,2月,3月,4月,5月,6月",
+            "values": "820,960,1180,1470,1910,2460",
             "accent": "#FF5A36",
             "background": "#12100E",
             "foreground": "#F4EFE7"
@@ -265,10 +494,45 @@
         "里程碑",
         "横屏"
       ],
+      "director": {
+        "defaultMode": "fullscreen",
+        "allowedModes": [
+          "fullscreen",
+          "data"
+        ],
+        "layoutStatus": "ready",
+        "subjectSelectors": [
+          ".headline",
+          ".value",
+          ".unit",
+          ".note"
+        ],
+        "frameSelectors": [
+          ".content"
+        ],
+        "measuredOccupancy": 0.63,
+        "measuredSpan": {
+          "width": 0.785,
+          "height": 0.802
+        },
+        "occupancy": {
+          "min": 0.42,
+          "max": 0.94
+        },
+        "span": {
+          "minWidth": 0.76,
+          "maxWidth": 0.98,
+          "minHeight": 0.58,
+          "maxHeight": 0.96
+        },
+        "guidance": "用单项指标建立强视觉中心，说明文字只解释该数据的真实意义。"
+      },
       "duration": 6,
       "size": "1920×1080",
       "formats": [
-        "mp4"
+        "mp4",
+        "mov",
+        "webm"
       ],
       "defaultFormat": "mp4",
       "preview": "/renders/metric-pulse/sample.mp4",
@@ -315,9 +579,38 @@
           "type": "color",
           "label": "文字色",
           "default": "#F4EFE7"
+        },
+        {
+          "id": "exportMode",
+          "type": "enum",
+          "label": "导出模式",
+          "default": "transparent",
+          "hidden": true,
+          "options": [
+            {
+              "value": "transparent",
+              "label": "透明背景"
+            },
+            {
+              "value": "mp4",
+              "label": "剪映 MP4 深色底"
+            }
+          ]
         }
       ],
       "presets": [
+        {
+          "id": "AI提效",
+          "values": {
+            "headline": "单条视频制作提速",
+            "value": 68,
+            "unit": "%",
+            "note": "资料整理和初稿生成耗时下降最明显。",
+            "accent": "#FF5A36",
+            "background": "#12100E",
+            "foreground": "#F4EFE7"
+          }
+        },
         {
           "id": "default",
           "values": {
@@ -325,6 +618,18 @@
             "value": 286,
             "unit": "%",
             "note": "连续四周保持上升，爆款内容贡献了主要增量。",
+            "accent": "#FF5A36",
+            "background": "#12100E",
+            "foreground": "#F4EFE7"
+          }
+        },
+        {
+          "id": "业务增长",
+          "values": {
+            "headline": "季度营收同比增长",
+            "value": 37,
+            "unit": "%",
+            "note": "新产品贡献超过一半的新增收入。",
             "accent": "#FF5A36",
             "background": "#12100E",
             "foreground": "#F4EFE7"
@@ -344,10 +649,44 @@
         "效率",
         "知识视频"
       ],
+      "director": {
+        "defaultMode": "fullscreen",
+        "allowedModes": [
+          "fullscreen"
+        ],
+        "layoutStatus": "ready",
+        "subjectSelectors": [
+          ".eyebrow",
+          ".prefix",
+          ".value",
+          ".unit",
+          ".caption-wrap"
+        ],
+        "frameSelectors": [
+          ".card"
+        ],
+        "measuredOccupancy": 0.687,
+        "measuredSpan": {
+          "width": 0.887,
+          "height": 0.774
+        },
+        "occupancy": {
+          "min": 0.42,
+          "max": 0.94
+        },
+        "span": {
+          "minWidth": 0.76,
+          "maxWidth": 0.98,
+          "minHeight": 0.58,
+          "maxHeight": 0.96
+        },
+        "guidance": "作为独立结论画面出现，大数字与一句解释占据主体，不为其他内容预留半屏。"
+      },
       "duration": 5,
       "size": "1920×1080",
       "formats": [
         "mp4",
+        "mov",
         "webm"
       ],
       "defaultFormat": "mp4",
@@ -416,6 +755,18 @@
       ],
       "presets": [
         {
+          "id": "AI提效",
+          "values": {
+            "eyebrow": "效率数据",
+            "prefix": "初稿时间缩短",
+            "value": 72,
+            "unit": "%",
+            "caption": "把资料整理、结构拆解和动效复用放进同一条 AI 工作流。",
+            "accent": "#FF5A36",
+            "foreground": "#F4EFE7"
+          }
+        },
+        {
           "id": "default",
           "values": {
             "eyebrow": "核心结论",
@@ -423,6 +774,18 @@
             "value": 3.2,
             "unit": "倍",
             "caption": "同样的选题流程，AI 参与后从整理资料到产出初稿明显提速。",
+            "accent": "#FF5A36",
+            "foreground": "#F4EFE7"
+          }
+        },
+        {
+          "id": "业务增长",
+          "values": {
+            "eyebrow": "核心增长",
+            "prefix": "有效咨询增加",
+            "value": 2.4,
+            "unit": "倍",
+            "caption": "优化内容入口之后，高意向用户的咨询占比持续提升。",
             "accent": "#FF5A36",
             "foreground": "#F4EFE7"
           }
@@ -441,10 +804,45 @@
         "数字",
         "方法论"
       ],
+      "director": {
+        "defaultMode": "fullscreen",
+        "allowedModes": [
+          "fullscreen",
+          "data"
+        ],
+        "layoutStatus": "ready",
+        "subjectSelectors": [
+          ".label",
+          ".tag",
+          ".value",
+          ".arrow",
+          ".conclusion"
+        ],
+        "frameSelectors": [
+          ".comparison-panel"
+        ],
+        "measuredOccupancy": 0.756,
+        "measuredSpan": {
+          "width": 0.887,
+          "height": 0.852
+        },
+        "occupancy": {
+          "min": 0.42,
+          "max": 0.94
+        },
+        "span": {
+          "minWidth": 0.76,
+          "maxWidth": 0.98,
+          "minHeight": 0.58,
+          "maxHeight": 0.96
+        },
+        "guidance": "过去与现在必须等权展示并铺满安全区，结论只能由两组真实数据推导。"
+      },
       "duration": 5.5,
       "size": "1920×1080",
       "formats": [
         "mp4",
+        "mov",
         "webm"
       ],
       "defaultFormat": "mp4",
@@ -525,6 +923,20 @@
       ],
       "presets": [
         {
+          "id": "AI提效",
+          "values": {
+            "label": "整理一份研究资料",
+            "beforeLabel": "手动处理",
+            "beforeValue": 180,
+            "afterLabel": "AI 协作",
+            "afterValue": 45,
+            "unit": "分钟",
+            "conclusion": "重复整理环节减少 75%",
+            "accent": "#FF5A36",
+            "foreground": "#F4EFE7"
+          }
+        },
+        {
           "id": "default",
           "values": {
             "label": "做一条知识视频",
@@ -534,6 +946,20 @@
             "afterValue": 3,
             "unit": "小时",
             "conclusion": "流程被压缩到原来的 1/4",
+            "accent": "#FF5A36",
+            "foreground": "#F4EFE7"
+          }
+        },
+        {
+          "id": "业务增长",
+          "values": {
+            "label": "新用户激活率",
+            "beforeLabel": "优化前",
+            "beforeValue": 24,
+            "afterLabel": "优化后",
+            "afterValue": 41,
+            "unit": "%",
+            "conclusion": "关键步骤减少后，激活率提升 17 个百分点",
             "accent": "#FF5A36",
             "foreground": "#F4EFE7"
           }
@@ -552,10 +978,45 @@
         "方法",
         "百分比"
       ],
+      "director": {
+        "defaultMode": "data",
+        "allowedModes": [
+          "data",
+          "fullscreen"
+        ],
+        "layoutStatus": "ready",
+        "subjectSelectors": [
+          ".title",
+          ".name",
+          ".track",
+          ".value",
+          ".caption"
+        ],
+        "frameSelectors": [
+          ".panel"
+        ],
+        "measuredOccupancy": 0.756,
+        "measuredSpan": {
+          "width": 0.887,
+          "height": 0.852
+        },
+        "occupancy": {
+          "min": 0.42,
+          "max": 0.94
+        },
+        "span": {
+          "minWidth": 0.76,
+          "maxWidth": 0.98,
+          "minHeight": 0.58,
+          "maxHeight": 0.96
+        },
+        "guidance": "两组条形和标签构成完整比较，不使用没有数据依据的百分比或排名。"
+      },
       "duration": 5.5,
       "size": "1920×1080",
       "formats": [
         "mp4",
+        "mov",
         "webm"
       ],
       "defaultFormat": "mp4",
@@ -636,6 +1097,20 @@
       ],
       "presets": [
         {
+          "id": "AI提效",
+          "values": {
+            "title": "两种写稿方式对比",
+            "itemA": "完全手动",
+            "valueA": 38,
+            "itemB": "AI 协作",
+            "valueB": 82,
+            "unit": "%",
+            "caption": "AI 更适合承担资料聚合、结构整理和初稿生成。",
+            "accent": "#FF5A36",
+            "foreground": "#F4EFE7"
+          }
+        },
+        {
           "id": "default",
           "values": {
             "title": "两种方法的效率差距",
@@ -645,6 +1120,20 @@
             "valueB": 86,
             "unit": "%",
             "caption": "AI 辅助在资料聚合和初稿生成阶段优势更明显。",
+            "accent": "#FF5A36",
+            "foreground": "#F4EFE7"
+          }
+        },
+        {
+          "id": "业务增长",
+          "values": {
+            "title": "两个渠道的转化差距",
+            "itemA": "自然流量",
+            "valueA": 27,
+            "itemB": "精准投放",
+            "valueB": 64,
+            "unit": "%",
+            "caption": "精准投放带来的用户意向更明确，后续转化也更稳定。",
             "accent": "#FF5A36",
             "foreground": "#F4EFE7"
           }
@@ -663,10 +1152,45 @@
         "列表",
         "权重"
       ],
+      "director": {
+        "defaultMode": "fullscreen",
+        "allowedModes": [
+          "fullscreen",
+          "data"
+        ],
+        "layoutStatus": "ready",
+        "subjectSelectors": [
+          ".title",
+          ".no",
+          ".name",
+          ".score",
+          ".caption"
+        ],
+        "frameSelectors": [
+          ".panel"
+        ],
+        "measuredOccupancy": 0.756,
+        "measuredSpan": {
+          "width": 0.887,
+          "height": 0.852
+        },
+        "occupancy": {
+          "min": 0.42,
+          "max": 0.94
+        },
+        "span": {
+          "minWidth": 0.76,
+          "maxWidth": 0.98,
+          "minHeight": 0.58,
+          "maxHeight": 0.96
+        },
+        "guidance": "排名项必须有真实顺序依据；编号只承担排名含义，不添加额外英文序号。"
+      },
       "duration": 5.5,
       "size": "1920×1080",
       "formats": [
         "mp4",
+        "mov",
         "webm"
       ],
       "defaultFormat": "mp4",
@@ -759,6 +1283,22 @@
       ],
       "presets": [
         {
+          "id": "AI提效",
+          "values": {
+            "title": "最适合交给 AI 的 Top 3",
+            "rank1": "资料归纳",
+            "value1": 46,
+            "rank2": "结构整理",
+            "value2": 33,
+            "rank3": "格式转换",
+            "value3": 21,
+            "unit": "%",
+            "caption": "优先自动化规则明确、重复频率高的工作。",
+            "accent": "#FF5A36",
+            "foreground": "#F4EFE7"
+          }
+        },
+        {
           "id": "default",
           "values": {
             "title": "影响效率的 Top 3 因素",
@@ -770,6 +1310,22 @@
             "value3": 21,
             "unit": "%",
             "caption": "真正拖慢生产的，往往不是创意，而是重复整理和重复决策。",
+            "accent": "#FF5A36",
+            "foreground": "#F4EFE7"
+          }
+        },
+        {
+          "id": "业务增长",
+          "values": {
+            "title": "新增收入来源 Top 3",
+            "rank1": "老客复购",
+            "value1": 44,
+            "rank2": "新产品",
+            "value2": 35,
+            "rank3": "渠道合作",
+            "value3": 21,
+            "unit": "%",
+            "caption": "增长不是来自单一爆点，而是三条路径共同贡献。",
             "accent": "#FF5A36",
             "foreground": "#F4EFE7"
           }
@@ -788,10 +1344,45 @@
         "折线",
         "增长"
       ],
+      "director": {
+        "defaultMode": "data",
+        "allowedModes": [
+          "data",
+          "fullscreen"
+        ],
+        "layoutStatus": "ready",
+        "subjectSelectors": [
+          ".title",
+          ".subtitle",
+          ".line",
+          ".point",
+          ".caption"
+        ],
+        "frameSelectors": [
+          ".panel"
+        ],
+        "measuredOccupancy": 0.756,
+        "measuredSpan": {
+          "width": 0.887,
+          "height": 0.852
+        },
+        "occupancy": {
+          "min": 0.42,
+          "max": 0.94
+        },
+        "span": {
+          "minWidth": 0.76,
+          "maxWidth": 0.98,
+          "minHeight": 0.58,
+          "maxHeight": 0.96
+        },
+        "guidance": "只标出真正需要解释的拐点，节点时间和变化原因必须来自口播或数据源。"
+      },
       "duration": 6,
       "size": "1920×1080",
       "formats": [
         "mp4",
+        "mov",
         "webm"
       ],
       "defaultFormat": "mp4",
@@ -854,12 +1445,34 @@
       ],
       "presets": [
         {
+          "id": "AI提效",
+          "values": {
+            "title": "效率提升的关键拐点",
+            "subtitle": "不是第一次使用 AI，而是开始沉淀模板之后",
+            "pointLabel": "建立模板库",
+            "caption": "从这一刻开始，重复工作才真正被系统接管。",
+            "accent": "#FF5A36",
+            "foreground": "#F4EFE7"
+          }
+        },
+        {
           "id": "default",
           "values": {
             "title": "增长真正的拐点",
             "subtitle": "不是换工具，而是把流程模板化之后",
             "pointLabel": "模板化开始",
             "caption": "拐点出现后，内容生产从单次项目变成可复用系统。",
+            "accent": "#FF5A36",
+            "foreground": "#F4EFE7"
+          }
+        },
+        {
+          "id": "业务增长",
+          "values": {
+            "title": "转化率真正的拐点",
+            "subtitle": "缩短注册流程并重写首屏价值之后",
+            "pointLabel": "流程改版上线",
+            "caption": "产品没有增加新功能，但用户更快理解了下一步。",
             "accent": "#FF5A36",
             "foreground": "#F4EFE7"
           }
@@ -878,10 +1491,43 @@
         "证据",
         "数据"
       ],
+      "director": {
+        "defaultMode": "overlay",
+        "allowedModes": [
+          "overlay",
+          "fullscreen"
+        ],
+        "layoutStatus": "ready",
+        "subjectSelectors": [
+          ".main",
+          ".meta",
+          ".note"
+        ],
+        "frameSelectors": [
+          ".card"
+        ],
+        "measuredOccupancy": 0.116,
+        "measuredSpan": {
+          "width": 0.61,
+          "height": 0.19
+        },
+        "occupancy": {
+          "min": 0.08,
+          "max": 0.5
+        },
+        "span": {
+          "minWidth": 0.3,
+          "maxWidth": 0.9,
+          "minHeight": 0.12,
+          "maxHeight": 0.62
+        },
+        "guidance": "来源、日期、数字和口径必须可追溯；叠加时放在画面下方并避开字幕。"
+      },
       "duration": 5,
       "size": "1920×1080",
       "formats": [
         "mp4",
+        "mov",
         "webm"
       ],
       "defaultFormat": "mp4",
@@ -956,6 +1602,19 @@
       ],
       "presets": [
         {
+          "id": "AI提效",
+          "values": {
+            "source": "数据来源：团队工作流记录",
+            "date": "2026.08",
+            "claim": "引入模板复用后，平均初稿时间明显缩短",
+            "value": 72,
+            "unit": "%",
+            "note": "统计口径：连续 30 条知识类视频的制作记录。",
+            "accent": "#FF5A36",
+            "foreground": "#F4EFE7"
+          }
+        },
+        {
           "id": "default",
           "values": {
             "source": "数据来源：项目复盘记录",
@@ -964,6 +1623,19 @@
             "value": 68,
             "unit": "%",
             "note": "统计口径：同类型知识视频中的数据展示片段。",
+            "accent": "#FF5A36",
+            "foreground": "#F4EFE7"
+          }
+        },
+        {
+          "id": "业务增长",
+          "values": {
+            "source": "数据来源：季度经营复盘",
+            "date": "2026 Q2",
+            "claim": "老客复购成为本季度最主要的收入增量",
+            "value": 44,
+            "unit": "%",
+            "note": "统计口径：已完成支付的订单收入，不含退款。",
             "accent": "#FF5A36",
             "foreground": "#F4EFE7"
           }
@@ -982,10 +1654,41 @@
         "透明",
         "纪录片"
       ],
+      "director": {
+        "defaultMode": "overlay",
+        "allowedModes": [
+          "overlay"
+        ],
+        "layoutStatus": "ready",
+        "subjectSelectors": [
+          ".duel",
+          ".verdict"
+        ],
+        "frameSelectors": [
+          ".panel"
+        ],
+        "measuredOccupancy": 0.164,
+        "measuredSpan": {
+          "width": 0.529,
+          "height": 0.309
+        },
+        "occupancy": {
+          "min": 0.08,
+          "max": 0.52
+        },
+        "span": {
+          "minWidth": 0.3,
+          "maxWidth": 0.9,
+          "minHeight": 0.14,
+          "maxHeight": 0.62
+        },
+        "guidance": "两组数据作为局部叠加出现，保持画面主体可见；数据标签必须说明比较对象。"
+      },
       "duration": 5,
       "size": "1920×1080",
       "formats": [
         "mp4",
+        "mov",
         "webm"
       ],
       "defaultFormat": "mp4",
@@ -1086,6 +1789,21 @@
       ],
       "presets": [
         {
+          "id": "AI提效",
+          "values": {
+            "leftLabel": "手动制作",
+            "leftValue": 12,
+            "leftUnit": "小时",
+            "rightLabel": "AI + 模板",
+            "rightValue": 3,
+            "rightUnit": "小时",
+            "operator": ">",
+            "verdict": "重复制作时间减少 75%",
+            "accent": "#FF5A36",
+            "foreground": "#F4EFE7"
+          }
+        },
+        {
           "id": "default",
           "values": {
             "leftLabel": "上海 SHANGHAI",
@@ -1099,25 +1817,74 @@
             "accent": "#FF5A36",
             "foreground": "#F4EFE7"
           }
+        },
+        {
+          "id": "业务增长",
+          "values": {
+            "leftLabel": "旧版转化率",
+            "leftValue": 24,
+            "leftUnit": "%",
+            "rightLabel": "新版转化率",
+            "rightValue": 41,
+            "rightUnit": "%",
+            "operator": "<",
+            "verdict": "新版流程提升 17 个百分点",
+            "accent": "#FF5A36",
+            "foreground": "#F4EFE7"
+          }
         }
       ]
     },
     {
       "id": "status-split",
       "name": "状态转折",
-      "description": "把常规与异常、过去与现在等两种状态做成章节式对照。",
+      "description": "把常规与异常、过去与现在等两种状态铺成完整章节式对照，适合独立转折镜头。",
       "path": "templates/status-split",
-      "category": "透明叠加",
+      "category": "知识讲解",
       "tags": [
         "对照",
         "章节",
-        "透明",
+        "全屏",
         "转折"
       ],
+      "director": {
+        "defaultMode": "transition",
+        "allowedModes": [
+          "transition",
+          "fullscreen"
+        ],
+        "layoutStatus": "ready",
+        "subjectSelectors": [
+          ".tag",
+          ".title",
+          ".connector-word",
+          ".arrow"
+        ],
+        "frameSelectors": [
+          ".cluster"
+        ],
+        "measuredOccupancy": 0.581,
+        "measuredSpan": {
+          "width": 0.863,
+          "height": 0.674
+        },
+        "occupancy": {
+          "min": 0.42,
+          "max": 0.94
+        },
+        "span": {
+          "minWidth": 0.76,
+          "maxWidth": 0.98,
+          "minHeight": 0.56,
+          "maxHeight": 0.96
+        },
+        "guidance": "只表现口播中明确存在的两种状态和转折关系，不追加虚构状态标签。"
+      },
       "duration": 5,
       "size": "1920×1080",
       "formats": [
         "mp4",
+        "mov",
         "webm"
       ],
       "defaultFormat": "mp4",
@@ -1186,6 +1953,18 @@
       ],
       "presets": [
         {
+          "id": "AI提效",
+          "values": {
+            "leftTitle": "每次从零开始",
+            "leftTag": "单次制作",
+            "rightTitle": "调用现成模板",
+            "rightTag": "系统复用",
+            "connector": "升级",
+            "accent": "#FF5A36",
+            "foreground": "#F4EFE7"
+          }
+        },
+        {
           "id": "default",
           "values": {
             "leftTitle": "往年常规",
@@ -1193,6 +1972,18 @@
             "rightTitle": "2026 异常",
             "rightTag": "高温 · 潮湿",
             "connector": "转向",
+            "accent": "#FF5A36",
+            "foreground": "#F4EFE7"
+          }
+        },
+        {
+          "id": "业务增长",
+          "values": {
+            "leftTitle": "流量快速上涨",
+            "leftTag": "增长期",
+            "rightTitle": "转化开始承压",
+            "rightTag": "瓶颈期",
+            "connector": "进入",
             "accent": "#FF5A36",
             "foreground": "#F4EFE7"
           }
@@ -1211,10 +2002,42 @@
         "百分比",
         "透明"
       ],
+      "director": {
+        "defaultMode": "overlay",
+        "allowedModes": [
+          "overlay",
+          "fullscreen"
+        ],
+        "layoutStatus": "ready",
+        "subjectSelectors": [
+          ".content",
+          ".meter"
+        ],
+        "frameSelectors": [
+          ".card"
+        ],
+        "measuredOccupancy": 0.205,
+        "measuredSpan": {
+          "width": 0.385,
+          "height": 0.533
+        },
+        "occupancy": {
+          "min": 0.12,
+          "max": 0.56
+        },
+        "span": {
+          "minWidth": 0.28,
+          "maxWidth": 0.88,
+          "minHeight": 0.22,
+          "maxHeight": 0.78
+        },
+        "guidance": "巨型数字承担唯一焦点，刻度只解释同一个数值，不引入额外指标。"
+      },
       "duration": 5,
       "size": "1920×1080",
       "formats": [
         "mp4",
+        "mov",
         "webm"
       ],
       "defaultFormat": "mp4",
@@ -1283,6 +2106,18 @@
       ],
       "presets": [
         {
+          "id": "AI提效",
+          "values": {
+            "hero": "快",
+            "label": "重复任务自动化",
+            "value": 72,
+            "unit": "%",
+            "caption": "时间被重新释放",
+            "accent": "#FF5A36",
+            "foreground": "#F4EFE7"
+          }
+        },
+        {
           "id": "default",
           "values": {
             "hero": "汉",
@@ -1290,6 +2125,18 @@
             "value": 100,
             "unit": "%",
             "caption": "接近饱和",
+            "accent": "#FF5A36",
+            "foreground": "#F4EFE7"
+          }
+        },
+        {
+          "id": "业务增长",
+          "values": {
+            "hero": "增",
+            "label": "季度有效咨询",
+            "value": 68,
+            "unit": "%",
+            "caption": "增长进入加速区",
             "accent": "#FF5A36",
             "foreground": "#F4EFE7"
           }
@@ -1308,10 +2155,44 @@
         "术语",
         "透明"
       ],
+      "director": {
+        "defaultMode": "overlay",
+        "allowedModes": [
+          "overlay",
+          "fullscreen"
+        ],
+        "layoutStatus": "ready",
+        "subjectSelectors": [
+          ".label",
+          ".term",
+          ".definition",
+          ".note"
+        ],
+        "frameSelectors": [
+          ".card"
+        ],
+        "measuredOccupancy": 0.174,
+        "measuredSpan": {
+          "width": 0.494,
+          "height": 0.353
+        },
+        "occupancy": {
+          "min": 0.1,
+          "max": 0.58
+        },
+        "span": {
+          "minWidth": 0.24,
+          "maxWidth": 0.88,
+          "minHeight": 0.2,
+          "maxHeight": 0.8
+        },
+        "guidance": "概念名、定义和一个必要提示即可；透明叠加时避开人物面部与字幕。"
+      },
       "duration": 5,
       "size": "1920×1080",
       "formats": [
         "mp4",
+        "mov",
         "webm"
       ],
       "defaultFormat": "mp4",
@@ -1374,6 +2255,17 @@
       ],
       "presets": [
         {
+          "id": "AI提效",
+          "values": {
+            "label": "核心概念",
+            "term": "工作流自动化",
+            "definition": "不是让 AI 包办全部工作，而是把重复步骤交给系统稳定执行。",
+            "note": "适合解释 AI / 自动化 / Agent",
+            "accent": "#FF5A36",
+            "foreground": "#F4EFE7"
+          }
+        },
+        {
           "id": "default",
           "values": {
             "label": "核心概念",
@@ -1383,25 +2275,70 @@
             "accent": "#FF5A36",
             "foreground": "#F4EFE7"
           }
+        },
+        {
+          "id": "业务增长",
+          "values": {
+            "label": "增长概念",
+            "term": "复购率",
+            "definition": "在一定周期内，完成首次购买的用户再次产生购买的比例。",
+            "note": "适合解释指标 / 口径 / 商业概念",
+            "accent": "#FF5A36",
+            "foreground": "#F4EFE7"
+          }
         }
       ]
     },
     {
       "id": "three-step-flow",
       "name": "三步流程",
-      "description": "三个步骤卡片与连接线依次生长，适合 SOP、教程步骤、知识框架的口播叠加。",
+      "description": "三个步骤卡片与连接线铺满画面并依次生长，适合 SOP、教程步骤和知识框架的独立讲解镜头。",
       "path": "templates/three-step-flow",
       "category": "知识讲解",
       "tags": [
         "步骤",
         "流程",
         "教程",
-        "透明"
+        "全屏"
       ],
+      "director": {
+        "defaultMode": "fullscreen",
+        "allowedModes": [
+          "fullscreen"
+        ],
+        "layoutStatus": "ready",
+        "subjectSelectors": [
+          ".title",
+          ".index",
+          ".step-title",
+          ".desc",
+          ".rail"
+        ],
+        "frameSelectors": [
+          ".panel"
+        ],
+        "measuredOccupancy": 0.579,
+        "measuredSpan": {
+          "width": 0.887,
+          "height": 0.652
+        },
+        "occupancy": {
+          "min": 0.42,
+          "max": 0.94
+        },
+        "span": {
+          "minWidth": 0.76,
+          "maxWidth": 0.98,
+          "minHeight": 0.56,
+          "maxHeight": 0.96
+        },
+        "guidance": "三个步骤必须来自真实流程并按顺序铺满画面，不为其他内容预留半屏。"
+      },
       "duration": 6,
       "size": "1920×1080",
       "formats": [
         "mp4",
+        "mov",
         "webm"
       ],
       "defaultFormat": "mp4",
@@ -1482,6 +2419,20 @@
       ],
       "presets": [
         {
+          "id": "AI提效",
+          "values": {
+            "title": "让 Agent 执行任务的三步",
+            "step1": "说明目标",
+            "desc1": "先说清想要什么",
+            "step2": "给出材料",
+            "desc2": "提供文件和上下文",
+            "step3": "验收结果",
+            "desc3": "检查真实可用性",
+            "accent": "#FF5A36",
+            "foreground": "#F4EFE7"
+          }
+        },
+        {
           "id": "default",
           "values": {
             "title": "把知识讲清楚的三步",
@@ -1491,6 +2442,20 @@
             "desc2": "再讲为什么成立",
             "step3": "给出动作",
             "desc3": "最后落到怎么做",
+            "accent": "#FF5A36",
+            "foreground": "#F4EFE7"
+          }
+        },
+        {
+          "id": "业务增长",
+          "values": {
+            "title": "提高转化率的三步",
+            "step1": "找到流失点",
+            "desc1": "确认用户卡在哪里",
+            "step2": "缩短路径",
+            "desc2": "删除不必要的动作",
+            "step3": "持续验证",
+            "desc3": "用数据检查变化",
             "accent": "#FF5A36",
             "foreground": "#F4EFE7"
           }
@@ -1507,12 +2472,46 @@
         "误区",
         "纠正",
         "反转",
-        "透明"
+        "全屏"
       ],
+      "director": {
+        "defaultMode": "transition",
+        "allowedModes": [
+          "transition",
+          "fullscreen"
+        ],
+        "layoutStatus": "ready",
+        "subjectSelectors": [
+          ".label",
+          ".text",
+          ".swap",
+          ".caption"
+        ],
+        "frameSelectors": [
+          ".wrap"
+        ],
+        "measuredOccupancy": 0.578,
+        "measuredSpan": {
+          "width": 0.887,
+          "height": 0.651
+        },
+        "occupancy": {
+          "min": 0.42,
+          "max": 0.94
+        },
+        "span": {
+          "minWidth": 0.76,
+          "maxWidth": 0.98,
+          "minHeight": 0.56,
+          "maxHeight": 0.96
+        },
+        "guidance": "只保留错误观点与正确观点的反转，不增加无关的判断标签或解释分支。"
+      },
       "duration": 5.5,
       "size": "1920×1080",
       "formats": [
         "mp4",
+        "mov",
         "webm"
       ],
       "defaultFormat": "mp4",
@@ -1581,6 +2580,18 @@
       ],
       "presets": [
         {
+          "id": "AI提效",
+          "values": {
+            "mythLabel": "常见误区",
+            "myth": "用了 AI 就不需要判断",
+            "factLabel": "真实情况",
+            "fact": "AI 越强，判断标准越重要",
+            "caption": "效率来自分工，不是放弃思考",
+            "accent": "#FF5A36",
+            "foreground": "#F4EFE7"
+          }
+        },
+        {
           "id": "default",
           "values": {
             "mythLabel": "常见误区",
@@ -1588,6 +2599,18 @@
             "factLabel": "更准确的说法",
             "fact": "AI 会放大你的问题定义能力",
             "caption": "重点不是替代，而是协作结构",
+            "accent": "#FF5A36",
+            "foreground": "#F4EFE7"
+          }
+        },
+        {
+          "id": "业务增长",
+          "values": {
+            "mythLabel": "常见误区",
+            "myth": "流量上涨就等于增长",
+            "factLabel": "真实情况",
+            "fact": "转化和复购决定增长质量",
+            "caption": "不要只看入口数字",
             "accent": "#FF5A36",
             "foreground": "#F4EFE7"
           }
@@ -1606,10 +2629,42 @@
         "金句",
         "透明"
       ],
+      "director": {
+        "defaultMode": "overlay",
+        "allowedModes": [
+          "overlay"
+        ],
+        "layoutStatus": "ready",
+        "subjectSelectors": [
+          ".kicker",
+          ".point",
+          ".source"
+        ],
+        "frameSelectors": [
+          ".marker"
+        ],
+        "measuredOccupancy": 0.084,
+        "measuredSpan": {
+          "width": 0.556,
+          "height": 0.152
+        },
+        "occupancy": {
+          "min": 0.04,
+          "max": 0.42
+        },
+        "span": {
+          "minWidth": 0.18,
+          "maxWidth": 0.82,
+          "minHeight": 0.1,
+          "maxHeight": 0.6
+        },
+        "guidance": "只标注口播中正在强调的一句话，作为局部叠加，不增加眉题和英文装饰。"
+      },
       "duration": 4.5,
       "size": "1920×1080",
       "formats": [
         "mp4",
+        "mov",
         "webm"
       ],
       "defaultFormat": "mp4",
@@ -1666,11 +2721,31 @@
       ],
       "presets": [
         {
+          "id": "AI提效",
+          "values": {
+            "kicker": "关键判断",
+            "point": "先把重复动作做成模板，再让 AI 帮你批量调用。",
+            "source": "工作流设计 / Agent 协作",
+            "accent": "#FF5A36",
+            "foreground": "#F4EFE7"
+          }
+        },
+        {
           "id": "default",
           "values": {
             "kicker": "记住这一点",
             "point": "真正拉开差距的不是工具，而是你拆问题的能力。",
             "source": "适合结论句 / 金句 / 操作提醒",
+            "accent": "#FF5A36",
+            "foreground": "#F4EFE7"
+          }
+        },
+        {
+          "id": "业务增长",
+          "values": {
+            "kicker": "增长提醒",
+            "point": "真正健康的增长，必须同时看新增、转化和复购。",
+            "source": "经营复盘 / 数据结论",
             "accent": "#FF5A36",
             "foreground": "#F4EFE7"
           }
@@ -1689,10 +2764,42 @@
         "总结",
         "透明"
       ],
+      "director": {
+        "defaultMode": "overlay",
+        "allowedModes": [
+          "overlay",
+          "fullscreen"
+        ],
+        "layoutStatus": "ready",
+        "subjectSelectors": [
+          ".title",
+          ".list"
+        ],
+        "frameSelectors": [
+          ".panel"
+        ],
+        "measuredOccupancy": 0.126,
+        "measuredSpan": {
+          "width": 0.342,
+          "height": 0.367
+        },
+        "occupancy": {
+          "min": 0.08,
+          "max": 0.62
+        },
+        "span": {
+          "minWidth": 0.22,
+          "maxWidth": 0.88,
+          "minHeight": 0.16,
+          "maxHeight": 0.8
+        },
+        "guidance": "每个检查项都必须来自口播中的真实清单；勾选顺序承担信息节奏。"
+      },
       "duration": 5,
       "size": "1920×1080",
       "formats": [
         "mp4",
+        "mov",
         "webm"
       ],
       "defaultFormat": "mp4",
@@ -1715,7 +2822,7 @@
           "id": "item2",
           "type": "string",
           "label": "清单二",
-          "default": "透明 WebM 可以叠到剪辑里"
+          "default": "透明 MOV 可以叠到剪辑里"
         },
         {
           "id": "item3",
@@ -1755,12 +2862,34 @@
       ],
       "presets": [
         {
+          "id": "AI提效",
+          "values": {
+            "title": "把任务交给 Agent 前",
+            "item1": "目标和交付物已经说清楚",
+            "item2": "相关文件和背景已经提供",
+            "item3": "验收标准可以实际检查",
+            "accent": "#FF5A36",
+            "foreground": "#F4EFE7"
+          }
+        },
+        {
           "id": "default",
           "values": {
             "title": "上线前检查",
             "item1": "默认文案能直接生成视频",
-            "item2": "透明 WebM 可以叠到剪辑里",
+            "item2": "透明 MOV 可以叠到剪辑里",
             "item3": "模板能通过修改数据复用",
+            "accent": "#FF5A36",
+            "foreground": "#F4EFE7"
+          }
+        },
+        {
+          "id": "业务增长",
+          "values": {
+            "title": "增长实验上线前",
+            "item1": "核心指标已经定义",
+            "item2": "对照组和实验组可区分",
+            "item3": "观察周期足够判断结果",
             "accent": "#FF5A36",
             "foreground": "#F4EFE7"
           }
@@ -1779,10 +2908,43 @@
         "演变",
         "透明"
       ],
+      "director": {
+        "defaultMode": "overlay",
+        "allowedModes": [
+          "overlay",
+          "fullscreen",
+          "data"
+        ],
+        "layoutStatus": "ready",
+        "subjectSelectors": [
+          ".title",
+          ".timeline"
+        ],
+        "frameSelectors": [
+          ".panel"
+        ],
+        "measuredOccupancy": 0.123,
+        "measuredSpan": {
+          "width": 0.544,
+          "height": 0.225
+        },
+        "occupancy": {
+          "min": 0.08,
+          "max": 0.58
+        },
+        "span": {
+          "minWidth": 0.22,
+          "maxWidth": 0.88,
+          "minHeight": 0.14,
+          "maxHeight": 0.76
+        },
+        "guidance": "时间节点和事件必须可追溯；当前版式更适合作为局部叠加，全屏使用前需要放大重构。"
+      },
       "duration": 5.5,
       "size": "1920×1080",
       "formats": [
         "mp4",
+        "mov",
         "webm"
       ],
       "defaultFormat": "mp4",
@@ -1863,6 +3025,20 @@
       ],
       "presets": [
         {
+          "id": "AI提效",
+          "values": {
+            "title": "AI 工作流进化路径",
+            "time1": "01",
+            "label1": "单次对话",
+            "time2": "02",
+            "label2": "固定提示词",
+            "time3": "03",
+            "label3": "自动化系统",
+            "accent": "#FF5A36",
+            "foreground": "#F4EFE7"
+          }
+        },
+        {
           "id": "default",
           "values": {
             "title": "从想法到系统",
@@ -1872,6 +3048,20 @@
             "label2": "存模板",
             "time3": "03",
             "label3": "反复生成",
+            "accent": "#FF5A36",
+            "foreground": "#F4EFE7"
+          }
+        },
+        {
+          "id": "业务增长",
+          "values": {
+            "title": "产品增长三个阶段",
+            "time1": "Q1",
+            "label1": "验证需求",
+            "time2": "Q2",
+            "label2": "提升转化",
+            "time3": "Q3",
+            "label3": "扩大复购",
             "accent": "#FF5A36",
             "foreground": "#F4EFE7"
           }
@@ -1890,10 +3080,42 @@
         "解释",
         "透明"
       ],
+      "director": {
+        "defaultMode": "overlay",
+        "allowedModes": [
+          "overlay",
+          "fullscreen"
+        ],
+        "layoutStatus": "ready",
+        "subjectSelectors": [
+          ".title",
+          ".cards"
+        ],
+        "frameSelectors": [
+          ".cluster"
+        ],
+        "measuredOccupancy": 0.139,
+        "measuredSpan": {
+          "width": 0.59,
+          "height": 0.236
+        },
+        "occupancy": {
+          "min": 0.1,
+          "max": 0.58
+        },
+        "span": {
+          "minWidth": 0.26,
+          "maxWidth": 0.9,
+          "minHeight": 0.18,
+          "maxHeight": 0.8
+        },
+        "guidance": "原因、机制和结果必须形成真实因果关系；当前版式适合作为局部叠加，全屏使用前需要放大重构。"
+      },
       "duration": 5.5,
       "size": "1920×1080",
       "formats": [
         "mp4",
+        "mov",
         "webm"
       ],
       "defaultFormat": "mp4",
@@ -1956,6 +3178,17 @@
       ],
       "presets": [
         {
+          "id": "AI提效",
+          "values": {
+            "title": "为什么模板能提高效率？",
+            "cause": "重复任务结构相似",
+            "mechanism": "固定版式和动画逻辑",
+            "result": "只替换内容即可复用",
+            "accent": "#FF5A36",
+            "foreground": "#F4EFE7"
+          }
+        },
+        {
           "id": "default",
           "values": {
             "title": "为什么效率会提升？",
@@ -1965,8 +3198,586 @@
             "accent": "#FF5A36",
             "foreground": "#F4EFE7"
           }
+        },
+        {
+          "id": "业务增长",
+          "values": {
+            "title": "为什么转化率会上升？",
+            "cause": "首屏价值更清晰",
+            "mechanism": "用户更快理解下一步",
+            "result": "有效行动明显增加",
+            "accent": "#FF5A36",
+            "foreground": "#F4EFE7"
+          }
+        }
+      ]
+    },
+    {
+      "id": "compact-number-callout",
+      "name": "全屏数字强调",
+      "description": "用大数字和一句结果解释铺满独立画面，适合突出成本、增长、耗时与关键结论。",
+      "path": "templates/compact-number-callout",
+      "category": "数据可视化",
+      "tags": [
+        "数字",
+        "全屏",
+        "透明",
+        "口播"
+      ],
+      "director": {
+        "defaultMode": "fullscreen",
+        "allowedModes": [
+          "fullscreen"
+        ],
+        "layoutStatus": "ready",
+        "subjectSelectors": [
+          ".eyebrow",
+          ".context",
+          ".value",
+          ".unit",
+          ".note"
+        ],
+        "frameSelectors": [
+          ".statement"
+        ],
+        "measuredOccupancy": 0.705,
+        "measuredSpan": {
+          "width": 0.865,
+          "height": 0.815
+        },
+        "occupancy": {
+          "min": 0.42,
+          "max": 0.94
+        },
+        "span": {
+          "minWidth": 0.76,
+          "maxWidth": 0.98,
+          "minHeight": 0.58,
+          "maxHeight": 0.96
+        },
+        "guidance": "大数字和结果解释共同铺满画面，只保留口播中真实出现的数字、单位和结论。"
+      },
+      "duration": 3.2,
+      "size": "1920×1080",
+      "formats": [
+        "mp4",
+        "mov",
+        "webm"
+      ],
+      "defaultFormat": "mov",
+      "preview": "/renders/compact-number-callout/sample.webm",
+      "status": "ready",
+      "schema": [
+        {
+          "id": "eyebrow",
+          "type": "string",
+          "label": "角标",
+          "default": "实测投入"
+        },
+        {
+          "id": "context",
+          "type": "string",
+          "label": "结论",
+          "default": "为了少走弯路"
+        },
+        {
+          "id": "value",
+          "type": "number",
+          "label": "数字",
+          "default": 1000
+        },
+        {
+          "id": "unit",
+          "type": "string",
+          "label": "单位",
+          "default": "元"
+        },
+        {
+          "id": "note",
+          "type": "string",
+          "label": "补充说明",
+          "default": "把试错经验做成开源 Skill"
+        },
+        {
+          "id": "position",
+          "type": "enum",
+          "label": "位置",
+          "default": "left",
+          "options": [
+            {
+              "value": "left",
+              "label": "左侧进入"
+            },
+            {
+              "value": "right",
+              "label": "右侧进入"
+            }
+          ]
+        },
+        {
+          "id": "accent",
+          "type": "color",
+          "label": "强调色",
+          "default": "#FF5A36"
+        },
+        {
+          "id": "foreground",
+          "type": "color",
+          "label": "文字色",
+          "default": "#F4EFE7"
+        },
+        {
+          "id": "exportMode",
+          "type": "enum",
+          "label": "导出模式",
+          "default": "transparent",
+          "hidden": true,
+          "options": [
+            {
+              "value": "transparent",
+              "label": "透明背景"
+            },
+            {
+              "value": "mp4",
+              "label": "剪映 MP4 深色底"
+            }
+          ]
+        }
+      ],
+      "presets": [
+        {
+          "id": "default",
+          "values": {
+            "eyebrow": "实测投入",
+            "context": "为了少走弯路",
+            "value": 1000,
+            "unit": "元",
+            "note": "把试错经验做成开源 Skill",
+            "position": "left",
+            "accent": "#FF5A36",
+            "foreground": "#F4EFE7"
+          }
+        },
+        {
+          "id": "growth",
+          "values": {
+            "eyebrow": "关键增长",
+            "context": "转化率提升",
+            "value": 47,
+            "unit": "%",
+            "note": "核心流程完成一次结构化改造",
+            "position": "right",
+            "accent": "#FF5A36",
+            "foreground": "#F4EFE7"
+          }
+        },
+        {
+          "id": "time-saved",
+          "values": {
+            "eyebrow": "时间节省",
+            "context": "每周少做重复工作",
+            "value": 6,
+            "unit": "小时",
+            "note": "把高频步骤交给自动化流程",
+            "position": "left",
+            "accent": "#FF5A36",
+            "foreground": "#F4EFE7"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mode-choice-compare",
+      "name": "并列模式选择",
+      "description": "两个等权方案的并列选择动效，用 VS 或短词连接，适合模式、工具和路线对比。",
+      "path": "templates/mode-choice-compare",
+      "category": "知识讲解",
+      "tags": [
+        "对比",
+        "选择",
+        "双方案",
+        "透明"
+      ],
+      "director": {
+        "defaultMode": "fullscreen",
+        "allowedModes": [
+          "fullscreen"
+        ],
+        "layoutStatus": "ready",
+        "subjectSelectors": [
+          ".title",
+          ".option-title",
+          ".option-detail",
+          ".connector"
+        ],
+        "frameSelectors": [
+          ".compare"
+        ],
+        "measuredOccupancy": 0.599,
+        "measuredSpan": {
+          "width": 0.887,
+          "height": 0.675
+        },
+        "occupancy": {
+          "min": 0.42,
+          "max": 0.94
+        },
+        "span": {
+          "minWidth": 0.76,
+          "maxWidth": 0.98,
+          "minHeight": 0.58,
+          "maxHeight": 0.96
+        },
+        "guidance": "两个方案保持等权并铺满画面，只展示名称和真实选择依据，不添加选项编号。"
+      },
+      "duration": 3.6,
+      "size": "1920×1080",
+      "formats": [
+        "mp4",
+        "mov",
+        "webm"
+      ],
+      "defaultFormat": "mov",
+      "preview": "/renders/mode-choice-compare/sample.webm",
+      "status": "ready",
+      "schema": [
+        {
+          "id": "title",
+          "type": "string",
+          "label": "标题",
+          "default": "两种方式怎么选"
+        },
+        {
+          "id": "leftTitle",
+          "type": "string",
+          "label": "左侧选项",
+          "default": "直出"
+        },
+        {
+          "id": "leftDetail",
+          "type": "string",
+          "label": "左侧说明",
+          "default": "运镜更自然"
+        },
+        {
+          "id": "rightTitle",
+          "type": "string",
+          "label": "右侧选项",
+          "default": "九宫格"
+        },
+        {
+          "id": "rightDetail",
+          "type": "string",
+          "label": "右侧说明",
+          "default": "先确认人物与场景"
+        },
+        {
+          "id": "connector",
+          "type": "string",
+          "label": "中间文字",
+          "default": "VS"
+        },
+        {
+          "id": "accent",
+          "type": "color",
+          "label": "强调色",
+          "default": "#FF5A36"
+        },
+        {
+          "id": "foreground",
+          "type": "color",
+          "label": "文字色",
+          "default": "#F4EFE7"
+        },
+        {
+          "id": "exportMode",
+          "type": "enum",
+          "label": "导出模式",
+          "default": "transparent",
+          "hidden": true,
+          "options": [
+            {
+              "value": "transparent",
+              "label": "透明背景"
+            },
+            {
+              "value": "mp4",
+              "label": "剪映 MP4 深色底"
+            }
+          ]
+        }
+      ],
+      "presets": [
+        {
+          "id": "cloud-local",
+          "values": {
+            "title": "运行方式怎么选",
+            "leftTitle": "云端",
+            "leftDetail": "随时访问与协作",
+            "rightTitle": "本地",
+            "rightDetail": "数据与算力自己掌控",
+            "connector": "VS",
+            "accent": "#FF5A36",
+            "foreground": "#F4EFE7"
+          }
+        },
+        {
+          "id": "default",
+          "values": {
+            "title": "两种方式怎么选",
+            "leftTitle": "直出",
+            "leftDetail": "运镜更自然",
+            "rightTitle": "九宫格",
+            "rightDetail": "先确认人物与场景",
+            "connector": "VS",
+            "accent": "#FF5A36",
+            "foreground": "#F4EFE7"
+          }
+        },
+        {
+          "id": "speed-quality",
+          "values": {
+            "title": "目标不同，选择不同",
+            "leftTitle": "速度",
+            "leftDetail": "先快速验证方向",
+            "rightTitle": "质量",
+            "rightDetail": "再集中打磨细节",
+            "connector": "VS",
+            "accent": "#FF5A36",
+            "foreground": "#F4EFE7"
+          }
+        }
+      ]
+    },
+    {
+      "id": "iteration-loop",
+      "name": "迭代闭环",
+      "description": "四步循环展示问题定位、局部修复与再次生成，适合产品迭代、内容复盘和模型调优。",
+      "path": "templates/iteration-loop",
+      "category": "知识讲解",
+      "tags": [
+        "迭代",
+        "闭环",
+        "复盘",
+        "透明"
+      ],
+      "director": {
+        "defaultMode": "fullscreen",
+        "allowedModes": [
+          "fullscreen"
+        ],
+        "layoutStatus": "ready",
+        "subjectSelectors": [
+          ".title",
+          ".step-number",
+          ".step-text",
+          ".arrow",
+          ".return-path",
+          ".takeaway"
+        ],
+        "frameSelectors": [
+          ".loop"
+        ],
+        "measuredOccupancy": 0.619,
+        "measuredSpan": {
+          "width": 0.887,
+          "height": 0.698
+        },
+        "occupancy": {
+          "min": 0.42,
+          "max": 0.94
+        },
+        "span": {
+          "minWidth": 0.76,
+          "maxWidth": 0.98,
+          "minHeight": 0.58,
+          "maxHeight": 0.96
+        },
+        "guidance": "标题、必要步骤和闭环结论横向贯穿画面，不添加时间徽章、英文状态或模板编号。"
+      },
+      "duration": 4.2,
+      "size": "1920×1080",
+      "formats": [
+        "mp4",
+        "mov",
+        "webm"
+      ],
+      "defaultFormat": "mov",
+      "preview": "/renders/iteration-loop/sample.webm",
+      "status": "ready",
+      "schema": [
+        {
+          "id": "title",
+          "type": "string",
+          "label": "标题",
+          "default": "成片有问题，不用推倒重来"
+        },
+        {
+          "id": "step1",
+          "type": "string",
+          "label": "步骤一",
+          "default": "成片"
+        },
+        {
+          "id": "step2",
+          "type": "string",
+          "label": "步骤二",
+          "default": "时间码复盘"
+        },
+        {
+          "id": "step3",
+          "type": "string",
+          "label": "步骤三",
+          "default": "局部重写"
+        },
+        {
+          "id": "step4",
+          "type": "string",
+          "label": "步骤四",
+          "default": "再生成"
+        },
+        {
+          "id": "takeaway",
+          "type": "string",
+          "label": "闭环结论",
+          "default": "问题沉淀为下一版规则"
+        },
+        {
+          "id": "accent",
+          "type": "color",
+          "label": "强调色",
+          "default": "#FF5A36"
+        },
+        {
+          "id": "foreground",
+          "type": "color",
+          "label": "文字色",
+          "default": "#F4EFE7"
+        },
+        {
+          "id": "exportMode",
+          "type": "enum",
+          "label": "导出模式",
+          "default": "transparent",
+          "hidden": true,
+          "options": [
+            {
+              "value": "transparent",
+              "label": "透明背景"
+            },
+            {
+              "value": "mp4",
+              "label": "剪映 MP4 深色底"
+            }
+          ]
+        }
+      ],
+      "presets": [
+        {
+          "id": "content-review",
+          "values": {
+            "title": "内容发布后，继续优化下一版",
+            "step1": "发布",
+            "step2": "数据复盘",
+            "step3": "调整钩子",
+            "step4": "再次测试",
+            "takeaway": "每次反馈都进入内容系统",
+            "accent": "#FF5A36",
+            "foreground": "#F4EFE7"
+          }
+        },
+        {
+          "id": "default",
+          "values": {
+            "title": "成片有问题，不用推倒重来",
+            "step1": "成片",
+            "step2": "时间码复盘",
+            "step3": "局部重写",
+            "step4": "再生成",
+            "takeaway": "问题沉淀为下一版规则",
+            "accent": "#FF5A36",
+            "foreground": "#F4EFE7"
+          }
+        },
+        {
+          "id": "product-cycle",
+          "values": {
+            "title": "小步迭代，比一次做完更可靠",
+            "step1": "上线",
+            "step2": "收集反馈",
+            "step3": "局部优化",
+            "step4": "发布新版",
+            "takeaway": "真实使用持续修正产品方向",
+            "accent": "#FF5A36",
+            "foreground": "#F4EFE7"
+          }
         }
       ]
     }
-  ]
+  ],
+  "directorRules": {
+    "version": 1,
+    "layoutModes": {
+      "fullscreen": {
+        "label": "独立全屏",
+        "description": "作为独立画面出现，主体必须铺满安全区，不为人物或其他素材预留半屏空位。",
+        "occupancy": {
+          "min": 0.42,
+          "max": 0.96
+        },
+        "recommendedFormats": [
+          "mp4",
+          "mov"
+        ]
+      },
+      "overlay": {
+        "label": "透明叠加",
+        "description": "叠加在口播或实拍画面上，只占局部区域，并主动避开人物、字幕和产品主体。",
+        "occupancy": {
+          "min": 0.12,
+          "max": 0.58
+        },
+        "recommendedFormats": [
+          "mov",
+          "webm"
+        ]
+      },
+      "data": {
+        "label": "数据图表",
+        "description": "以数据关系为主体，坐标、标签和结论共同填满安全区，不添加没有来源的辅助指标。",
+        "occupancy": {
+          "min": 0.48,
+          "max": 0.96
+        },
+        "recommendedFormats": [
+          "mp4",
+          "mov"
+        ]
+      },
+      "transition": {
+        "label": "章节过渡",
+        "description": "用于观点或章节切换，可以有更强的视觉动作，但只能出现与转折有关的信息。",
+        "occupancy": {
+          "min": 0.42,
+          "max": 1
+        },
+        "recommendedFormats": [
+          "mp4",
+          "mov"
+        ]
+      }
+    },
+    "defaultForbiddenInformation": [
+      "口播未出现的时间、状态和数字",
+      "没有解释作用的英文标签与模板编号",
+      "为了填满画面而添加的装饰文案"
+    ],
+    "principles": [
+      "每个画面元素都必须服务于口播信息，不为了显得像动效而增加内容。",
+      "编号只有在表达真实步骤、顺序或排名时才能出现。",
+      "独立全屏动效必须主动填满安全区；透明叠加才允许为人物和素材预留位置。",
+      "装饰的视觉权重不能超过结论、数字、关系和必要解释。",
+      "渲染前必须能说明原始口播、表达目的、必要信息和禁止添加的信息。"
+    ]
+  }
 }
