@@ -1,44 +1,48 @@
 <!doctype html>
-<html lang="zh-CN" data-composition-variables='[{"id":"leftLabel","type":"string","label":"左侧标签","default":"上海 SHANGHAI"},{"id":"leftValue","type":"number","label":"左侧数值","default":92},{"id":"leftUnit","type":"string","label":"左侧单位","default":"%"},{"id":"rightLabel","type":"string","label":"右侧标签","default":"亚马逊 AMAZON"},{"id":"rightValue","type":"number","label":"右侧数值","default":90},{"id":"rightUnit","type":"string","label":"右侧单位","default":"%"},{"id":"operator","type":"enum","label":"比较符号","default":">","options":[{"value":">","label":"大于"},{"value":"=","label":"等于"},{"value":"<","label":"小于"}]},{"id":"verdict","type":"string","label":"结论","default":"上海湿度更高"},{"id":"accent","type":"color","label":"强调色","default":"#FF5A36"},{"id":"foreground","type":"color","label":"文字色","default":"#F4EFE7"},{"id":"exportMode","type":"enum","label":"导出模式","default":"transparent","hidden":true,"options":[{"value":"transparent","label":"透明背景"},{"value":"mp4","label":"剪映 MP4 深色底"}]},{"id":"styleId","type":"enum","label":"画面风格","default":"classic-orange","hidden":true,"options":[{"value":"classic-orange","label":"黑橙经典"},{"value":"paper-editorial","label":"纸感编辑"},{"value":"sketch-notes","label":"手绘笔记"},{"value":"bold-geometry","label":"几何构成"}]}]'>
+<html lang="zh-CN" data-composition-variables='[{"id":"leftLabel","type":"string","label":"左侧标签","default":"上海"},{"id":"leftValue","type":"number","label":"左侧数值","default":92},{"id":"leftUnit","type":"string","label":"左侧单位","default":"%"},{"id":"rightLabel","type":"string","label":"右侧标签","default":"亚马逊雨林"},{"id":"rightValue","type":"number","label":"右侧数值","default":90},{"id":"rightUnit","type":"string","label":"右侧单位","default":"%"},{"id":"operator","type":"enum","label":"比较符号","default":">","options":[{"value":">","label":"大于"},{"value":"=","label":"等于"},{"value":"<","label":"小于"}]},{"id":"verdict","type":"string","label":"结论","default":"上海湿度更高"},{"id":"accent","type":"color","label":"强调色","default":"#FF5A1F"},{"id":"foreground","type":"color","label":"文字色","default":"#F5F5F2"},{"id":"exportMode","type":"enum","label":"导出模式","default":"transparent","hidden":true,"options":[{"value":"transparent","label":"透明背景"},{"value":"mp4","label":"剪映 MP4 深色底"}]},{"id":"styleId","type":"enum","label":"画面风格","default":"classic-orange","hidden":true,"options":[{"value":"classic-orange","label":"黑橙经典"},{"value":"paper-editorial","label":"纸感编辑"},{"value":"sketch-notes","label":"手绘笔记"},{"value":"bold-geometry","label":"几何构成"}]}]'>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=1920, height=1080" />
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
     <style>
-      html[data-export-mode="mp4"] body,html[data-export-mode="mp4"] #root{background:#12100E!important}
+      html[data-export-mode="mp4"] body,html[data-export-mode="mp4"] #root{background:#0D0D0D!important}
       * { box-sizing: border-box; }
       html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: transparent; }
-      body { font-family: "IBM Plex Mono", monospace; }
+      body { font-family: "PingFang SC", "Source Han Sans SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif; -webkit-font-smoothing: antialiased; }
       #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: transparent; color: var(--foreground); }
+      .mask { display: block; overflow: hidden; padding-bottom: .08em; }
+      .mask > span { display: block; }
       .scene { position: absolute; inset: 0; display: flex; align-items: flex-end; justify-content: center; width: 100%; height: 100%; padding: 100px 120px; }
-      .panel { position: relative; width: 1120px; height: 410px; overflow: hidden; padding: 46px 50px; border: 2px solid color-mix(in srgb, var(--accent) 44%, transparent); border-radius: 30px; background: rgba(18,16,14,.82); box-shadow: 0 24px 68px rgba(0,0,0,.32); backdrop-filter: blur(22px); }
-      .sheen { position: absolute; inset: 0; background: linear-gradient(105deg, transparent 20%, color-mix(in srgb, var(--accent) 9%, transparent) 48%, transparent 72%); }
-      .duel { position: relative; z-index: 2; width: 100%; height: 270px; display: grid; grid-template-columns: 360px 110px 360px; gap: 30px; align-items: center; justify-content: center; }
-      .stat { position: relative; z-index: 2; }
+      .panel { position: relative; width: 1120px; height: 410px; overflow: hidden; padding: 52px 56px 0; border-radius: 6px; background: rgba(20,20,20,.94); }
+      .duel { position: relative; width: 100%; height: 230px; display: grid; grid-template-columns: 1fr 110px 1fr; gap: 30px; align-items: center; }
+      .stat { position: relative; }
       .stat.left { text-align: right; }
       .stat.right { text-align: left; }
-      .label { margin-bottom: 24px; color: #a8c9bf; font-size: 24px; font-weight: 600; letter-spacing: .06em; }
-      .value-row { display: flex; align-items: flex-end; gap: 14px; }
+      .label { margin-bottom: 20px; color: #9A9A9A; font-size: 28px; line-height: 1.3; font-weight: 600; letter-spacing: 0; }
+      .value-row { display: flex; align-items: flex-end; gap: 12px; }
       .left .value-row { justify-content: flex-end; }
       .right .value-row { justify-content: flex-start; }
-      .value { color: var(--accent); font-size: 168px; font-weight: 900; line-height: .72; letter-spacing: -.075em; font-variant-numeric: tabular-nums; }
-      .unit { padding-bottom: 12px; color: var(--accent); font-size: 50px; font-weight: 800; }
-      .operator { position: relative; z-index: 2; display: grid; place-items: center; width: 88px; height: 88px; margin: auto; color: var(--accent); border: 2px solid color-mix(in srgb, var(--accent) 58%, transparent); transform: rotate(45deg); background: color-mix(in srgb, var(--accent) 8%, transparent); }
-      .operator span { font-size: 54px; font-weight: 500; transform: rotate(-45deg); }
-      .verdict { position: absolute; z-index: 3; left: 50%; bottom: 26px; min-width: 330px; padding: 13px 28px; color: #071a16; background: var(--accent); border-radius: 999px; font-size: 22px; font-weight: 800; text-align: center; transform: translateX(-50%); }
+      .value { color: var(--foreground); font-size: 150px; font-weight: 800; line-height: .9; letter-spacing: 0; font-variant-numeric: tabular-nums; }
+      .unit { padding-bottom: 22px; color: #C8C8C8; font-size: 44px; font-weight: 600; }
+      .operator { position: relative; display: grid; place-items: center; height: 110px; margin-top: 50px; color: var(--accent); }
+      .operator span { font-size: 84px; font-weight: 300; line-height: 1; }
+      .hair { position: absolute; left: 56px; right: 56px; top: 300px; height: 2px; background: rgba(245,245,242,.12); transform-origin: 0 50%; }
+      .verdict { position: absolute; left: 56px; right: 56px; top: 326px; color: var(--foreground); font-size: 32px; line-height: 1.3; font-weight: 700; text-align: center; }
+      .verdict:empty { display: none; }
+      .verdict-bar { position: absolute; left: calc(50% - 48px); top: 300px; width: 96px; height: 8px; margin-top: -3px; background: var(--accent); }
     </style>
   </head>
   <body>
     <div id="root" data-composition-id="main" data-start="0" data-duration="5" data-width="1920" data-height="1080">
       <section id="comparison-scene" class="scene clip" data-start="0" data-duration="5" data-track-index="1">
         <div class="panel">
-          <div class="sheen" data-layout-ignore></div>
           <div class="duel">
-            <div class="stat left" data-layout-allow-overlap><div class="label" id="left-label"></div><div class="value-row"><span class="value" id="left-value"></span><span class="unit" id="left-unit"></span></div></div>
+            <div class="stat left" data-layout-allow-overlap><div class="label" id="left-label"></div><div class="value-row"><span class="mask"><span class="value" id="left-value"></span></span><span class="unit" id="left-unit"></span></div></div>
             <div class="operator"><span id="operator"></span></div>
-            <div class="stat right" data-layout-allow-overlap><div class="label" id="right-label"></div><div class="value-row"><span class="value" id="right-value"></span><span class="unit" id="right-unit"></span></div></div>
+            <div class="stat right" data-layout-allow-overlap><div class="label" id="right-label"></div><div class="value-row"><span class="mask"><span class="value" id="right-value"></span></span><span class="unit" id="right-unit"></span></div></div>
           </div>
-          <div class="verdict" id="verdict"></div>
+          <div class="hair" data-layout-ignore></div><div class="verdict-bar" data-layout-ignore></div>
+          <div class="verdict mask"><span id="verdict"></span></div>
         </div>
       </section>
     </div>
@@ -115,7 +119,7 @@ html[data-motion-style="bold-geometry"][data-export-mode="transparent"] .scene::
 /* Filled callouts have their own ink contrast, rather than inheriting muted body text. */
 html:not([data-motion-style="classic-orange"]) [data-style-role~="accent-fill"] { background: var(--style-accent); color: var(--style-on-accent); border-color: var(--style-accent); }
 </style>
-<script data-motion-style-runtime>window.__motionStyleCatalog={"version":"1.0","defaultStyleId":"classic-orange","source":"https://github.com/nutllwhy/ldd-video-edit","principles":["先选择信息模板，再选择整片画风。","同一项目默认继承一种风格，场景切换必须显式声明。","风格可以改变字体、材质、线条与运动，不得添加没有来源的信息。","透明导出只保留信息图形及其必要材质，不铺满不透明画布。"],"styles":[{"id":"classic-orange","name":"黑橙经典","description":"深色底、粗体数字与利落强调线，延续原有动效。","tags":["数据","科技","通用"],"tokens":{"background":"#12100E","surface":"#211C18","foreground":"#F4EFE7","muted":"#B8ADA2","accent":"#FF5A36","line":"#57483E"},"typography":{"heading":"sans-serif","body":"sans-serif","numeric":"sans-serif"},"material":{"texture":"none","edge":"precise","shadow":"soft","radius":"template"},"motion":{"entry":"原模板编排","emphasis":"弹性落定","exit":"快速离场","ease":"template"},"rules":{"required":["保留原模板的信息层级"],"forbidden":["额外加入英文编号","无来源的装饰数据"]}},{"id":"paper-editorial","name":"纸感编辑","description":"暖纸底、衬线标题、细墨线与剪贴纸签，适合深度解读。","tags":["解读","资料","人文"],"tokens":{"background":"#F1E7D6","surface":"#FFFAEE","foreground":"#30271F","muted":"#75634F","accent":"#B64325","line":"#A4947D"},"typography":{"heading":"serif","body":"serif","numeric":"serif"},"material":{"texture":"paper-grain","edge":"square","shadow":"offset-paper","radius":"0px"},"motion":{"entry":"纸片平滑滑入","emphasis":"墨线展开","exit":"平滑收起","ease":"power2.out"},"rules":{"required":["暖纸与墨色对比","清楚的编辑层级"],"forbidden":["发光玻璃效果","弹簧式夸张弹跳"]}},{"id":"sketch-notes","name":"手绘笔记","description":"点阵纸、铅笔虚线、排线阴影与橙色批注，适合讲清步骤。","tags":["教学","流程","复盘"],"tokens":{"background":"#FFF7E6","surface":"#FFFCF3","foreground":"#382F29","muted":"#776658","accent":"#BB4C24","line":"#A1907B"},"typography":{"heading":"sans-serif","body":"sans-serif","numeric":"serif"},"material":{"texture":"dot-grid","edge":"pencil-dashed","shadow":"hatching","radius":"8px 2px 10px 3px"},"motion":{"entry":"逐拍显现","emphasis":"笔迹分段展开","exit":"干净擦出","ease":"steps(12)"},"rules":{"required":["可寻帧的笔触节奏","批注只强化已有信息"],"forbidden":["随机抖动","依赖本机手写字体","装饰性假笔记"]}},{"id":"bold-geometry","name":"几何构成","description":"硬边色块、粗线切分与重字排版，适合观点和强对比。","tags":["观点","对比","快节奏"],"tokens":{"background":"#191715","surface":"#28221D","foreground":"#FFF4E6","muted":"#D1BBA7","accent":"#FF713D","line":"#9B7255"},"typography":{"heading":"sans-serif","body":"sans-serif","numeric":"sans-serif"},"material":{"texture":"none","edge":"hard-cut","shadow":"hard-offset","radius":"0px"},"motion":{"entry":"快速切入","emphasis":"硬边冲击落定","exit":"加速切走","ease":"expo.out"},"rules":{"required":["粗线与色块形成主次","一眼可读的结论"],"forbidden":["柔光渐变","圆润玻璃卡片","额外的装饰数字"]}}]};
+<script data-motion-style-runtime>window.__motionStyleCatalog={"version":"1.0","defaultStyleId":"classic-orange","principles":["先选择信息模板，再选择整片画风。","同一项目默认继承一种风格，场景切换必须显式声明。","风格可以改变字体、材质、线条与运动，不得添加没有来源的信息。","透明导出只保留信息图形及其必要材质，不铺满不透明画布。"],"styles":[{"id":"classic-orange","name":"黑橙经典","description":"中性黑底、纯白文字，橙色只做重音；无光晕、无玻璃卡，遮罩升起与擦入。","tags":["数据","科技","通用"],"tokens":{"background":"#0D0D0D","surface":"#161616","foreground":"#F5F5F2","muted":"#9A9A9A","accent":"#FF5A1F","line":"#3A3A3A"},"typography":{"heading":"sans-serif","body":"sans-serif","numeric":"sans-serif"},"material":{"texture":"none","edge":"precise","shadow":"soft","radius":"template"},"motion":{"entry":"原模板编排","emphasis":"遮罩升起、利落落定","exit":"快速离场","ease":"template"},"rules":{"required":["保留原模板的信息层级"],"forbidden":["额外加入英文编号","无来源的装饰数据","发光光晕与玻璃卡","回弹缓动"]}},{"id":"paper-editorial","name":"纸感编辑","description":"暖纸底、衬线标题、细墨线与剪贴纸签，适合深度解读。","tags":["解读","资料","人文"],"tokens":{"background":"#F1E7D6","surface":"#FFFAEE","foreground":"#30271F","muted":"#75634F","accent":"#B64325","line":"#A4947D"},"typography":{"heading":"serif","body":"serif","numeric":"serif"},"material":{"texture":"paper-grain","edge":"square","shadow":"offset-paper","radius":"0px"},"motion":{"entry":"纸片平滑滑入","emphasis":"墨线展开","exit":"平滑收起","ease":"power2.out"},"rules":{"required":["暖纸与墨色对比","清楚的编辑层级"],"forbidden":["发光玻璃效果","弹簧式夸张弹跳"]}},{"id":"sketch-notes","name":"手绘笔记","description":"点阵纸、铅笔虚线、排线阴影与橙色批注，适合讲清步骤。","tags":["教学","流程","复盘"],"tokens":{"background":"#FFF7E6","surface":"#FFFCF3","foreground":"#382F29","muted":"#776658","accent":"#BB4C24","line":"#A1907B"},"typography":{"heading":"sans-serif","body":"sans-serif","numeric":"serif"},"material":{"texture":"dot-grid","edge":"pencil-dashed","shadow":"hatching","radius":"8px 2px 10px 3px"},"motion":{"entry":"逐拍显现","emphasis":"笔迹分段展开","exit":"干净擦出","ease":"steps(12)"},"rules":{"required":["可寻帧的笔触节奏","批注只强化已有信息"],"forbidden":["随机抖动","依赖本机手写字体","装饰性假笔记"]}},{"id":"bold-geometry","name":"几何构成","description":"硬边色块、粗线切分与重字排版，适合观点和强对比。","tags":["观点","对比","快节奏"],"tokens":{"background":"#191715","surface":"#28221D","foreground":"#FFF4E6","muted":"#D1BBA7","accent":"#FF713D","line":"#9B7255"},"typography":{"heading":"sans-serif","body":"sans-serif","numeric":"sans-serif"},"material":{"texture":"none","edge":"hard-cut","shadow":"hard-offset","radius":"0px"},"motion":{"entry":"快速切入","emphasis":"硬边冲击落定","exit":"加速切走","ease":"expo.out"},"rules":{"required":["粗线与色块形成主次","一眼可读的结论"],"forbidden":["柔光渐变","圆润玻璃卡片","额外的装饰数字"]}}]};
 /* Authored for this project. Embedded into each standalone composition by sync-styles.mjs. */
 (function () {
   "use strict";
@@ -226,7 +230,7 @@ html:not([data-motion-style="classic-orange"]) [data-style-role~="accent-fill"] 
 </script>
 <!-- motion-style:end -->
 <script>
-      const fallback = { leftLabel: "上海 SHANGHAI", leftValue: 92, leftUnit: "%", rightLabel: "亚马逊 AMAZON", rightValue: 90, rightUnit: "%", operator: ">", verdict: "上海湿度更高", accent: "#FF5A36", foreground: "#F4EFE7" };
+      const fallback = { leftLabel: "上海", leftValue: 92, leftUnit: "%", rightLabel: "亚马逊雨林", rightValue: 90, rightUnit: "%", operator: ">", verdict: "上海湿度更高", accent: "#FF5A1F", foreground: "#F5F5F2" };
       const v = window.__hyperframes?.getVariables ? window.__hyperframes.getVariables() : fallback;
       document.documentElement.dataset.exportMode=v.exportMode||"transparent";
       document.documentElement.style.setProperty("--accent", v.accent);
@@ -234,17 +238,19 @@ html:not([data-motion-style="classic-orange"]) [data-style-role~="accent-fill"] 
       for (const [id, value] of [["left-label",v.leftLabel],["left-value",v.leftValue],["left-unit",v.leftUnit],["right-label",v.rightLabel],["right-value",v.rightValue],["right-unit",v.rightUnit],["operator",v.operator],["verdict",v.verdict]]) document.getElementById(id).textContent = value;
       window.__timelines = window.__timelines || {};
       const tl = gsap.timeline({ paused: true });
-      tl.fromTo(".panel", { opacity: 0, y: 90, scale: .96 }, { opacity: 1, y: 0, scale: 1, duration: .7, ease: MotionStyles.ease("expo.out") }, .18);
-      tl.fromTo(".left .label", { opacity: 0, x: -42 }, { opacity: 1, x: 0, duration: .42, ease: MotionStyles.ease("circ.out") }, .5);
-      tl.fromTo("#left-value", { opacity: 0, scale: .72, transformOrigin: "left bottom" }, { opacity: 1, scale: 1, duration: .62, ease: MotionStyles.ease("back.out(1.55)") }, .62);
-      tl.fromTo("#left-unit", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: .32, ease: MotionStyles.ease("power2.out") }, .9);
-      tl.fromTo(".operator", { opacity: 0, scale: 0, rotation: 0 }, { opacity: 1, scale: 1, rotation: 45, duration: .58, ease: MotionStyles.ease("back.out(1.8)") }, .82);
-      tl.fromTo(".right .label", { opacity: 0, x: 42 }, { opacity: 1, x: 0, duration: .46, ease: MotionStyles.ease("power4.out") }, .68);
-      tl.fromTo("#right-value", { opacity: 0, scale: .72, transformOrigin: "right bottom" }, { opacity: 1, scale: 1, duration: .66, ease: MotionStyles.ease("expo.out") }, .82);
-      tl.fromTo("#right-unit", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: .34, ease: MotionStyles.ease("circ.out") }, 1.1);
-      tl.fromTo(".verdict", { opacity: 0, y: 28, xPercent: -50 }, { opacity: 1, y: 0, xPercent: -50, duration: .46, ease: MotionStyles.ease("back.out(1.45)") }, 1.28);
-      tl.fromTo(".sheen", { xPercent: -100 }, { xPercent: 100, duration: 1.2, ease: MotionStyles.ease("sine.inOut") }, 1.35);
-      tl.to(".scene", { opacity: 0, y: -24, duration: .38, ease: MotionStyles.ease("power2.in") }, 4.48);
+      const dec = (n) => (String(n).split(".")[1] || "").length;
+      const roll = (id, n, at) => { const el = document.getElementById(id), o = { x: 0 }, d = dec(n); tl.to(o, { x: +n, duration: .8, ease: MotionStyles.ease("expo.out"), onUpdate: () => { el.textContent = o.x.toFixed(d); } }, at); };
+      tl.fromTo(".panel", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: .5, ease: MotionStyles.ease("expo.out") }, .12);
+      tl.fromTo(".label", { opacity: 0 }, { opacity: 1, duration: .3, stagger: .12, ease: MotionStyles.ease("none") }, .4);
+      tl.fromTo("#left-value", { yPercent: 105 }, { yPercent: 0, duration: .6, ease: MotionStyles.ease("expo.out") }, .5); roll("left-value", v.leftValue, .5);
+      tl.fromTo("#left-unit", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: .4, ease: MotionStyles.ease("power2.out") }, .72);
+      tl.fromTo(".operator", { opacity: 0 }, { opacity: 1, duration: .3, ease: MotionStyles.ease("none") }, .8);
+      tl.fromTo("#right-value", { yPercent: 105 }, { yPercent: 0, duration: .6, ease: MotionStyles.ease("expo.out") }, .7); roll("right-value", v.rightValue, .7);
+      tl.fromTo("#right-unit", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: .4, ease: MotionStyles.ease("power2.out") }, .92);
+      tl.fromTo(".hair", { scaleX: 0 }, { scaleX: 1, duration: .55, ease: MotionStyles.ease("power3.inOut") }, 1.05);
+      tl.fromTo(".verdict-bar", { scaleX: 0 }, { scaleX: 1, duration: .45, ease: MotionStyles.ease("power3.inOut") }, 1.2);
+      tl.fromTo("#verdict", { yPercent: 105 }, { yPercent: 0, duration: .55, ease: MotionStyles.ease("expo.out") }, 1.3);
+      tl.to(".panel", { clipPath: "inset(0 0 0 100%)", duration: .36, ease: MotionStyles.ease("power3.in") }, 4.56);
       window.__timelines.main = tl; MotionStyles.finish(tl);
     </script>
   </body>

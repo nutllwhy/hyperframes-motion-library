@@ -3,8 +3,8 @@
   "subtitle": "不同环节平均耗时（分钟）",
   "labels": "资料收集,结构整理,初稿生成,人工校对",
   "values": "42,28,16,24",
-  "colors": "#B8ADA2,#FF5A36,#FF5A36,#D8CEC4",
-  "accent": "#FF5A36",
-  "background": "#12100E",
-  "foreground": "#F4EFE7"
+  "colors": "#4A4A4A,#FF5A1F,#FF5A1F,#4A4A4A",
+  "accent": "#FF5A1F",
+  "background": "#0D0D0D",
+  "foreground": "#F5F5F2"
 }

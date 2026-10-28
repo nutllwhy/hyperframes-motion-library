@@ -209,7 +209,7 @@ function defaults(template) {
 }
 
 function availableStyles() {
-  return state.catalog?.styleCatalog?.styles || [{ id: "classic-orange", name: "黑橙经典", description: "黑色底、橙色强调，沿用原有动效设计。", tokens: { background: "#12100E", foreground: "#F4EFE7", accent: "#FF5A36" } }];
+  return state.catalog?.styleCatalog?.styles || [{ id: "classic-orange", name: "黑橙经典", description: "中性黑底、纯白文字，橙色只做重音。", tokens: { background: "#0D0D0D", foreground: "#F5F5F2", accent: "#FF5A1F" } }];
 }
 
 function styleById(id) {

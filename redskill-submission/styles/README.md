@@ -45,8 +45,6 @@ V1.2 方案在顶层指定风格：
 
 `motionPreview=1` 与 `variables` 查询参数仅供模板库的浏览器预览。正式渲染通过 HyperFrames 变量传入，时间线仍保持暂停、可寻帧。预览循环不会进入正式渲染。
 
-## 参考方法
+## 设计方法
 
-风格层的设计借鉴了作者的 [ldd-video-edit Skill](https://github.com/nutllwhy/ldd-video-edit/tree/4c48e8d17e9fc44870c9801917992a63edee048e)：将画法与画风分离，用色板、材质、字体、线条和动作共同定义风格，并用同内容样张比较。具体见其 `references/styles.md`、`references/house-style.md` 与 `references/look-check.md`。
-
-本项目运行时与样式实现为重新编写，没有复制参考 Skill 的运行时代码。
+风格层把"画法"和"画风"分开：用色板、材质、字体、线条和动作共同定义一套风格，并用同一份内容出样张比较。运行时与样式实现均为本项目原创编写。

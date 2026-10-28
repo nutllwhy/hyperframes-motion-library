@@ -1,34 +1,35 @@
 <!doctype html>
-<html lang="zh-CN" data-composition-variables='[{"id":"kicker","type":"string","label":"来源类型","default":"书里的一句话"},{"id":"quote","type":"string","label":"金句","default":"我们不是因为知道得少而焦虑，是因为知道得乱。"},{"id":"author","type":"string","label":"作者","default":"《卡片笔记写作法》"},{"id":"note","type":"string","label":"注解","default":"信息只有进入结构，才会变成知识。"},{"id":"accent","type":"color","label":"强调色","default":"#FF5A36"},{"id":"foreground","type":"color","label":"文字色","default":"#F4EFE7"},{"id":"exportMode","type":"enum","label":"导出模式","default":"transparent","hidden":true,"options":[{"value":"transparent","label":"透明背景"},{"value":"mp4","label":"剪映 MP4 深色底"}]},{"id":"styleId","type":"enum","label":"画面风格","default":"classic-orange","hidden":true,"options":[{"value":"classic-orange","label":"黑橙经典"},{"value":"paper-editorial","label":"纸感编辑"},{"value":"sketch-notes","label":"手绘笔记"},{"value":"bold-geometry","label":"几何构成"}]}]'>
+<html lang="zh-CN" data-composition-variables='[{"id":"kicker","type":"string","label":"来源类型","default":"书里的一句话"},{"id":"quote","type":"string","label":"金句","default":"我们不是因为知道得少而焦虑，是因为知道得乱。"},{"id":"author","type":"string","label":"作者","default":"《卡片笔记写作法》"},{"id":"note","type":"string","label":"注解","default":"信息只有进入结构，才会变成知识。"},{"id":"accent","type":"color","label":"强调色","default":"#FF5A1F"},{"id":"foreground","type":"color","label":"文字色","default":"#F5F5F2"},{"id":"exportMode","type":"enum","label":"导出模式","default":"transparent","hidden":true,"options":[{"value":"transparent","label":"透明背景"},{"value":"mp4","label":"剪映 MP4 深色底"}]},{"id":"styleId","type":"enum","label":"画面风格","default":"classic-orange","hidden":true,"options":[{"value":"classic-orange","label":"黑橙经典"},{"value":"paper-editorial","label":"纸感编辑"},{"value":"sketch-notes","label":"手绘笔记"},{"value":"bold-geometry","label":"几何构成"}]}]'>
   <head>
     <meta charset="UTF-8" /><meta name="viewport" content="width=1920, height=1080" />
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
     <style>
-      html[data-export-mode="mp4"] body,html[data-export-mode="mp4"] #root{background:#12100E!important}
+      html[data-export-mode="mp4"] body,html[data-export-mode="mp4"] #root{background:#0D0D0D!important}
       * { box-sizing: border-box; }
       html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: transparent; }
-      body { font-family: "IBM Plex Mono", monospace; }
+      body { font-family: "PingFang SC", "Source Han Sans SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif; -webkit-font-smoothing: antialiased; }
       #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: transparent; color: var(--foreground); }
+      .mask { display: block; overflow: hidden; padding-bottom: .08em; }
+      .mask > span { display: block; }
       .scene { position: absolute; inset: 0; display: grid; place-items: center; padding: 80px 96px; }
-      .card { position: relative; width: 1728px; min-height: 880px; padding: 100px 120px 96px; border: 2px solid color-mix(in srgb, var(--accent) 420%, transparent); border-radius: 42px; background: rgba(18,16,14,.86); box-shadow: 0 28px 90px rgba(0,0,0,.34); backdrop-filter: blur(22px); display: flex; flex-direction: column; justify-content: space-between; }
-      .quote-mark { position: absolute; left: 84px; top: 46px; color: var(--accent); font-size: 220px; line-height: 1; font-weight: 900; font-family: Georgia, "Times New Roman", serif; opacity: .9; }
-      .kicker { position: absolute; right: 120px; top: 96px; display: inline-flex; padding: 11px 20px; border: 1px solid color-mix(in srgb, var(--accent) 50%, transparent); border-radius: 999px; color: var(--accent); font-size: 23px; font-weight: 800; letter-spacing: .14em; }
-      .quote { position: relative; margin: 120px 0 0; max-width: 1380px; font-size: 88px; line-height: 1.4; letter-spacing: -.035em; font-weight: 880; color: var(--foreground); text-wrap: balance; }
+      .card { position: relative; width: 1728px; min-height: 880px; padding: 100px 120px 96px; border-radius: 6px; background: rgba(20,20,20,.94); display: flex; flex-direction: column; justify-content: space-between; }
+      .quote-mark { position: absolute; left: 112px; top: 64px; color: var(--accent); font-size: 200px; line-height: 1; font-weight: 700; font-family: Georgia, "Times New Roman", serif; }
+      .kicker { position: absolute; right: 120px; top: 104px; color: #9A9A9A; font-size: 26px; font-weight: 600; letter-spacing: 0; }
+      .quote { position: relative; margin: 150px 0 0; max-width: 1400px; font-size: 88px; line-height: 1.4; letter-spacing: 0; font-weight: 800; color: var(--foreground); text-wrap: balance; }
       .meta-row { display: flex; align-items: center; gap: 32px; margin-top: 60px; }
-      .divider { width: 200px; height: 7px; border-radius: 99px; background: var(--accent); transform-origin: left center; box-shadow: 0 0 22px color-mix(in srgb, var(--accent) 70%, transparent); }
-      .author { color: var(--accent); font-size: 40px; font-weight: 880; letter-spacing: .02em; }
-      .note { color: #B8ADA2; font-size: 30px; font-weight: 680; line-height: 1.4; }
-      .glow { position: absolute; right: -200px; bottom: -240px; width: 680px; height: 680px; border-radius: 50%; background: radial-gradient(circle, color-mix(in srgb, var(--accent) 160%, transparent), transparent 66%); pointer-events: none; }
+      .divider { width: 0; height: 8px; background: var(--accent); flex: none; }
+      .author { color: var(--foreground); font-size: 38px; font-weight: 700; }
+      .note { color: #9A9A9A; font-size: 30px; font-weight: 500; line-height: 1.4; }
+      .note:empty { display: none; }
     </style>
   </head>
   <body>
     <div id="root" data-composition-id="main" data-start="0" data-duration="5" data-width="1920" data-height="1080">
       <section id="quote-scene" class="scene clip" data-start="0" data-duration="5" data-track-index="1">
-        <div class="card" data-layout-allow-overflow>
-          <div class="glow" data-layout-ignore></div>
+        <div class="card">
           <div class="quote-mark" data-layout-ignore>“</div>
           <div class="kicker" id="kicker"></div>
-          <p class="quote" id="quote"></p>
+          <p class="quote mask"><span id="quote"></span></p>
           <div class="meta-row">
             <div class="divider" data-layout-ignore></div>
             <div class="author" id="author"></div>
@@ -110,7 +111,7 @@ html[data-motion-style="bold-geometry"][data-export-mode="transparent"] .scene::
 /* Filled callouts have their own ink contrast, rather than inheriting muted body text. */
 html:not([data-motion-style="classic-orange"]) [data-style-role~="accent-fill"] { background: var(--style-accent); color: var(--style-on-accent); border-color: var(--style-accent); }
 </style>
-<script data-motion-style-runtime>window.__motionStyleCatalog={"version":"1.0","defaultStyleId":"classic-orange","source":"https://github.com/nutllwhy/ldd-video-edit","principles":["先选择信息模板，再选择整片画风。","同一项目默认继承一种风格，场景切换必须显式声明。","风格可以改变字体、材质、线条与运动，不得添加没有来源的信息。","透明导出只保留信息图形及其必要材质，不铺满不透明画布。"],"styles":[{"id":"classic-orange","name":"黑橙经典","description":"深色底、粗体数字与利落强调线，延续原有动效。","tags":["数据","科技","通用"],"tokens":{"background":"#12100E","surface":"#211C18","foreground":"#F4EFE7","muted":"#B8ADA2","accent":"#FF5A36","line":"#57483E"},"typography":{"heading":"sans-serif","body":"sans-serif","numeric":"sans-serif"},"material":{"texture":"none","edge":"precise","shadow":"soft","radius":"template"},"motion":{"entry":"原模板编排","emphasis":"弹性落定","exit":"快速离场","ease":"template"},"rules":{"required":["保留原模板的信息层级"],"forbidden":["额外加入英文编号","无来源的装饰数据"]}},{"id":"paper-editorial","name":"纸感编辑","description":"暖纸底、衬线标题、细墨线与剪贴纸签，适合深度解读。","tags":["解读","资料","人文"],"tokens":{"background":"#F1E7D6","surface":"#FFFAEE","foreground":"#30271F","muted":"#75634F","accent":"#B64325","line":"#A4947D"},"typography":{"heading":"serif","body":"serif","numeric":"serif"},"material":{"texture":"paper-grain","edge":"square","shadow":"offset-paper","radius":"0px"},"motion":{"entry":"纸片平滑滑入","emphasis":"墨线展开","exit":"平滑收起","ease":"power2.out"},"rules":{"required":["暖纸与墨色对比","清楚的编辑层级"],"forbidden":["发光玻璃效果","弹簧式夸张弹跳"]}},{"id":"sketch-notes","name":"手绘笔记","description":"点阵纸、铅笔虚线、排线阴影与橙色批注，适合讲清步骤。","tags":["教学","流程","复盘"],"tokens":{"background":"#FFF7E6","surface":"#FFFCF3","foreground":"#382F29","muted":"#776658","accent":"#BB4C24","line":"#A1907B"},"typography":{"heading":"sans-serif","body":"sans-serif","numeric":"serif"},"material":{"texture":"dot-grid","edge":"pencil-dashed","shadow":"hatching","radius":"8px 2px 10px 3px"},"motion":{"entry":"逐拍显现","emphasis":"笔迹分段展开","exit":"干净擦出","ease":"steps(12)"},"rules":{"required":["可寻帧的笔触节奏","批注只强化已有信息"],"forbidden":["随机抖动","依赖本机手写字体","装饰性假笔记"]}},{"id":"bold-geometry","name":"几何构成","description":"硬边色块、粗线切分与重字排版，适合观点和强对比。","tags":["观点","对比","快节奏"],"tokens":{"background":"#191715","surface":"#28221D","foreground":"#FFF4E6","muted":"#D1BBA7","accent":"#FF713D","line":"#9B7255"},"typography":{"heading":"sans-serif","body":"sans-serif","numeric":"sans-serif"},"material":{"texture":"none","edge":"hard-cut","shadow":"hard-offset","radius":"0px"},"motion":{"entry":"快速切入","emphasis":"硬边冲击落定","exit":"加速切走","ease":"expo.out"},"rules":{"required":["粗线与色块形成主次","一眼可读的结论"],"forbidden":["柔光渐变","圆润玻璃卡片","额外的装饰数字"]}}]};
+<script data-motion-style-runtime>window.__motionStyleCatalog={"version":"1.0","defaultStyleId":"classic-orange","principles":["先选择信息模板，再选择整片画风。","同一项目默认继承一种风格，场景切换必须显式声明。","风格可以改变字体、材质、线条与运动，不得添加没有来源的信息。","透明导出只保留信息图形及其必要材质，不铺满不透明画布。"],"styles":[{"id":"classic-orange","name":"黑橙经典","description":"中性黑底、纯白文字，橙色只做重音；无光晕、无玻璃卡，遮罩升起与擦入。","tags":["数据","科技","通用"],"tokens":{"background":"#0D0D0D","surface":"#161616","foreground":"#F5F5F2","muted":"#9A9A9A","accent":"#FF5A1F","line":"#3A3A3A"},"typography":{"heading":"sans-serif","body":"sans-serif","numeric":"sans-serif"},"material":{"texture":"none","edge":"precise","shadow":"soft","radius":"template"},"motion":{"entry":"原模板编排","emphasis":"遮罩升起、利落落定","exit":"快速离场","ease":"template"},"rules":{"required":["保留原模板的信息层级"],"forbidden":["额外加入英文编号","无来源的装饰数据","发光光晕与玻璃卡","回弹缓动"]}},{"id":"paper-editorial","name":"纸感编辑","description":"暖纸底、衬线标题、细墨线与剪贴纸签，适合深度解读。","tags":["解读","资料","人文"],"tokens":{"background":"#F1E7D6","surface":"#FFFAEE","foreground":"#30271F","muted":"#75634F","accent":"#B64325","line":"#A4947D"},"typography":{"heading":"serif","body":"serif","numeric":"serif"},"material":{"texture":"paper-grain","edge":"square","shadow":"offset-paper","radius":"0px"},"motion":{"entry":"纸片平滑滑入","emphasis":"墨线展开","exit":"平滑收起","ease":"power2.out"},"rules":{"required":["暖纸与墨色对比","清楚的编辑层级"],"forbidden":["发光玻璃效果","弹簧式夸张弹跳"]}},{"id":"sketch-notes","name":"手绘笔记","description":"点阵纸、铅笔虚线、排线阴影与橙色批注，适合讲清步骤。","tags":["教学","流程","复盘"],"tokens":{"background":"#FFF7E6","surface":"#FFFCF3","foreground":"#382F29","muted":"#776658","accent":"#BB4C24","line":"#A1907B"},"typography":{"heading":"sans-serif","body":"sans-serif","numeric":"serif"},"material":{"texture":"dot-grid","edge":"pencil-dashed","shadow":"hatching","radius":"8px 2px 10px 3px"},"motion":{"entry":"逐拍显现","emphasis":"笔迹分段展开","exit":"干净擦出","ease":"steps(12)"},"rules":{"required":["可寻帧的笔触节奏","批注只强化已有信息"],"forbidden":["随机抖动","依赖本机手写字体","装饰性假笔记"]}},{"id":"bold-geometry","name":"几何构成","description":"硬边色块、粗线切分与重字排版，适合观点和强对比。","tags":["观点","对比","快节奏"],"tokens":{"background":"#191715","surface":"#28221D","foreground":"#FFF4E6","muted":"#D1BBA7","accent":"#FF713D","line":"#9B7255"},"typography":{"heading":"sans-serif","body":"sans-serif","numeric":"sans-serif"},"material":{"texture":"none","edge":"hard-cut","shadow":"hard-offset","radius":"0px"},"motion":{"entry":"快速切入","emphasis":"硬边冲击落定","exit":"加速切走","ease":"expo.out"},"rules":{"required":["粗线与色块形成主次","一眼可读的结论"],"forbidden":["柔光渐变","圆润玻璃卡片","额外的装饰数字"]}}]};
 /* Authored for this project. Embedded into each standalone composition by sync-styles.mjs. */
 (function () {
   "use strict";
@@ -221,21 +222,20 @@ html:not([data-motion-style="classic-orange"]) [data-style-role~="accent-fill"] 
 </script>
 <!-- motion-style:end -->
 <script>
-      const fallback = { kicker: "书里的一句话", quote: "我们不是因为知道得少而焦虑，是因为知道得乱。", author: "《卡片笔记写作法》", note: "信息只有进入结构，才会变成知识。", accent: "#FF5A36", foreground: "#F4EFE7" };
+      const fallback = { kicker: "书里的一句话", quote: "我们不是因为知道得少而焦虑，是因为知道得乱。", author: "《卡片笔记写作法》", note: "信息只有进入结构，才会变成知识。", accent: "#FF5A1F", foreground: "#F5F5F2" };
       const v = window.__hyperframes?.getVariables ? window.__hyperframes.getVariables() : fallback;
       document.documentElement.dataset.exportMode = v.exportMode || "transparent";
       document.documentElement.style.setProperty("--accent", v.accent); document.documentElement.style.setProperty("--foreground", v.foreground);
       for (const id of ["kicker", "quote", "author", "note"]) document.getElementById(id).textContent = v[id];
       window.__timelines = window.__timelines || {}; const tl = gsap.timeline({ paused: true });
-      tl.fromTo(".card", { opacity: 0, y: 64, scale: .96 }, { opacity: 1, y: 0, scale: 1, duration: .68, ease: MotionStyles.ease("expo.out") }, .14);
-      tl.fromTo(".quote-mark", { opacity: 0, scale: .3, rotation: -12 }, { opacity: .9, scale: 1, rotation: 0, duration: .5, ease: MotionStyles.ease("back.out(1.7)") }, .34);
-      tl.fromTo(".kicker", { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: .38, ease: MotionStyles.ease("circ.out") }, .48);
-      tl.fromTo(".quote", { opacity: 0, y: 44 }, { opacity: 1, y: 0, duration: .64, ease: MotionStyles.ease("power4.out") }, .58);
-      tl.fromTo(".divider", { scaleX: 0, opacity: 0 }, { scaleX: 1, opacity: 1, duration: .56, ease: MotionStyles.ease("power3.out") }, 1.24);
-      tl.fromTo(".author", { opacity: 0, x: -26 }, { opacity: 1, x: 0, duration: .44, ease: MotionStyles.ease("circ.out") }, 1.4);
-      tl.fromTo(".note", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: .4, ease: MotionStyles.ease("sine.out") }, 1.56);
-      tl.fromTo(".glow", { opacity: 0, scale: .6 }, { opacity: 1, scale: 1, duration: 1.1, ease: MotionStyles.ease("sine.out") }, .4);
-      tl.to(".scene", { opacity: 0, y: -24, duration: .4, ease: MotionStyles.ease("power2.in") }, 4.48);
+      tl.fromTo(".card", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: .55, ease: MotionStyles.ease("expo.out") }, .12);
+      tl.fromTo(".quote-mark", { opacity: 0 }, { opacity: 1, duration: .3, ease: MotionStyles.ease("none") }, .4);
+      tl.fromTo(".kicker", { opacity: 0 }, { opacity: 1, duration: .3, ease: MotionStyles.ease("none") }, .46);
+      tl.fromTo("#quote", { yPercent: 105 }, { yPercent: 0, duration: .7, ease: MotionStyles.ease("expo.out") }, .52);
+      tl.fromTo(".divider", { width: 0 }, { width: 120, duration: .45, ease: MotionStyles.ease("power3.inOut") }, 1.14);
+      tl.fromTo(".author", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: .4, ease: MotionStyles.ease("power2.out") }, 1.36);
+      tl.fromTo(".note", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: .4, ease: MotionStyles.ease("power2.out") }, 1.52);
+      tl.to(".card", { clipPath: "inset(0 0 0 100%)", duration: .38, ease: MotionStyles.ease("power3.in") }, 4.5);
       window.__timelines.main = tl; MotionStyles.finish(tl);
     </script>
   </body>

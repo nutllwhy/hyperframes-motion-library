@@ -1,4 +1,4 @@
-# 数据脉冲视觉规范
+# 核心指标视觉规范
 
 ## 方向
 
@@ -6,33 +6,37 @@
 
 ## Palette
 
-- Background: `#12100E`
-- Foreground: `#F4EFE7`
-- Accent: `#FF5A36`
-- Muted: `#B8ADA2`
-- Bright muted: `#D8CEC4`
-- Panel: `#211C18`
-- Line: `#3A3029`
-- Strong line: `#5A4840`
+- Background: `#0D0D0D`
+- Foreground: `#F5F5F2`
+- Accent: `#FF5A1F`（顶部短横线、大数字、单位）
+- Muted: `#C8C8C8`（说明文字）
+- Line: `#3A3A3A`（说明区上方分隔线）
 
 ## Typography
 
-- 中文标题、大数字与元数据：`IBM Plex Mono`，字重 500–900
-- 中文字符由系统字形回退补齐，整体保持机械、精确的数据语气
-- 大数字使用等宽数字特性
+- 字体栈：`"PingFang SC", "Source Han Sans SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif`，开启 `-webkit-font-smoothing: antialiased`
+- 标题：字重 800，80px，`letter-spacing: 0`
+- 大数字：字重 800，360px，`font-variant-numeric: tabular-nums`
+- 单位：字重 700，92px；说明：字重 500，44px
 
 ## Corners and spacing
 
-- 画面安全边距：96–120px
-- 面板圆角：24px
-- 胶囊圆角：999px
-- 主要间距：24–48px
+- 画面安全边距：82px / 108px / 78px（上 / 左右 / 下）
+- 不使用卡片与圆角，靠排版分区：标题居上、数字居中、说明在右下占 54% 宽
+- 顶部短横线：168px × 8px，Accent 实色
 
 ## Depth
 
-使用局部光晕、细线、低透明度大字和轻颗粒构建层次，不使用通用卡片阴影。
+只用顶部短横线、说明区上方 2px 分隔线与字号对比构建层次，不使用颗粒、低透明度大字或卡片阴影。
 
-标题、数字和说明必须直接构成动效主体，不增加眉题、编号、模板名、时长或与主数据无明确关系的二级指标。
+标题、数字和说明必须直接构成动效主体，不增加眉题、编号、模板名、时长或与主数据无明确关系的二级指标。说明为空时自动隐藏。
+
+## Motion
+
+- 0.1s 短横线生长（`power3.inOut` 0.5s）→ 0.25s 标题遮罩上推（`expo.out` 0.62s）
+- 0.55s 数字淡入上移并从 0 滚动到目标值（`expo.out` 1.3s，直接落定）；1.1s 单位淡入
+- 0.95s 说明区从左擦入（`clipPath`，`expo.out` 0.5s），说明文字淡入上移
+- 5.5s 整个画面向右擦出（`power3.in` 0.38s）
 
 ## Avoid
 
@@ -43,5 +47,5 @@
 
 ## Export modes
 
-- 纯色 MP4 保留完整深色画布及环境网格、光晕和低透明度大字。
-- 透明导出去掉覆盖整帧的环境装饰，只保留承载标题、数字和趋势线的局部深色面板。
+- 纯色 MP4 铺满 `#0D0D0D` 深色画布。
+- 透明导出不加任何承载面板，只保留文字、数字与线条。

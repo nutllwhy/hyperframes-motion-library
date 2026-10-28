@@ -1,11 +1,11 @@
 {
   "version": 1,
-  "release": "1.5.0",
+  "release": "1.6.0",
   "templates": [
     {
       "id": "bar-chart-grow",
       "name": "柱状图增长",
-      "description": "3–7 根垂直柱形从底部弹性增长，带数值标签与网格线，适合业绩对比、多维度数据分布。",
+      "description": "3–7 根垂直柱形从底部生长，带数值标签与网格线，适合业绩对比、多维度数据分布。",
       "path": "templates/bar-chart-grow",
       "category": "数据可视化",
       "tags": [
@@ -28,10 +28,10 @@
         "frameSelectors": [
           ".scene"
         ],
-        "measuredOccupancy": 0.674,
+        "measuredOccupancy": 0.68,
         "measuredSpan": {
           "width": 0.883,
-          "height": 0.763
+          "height": 0.769
         },
         "occupancy": {
           "min": 0.48,
@@ -85,10 +85,10 @@
         "frameSelectors": [
           ".counter-panel"
         ],
-        "measuredOccupancy": 0.756,
+        "measuredOccupancy": 0.723,
         "measuredSpan": {
           "width": 0.887,
-          "height": 0.852
+          "height": 0.815
         },
         "occupancy": {
           "min": 0.42,
@@ -139,10 +139,10 @@
         "frameSelectors": [
           ".scene"
         ],
-        "measuredOccupancy": 0.67,
+        "measuredOccupancy": 0.679,
         "measuredSpan": {
           "width": 0.883,
-          "height": 0.759
+          "height": 0.769
         },
         "occupancy": {
           "min": 0.48,
@@ -169,7 +169,7 @@
     },
     {
       "id": "metric-pulse",
-      "name": "数据脉冲",
+      "name": "核心指标",
       "description": "适合增长数据、里程碑、成绩与单项 KPI 的横屏数据动效。",
       "path": "templates/metric-pulse",
       "category": "数据可视化",
@@ -195,10 +195,10 @@
         "frameSelectors": [
           ".content"
         ],
-        "measuredOccupancy": 0.63,
+        "measuredOccupancy": 0.669,
         "measuredSpan": {
-          "width": 0.785,
-          "height": 0.802
+          "width": 0.877,
+          "height": 0.763
         },
         "occupancy": {
           "min": 0.42,
@@ -251,10 +251,10 @@
         "frameSelectors": [
           ".card"
         ],
-        "measuredOccupancy": 0.687,
+        "measuredOccupancy": 0.695,
         "measuredSpan": {
           "width": 0.887,
-          "height": 0.774
+          "height": 0.783
         },
         "occupancy": {
           "min": 0.42,
@@ -308,10 +308,10 @@
         "frameSelectors": [
           ".comparison-panel"
         ],
-        "measuredOccupancy": 0.756,
+        "measuredOccupancy": 0.73,
         "measuredSpan": {
           "width": 0.887,
-          "height": 0.852
+          "height": 0.822
         },
         "occupancy": {
           "min": 0.42,
@@ -365,10 +365,10 @@
         "frameSelectors": [
           ".panel"
         ],
-        "measuredOccupancy": 0.756,
+        "measuredOccupancy": 0.73,
         "measuredSpan": {
           "width": 0.887,
-          "height": 0.852
+          "height": 0.822
         },
         "occupancy": {
           "min": 0.42,
@@ -422,10 +422,10 @@
         "frameSelectors": [
           ".panel"
         ],
-        "measuredOccupancy": 0.756,
+        "measuredOccupancy": 0.73,
         "measuredSpan": {
           "width": 0.887,
-          "height": 0.852
+          "height": 0.822
         },
         "occupancy": {
           "min": 0.42,
@@ -479,10 +479,10 @@
         "frameSelectors": [
           ".panel"
         ],
-        "measuredOccupancy": 0.756,
+        "measuredOccupancy": 0.73,
         "measuredSpan": {
           "width": 0.887,
-          "height": 0.852
+          "height": 0.822
         },
         "occupancy": {
           "min": 0.42,
@@ -534,10 +534,10 @@
         "frameSelectors": [
           ".card"
         ],
-        "measuredOccupancy": 0.116,
+        "measuredOccupancy": 0.139,
         "measuredSpan": {
-          "width": 0.61,
-          "height": 0.19
+          "width": 0.608,
+          "height": 0.228
         },
         "occupancy": {
           "min": 0.08,
@@ -587,10 +587,10 @@
         "frameSelectors": [
           ".panel"
         ],
-        "measuredOccupancy": 0.164,
+        "measuredOccupancy": 0.155,
         "measuredSpan": {
-          "width": 0.529,
-          "height": 0.309
+          "width": 0.525,
+          "height": 0.295
         },
         "occupancy": {
           "min": 0.08,
@@ -643,9 +643,9 @@
         "frameSelectors": [
           ".cluster"
         ],
-        "measuredOccupancy": 0.581,
+        "measuredOccupancy": 0.59,
         "measuredSpan": {
-          "width": 0.863,
+          "width": 0.875,
           "height": 0.674
         },
         "occupancy": {
@@ -697,9 +697,9 @@
         "frameSelectors": [
           ".card"
         ],
-        "measuredOccupancy": 0.205,
+        "measuredOccupancy": 0.198,
         "measuredSpan": {
-          "width": 0.385,
+          "width": 0.37,
           "height": 0.533
         },
         "occupancy": {
@@ -753,10 +753,10 @@
         "frameSelectors": [
           ".card"
         ],
-        "measuredOccupancy": 0.174,
+        "measuredOccupancy": 0.164,
         "measuredSpan": {
-          "width": 0.494,
-          "height": 0.353
+          "width": 0.487,
+          "height": 0.337
         },
         "occupancy": {
           "min": 0.1,
@@ -784,7 +784,7 @@
     {
       "id": "three-step-flow",
       "name": "三步流程",
-      "description": "三个步骤卡片与连接线铺满画面并依次生长，适合 SOP、教程步骤和知识框架的独立讲解镜头。",
+      "description": "三个步骤沿一条进度线依次展开、铺满画面，适合 SOP、教程步骤和知识框架的独立讲解镜头。",
       "path": "templates/three-step-flow",
       "category": "知识讲解",
       "tags": [
@@ -809,10 +809,10 @@
         "frameSelectors": [
           ".panel"
         ],
-        "measuredOccupancy": 0.579,
+        "measuredOccupancy": 0.7,
         "measuredSpan": {
-          "width": 0.887,
-          "height": 0.652
+          "width": 0.875,
+          "height": 0.8
         },
         "occupancy": {
           "min": 0.42,
@@ -865,10 +865,10 @@
         "frameSelectors": [
           ".wrap"
         ],
-        "measuredOccupancy": 0.578,
+        "measuredOccupancy": 0.55,
         "measuredSpan": {
-          "width": 0.887,
-          "height": 0.651
+          "width": 0.875,
+          "height": 0.628
         },
         "occupancy": {
           "min": 0.42,
@@ -896,7 +896,7 @@
     {
       "id": "key-point-marker",
       "name": "重点标注",
-      "description": "下三分之一的重点句标注动效，带角标和扫描下划线，适合金句、结论和操作提醒。",
+      "description": "下三分之一的重点句标注，短横线引出，适合金句、结论和操作提醒。",
       "path": "templates/key-point-marker",
       "category": "知识讲解",
       "tags": [
@@ -919,10 +919,10 @@
         "frameSelectors": [
           ".marker"
         ],
-        "measuredOccupancy": 0.084,
+        "measuredOccupancy": 0.114,
         "measuredSpan": {
           "width": 0.556,
-          "height": 0.152
+          "height": 0.204
         },
         "occupancy": {
           "min": 0.04,
@@ -950,7 +950,7 @@
     {
       "id": "checklist-pop",
       "name": "清单核对",
-      "description": "三条检查项逐条弹出并完成勾选，适合总结步骤、注意事项、行动清单。",
+      "description": "三条检查项逐条擦入并依次勾选，适合总结步骤、注意事项、行动清单。",
       "path": "templates/checklist-pop",
       "category": "知识讲解",
       "tags": [
@@ -973,10 +973,10 @@
         "frameSelectors": [
           ".panel"
         ],
-        "measuredOccupancy": 0.126,
+        "measuredOccupancy": 0.13,
         "measuredSpan": {
-          "width": 0.342,
-          "height": 0.367
+          "width": 0.358,
+          "height": 0.363
         },
         "occupancy": {
           "min": 0.08,
@@ -1028,10 +1028,10 @@
         "frameSelectors": [
           ".panel"
         ],
-        "measuredOccupancy": 0.123,
+        "measuredOccupancy": 0.19,
         "measuredSpan": {
-          "width": 0.544,
-          "height": 0.225
+          "width": 0.646,
+          "height": 0.294
         },
         "occupancy": {
           "min": 0.08,
@@ -1082,10 +1082,10 @@
         "frameSelectors": [
           ".cluster"
         ],
-        "measuredOccupancy": 0.139,
+        "measuredOccupancy": 0.202,
         "measuredSpan": {
-          "width": 0.59,
-          "height": 0.236
+          "width": 0.698,
+          "height": 0.29
         },
         "occupancy": {
           "min": 0.1,
@@ -1138,10 +1138,10 @@
         "frameSelectors": [
           ".statement"
         ],
-        "measuredOccupancy": 0.705,
+        "measuredOccupancy": 0.665,
         "measuredSpan": {
-          "width": 0.865,
-          "height": 0.815
+          "width": 0.853,
+          "height": 0.78
         },
         "occupancy": {
           "min": 0.42,
@@ -1193,10 +1193,10 @@
         "frameSelectors": [
           ".compare"
         ],
-        "measuredOccupancy": 0.599,
+        "measuredOccupancy": 0.719,
         "measuredSpan": {
-          "width": 0.887,
-          "height": 0.675
+          "width": 0.875,
+          "height": 0.822
         },
         "occupancy": {
           "min": 0.42,
@@ -1250,10 +1250,10 @@
         "frameSelectors": [
           ".loop"
         ],
-        "measuredOccupancy": 0.619,
+        "measuredOccupancy": 0.609,
         "measuredSpan": {
-          "width": 0.887,
-          "height": 0.698
+          "width": 0.875,
+          "height": 0.696
         },
         "occupancy": {
           "min": 0.42,
@@ -1306,10 +1306,10 @@
         "frameSelectors": [
           ".stack"
         ],
-        "measuredOccupancy": 0.582,
+        "measuredOccupancy": 0.493,
         "measuredSpan": {
           "width": 0.854,
-          "height": 0.681
+          "height": 0.577
         },
         "occupancy": {
           "min": 0.42,
@@ -1560,10 +1560,10 @@
             "frameSelectors": [
               ".panel"
             ],
-            "measuredOccupancy": 0.572,
+            "measuredOccupancy": 0.558,
             "measuredSpan": {
-              "width": 0.8,
-              "height": 0.715
+              "width": 0.796,
+              "height": 0.701
             },
             "occupancy": {
               "min": 0.42,
@@ -1601,10 +1601,10 @@
             "frameSelectors": [
               ".panel"
             ],
-            "measuredOccupancy": 0.581,
+            "measuredOccupancy": 0.577,
             "measuredSpan": {
               "width": 0.748,
-              "height": 0.777
+              "height": 0.771
             },
             "occupancy": {
               "min": 0.42,
@@ -1649,10 +1649,10 @@
         "frameSelectors": [
           ".card"
         ],
-        "measuredOccupancy": 0.49,
+        "measuredOccupancy": 0.488,
         "measuredSpan": {
-          "width": 0.773,
-          "height": 0.633
+          "width": 0.775,
+          "height": 0.63
         },
         "occupancy": {
           "min": 0.42,
