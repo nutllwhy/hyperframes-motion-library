@@ -1,0 +1,9 @@
+{
+  "title": "用户为什么划走",
+  "value": 73,
+  "unit": "%",
+  "desc": "在前三秒离开",
+  "note": "开头不是铺垫，是整个视频最贵的三秒。",
+  "accent": "#FF5A36",
+  "foreground": "#F4EFE7"
+}

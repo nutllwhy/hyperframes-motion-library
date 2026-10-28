@@ -48,7 +48,7 @@
 ## 导出模式
 
 - 新模板必须同时考虑纯色底和透明底，使用隐藏的 `exportMode` 枚举变量切换。
-- `exportMode=mp4` 时保留模板定义的深色背景；`exportMode=transparent` 时画布必须透明。
+- `exportMode=mp4` 时保留所选风格的背景；`exportMode=transparent` 时画布必须透明。
 - 透明模式可以保留承载信息所需的局部深色卡片，但不能留下覆盖整帧的黑色背景、网格或环境光。
 - 目录中的 `formats` 默认登记 `mp4`、`mov`、`webm`；MP4 用于直接剪辑，MOV 用于带透明通道叠加，WebM 用于网页和兼容软件。
 - 透明模式必须分别叠在深色、浅色和实拍画面上检查文字对比、半透明边缘与光晕。
@@ -73,3 +73,12 @@
 - `npm run check` 会启动无头 Chrome 测量完整时刻的信息主体边界；布局变化超过 2% 或已通过模板掉出目标范围时检查失败。
 - 批量渲染默认顺序执行，避免同时启动多个 Chrome / FFmpeg 任务挤占本机资源。
 - 项目输出保存在 `renders/projects/<project-name>/`，文件名包含序号、时间码和模板 ID，方便剪辑时对应口播位置。
+
+## 可复用风格
+
+- 模板负责信息结构，`styles/catalog.json` 负责风格的配色、字体、材质、几何形状、运动与禁用项；默认 `classic-orange`。
+- 风格运行时源文件是 `styles/runtime.js` 与 `styles/runtime.css`。执行 `npm run sync:styles`，把代码和 `styleId` 变量同步进每份独立合成，保证 HyperFrames 无需访问项目目录外的资源。
+- 不直接编辑 HTML 中 `motion-style:start/end` 标记之间的生成内容。新增模板、风格或修改运行时之后必须重新同步。
+- V1.2 方案顶层的 `styleId` 是整片默认值。只有有意切换画风的场景才填写自己的 `styleId`；场景变量中的 `styleId` 不得与有效风格冲突。
+- 不增加无关文字、假数据和无来源的编号来营造风格。不同风格的对照必须使用同一份内容。
+- 风格验收包含大数字、图表、流程三类真实样张、透明底、横竖屏与任意寻帧检查，执行 `npm run check:styles`。

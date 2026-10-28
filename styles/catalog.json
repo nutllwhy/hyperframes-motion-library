@@ -1,0 +1,52 @@
+{
+  "version": "1.0",
+  "defaultStyleId": "classic-orange",
+  "source": "https://github.com/nutllwhy/ldd-video-edit",
+  "principles": ["先选择信息模板，再选择整片画风。", "同一项目默认继承一种风格，场景切换必须显式声明。", "风格可以改变字体、材质、线条与运动，不得添加没有来源的信息。", "透明导出只保留信息图形及其必要材质，不铺满不透明画布。"],
+  "styles": [
+    {
+      "id": "classic-orange",
+      "name": "黑橙经典",
+      "description": "深色底、粗体数字与利落强调线，延续原有动效。",
+      "tags": ["数据", "科技", "通用"],
+      "tokens": {"background": "#12100E", "surface": "#211C18", "foreground": "#F4EFE7", "muted": "#B8ADA2", "accent": "#FF5A36", "line": "#57483E"},
+      "typography": {"heading": "sans-serif", "body": "sans-serif", "numeric": "sans-serif"},
+      "material": {"texture": "none", "edge": "precise", "shadow": "soft", "radius": "template"},
+      "motion": {"entry": "原模板编排", "emphasis": "弹性落定", "exit": "快速离场", "ease": "template"},
+      "rules": {"required": ["保留原模板的信息层级"], "forbidden": ["额外加入英文编号", "无来源的装饰数据"]}
+    },
+    {
+      "id": "paper-editorial",
+      "name": "纸感编辑",
+      "description": "暖纸底、衬线标题、细墨线与剪贴纸签，适合深度解读。",
+      "tags": ["解读", "资料", "人文"],
+      "tokens": {"background": "#F1E7D6", "surface": "#FFFAEE", "foreground": "#30271F", "muted": "#75634F", "accent": "#B64325", "line": "#A4947D"},
+      "typography": {"heading": "serif", "body": "serif", "numeric": "serif"},
+      "material": {"texture": "paper-grain", "edge": "square", "shadow": "offset-paper", "radius": "0px"},
+      "motion": {"entry": "纸片平滑滑入", "emphasis": "墨线展开", "exit": "平滑收起", "ease": "power2.out"},
+      "rules": {"required": ["暖纸与墨色对比", "清楚的编辑层级"], "forbidden": ["发光玻璃效果", "弹簧式夸张弹跳"]}
+    },
+    {
+      "id": "sketch-notes",
+      "name": "手绘笔记",
+      "description": "点阵纸、铅笔虚线、排线阴影与橙色批注，适合讲清步骤。",
+      "tags": ["教学", "流程", "复盘"],
+      "tokens": {"background": "#FFF7E6", "surface": "#FFFCF3", "foreground": "#382F29", "muted": "#776658", "accent": "#BB4C24", "line": "#A1907B"},
+      "typography": {"heading": "sans-serif", "body": "sans-serif", "numeric": "serif"},
+      "material": {"texture": "dot-grid", "edge": "pencil-dashed", "shadow": "hatching", "radius": "8px 2px 10px 3px"},
+      "motion": {"entry": "逐拍显现", "emphasis": "笔迹分段展开", "exit": "干净擦出", "ease": "steps(12)"},
+      "rules": {"required": ["可寻帧的笔触节奏", "批注只强化已有信息"], "forbidden": ["随机抖动", "依赖本机手写字体", "装饰性假笔记"]}
+    },
+    {
+      "id": "bold-geometry",
+      "name": "几何构成",
+      "description": "硬边色块、粗线切分与重字排版，适合观点和强对比。",
+      "tags": ["观点", "对比", "快节奏"],
+      "tokens": {"background": "#191715", "surface": "#28221D", "foreground": "#FFF4E6", "muted": "#D1BBA7", "accent": "#FF713D", "line": "#9B7255"},
+      "typography": {"heading": "sans-serif", "body": "sans-serif", "numeric": "sans-serif"},
+      "material": {"texture": "none", "edge": "hard-cut", "shadow": "hard-offset", "radius": "0px"},
+      "motion": {"entry": "快速切入", "emphasis": "硬边冲击落定", "exit": "加速切走", "ease": "expo.out"},
+      "rules": {"required": ["粗线与色块形成主次", "一眼可读的结论"], "forbidden": ["柔光渐变", "圆润玻璃卡片", "额外的装饰数字"]}
+    }
+  ]
+}

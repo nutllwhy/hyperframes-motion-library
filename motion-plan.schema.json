@@ -9,7 +9,7 @@
   "properties": {
     "version": {
       "type": "string",
-      "enum": ["1.0", "1.1"]
+      "enum": ["1.0", "1.1", "1.2"]
     },
     "project": {
       "type": "string",
@@ -20,6 +20,10 @@
       "type": "string",
       "enum": ["mp4", "mov", "webm"],
       "default": "mp4"
+    },
+    "styleId": {
+      "$ref": "#/$defs/styleId",
+      "description": "整片默认风格；每条场景默认继承，只有明确的叙事需要才覆盖。"
     },
     "scenes": {
       "type": "array",
@@ -95,6 +99,15 @@
             "type": "string",
             "enum": ["mp4", "mov", "webm"]
           },
+          "orientation": {
+            "type": "string",
+            "enum": ["landscape", "portrait"],
+            "default": "landscape"
+          },
+          "styleId": {
+            "$ref": "#/$defs/styleId",
+            "description": "可选的单场景风格覆盖；省略时继承整片 styleId。"
+          },
           "variables": {
             "type": "object"
           }
@@ -102,11 +115,18 @@
       }
     }
   },
+  "$defs": {
+    "styleId": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "description": "必须引用 styles/catalog.json 中已经登记的风格 ID。"
+    }
+  },
   "allOf": [
     {
       "if": {
         "properties": {
-          "version": { "const": "1.1" }
+          "version": { "enum": ["1.1", "1.2"] }
         }
       },
       "then": {
@@ -118,6 +138,10 @@
           }
         }
       }
+    },
+    {
+      "if": { "properties": { "version": { "const": "1.2" } } },
+      "then": { "required": ["styleId"] }
     }
   ]
 }

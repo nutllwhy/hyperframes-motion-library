@@ -25,10 +25,37 @@ https://nutllwhy.github.io/hyperframes-motion-library/
 这套系统的重点不是一次性做出某条视频，而是把常用的视频动效沉淀成可以继续复用、继续扩展的模板资产。
 
 - 模板化：每个动效都有独立源码、默认预设、设计说明和目录登记。
+- Skill 入口：`SKILL.md` 为 Agent 提供使用、扩展模板和调整整片画风的指引。
 - 参数化：标题、数字、说明文字、颜色等常改内容都可以通过数据传入。
+- 风格化：27 个信息模板可调用 4 套画风，字体、纸张材质、线条和运动节奏一起变化；批量方案支持整片统一风格。
+- 双画幅：模板可同时提供横屏 1920×1080 与竖屏 1080×1920 版本，页面上一键切换预览与渲染（`chapter-title`、`donut-progress` 已支持）。
 - 可扩展：新的动效可以按 `SYSTEM.md` 的规范继续加入模板库，也可以交给 Agent 辅助迭代。
 
 ## 更新记录
+
+### 2026-10-28 · V1.5 可复用画风
+
+- 新增黑橙经典、纸感编辑、手绘笔记、几何构成 4 套画风，覆盖 27 个模板与 29 份横竖屏合成。
+- 模板决定信息怎么讲，风格决定字体、材质、图形边缘与运动方式；黑橙经典保持默认。
+- 切换风格和修改内容可直接预览；下载的已渲染视频与预览区分开，避免旧样片被误当成新风格。
+- `motion-plan.json` V1.2 新增整片 `styleId`，场景默认继承，也可以显式覆盖；兼容 V1.0 / V1.1 方案。
+- 提供风格注册表、统一运行时、Agent 扩展规范和跨模板风格检查，详见 `styles/README.md`。
+
+### 2026-08-16 · V1.4 竖屏双画幅支持
+
+- catalog schema 新增 `orientations` 与 `variants` 字段：一个模板 ID 聚合横屏与竖屏两个画幅，共享同一套预设与变量；存量单画幅模板零改动、自动退化为纯横屏。
+- 竖屏以 `templates/<id>/portrait/` 子目录承载，是完整独立的 hyperframes 项目，lint / validate / inspect / 渲染全链路覆盖，不是二等公民。
+- `chapter-title`（章节标题）与 `donut-progress`（圆环占比）首批提供竖屏版：1080×1920，纵向堆叠重排，底部避开平台 UI 遮挡区，铺开门槛按竖屏镜像（横 ≥56%、纵 ≥76%）。
+- 工作台新增画幅切换（横屏 16:9 / 竖屏 9:16）：预览容器、时长、样片、渲染输出（`portrait-` 前缀）、下载文件名全部跟随画幅；批量工作台每条任务可独立指定画幅。
+- `check:templates` 升级：竖屏目录同样过橙色参数化检查、lint 三连与变量声明一致性断言（横竖屏变量名与类型必须逐一相同）。
+- 修复上一版 4 个新模板共 28 处硬编码 `rgba(255,90,54,…)`，统一改为 `color-mix(var(--accent) N%, transparent)` 参数化写法，强调色变量恢复全链路生效。
+
+### 2026-08-16 · V1.3.1 知识讲解动效扩充
+
+- 新增关键词爆破、章节标题、圆环占比、金句引用卡 4 个模板，模板库扩展到 27 个。
+- 关键词爆破与章节标题补齐长视频的钩子与分段能力；圆环占比补齐环形数据表达；金句引用卡补齐观点与出处引用。
+- 四个新模板均通过真实内容铺开检查（横向 77%–87%，纵向 63%–78%）与可读性校验，并各自附带 3 套场景预设。
+- 从 `redskill-submission/` 恢复了缺失的 `compact-number-callout`、`mode-choice-compare`、`iteration-loop` 三个模板目录，恢复后 27 个模板全部通过 `npm run check`。
 
 ### 2026-08-13 · V1.3 动效导演层
 
@@ -82,23 +109,32 @@ npm run dev
 
 每个模板支持按用途选择输出格式：
 
-- 纯色底 MP4：保留黑色背景，兼容性最好，可直接导入剪映。
+- 纯色底 MP4：使用所选风格的背景，兼容性最好，可直接导入剪映。
 - 透明 MOV：带透明通道，适合叠加在口播画面上；本地会自动转换为 ProRes 4444，文件会明显大于 MP4。
 - 透明 WebM：文件更小并保留透明通道，适合网页或支持 WebM 的剪辑软件。
 
 透明 MOV 转换依赖本机安装 FFmpeg。macOS 可以通过 `brew install ffmpeg` 安装。
 
+## 选择整片画风
+
+在模板右侧选择“画面风格”，文案和数据会保留，画面立即切换。黑橙经典适合通用数据；纸感编辑适合资料解读；手绘笔记适合教学流程；几何构成适合强观点与对比。纯色 MP4 保留画风底色，透明 MOV / WebM 保留必要信息图形与局部材质。
+
+批量工作台可以一次选择整片风格。Agent 输出的 V1.2 方案在项目顶层填写 `"styleId": "paper-editorial"`；所有未声明场景风格的动效会继承这个选择。真正需要换画风的场景才填写自己的 `styleId`，工作台会标出这个例外。已有自定义颜色仍可以微调。
+
+扩展风格的方法与完整字段见 [风格开发说明](styles/README.md)。
+
 ## 批量动效工作台
 
 如果一条视频需要多个动效，可以让 Agent 根据口播稿生成 `motion-plan.json`，再从页面顶部进入“批量工作台”导入。
 
-项目提供三份可以直接交给 Agent 阅读的文件：
+项目提供以下可以直接交给 Agent 阅读的文件：
 
+- `styles/catalog.json`：可调用画风与配色、字体、材质、运动约束。
 - `director-rules.json`：四种画面模式、内容铺开范围和全局导演原则。
 - `motion-plan.schema.json`：方案的数据格式与字段约束。
 - `examples/motion-plan.example.json`：包含大数字结论卡和前后对比的完整示例。
 
-V1.1 方案的每条任务都必须写清楚原始口播、表达目的、画面模式、必须出现的信息与禁止添加的信息。导入后可以逐条检查导演说明、修改文案与数据、调整顺序、选择 MP4 / MOV / WebM，再统一批量渲染。输出文件位于：
+V1.2 方案在项目层选择风格，每条任务写清楚原始口播、表达目的、画面模式、必须出现的信息与禁止添加的信息。导入后可以逐条检查导演说明、修改文案与数据、调整顺序、选择 MP4 / MOV / WebM，再统一批量渲染。输出文件位于：
 
 ```text
 renders/projects/<project-name>/
@@ -111,6 +147,7 @@ renders/projects/<project-name>/
 ```bash
 npm run check
 npm run check:templates
+npm run check:styles
 ```
 
 清理临时渲染：
@@ -135,6 +172,7 @@ npm run prepare:release
 
 ```bash
 npm run render -- metric-pulse templates/metric-pulse/presets/default.json
+npm run render -- big-number-card templates/big-number-card/presets/default.json mp4 paper-demo --style=paper-editorial
 ```
 
 ## 本地渲染
@@ -172,6 +210,6 @@ https://github.com/nutllwhy/hyperframes-motion-library
 - `examples/motion-plan.example.json`：可直接导入的批量动效示例
 - `SYSTEM.md`：新增截图动效时的入库规范
 
-当前模板库已经包含 23 个可复用动效，覆盖数据可视化、透明叠加和知识讲解三类场景。发布前的模板盘点见 `references/上线前模板盘点.md`。
+当前模板库已经包含 27 个可复用动效，覆盖数据可视化、透明叠加和知识讲解三类场景。发布前的模板盘点见 `references/上线前模板盘点.md`。
 
 之后每次新增动效，都沿用“模板源码 + 变量声明 + 默认预设 + 目录登记 + 校验”的结构，系统会自然长成可搜索、可复用的动效库。

@@ -32,9 +32,10 @@ https://github.com/nutllwhy/hyperframes-motion-library
 推荐提示词：
 
 ```text
-请先阅读 catalog.json、director-rules.json、motion-plan.schema.json 和 examples/motion-plan.example.json。
+请先阅读 catalog.json、styles/catalog.json、director-rules.json、motion-plan.schema.json 和 examples/motion-plan.example.json。
 根据我提供的带时间码口播稿，找出真正需要数据动效或知识讲解动效的位置。
 只使用目录中已有的 ready 模板，并为每个场景填写 timecode、templateId、format、完整 variables 和 director。
+输出 V1.2 方案：顶层 styleId 选择一种整片画风，场景默认继承。需要特意改变画风时才在场景中声明 styleId。
 director 必须引用原始口播，说明表达目的、画面模式、必须出现的信息和禁止添加的信息。
 不要添加口播或数据源中没有出现的数字、时间、状态、英文标签和模板编号。
 独立全屏动效必须填满安全区；只有透明叠加才为人物、字幕和其他素材预留位置。
@@ -73,6 +74,7 @@ templates/<template-id>/
 - 常改内容做变量，例如标题、数字、标签、颜色。
 - 不把坐标、缓动曲线、内部布局参数暴露成日常变量。
 - 默认配色使用黑色背景与橙色强调。
+- 阅读 `styles/README.md`。模板登记后运行 `npm run sync:styles` 接入统一画风；在全部风格中检查可读性，禁止直接修改模板内生成的风格代码。
 - 动画可寻帧，不依赖随机时间、无限循环或异步构建时间线。
 - 新模板登记到 `catalog.json`。
 - 新模板必须登记 `director.defaultMode`、`allowedModes`、真实内容的 `subjectSelectors`、外层框架的 `frameSelectors`、`occupancy`、`span` 和 `guidance`，并通过真实内容铺开检查；禁止用空面板冒充信息主体。

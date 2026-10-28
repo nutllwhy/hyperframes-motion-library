@@ -1,0 +1,9 @@
+{
+  "id": "chapter-title",
+  "name": "章节标题",
+  "createdAt": "2026-08-16T00:00:00.000Z",
+  "orientations": [
+    "landscape",
+    "portrait"
+  ]
+}

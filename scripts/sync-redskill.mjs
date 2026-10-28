@@ -17,6 +17,8 @@ async function copyFile(source, target, transform = (value) => value) {
 async function copyTextTree(source, target) {
   const entries = await fs.readdir(source, { withFileTypes: true });
   for (const entry of entries) {
+    if (source === path.join(root, "templates") && entry.name === "renders") continue;
+    if (/ \d+\.[^.]+$/.test(entry.name)) continue;
     const from = path.join(source, entry.name);
     const to = path.join(target, entry.name);
     if (entry.isDirectory()) await copyTextTree(from, to);
@@ -52,16 +54,13 @@ async function updateCount(file, count) {
 async function main() {
   const catalog = JSON.parse(await fs.readFile(path.join(root, "catalog.json"), "utf8"));
   await fs.mkdir(destination, { recursive: true });
-  for (const directory of ["app", "scripts", "templates", "references", "examples"]) {
-    await fs.rm(path.join(destination, directory), { recursive: true, force: true });
-  }
-
   await copyTextTree(path.join(root, "app"), path.join(destination, "app"));
   await copyTextTree(path.join(root, "templates"), path.join(destination, "templates"));
   await copyTextTree(path.join(root, "references"), path.join(destination, "references"));
   await copyTextTree(path.join(root, "examples"), path.join(destination, "examples"));
+  await copyTextTree(path.join(root, "styles"), path.join(destination, "styles"));
   for (const entry of await fs.readdir(path.join(root, "scripts"), { withFileTypes: true })) {
-    if (!entry.isFile() || path.extname(entry.name) !== ".mjs" || entry.name === "sync-redskill.mjs") continue;
+    if (!entry.isFile() || path.extname(entry.name) !== ".mjs" || entry.name === "sync-redskill.mjs" || / \d+\.mjs$/.test(entry.name)) continue;
     const targetName = entry.name.replace(/\.mjs$/, ".js");
     await copyFile(path.join(root, "scripts", entry.name), path.join(destination, "scripts", targetName), (content) => content.replaceAll(".mjs\"", ".js\"").replaceAll(".mjs'", ".js'"));
   }
@@ -69,6 +68,7 @@ async function main() {
   for (const [source, target, transform] of [
     ["catalog.json", "catalog.json"],
     ["AGENT_GUIDE.md", "AGENT_GUIDE.md"],
+    ["SKILL.md", "SKILL.md"],
     ["SYSTEM.md", "SYSTEM.md"],
     ["README.md", "README_GITHUB.md", (content) => content.replaceAll("(LICENSE)", "(LICENSE.md)")],
     ["motion-plan.schema.json", "motion-plan.schema.json"],

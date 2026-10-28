@@ -1,13 +1,15 @@
 {
   "name": "redskill-hyperframes-motion-library",
-  "version": "1.3.0",
+  "version": "1.5.0",
   "private": true,
   "license": "MIT",
   "type": "module",
   "scripts": {
     "dev": "node scripts/server.js",
     "build:pages": "node scripts/build-pages.js",
-    "check": "node scripts/validate-catalog.js && node scripts/audit-layout.js --strict",
+    "check": "node scripts/sync-styles.js --check && node scripts/validate-catalog.js && node scripts/audit-layout.js --strict",
+    "sync:styles": "node scripts/sync-styles.js",
+    "check:styles": "node scripts/check-styles.js",
     "audit:layouts": "node scripts/audit-layout.js",
     "check:templates": "node scripts/check-templates.js",
     "render": "node scripts/render.js",

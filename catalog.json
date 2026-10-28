@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "release": "1.3.0",
+  "release": "1.5.0",
   "templates": [
     {
       "id": "bar-chart-grow",
@@ -1276,6 +1276,405 @@
       ],
       "defaultFormat": "mov",
       "preview": "/renders/iteration-loop/sample.webm",
+      "status": "ready"
+    },
+    {
+      "id": "keyword-blast",
+      "name": "关键词爆破",
+      "description": "巨型关键词从画面中心爆发，配冲击环与光晕，适合开头钩子、观点反转和段落转折。",
+      "path": "templates/keyword-blast",
+      "category": "知识讲解",
+      "tags": [
+        "关键词",
+        "钩子",
+        "爆破",
+        "转折"
+      ],
+      "director": {
+        "defaultMode": "transition",
+        "allowedModes": [
+          "transition",
+          "fullscreen"
+        ],
+        "layoutStatus": "ready",
+        "subjectSelectors": [
+          ".kicker",
+          ".keyword",
+          ".subtitle",
+          ".note"
+        ],
+        "frameSelectors": [
+          ".stack"
+        ],
+        "measuredOccupancy": 0.582,
+        "measuredSpan": {
+          "width": 0.854,
+          "height": 0.681
+        },
+        "occupancy": {
+          "min": 0.42,
+          "max": 0.94
+        },
+        "span": {
+          "minWidth": 0.76,
+          "maxWidth": 0.98,
+          "minHeight": 0.56,
+          "maxHeight": 0.96
+        },
+        "guidance": "关键词是唯一视觉主体，从中心爆发并铺满画面；冲击环与光晕只承担爆发感，不承载信息。"
+      },
+      "duration": 5,
+      "size": "1920×1080",
+      "formats": [
+        "mp4",
+        "mov",
+        "webm"
+      ],
+      "defaultFormat": "mov",
+      "preview": "/renders/keyword-blast/sample.mp4",
+      "status": "ready"
+    },
+    {
+      "id": "chapter-title",
+      "name": "章节标题",
+      "description": "巨型章节编号加标题区构成完整章节页，用于长视频分段，避免 PPT 页眉感。",
+      "path": "templates/chapter-title",
+      "category": "知识讲解",
+      "tags": [
+        "章节",
+        "标题",
+        "分段",
+        "长视频"
+      ],
+      "director": {
+        "defaultMode": "transition",
+        "allowedModes": [
+          "transition",
+          "fullscreen"
+        ],
+        "layoutStatus": "ready",
+        "subjectSelectors": [
+          ".no",
+          ".title",
+          ".subtitle",
+          ".note"
+        ],
+        "frameSelectors": [
+          ".layout"
+        ],
+        "measuredOccupancy": 0.672,
+        "measuredSpan": {
+          "width": 0.865,
+          "height": 0.778
+        },
+        "occupancy": {
+          "min": 0.42,
+          "max": 0.94
+        },
+        "span": {
+          "minWidth": 0.76,
+          "maxWidth": 0.98,
+          "minHeight": 0.56,
+          "maxHeight": 0.96
+        },
+        "guidance": "章节编号与标题区横向铺满画面构成完整章节页；编号只承担顺序含义，不虚构时间与数据。"
+      },
+      "duration": 4.5,
+      "size": "1920×1080",
+      "formats": [
+        "mp4",
+        "mov",
+        "webm"
+      ],
+      "defaultFormat": "mov",
+      "preview": "/renders/chapter-title/sample.mp4",
+      "status": "ready",
+      "orientations": [
+        "landscape",
+        "portrait"
+      ],
+      "variants": {
+        "landscape": {
+          "path": "",
+          "width": 1920,
+          "height": 1080,
+          "duration": 4.5,
+          "preview": "/renders/chapter-title/sample.mp4",
+          "director": {
+            "defaultMode": "transition",
+            "allowedModes": [
+              "transition",
+              "fullscreen"
+            ],
+            "layoutStatus": "ready",
+            "subjectSelectors": [
+              ".no",
+              ".title",
+              ".subtitle",
+              ".note"
+            ],
+            "frameSelectors": [
+              ".layout"
+            ],
+            "measuredOccupancy": 0.672,
+            "measuredSpan": {
+              "width": 0.865,
+              "height": 0.778
+            },
+            "occupancy": {
+              "min": 0.42,
+              "max": 0.94
+            },
+            "span": {
+              "minWidth": 0.76,
+              "maxWidth": 0.98,
+              "minHeight": 0.56,
+              "maxHeight": 0.96
+            },
+            "guidance": "章节编号与标题区横向铺满画面构成完整章节页；编号只承担顺序含义，不虚构时间与数据。"
+          }
+        },
+        "portrait": {
+          "path": "portrait",
+          "width": 1080,
+          "height": 1920,
+          "duration": 5,
+          "preview": "/renders/chapter-title/portrait-sample.mp4",
+          "director": {
+            "defaultMode": "transition",
+            "allowedModes": [
+              "transition",
+              "fullscreen"
+            ],
+            "layoutStatus": "ready",
+            "subjectSelectors": [
+              ".no",
+              ".title",
+              ".subtitle",
+              ".note"
+            ],
+            "frameSelectors": [
+              ".layout"
+            ],
+            "measuredOccupancy": 0.671,
+            "measuredSpan": {
+              "width": 0.859,
+              "height": 0.781
+            },
+            "occupancy": {
+              "min": 0.42,
+              "max": 0.94
+            },
+            "span": {
+              "minWidth": 0.56,
+              "maxWidth": 0.96,
+              "minHeight": 0.76,
+              "maxHeight": 0.98
+            },
+            "guidance": "章节编号与标题区横向铺满画面构成完整章节页；编号只承担顺序含义，不虚构时间与数据。"
+          }
+        }
+      }
+    },
+    {
+      "id": "donut-progress",
+      "name": "圆环占比",
+      "description": "SVG 圆环扫描至目标百分比，中心数字同步滚动，右侧标签解释含义，适合占比、概率、比例表达。",
+      "path": "templates/donut-progress",
+      "category": "数据可视化",
+      "tags": [
+        "圆环",
+        "百分比",
+        "占比",
+        "数字滚动"
+      ],
+      "director": {
+        "defaultMode": "fullscreen",
+        "allowedModes": [
+          "fullscreen",
+          "data"
+        ],
+        "layoutStatus": "ready",
+        "subjectSelectors": [
+          ".title",
+          ".value",
+          ".unit",
+          ".desc-tag",
+          ".note"
+        ],
+        "frameSelectors": [
+          ".panel"
+        ],
+        "measuredOccupancy": 0.572,
+        "measuredSpan": {
+          "width": 0.8,
+          "height": 0.715
+        },
+        "occupancy": {
+          "min": 0.42,
+          "max": 0.94
+        },
+        "span": {
+          "minWidth": 0.76,
+          "maxWidth": 0.98,
+          "minHeight": 0.56,
+          "maxHeight": 0.96
+        },
+        "guidance": "圆环数字与标签说明共同构成画面主体；百分比必须来自口播或明确数据源，不得超过 100。"
+      },
+      "duration": 5.5,
+      "size": "1920×1080",
+      "formats": [
+        "mp4",
+        "mov",
+        "webm"
+      ],
+      "defaultFormat": "mov",
+      "preview": "/renders/donut-progress/sample.mp4",
+      "status": "ready",
+      "orientations": [
+        "landscape",
+        "portrait"
+      ],
+      "variants": {
+        "landscape": {
+          "path": "",
+          "width": 1920,
+          "height": 1080,
+          "duration": 5.5,
+          "preview": "/renders/donut-progress/sample.mp4",
+          "director": {
+            "defaultMode": "fullscreen",
+            "allowedModes": [
+              "fullscreen",
+              "data"
+            ],
+            "layoutStatus": "ready",
+            "subjectSelectors": [
+              ".title",
+              ".value",
+              ".unit",
+              ".desc-tag",
+              ".note"
+            ],
+            "frameSelectors": [
+              ".panel"
+            ],
+            "measuredOccupancy": 0.572,
+            "measuredSpan": {
+              "width": 0.8,
+              "height": 0.715
+            },
+            "occupancy": {
+              "min": 0.42,
+              "max": 0.94
+            },
+            "span": {
+              "minWidth": 0.76,
+              "maxWidth": 0.98,
+              "minHeight": 0.56,
+              "maxHeight": 0.96
+            },
+            "guidance": "圆环数字与标签说明共同构成画面主体；百分比必须来自口播或明确数据源，不得超过 100。"
+          }
+        },
+        "portrait": {
+          "path": "portrait",
+          "width": 1080,
+          "height": 1920,
+          "duration": 6,
+          "preview": "/renders/donut-progress/portrait-sample.mp4",
+          "director": {
+            "defaultMode": "fullscreen",
+            "allowedModes": [
+              "fullscreen",
+              "data"
+            ],
+            "layoutStatus": "ready",
+            "subjectSelectors": [
+              ".title",
+              ".value",
+              ".unit",
+              ".desc-tag",
+              ".note"
+            ],
+            "frameSelectors": [
+              ".panel"
+            ],
+            "measuredOccupancy": 0.581,
+            "measuredSpan": {
+              "width": 0.748,
+              "height": 0.777
+            },
+            "occupancy": {
+              "min": 0.42,
+              "max": 0.94
+            },
+            "span": {
+              "minWidth": 0.56,
+              "maxWidth": 0.96,
+              "minHeight": 0.76,
+              "maxHeight": 0.98
+            },
+            "guidance": "圆环数字与标签说明共同构成画面主体；百分比必须来自口播或明确数据源，不得超过 100。"
+          }
+        }
+      }
+    },
+    {
+      "id": "quote-card",
+      "name": "金句引用卡",
+      "description": "大引号、巨型金句、署名与注解组成的引用卡，适合引用书中金句、嘉宾观点与频道立场。",
+      "path": "templates/quote-card",
+      "category": "知识讲解",
+      "tags": [
+        "金句",
+        "引用",
+        "观点",
+        "署名"
+      ],
+      "director": {
+        "defaultMode": "fullscreen",
+        "allowedModes": [
+          "fullscreen",
+          "overlay"
+        ],
+        "layoutStatus": "ready",
+        "subjectSelectors": [
+          ".kicker",
+          ".quote",
+          ".author",
+          ".note"
+        ],
+        "frameSelectors": [
+          ".card"
+        ],
+        "measuredOccupancy": 0.49,
+        "measuredSpan": {
+          "width": 0.773,
+          "height": 0.633
+        },
+        "occupancy": {
+          "min": 0.42,
+          "max": 0.94
+        },
+        "span": {
+          "minWidth": 0.76,
+          "maxWidth": 0.98,
+          "minHeight": 0.56,
+          "maxHeight": 0.96
+        },
+        "guidance": "金句、署名与注解构成引用主体；出处必须真实可溯源，不虚构引用。"
+      },
+      "duration": 5,
+      "size": "1920×1080",
+      "formats": [
+        "mp4",
+        "mov",
+        "webm"
+      ],
+      "defaultFormat": "mov",
+      "preview": "/renders/quote-card/sample.mp4",
       "status": "ready"
     }
   ]

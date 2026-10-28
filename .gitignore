@@ -13,6 +13,8 @@ renders/**
 !renders/*/
 !renders/*/sample.mp4
 !renders/*/sample.webm
+!renders/*/portrait-sample.mp4
+!renders/*/portrait-sample.webm
 
 # HyperFrames / 本地工具缓存
 .hyperframes/

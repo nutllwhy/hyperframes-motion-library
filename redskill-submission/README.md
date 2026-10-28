@@ -61,7 +61,7 @@ npm run dev
 - `examples/motion-plan.example.json`：可以导入批量工作台的完整示例。
 - `app/`：本地模板库界面源码。
 - `scripts/`：已改成 `.js` 后缀的本地工具脚本。
-- `templates/`：23 个动效模板的源码、设计说明和默认数据。
+- `templates/`：27 个动效模板的源码、设计说明和默认数据。
 
 ## V1.2 批量动效工作台
 

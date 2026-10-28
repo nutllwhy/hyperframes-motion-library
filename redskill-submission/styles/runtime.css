@@ -1,0 +1,69 @@
+/* Geometry and content stay with the template; materials, ink and type belong to the pack. */
+html:not([data-motion-style="classic-orange"]) body { font-family: sans-serif; }
+html:not([data-motion-style="classic-orange"]) #root { color: var(--style-foreground); }
+html:not([data-motion-style="classic-orange"])[data-export-mode="mp4"] body,
+html:not([data-motion-style="classic-orange"])[data-export-mode="mp4"] #root { background: var(--style-background) !important; }
+html:not([data-motion-style="classic-orange"]) [data-style-role~="heading"] { font-family: sans-serif; color: var(--style-foreground); }
+html:not([data-motion-style="classic-orange"]) [data-style-role~="number"] { font-family: sans-serif; }
+html:not([data-motion-style="classic-orange"]) [data-style-role~="body"] { color: var(--style-muted); }
+html:not([data-motion-style="classic-orange"]) [data-style-role~="decorative"] { display: none; }
+html:not([data-motion-style="classic-orange"]) [data-style-role~="surface"] { backdrop-filter: none; border-color: var(--style-line); box-shadow: none; }
+html:not([data-motion-style="classic-orange"]) [data-style-role~="track"] { background: color-mix(in srgb,var(--style-foreground) 12%,transparent); }
+html:not([data-motion-style="classic-orange"]) .caption-wrap { border-color: var(--style-line); }
+html:not([data-motion-style="classic-orange"]) .fill { border-radius: 0; }
+html:not([data-motion-style="classic-orange"]) .ring-fill { filter: none; }
+html:not([data-motion-style="classic-orange"]) .unit { color: var(--style-accent); }
+html:not([data-motion-style="classic-orange"]) .backdrop { background: var(--style-background); }
+
+/* Paper: warm stock, typeset headlines, offset paper labels and hairline ink rules. */
+html[data-motion-style="paper-editorial"][data-export-mode="mp4"] #root {
+  background-image: repeating-linear-gradient(0deg,transparent 0 5px,#79634209 5px 6px),repeating-linear-gradient(90deg,transparent 0 7px,#79634205 7px 8px) !important;
+}
+html[data-motion-style="paper-editorial"] [data-style-role~="surface"] { background: var(--style-surface); border-radius: 0; box-shadow: 8px 9px 0 #30271F18; }
+html[data-motion-style="paper-editorial"] [data-style-role~="frame"][data-style-role~="surface"] { background: transparent; box-shadow: none; }
+html[data-motion-style="paper-editorial"][data-export-mode="transparent"] :is(.card,.panel,.marker,.cluster) { background: var(--style-surface); box-shadow: 8px 9px 0 #30271F20; }
+html[data-motion-style="paper-editorial"] [data-style-role~="heading"] { font-weight: 700; letter-spacing: -.045em; }
+html[data-motion-style="paper-editorial"] body,
+html[data-motion-style="paper-editorial"] [data-style-role~="heading"],
+html[data-motion-style="paper-editorial"] [data-style-role~="number"] { font-family: serif; }
+html[data-motion-style="paper-editorial"] [data-style-role~="badge"] { color: var(--style-accent); background: var(--style-surface); border-radius: 0; border-color: var(--style-line); box-shadow: 5px 5px 0 #30271F20; }
+html[data-motion-style="paper-editorial"] :is(.card,.panel,.counter-panel,.comparison-panel,.content)::before { height: 3px; background: var(--style-foreground); }
+html[data-motion-style="paper-editorial"] :is(.rail-fill,.scan,.bar,.rule,.footer-rule) { box-shadow: none; background: var(--style-accent); border-radius: 0; }
+html[data-motion-style="paper-editorial"] :is(.line,.line-path) { stroke-width: 5; }
+html[data-motion-style="paper-editorial"] :is(.tag,.index,.no,.verdict,.point) { color: var(--style-surface); background: var(--style-accent); }
+html[data-motion-style="paper-editorial"] .step { border-bottom: 3px solid var(--style-line); }
+html[data-motion-style="paper-editorial"] .chart { border-color: var(--style-line); }
+html[data-motion-style="paper-editorial"][data-export-mode="transparent"] .scene::before { background: var(--style-surface); border-color: var(--style-line); border-radius: 0; }
+
+/* Notebook: dot stock, pencil edges and hatched shadows. No random jitter or fake labels. */
+html[data-motion-style="sketch-notes"][data-export-mode="mp4"] #root { background-image: radial-gradient(#77665838 1.4px,transparent 1.4px) !important; background-size: 26px 26px !important; }
+html[data-motion-style="sketch-notes"] [data-style-role~="surface"] { background: var(--style-surface); border: 3px dashed var(--style-line); border-radius: 8px 2px 10px 3px; box-shadow: 6px 7px 0 var(--style-background),9px 10px 0 var(--style-line); }
+html[data-motion-style="sketch-notes"] [data-style-role~="frame"][data-style-role~="surface"] { border: 0; box-shadow: none; background: transparent; }
+html[data-motion-style="sketch-notes"][data-export-mode="transparent"] :is(.card,.panel,.marker,.cluster) { background: var(--style-surface); border: 3px dashed var(--style-line); box-shadow: 6px 7px 0 var(--style-surface),9px 10px 0 var(--style-line); }
+html[data-motion-style="sketch-notes"] [data-style-role~="heading"] { font-weight: 800; letter-spacing: -.035em; }
+html[data-motion-style="sketch-notes"] [data-style-role~="number"] { font-family: serif; }
+html[data-motion-style="sketch-notes"] [data-style-role~="badge"] { color: var(--style-accent); background: var(--style-surface); border: 2px dashed var(--style-accent); border-radius: 5px 2px 6px 3px; box-shadow: none; }
+html[data-motion-style="sketch-notes"] :is(.card,.panel,.counter-panel,.comparison-panel,.content)::before { height: 6px; background: repeating-linear-gradient(110deg,var(--style-accent) 0 4px,transparent 4px 7px); }
+html[data-motion-style="sketch-notes"] :is(.rail-fill,.scan,.bar,.rule,.footer-rule) { box-shadow: none; background: var(--style-accent); border-radius: 2px; }
+html[data-motion-style="sketch-notes"] .fill { background: repeating-linear-gradient(115deg,transparent 0 8px,var(--style-accent) 8px 12px); border: 3px solid var(--style-accent); }
+html[data-motion-style="sketch-notes"] :is(.line,.line-path) { stroke-width: 7; stroke-linejoin: bevel; }
+html[data-motion-style="sketch-notes"] .ring-track { stroke: var(--style-line); stroke-dasharray: 3 9; }
+html[data-motion-style="sketch-notes"] .chart { border-color: var(--style-line); border-style: dashed; }
+html[data-motion-style="sketch-notes"] .step { padding-left: 22px; padding-right: 22px; }
+html[data-motion-style="sketch-notes"][data-export-mode="transparent"] .scene::before { background: var(--style-surface); border: 3px dashed var(--style-line); border-radius: 8px 2px 10px 3px; }
+
+/* Geometric: sharp cuts, visible thick rules, flat blocks, no glass or glow. */
+html[data-motion-style="bold-geometry"] [data-style-role~="heading"] { font-weight: 950; letter-spacing: -.06em; }
+html[data-motion-style="bold-geometry"] [data-style-role~="surface"] { background: var(--style-surface); border-radius: 0; border: 3px solid var(--style-accent); box-shadow: 10px 10px 0 #00000055; }
+html[data-motion-style="bold-geometry"] [data-style-role~="frame"][data-style-role~="surface"] { background: transparent; border: 0; box-shadow: none; }
+html[data-motion-style="bold-geometry"][data-export-mode="transparent"] :is(.card,.panel,.marker,.cluster) { background: var(--style-surface); border: 3px solid var(--style-accent); }
+html[data-motion-style="bold-geometry"] [data-style-role~="badge"] { color: #191715; background: var(--style-accent); border-radius: 0; border-color: var(--style-accent); font-weight: 900; }
+html[data-motion-style="bold-geometry"] :is(.card,.panel,.counter-panel,.comparison-panel,.content)::before { height: 14px; background: var(--style-accent); }
+html[data-motion-style="bold-geometry"] :is(.rail-fill,.scan,.bar,.rule,.footer-rule) { box-shadow: none; background: var(--style-accent); border-radius: 0; }
+html[data-motion-style="bold-geometry"] :is(.line,.line-path) { stroke-width: 15; stroke-linecap: square; stroke-linejoin: miter; }
+html[data-motion-style="bold-geometry"] .item { border-bottom: 4px solid var(--style-line); }
+html[data-motion-style="bold-geometry"] .step { padding-left: 22px; padding-right: 22px; border-bottom: 8px solid var(--style-accent); }
+html[data-motion-style="bold-geometry"][data-export-mode="transparent"] .scene::before { background: var(--style-surface); border: 3px solid var(--style-accent); border-radius: 0; }
+
+/* Filled callouts have their own ink contrast, rather than inheriting muted body text. */
+html:not([data-motion-style="classic-orange"]) [data-style-role~="accent-fill"] { background: var(--style-accent); color: var(--style-on-accent); border-color: var(--style-accent); }

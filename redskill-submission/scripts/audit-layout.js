@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import os from "node:os";
 import { chromium } from "playwright-core";
-import { readCatalog, root } from "./library.js";
+import { readCatalog, resolveVariants, root, templateOrientations } from "./library.js";
 
 const strict = process.argv.includes("--strict");
 const json = process.argv.includes("--json");
@@ -51,9 +51,16 @@ await page.route(/^https?:\/\//, (route) => route.abort());
 const results = [];
 try {
   for (const template of catalog.templates) {
-    if (!json) process.stdout.write(`测量 ${template.id}… `);
-    else process.stderr.write(`测量 ${template.id}…\n`);
-    await page.goto(`file://${path.join(root, template.path, "index.html")}`, { waitUntil: "domcontentloaded", timeout: 15000 });
+    const variants = resolveVariants(template);
+    const orientations = templateOrientations(template);
+    for (const orientation of orientations) {
+      const variant = variants[orientation];
+      const label = `${template.id}${orientation === "portrait" ? ":portrait" : ""}`;
+    if (!json) process.stdout.write(`测量 ${label}… `);
+    else process.stderr.write(`测量 ${label}…\n`);
+    const viewport = orientation === "portrait" ? { width: 1080, height: 1920 } : { width: 1920, height: 1080 };
+    await page.setViewportSize(viewport);
+    await page.goto(`file://${path.join(root, template.path, variant.path || "", "index.html")}`, { waitUntil: "domcontentloaded", timeout: 15000 });
     await page.waitForFunction(() => document.querySelector("[data-composition-id]"), null, { timeout: 5000 });
     await page.waitForTimeout(220);
     const measurement = await page.evaluate(({ subjectSelectors, frameSelectors }) => {
@@ -84,22 +91,23 @@ try {
         };
       }
       return { content: measure(subjectSelectors), frameRegion: measure(frameSelectors || subjectSelectors) };
-    }, { subjectSelectors: template.director.subjectSelectors, frameSelectors: template.director.frameSelectors });
+    }, { subjectSelectors: variant.director.subjectSelectors, frameSelectors: variant.director.frameSelectors });
     const occupancy = Number(measurement.content.occupancy.toFixed(3));
     const span = {
       width: Number(measurement.content.span.width.toFixed(3)),
       height: Number(measurement.content.span.height.toFixed(3))
     };
     const frameOccupancy = Number(measurement.frameRegion.occupancy.toFixed(3));
-    const current = Number(template.director.measuredOccupancy);
-    const rangeOk = within(occupancy, template.director.occupancy);
+    const current = Number(variant.director.measuredOccupancy);
+    const rangeOk = within(occupancy, variant.director.occupancy);
     const snapshotOk = Number.isFinite(current) && Math.abs(current - occupancy) <= 0.02;
-    const spanTarget = template.director.span || { minWidth: 0, maxWidth: 1, minHeight: 0, maxHeight: 1 };
+    const spanTarget = variant.director.span || { minWidth: 0, maxWidth: 1, minHeight: 0, maxHeight: 1 };
     const spanOk = span.width >= spanTarget.minWidth && span.width <= spanTarget.maxWidth && span.height >= spanTarget.minHeight && span.height <= spanTarget.maxHeight;
-    const measuredSpan = template.director.measuredSpan;
+    const measuredSpan = variant.director.measuredSpan;
     const spanSnapshotOk = measuredSpan && Math.abs(measuredSpan.width - span.width) <= 0.02 && Math.abs(measuredSpan.height - span.height) <= 0.02;
-    results.push({ id: template.id, mode: template.director.defaultMode, layoutStatus: template.director.layoutStatus, occupancy, span, frameOccupancy, target: template.director.occupancy, spanTarget, bounds: measurement.content.bounds, rangeOk, spanOk, snapshotOk, spanSnapshotOk });
+    results.push({ id: label, templateId: template.id, orientation, mode: variant.director.defaultMode, layoutStatus: variant.director.layoutStatus, occupancy, span, frameOccupancy, target: variant.director.occupancy, spanTarget, bounds: measurement.content.bounds, rangeOk, spanOk, snapshotOk, spanSnapshotOk });
     if (!json) console.log(`面积 ${Math.round(occupancy * 100)}% · 横 ${Math.round(span.width * 100)}% · 纵 ${Math.round(span.height * 100)}%`);
+    }
   }
 } finally {
   await browser.close();
@@ -117,9 +125,14 @@ else {
 if (updateSnapshots) {
   const byId = new Map(results.map((result) => [result.id, result]));
   for (const template of catalog.templates) {
-    const result = byId.get(template.id);
-    template.director.measuredOccupancy = result.occupancy;
-    template.director.measuredSpan = result.span;
+    const variants = resolveVariants(template);
+    for (const orientation of templateOrientations(template)) {
+      const result = byId.get(orientation === "landscape" ? template.id : `${template.id}:portrait`);
+      if (!result) continue;
+      const director = variants[orientation].director;
+      director.measuredOccupancy = result.occupancy;
+      director.measuredSpan = result.span;
+    }
   }
   await fs.writeFile(path.join(root, "catalog.json"), `${JSON.stringify(catalog, null, 2)}\n`);
   if (!json) console.log("已更新 catalog.json 的真实内容铺开度快照。");
