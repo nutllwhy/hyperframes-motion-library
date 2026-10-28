@@ -1,11 +1,11 @@
 {
   "version": 1,
-  "release": "1.5.0",
+  "release": "1.6.0",
   "templates": [
     {
       "id": "bar-chart-grow",
       "name": "柱状图增长",
-      "description": "3–7 根垂直柱形从底部弹性增长，带数值标签与网格线，适合业绩对比、多维度数据分布。",
+      "description": "3–7 根垂直柱形从底部生长，带数值标签与网格线，适合业绩对比、多维度数据分布。",
       "path": "templates/bar-chart-grow",
       "category": "数据可视化",
       "tags": [
@@ -28,10 +28,10 @@
         "frameSelectors": [
           ".scene"
         ],
-        "measuredOccupancy": 0.674,
+        "measuredOccupancy": 0.68,
         "measuredSpan": {
           "width": 0.883,
-          "height": 0.763
+          "height": 0.769
         },
         "occupancy": {
           "min": 0.48,
@@ -84,25 +84,25 @@
           "id": "colors",
           "type": "string",
           "label": "颜色（逗号分隔）",
-          "default": "#FF5A36,#FF5A36,#B8ADA2,#FF5A36,#D8CEC4"
+          "default": "#4A4A4A,#4A4A4A,#4A4A4A,#FF5A1F,#4A4A4A"
         },
         {
           "id": "accent",
           "type": "color",
           "label": "强调色",
-          "default": "#FF5A36"
+          "default": "#FF5A1F"
         },
         {
           "id": "background",
           "type": "color",
           "label": "背景色",
-          "default": "#12100E"
+          "default": "#0D0D0D"
         },
         {
           "id": "foreground",
           "type": "color",
           "label": "文字色",
-          "default": "#F4EFE7"
+          "default": "#F5F5F2"
         },
         {
           "id": "exportMode",
@@ -155,10 +155,10 @@
             "subtitle": "不同环节平均耗时（分钟）",
             "labels": "资料收集,结构整理,初稿生成,人工校对",
             "values": "42,28,16,24",
-            "colors": "#B8ADA2,#FF5A36,#FF5A36,#D8CEC4",
-            "accent": "#FF5A36",
-            "background": "#12100E",
-            "foreground": "#F4EFE7"
+            "colors": "#4A4A4A,#FF5A1F,#FF5A1F,#4A4A4A",
+            "accent": "#FF5A1F",
+            "background": "#0D0D0D",
+            "foreground": "#F5F5F2"
           }
         },
         {
@@ -168,10 +168,10 @@
             "subtitle": "各部门季度销售额对比",
             "labels": "Q1,Q2,Q3,Q4,全年",
             "values": "45,72,58,91,85",
-            "colors": "#FF5A36,#FF5A36,#B8ADA2,#FF5A36,#D8CEC4",
-            "accent": "#FF5A36",
-            "background": "#12100E",
-            "foreground": "#F4EFE7"
+            "colors": "#4A4A4A,#4A4A4A,#4A4A4A,#FF5A1F,#4A4A4A",
+            "accent": "#FF5A1F",
+            "background": "#0D0D0D",
+            "foreground": "#F5F5F2"
           }
         },
         {
@@ -181,10 +181,10 @@
             "subtitle": "每季度有效咨询量",
             "labels": "Q1,Q2,Q3,Q4",
             "values": "320,460,610,880",
-            "colors": "#B8ADA2,#D8CEC4,#FF8A70,#FF5A36",
-            "accent": "#FF5A36",
-            "background": "#12100E",
-            "foreground": "#F4EFE7"
+            "colors": "#4A4A4A,#4A4A4A,#4A4A4A,#FF5A1F",
+            "accent": "#FF5A1F",
+            "background": "#0D0D0D",
+            "foreground": "#F5F5F2"
           }
         }
       ]
@@ -218,10 +218,10 @@
         "frameSelectors": [
           ".counter-panel"
         ],
-        "measuredOccupancy": 0.756,
+        "measuredOccupancy": 0.723,
         "measuredSpan": {
           "width": 0.887,
-          "height": 0.852
+          "height": 0.815
         },
         "occupancy": {
           "min": 0.42,
@@ -280,19 +280,19 @@
           "id": "accent",
           "type": "color",
           "label": "强调色",
-          "default": "#FF5A36"
+          "default": "#FF5A1F"
         },
         {
           "id": "background",
           "type": "color",
           "label": "背景色",
-          "default": "#12100E"
+          "default": "#0D0D0D"
         },
         {
           "id": "foreground",
           "type": "color",
           "label": "文字色",
-          "default": "#F4EFE7"
+          "default": "#F5F5F2"
         },
         {
           "id": "exportMode",
@@ -346,9 +346,9 @@
             "prefix": "",
             "suffix": " 条",
             "note": "重复动效直接调用模板，不再从零制作",
-            "accent": "#FF5A36",
-            "background": "#12100E",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "background": "#0D0D0D",
+            "foreground": "#F5F5F2"
           }
         },
         {
@@ -359,9 +359,9 @@
             "prefix": "",
             "suffix": "+",
             "note": "突破百万里程碑，持续增长中",
-            "accent": "#FF5A36",
-            "background": "#12100E",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "background": "#0D0D0D",
+            "foreground": "#F5F5F2"
           }
         },
         {
@@ -372,9 +372,9 @@
             "prefix": "",
             "suffix": "+",
             "note": "连续三个季度保持稳定增长",
-            "accent": "#FF5A36",
-            "background": "#12100E",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "background": "#0D0D0D",
+            "foreground": "#F5F5F2"
           }
         }
       ]
@@ -405,10 +405,10 @@
         "frameSelectors": [
           ".scene"
         ],
-        "measuredOccupancy": 0.67,
+        "measuredOccupancy": 0.679,
         "measuredSpan": {
           "width": 0.883,
-          "height": 0.759
+          "height": 0.769
         },
         "occupancy": {
           "min": 0.48,
@@ -461,19 +461,19 @@
           "id": "accent",
           "type": "color",
           "label": "强调色",
-          "default": "#FF5A36"
+          "default": "#FF5A1F"
         },
         {
           "id": "background",
           "type": "color",
           "label": "背景色",
-          "default": "#12100E"
+          "default": "#0D0D0D"
         },
         {
           "id": "foreground",
           "type": "color",
           "label": "文字色",
-          "default": "#F4EFE7"
+          "default": "#F5F5F2"
         },
         {
           "id": "exportMode",
@@ -526,9 +526,9 @@
             "subtitle": "接入 AI 工作流后的 8 周",
             "labels": "第1周,第2周,第3周,第4周,第5周,第6周,第7周,第8周",
             "values": "12,11,9,8,6,5,4,3",
-            "accent": "#FF5A36",
-            "background": "#12100E",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "background": "#0D0D0D",
+            "foreground": "#F5F5F2"
           }
         },
         {
@@ -538,9 +538,9 @@
             "subtitle": "2024.01 — 2024.12",
             "labels": "1月,2月,3月,4月,5月,6月,7月,8月,9月,10月,11月,12月",
             "values": "120,145,180,210,260,340,420,480,510,580,640,720",
-            "accent": "#FF5A36",
-            "background": "#12100E",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "background": "#0D0D0D",
+            "foreground": "#F5F5F2"
           }
         },
         {
@@ -550,16 +550,16 @@
             "subtitle": "2026.01 — 2026.06",
             "labels": "1月,2月,3月,4月,5月,6月",
             "values": "820,960,1180,1470,1910,2460",
-            "accent": "#FF5A36",
-            "background": "#12100E",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "background": "#0D0D0D",
+            "foreground": "#F5F5F2"
           }
         }
       ]
     },
     {
       "id": "metric-pulse",
-      "name": "数据脉冲",
+      "name": "核心指标",
       "description": "适合增长数据、里程碑、成绩与单项 KPI 的横屏数据动效。",
       "path": "templates/metric-pulse",
       "category": "数据可视化",
@@ -585,10 +585,10 @@
         "frameSelectors": [
           ".content"
         ],
-        "measuredOccupancy": 0.63,
+        "measuredOccupancy": 0.669,
         "measuredSpan": {
-          "width": 0.785,
-          "height": 0.802
+          "width": 0.877,
+          "height": 0.763
         },
         "occupancy": {
           "min": 0.42,
@@ -641,19 +641,19 @@
           "id": "accent",
           "type": "color",
           "label": "强调色",
-          "default": "#FF5A36"
+          "default": "#FF5A1F"
         },
         {
           "id": "background",
           "type": "color",
           "label": "背景色",
-          "default": "#12100E"
+          "default": "#0D0D0D"
         },
         {
           "id": "foreground",
           "type": "color",
           "label": "文字色",
-          "default": "#F4EFE7"
+          "default": "#F5F5F2"
         },
         {
           "id": "exportMode",
@@ -706,9 +706,9 @@
             "value": 68,
             "unit": "%",
             "note": "资料整理和初稿生成耗时下降最明显。",
-            "accent": "#FF5A36",
-            "background": "#12100E",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "background": "#0D0D0D",
+            "foreground": "#F5F5F2"
           }
         },
         {
@@ -718,9 +718,9 @@
             "value": 286,
             "unit": "%",
             "note": "连续四周保持上升，爆款内容贡献了主要增量。",
-            "accent": "#FF5A36",
-            "background": "#12100E",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "background": "#0D0D0D",
+            "foreground": "#F5F5F2"
           }
         },
         {
@@ -730,9 +730,9 @@
             "value": 37,
             "unit": "%",
             "note": "新产品贡献超过一半的新增收入。",
-            "accent": "#FF5A36",
-            "background": "#12100E",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "background": "#0D0D0D",
+            "foreground": "#F5F5F2"
           }
         }
       ]
@@ -765,10 +765,10 @@
         "frameSelectors": [
           ".card"
         ],
-        "measuredOccupancy": 0.687,
+        "measuredOccupancy": 0.695,
         "measuredSpan": {
           "width": 0.887,
-          "height": 0.774
+          "height": 0.783
         },
         "occupancy": {
           "min": 0.42,
@@ -827,13 +827,13 @@
           "id": "accent",
           "type": "color",
           "label": "强调色",
-          "default": "#FF5A36"
+          "default": "#FF5A1F"
         },
         {
           "id": "foreground",
           "type": "color",
           "label": "文字色",
-          "default": "#F4EFE7"
+          "default": "#F5F5F2"
         },
         {
           "id": "exportMode",
@@ -887,8 +887,8 @@
             "value": 72,
             "unit": "%",
             "caption": "把资料整理、结构拆解和动效复用放进同一条 AI 工作流。",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         },
         {
@@ -899,8 +899,8 @@
             "value": 3.2,
             "unit": "倍",
             "caption": "同样的选题流程，AI 参与后从整理资料到产出初稿明显提速。",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         },
         {
@@ -911,8 +911,8 @@
             "value": 2.4,
             "unit": "倍",
             "caption": "优化内容入口之后，高意向用户的咨询占比持续提升。",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         }
       ]
@@ -946,10 +946,10 @@
         "frameSelectors": [
           ".comparison-panel"
         ],
-        "measuredOccupancy": 0.756,
+        "measuredOccupancy": 0.73,
         "measuredSpan": {
           "width": 0.887,
-          "height": 0.852
+          "height": 0.822
         },
         "occupancy": {
           "min": 0.42,
@@ -1020,13 +1020,13 @@
           "id": "accent",
           "type": "color",
           "label": "强调色",
-          "default": "#FF5A36"
+          "default": "#FF5A1F"
         },
         {
           "id": "foreground",
           "type": "color",
           "label": "文字色",
-          "default": "#F4EFE7"
+          "default": "#F5F5F2"
         },
         {
           "id": "exportMode",
@@ -1082,8 +1082,8 @@
             "afterValue": 45,
             "unit": "分钟",
             "conclusion": "重复整理环节减少 75%",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         },
         {
@@ -1096,8 +1096,8 @@
             "afterValue": 3,
             "unit": "小时",
             "conclusion": "流程被压缩到原来的 1/4",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         },
         {
@@ -1110,8 +1110,8 @@
             "afterValue": 41,
             "unit": "%",
             "conclusion": "关键步骤减少后，激活率提升 17 个百分点",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         }
       ]
@@ -1145,10 +1145,10 @@
         "frameSelectors": [
           ".panel"
         ],
-        "measuredOccupancy": 0.756,
+        "measuredOccupancy": 0.73,
         "measuredSpan": {
           "width": 0.887,
-          "height": 0.852
+          "height": 0.822
         },
         "occupancy": {
           "min": 0.42,
@@ -1219,13 +1219,13 @@
           "id": "accent",
           "type": "color",
           "label": "强调色",
-          "default": "#FF5A36"
+          "default": "#FF5A1F"
         },
         {
           "id": "foreground",
           "type": "color",
           "label": "文字色",
-          "default": "#F4EFE7"
+          "default": "#F5F5F2"
         },
         {
           "id": "exportMode",
@@ -1281,8 +1281,8 @@
             "valueB": 82,
             "unit": "%",
             "caption": "AI 更适合承担资料聚合、结构整理和初稿生成。",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         },
         {
@@ -1295,8 +1295,8 @@
             "valueB": 86,
             "unit": "%",
             "caption": "AI 辅助在资料聚合和初稿生成阶段优势更明显。",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         },
         {
@@ -1309,8 +1309,8 @@
             "valueB": 64,
             "unit": "%",
             "caption": "精准投放带来的用户意向更明确，后续转化也更稳定。",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         }
       ]
@@ -1344,10 +1344,10 @@
         "frameSelectors": [
           ".panel"
         ],
-        "measuredOccupancy": 0.756,
+        "measuredOccupancy": 0.73,
         "measuredSpan": {
           "width": 0.887,
-          "height": 0.852
+          "height": 0.822
         },
         "occupancy": {
           "min": 0.42,
@@ -1430,13 +1430,13 @@
           "id": "accent",
           "type": "color",
           "label": "强调色",
-          "default": "#FF5A36"
+          "default": "#FF5A1F"
         },
         {
           "id": "foreground",
           "type": "color",
           "label": "文字色",
-          "default": "#F4EFE7"
+          "default": "#F5F5F2"
         },
         {
           "id": "exportMode",
@@ -1494,8 +1494,8 @@
             "value3": 21,
             "unit": "%",
             "caption": "优先自动化规则明确、重复频率高的工作。",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         },
         {
@@ -1510,8 +1510,8 @@
             "value3": 21,
             "unit": "%",
             "caption": "真正拖慢生产的，往往不是创意，而是重复整理和重复决策。",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         },
         {
@@ -1526,8 +1526,8 @@
             "value3": 21,
             "unit": "%",
             "caption": "增长不是来自单一爆点，而是三条路径共同贡献。",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         }
       ]
@@ -1561,10 +1561,10 @@
         "frameSelectors": [
           ".panel"
         ],
-        "measuredOccupancy": 0.756,
+        "measuredOccupancy": 0.73,
         "measuredSpan": {
           "width": 0.887,
-          "height": 0.852
+          "height": 0.822
         },
         "occupancy": {
           "min": 0.42,
@@ -1617,13 +1617,13 @@
           "id": "accent",
           "type": "color",
           "label": "强调色",
-          "default": "#FF5A36"
+          "default": "#FF5A1F"
         },
         {
           "id": "foreground",
           "type": "color",
           "label": "文字色",
-          "default": "#F4EFE7"
+          "default": "#F5F5F2"
         },
         {
           "id": "exportMode",
@@ -1676,8 +1676,8 @@
             "subtitle": "不是第一次使用 AI，而是开始沉淀模板之后",
             "pointLabel": "建立模板库",
             "caption": "从这一刻开始，重复工作才真正被系统接管。",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         },
         {
@@ -1687,8 +1687,8 @@
             "subtitle": "不是换工具，而是把流程模板化之后",
             "pointLabel": "模板化开始",
             "caption": "拐点出现后，内容生产从单次项目变成可复用系统。",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         },
         {
@@ -1698,8 +1698,8 @@
             "subtitle": "缩短注册流程并重写首屏价值之后",
             "pointLabel": "流程改版上线",
             "caption": "产品没有增加新功能，但用户更快理解了下一步。",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         }
       ]
@@ -1731,10 +1731,10 @@
         "frameSelectors": [
           ".card"
         ],
-        "measuredOccupancy": 0.116,
+        "measuredOccupancy": 0.139,
         "measuredSpan": {
-          "width": 0.61,
-          "height": 0.19
+          "width": 0.608,
+          "height": 0.228
         },
         "occupancy": {
           "min": 0.08,
@@ -1799,13 +1799,13 @@
           "id": "accent",
           "type": "color",
           "label": "强调色",
-          "default": "#FF5A36"
+          "default": "#FF5A1F"
         },
         {
           "id": "foreground",
           "type": "color",
           "label": "文字色",
-          "default": "#F4EFE7"
+          "default": "#F5F5F2"
         },
         {
           "id": "exportMode",
@@ -1860,8 +1860,8 @@
             "value": 72,
             "unit": "%",
             "note": "统计口径：连续 30 条知识类视频的制作记录。",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         },
         {
@@ -1873,8 +1873,8 @@
             "value": 68,
             "unit": "%",
             "note": "统计口径：同类型知识视频中的数据展示片段。",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         },
         {
@@ -1886,8 +1886,8 @@
             "value": 44,
             "unit": "%",
             "note": "统计口径：已完成支付的订单收入，不含退款。",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         }
       ]
@@ -1917,10 +1917,10 @@
         "frameSelectors": [
           ".panel"
         ],
-        "measuredOccupancy": 0.164,
+        "measuredOccupancy": 0.155,
         "measuredSpan": {
-          "width": 0.529,
-          "height": 0.309
+          "width": 0.525,
+          "height": 0.295
         },
         "occupancy": {
           "min": 0.08,
@@ -1949,7 +1949,7 @@
           "id": "leftLabel",
           "type": "string",
           "label": "左侧标签",
-          "default": "上海 SHANGHAI"
+          "default": "上海"
         },
         {
           "id": "leftValue",
@@ -1967,7 +1967,7 @@
           "id": "rightLabel",
           "type": "string",
           "label": "右侧标签",
-          "default": "亚马逊 AMAZON"
+          "default": "亚马逊雨林"
         },
         {
           "id": "rightValue",
@@ -2011,13 +2011,13 @@
           "id": "accent",
           "type": "color",
           "label": "强调色",
-          "default": "#FF5A36"
+          "default": "#FF5A1F"
         },
         {
           "id": "foreground",
           "type": "color",
           "label": "文字色",
-          "default": "#F4EFE7"
+          "default": "#F5F5F2"
         },
         {
           "id": "exportMode",
@@ -2074,23 +2074,23 @@
             "rightUnit": "小时",
             "operator": ">",
             "verdict": "重复制作时间减少 75%",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         },
         {
           "id": "default",
           "values": {
-            "leftLabel": "上海 SHANGHAI",
+            "leftLabel": "上海",
             "leftValue": 92,
             "leftUnit": "%",
-            "rightLabel": "亚马逊 AMAZON",
+            "rightLabel": "亚马逊雨林",
             "rightValue": 90,
             "rightUnit": "%",
             "operator": ">",
             "verdict": "上海湿度更高",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         },
         {
@@ -2104,8 +2104,8 @@
             "rightUnit": "%",
             "operator": "<",
             "verdict": "新版流程提升 17 个百分点",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         }
       ]
@@ -2138,9 +2138,9 @@
         "frameSelectors": [
           ".cluster"
         ],
-        "measuredOccupancy": 0.581,
+        "measuredOccupancy": 0.59,
         "measuredSpan": {
-          "width": 0.863,
+          "width": 0.875,
           "height": 0.674
         },
         "occupancy": {
@@ -2200,13 +2200,13 @@
           "id": "accent",
           "type": "color",
           "label": "强调色",
-          "default": "#FF5A36"
+          "default": "#FF5A1F"
         },
         {
           "id": "foreground",
           "type": "color",
           "label": "文字色",
-          "default": "#F4EFE7"
+          "default": "#F5F5F2"
         },
         {
           "id": "exportMode",
@@ -2260,8 +2260,8 @@
             "rightTitle": "调用现成模板",
             "rightTag": "系统复用",
             "connector": "升级",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         },
         {
@@ -2272,8 +2272,8 @@
             "rightTitle": "2026 异常",
             "rightTag": "高温 · 潮湿",
             "connector": "转向",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         },
         {
@@ -2284,8 +2284,8 @@
             "rightTitle": "转化开始承压",
             "rightTag": "瓶颈期",
             "connector": "进入",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         }
       ]
@@ -2316,9 +2316,9 @@
         "frameSelectors": [
           ".card"
         ],
-        "measuredOccupancy": 0.205,
+        "measuredOccupancy": 0.198,
         "measuredSpan": {
-          "width": 0.385,
+          "width": 0.37,
           "height": 0.533
         },
         "occupancy": {
@@ -2378,13 +2378,13 @@
           "id": "accent",
           "type": "color",
           "label": "强调色",
-          "default": "#FF5A36"
+          "default": "#FF5A1F"
         },
         {
           "id": "foreground",
           "type": "color",
           "label": "文字色",
-          "default": "#F4EFE7"
+          "default": "#F5F5F2"
         },
         {
           "id": "exportMode",
@@ -2438,8 +2438,8 @@
             "value": 72,
             "unit": "%",
             "caption": "时间被重新释放",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         },
         {
@@ -2450,8 +2450,8 @@
             "value": 100,
             "unit": "%",
             "caption": "接近饱和",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         },
         {
@@ -2462,8 +2462,8 @@
             "value": 68,
             "unit": "%",
             "caption": "增长进入加速区",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         }
       ]
@@ -2496,10 +2496,10 @@
         "frameSelectors": [
           ".card"
         ],
-        "measuredOccupancy": 0.174,
+        "measuredOccupancy": 0.164,
         "measuredSpan": {
-          "width": 0.494,
-          "height": 0.353
+          "width": 0.487,
+          "height": 0.337
         },
         "occupancy": {
           "min": 0.1,
@@ -2546,19 +2546,19 @@
           "id": "note",
           "type": "string",
           "label": "补充说明",
-          "default": "适合解释术语 / 方法 / 心智模型"
+          "default": ""
         },
         {
           "id": "accent",
           "type": "color",
           "label": "强调色",
-          "default": "#FF5A36"
+          "default": "#FF5A1F"
         },
         {
           "id": "foreground",
           "type": "color",
           "label": "文字色",
-          "default": "#F4EFE7"
+          "default": "#F5F5F2"
         },
         {
           "id": "exportMode",
@@ -2611,8 +2611,8 @@
             "term": "工作流自动化",
             "definition": "不是让 AI 包办全部工作，而是把重复步骤交给系统稳定执行。",
             "note": "适合解释 AI / 自动化 / Agent",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         },
         {
@@ -2621,9 +2621,9 @@
             "label": "核心概念",
             "term": "提示词工程",
             "definition": "不是把问题说复杂，而是把目标、约束和判断标准说清楚。",
-            "note": "适合解释术语 / 方法 / 心智模型",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "note": "",
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         },
         {
@@ -2633,8 +2633,8 @@
             "term": "复购率",
             "definition": "在一定周期内，完成首次购买的用户再次产生购买的比例。",
             "note": "适合解释指标 / 口径 / 商业概念",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         }
       ]
@@ -2642,7 +2642,7 @@
     {
       "id": "three-step-flow",
       "name": "三步流程",
-      "description": "三个步骤卡片与连接线铺满画面并依次生长，适合 SOP、教程步骤和知识框架的独立讲解镜头。",
+      "description": "三个步骤沿一条进度线依次展开、铺满画面，适合 SOP、教程步骤和知识框架的独立讲解镜头。",
       "path": "templates/three-step-flow",
       "category": "知识讲解",
       "tags": [
@@ -2667,10 +2667,10 @@
         "frameSelectors": [
           ".panel"
         ],
-        "measuredOccupancy": 0.579,
+        "measuredOccupancy": 0.7,
         "measuredSpan": {
-          "width": 0.887,
-          "height": 0.652
+          "width": 0.875,
+          "height": 0.8
         },
         "occupancy": {
           "min": 0.42,
@@ -2741,13 +2741,13 @@
           "id": "accent",
           "type": "color",
           "label": "强调色",
-          "default": "#FF5A36"
+          "default": "#FF5A1F"
         },
         {
           "id": "foreground",
           "type": "color",
           "label": "文字色",
-          "default": "#F4EFE7"
+          "default": "#F5F5F2"
         },
         {
           "id": "exportMode",
@@ -2803,8 +2803,8 @@
             "desc2": "提供文件和上下文",
             "step3": "验收结果",
             "desc3": "检查真实可用性",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         },
         {
@@ -2817,8 +2817,8 @@
             "desc2": "再讲为什么成立",
             "step3": "给出动作",
             "desc3": "最后落到怎么做",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         },
         {
@@ -2831,8 +2831,8 @@
             "desc2": "删除不必要的动作",
             "step3": "持续验证",
             "desc3": "用数据检查变化",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         }
       ]
@@ -2865,10 +2865,10 @@
         "frameSelectors": [
           ".wrap"
         ],
-        "measuredOccupancy": 0.578,
+        "measuredOccupancy": 0.55,
         "measuredSpan": {
-          "width": 0.887,
-          "height": 0.651
+          "width": 0.875,
+          "height": 0.628
         },
         "occupancy": {
           "min": 0.42,
@@ -2927,13 +2927,13 @@
           "id": "accent",
           "type": "color",
           "label": "强调色",
-          "default": "#FF5A36"
+          "default": "#FF5A1F"
         },
         {
           "id": "foreground",
           "type": "color",
           "label": "文字色",
-          "default": "#F4EFE7"
+          "default": "#F5F5F2"
         },
         {
           "id": "exportMode",
@@ -2987,8 +2987,8 @@
             "factLabel": "真实情况",
             "fact": "AI 越强，判断标准越重要",
             "caption": "效率来自分工，不是放弃思考",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         },
         {
@@ -2999,8 +2999,8 @@
             "factLabel": "更准确的说法",
             "fact": "AI 会放大你的问题定义能力",
             "caption": "重点不是替代，而是协作结构",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         },
         {
@@ -3011,8 +3011,8 @@
             "factLabel": "真实情况",
             "fact": "转化和复购决定增长质量",
             "caption": "不要只看入口数字",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         }
       ]
@@ -3020,7 +3020,7 @@
     {
       "id": "key-point-marker",
       "name": "重点标注",
-      "description": "下三分之一的重点句标注动效，带角标和扫描下划线，适合金句、结论和操作提醒。",
+      "description": "下三分之一的重点句标注，短横线引出，适合金句、结论和操作提醒。",
       "path": "templates/key-point-marker",
       "category": "知识讲解",
       "tags": [
@@ -3043,10 +3043,10 @@
         "frameSelectors": [
           ".marker"
         ],
-        "measuredOccupancy": 0.084,
+        "measuredOccupancy": 0.114,
         "measuredSpan": {
           "width": 0.556,
-          "height": 0.152
+          "height": 0.204
         },
         "occupancy": {
           "min": 0.04,
@@ -3087,19 +3087,19 @@
           "id": "source",
           "type": "string",
           "label": "说明",
-          "default": "适合结论句 / 金句 / 操作提醒"
+          "default": ""
         },
         {
           "id": "accent",
           "type": "color",
           "label": "强调色",
-          "default": "#FF5A36"
+          "default": "#FF5A1F"
         },
         {
           "id": "foreground",
           "type": "color",
           "label": "文字色",
-          "default": "#F4EFE7"
+          "default": "#F5F5F2"
         },
         {
           "id": "exportMode",
@@ -3151,8 +3151,8 @@
             "kicker": "关键判断",
             "point": "先把重复动作做成模板，再让 AI 帮你批量调用。",
             "source": "工作流设计 / Agent 协作",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         },
         {
@@ -3160,9 +3160,9 @@
           "values": {
             "kicker": "记住这一点",
             "point": "真正拉开差距的不是工具，而是你拆问题的能力。",
-            "source": "适合结论句 / 金句 / 操作提醒",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "source": "",
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         },
         {
@@ -3171,8 +3171,8 @@
             "kicker": "增长提醒",
             "point": "真正健康的增长，必须同时看新增、转化和复购。",
             "source": "经营复盘 / 数据结论",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         }
       ]
@@ -3180,7 +3180,7 @@
     {
       "id": "checklist-pop",
       "name": "清单核对",
-      "description": "三条检查项逐条弹出并完成勾选，适合总结步骤、注意事项、行动清单。",
+      "description": "三条检查项逐条擦入并依次勾选，适合总结步骤、注意事项、行动清单。",
       "path": "templates/checklist-pop",
       "category": "知识讲解",
       "tags": [
@@ -3203,10 +3203,10 @@
         "frameSelectors": [
           ".panel"
         ],
-        "measuredOccupancy": 0.126,
+        "measuredOccupancy": 0.13,
         "measuredSpan": {
-          "width": 0.342,
-          "height": 0.367
+          "width": 0.358,
+          "height": 0.363
         },
         "occupancy": {
           "min": 0.08,
@@ -3259,13 +3259,13 @@
           "id": "accent",
           "type": "color",
           "label": "强调色",
-          "default": "#FF5A36"
+          "default": "#FF5A1F"
         },
         {
           "id": "foreground",
           "type": "color",
           "label": "文字色",
-          "default": "#F4EFE7"
+          "default": "#F5F5F2"
         },
         {
           "id": "exportMode",
@@ -3318,8 +3318,8 @@
             "item1": "目标和交付物已经说清楚",
             "item2": "相关文件和背景已经提供",
             "item3": "验收标准可以实际检查",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         },
         {
@@ -3329,8 +3329,8 @@
             "item1": "默认文案能直接生成视频",
             "item2": "透明 MOV 可以叠到剪辑里",
             "item3": "模板能通过修改数据复用",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         },
         {
@@ -3340,8 +3340,8 @@
             "item1": "核心指标已经定义",
             "item2": "对照组和实验组可区分",
             "item3": "观察周期足够判断结果",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         }
       ]
@@ -3373,10 +3373,10 @@
         "frameSelectors": [
           ".panel"
         ],
-        "measuredOccupancy": 0.123,
+        "measuredOccupancy": 0.19,
         "measuredSpan": {
-          "width": 0.544,
-          "height": 0.225
+          "width": 0.646,
+          "height": 0.294
         },
         "occupancy": {
           "min": 0.08,
@@ -3447,13 +3447,13 @@
           "id": "accent",
           "type": "color",
           "label": "强调色",
-          "default": "#FF5A36"
+          "default": "#FF5A1F"
         },
         {
           "id": "foreground",
           "type": "color",
           "label": "文字色",
-          "default": "#F4EFE7"
+          "default": "#F5F5F2"
         },
         {
           "id": "exportMode",
@@ -3509,8 +3509,8 @@
             "label2": "固定提示词",
             "time3": "03",
             "label3": "自动化系统",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         },
         {
@@ -3523,8 +3523,8 @@
             "label2": "存模板",
             "time3": "03",
             "label3": "反复生成",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         },
         {
@@ -3537,8 +3537,8 @@
             "label2": "提升转化",
             "time3": "Q3",
             "label3": "扩大复购",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         }
       ]
@@ -3569,10 +3569,10 @@
         "frameSelectors": [
           ".cluster"
         ],
-        "measuredOccupancy": 0.139,
+        "measuredOccupancy": 0.202,
         "measuredSpan": {
-          "width": 0.59,
-          "height": 0.236
+          "width": 0.698,
+          "height": 0.29
         },
         "occupancy": {
           "min": 0.1,
@@ -3625,13 +3625,13 @@
           "id": "accent",
           "type": "color",
           "label": "强调色",
-          "default": "#FF5A36"
+          "default": "#FF5A1F"
         },
         {
           "id": "foreground",
           "type": "color",
           "label": "文字色",
-          "default": "#F4EFE7"
+          "default": "#F5F5F2"
         },
         {
           "id": "exportMode",
@@ -3684,8 +3684,8 @@
             "cause": "重复任务结构相似",
             "mechanism": "固定版式和动画逻辑",
             "result": "只替换内容即可复用",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         },
         {
@@ -3695,8 +3695,8 @@
             "cause": "重复动效被模板化",
             "mechanism": "只修改文案和数据",
             "result": "新视频能快速生成",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         },
         {
@@ -3706,8 +3706,8 @@
             "cause": "首屏价值更清晰",
             "mechanism": "用户更快理解下一步",
             "result": "有效行动明显增加",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         }
       ]
@@ -3740,10 +3740,10 @@
         "frameSelectors": [
           ".statement"
         ],
-        "measuredOccupancy": 0.705,
+        "measuredOccupancy": 0.665,
         "measuredSpan": {
-          "width": 0.865,
-          "height": 0.815
+          "width": 0.853,
+          "height": 0.78
         },
         "occupancy": {
           "min": 0.42,
@@ -3818,13 +3818,13 @@
           "id": "accent",
           "type": "color",
           "label": "强调色",
-          "default": "#FF5A36"
+          "default": "#FF5A1F"
         },
         {
           "id": "foreground",
           "type": "color",
           "label": "文字色",
-          "default": "#F4EFE7"
+          "default": "#F5F5F2"
         },
         {
           "id": "exportMode",
@@ -3879,8 +3879,8 @@
             "unit": "元",
             "note": "把试错经验做成开源 Skill",
             "position": "left",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         },
         {
@@ -3892,8 +3892,8 @@
             "unit": "%",
             "note": "核心流程完成一次结构化改造",
             "position": "right",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         },
         {
@@ -3905,8 +3905,8 @@
             "unit": "小时",
             "note": "把高频步骤交给自动化流程",
             "position": "left",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         }
       ]
@@ -3938,10 +3938,10 @@
         "frameSelectors": [
           ".compare"
         ],
-        "measuredOccupancy": 0.599,
+        "measuredOccupancy": 0.719,
         "measuredSpan": {
-          "width": 0.887,
-          "height": 0.675
+          "width": 0.875,
+          "height": 0.822
         },
         "occupancy": {
           "min": 0.42,
@@ -4006,13 +4006,13 @@
           "id": "accent",
           "type": "color",
           "label": "强调色",
-          "default": "#FF5A36"
+          "default": "#FF5A1F"
         },
         {
           "id": "foreground",
           "type": "color",
           "label": "文字色",
-          "default": "#F4EFE7"
+          "default": "#F5F5F2"
         },
         {
           "id": "exportMode",
@@ -4067,8 +4067,8 @@
             "rightTitle": "本地",
             "rightDetail": "数据与算力自己掌控",
             "connector": "VS",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         },
         {
@@ -4080,8 +4080,8 @@
             "rightTitle": "九宫格",
             "rightDetail": "先确认人物与场景",
             "connector": "VS",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         },
         {
@@ -4093,8 +4093,8 @@
             "rightTitle": "质量",
             "rightDetail": "再集中打磨细节",
             "connector": "VS",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         }
       ]
@@ -4128,10 +4128,10 @@
         "frameSelectors": [
           ".loop"
         ],
-        "measuredOccupancy": 0.619,
+        "measuredOccupancy": 0.609,
         "measuredSpan": {
-          "width": 0.887,
-          "height": 0.698
+          "width": 0.875,
+          "height": 0.696
         },
         "occupancy": {
           "min": 0.42,
@@ -4196,13 +4196,13 @@
           "id": "accent",
           "type": "color",
           "label": "强调色",
-          "default": "#FF5A36"
+          "default": "#FF5A1F"
         },
         {
           "id": "foreground",
           "type": "color",
           "label": "文字色",
-          "default": "#F4EFE7"
+          "default": "#F5F5F2"
         },
         {
           "id": "exportMode",
@@ -4257,8 +4257,8 @@
             "step3": "调整钩子",
             "step4": "再次测试",
             "takeaway": "每次反馈都进入内容系统",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         },
         {
@@ -4270,8 +4270,8 @@
             "step3": "局部重写",
             "step4": "再生成",
             "takeaway": "问题沉淀为下一版规则",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         },
         {
@@ -4283,8 +4283,8 @@
             "step3": "局部优化",
             "step4": "发布新版",
             "takeaway": "真实使用持续修正产品方向",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         }
       ]
@@ -4317,10 +4317,10 @@
         "frameSelectors": [
           ".stack"
         ],
-        "measuredOccupancy": 0.582,
+        "measuredOccupancy": 0.493,
         "measuredSpan": {
           "width": 0.854,
-          "height": 0.681
+          "height": 0.577
         },
         "occupancy": {
           "min": 0.42,
@@ -4367,19 +4367,19 @@
           "id": "note",
           "type": "string",
           "label": "注脚",
-          "default": "适合开头钩子 / 段落转折"
+          "default": ""
         },
         {
           "id": "accent",
           "type": "color",
           "label": "强调色",
-          "default": "#FF5A36"
+          "default": "#FF5A1F"
         },
         {
           "id": "foreground",
           "type": "color",
           "label": "文字色",
-          "default": "#F4EFE7"
+          "default": "#F5F5F2"
         },
         {
           "id": "exportMode",
@@ -4431,9 +4431,9 @@
             "kicker": "本期观点",
             "keyword": "别再瞎学工具",
             "subtitle": "工具永远在换，方法才是可迁移的资产。",
-            "note": "适合开头钩子 / 段落转折",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "note": "",
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         },
         {
@@ -4443,8 +4443,8 @@
             "keyword": "先讲清楚再动手",
             "subtitle": "需求描述精确一分，返工成本就少十分。",
             "note": "适合方法论引入 / 章节转折",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         },
         {
@@ -4454,8 +4454,8 @@
             "keyword": "努力不等于成长",
             "subtitle": "没有复盘的重复，只是在原地把错误练熟。",
             "note": "适合观点反转 / 金句强调",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         }
       ]
@@ -4630,13 +4630,13 @@
           "id": "accent",
           "type": "color",
           "label": "强调色",
-          "default": "#FF5A36"
+          "default": "#FF5A1F"
         },
         {
           "id": "foreground",
           "type": "color",
           "label": "文字色",
-          "default": "#F4EFE7"
+          "default": "#F5F5F2"
         },
         {
           "id": "exportMode",
@@ -4689,8 +4689,8 @@
             "title": "提示词到底在解决什么",
             "subtitle": "从「要结果」到「给约束」的写法差异",
             "note": "本章讲清一个概念：约束条件",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         },
         {
@@ -4700,8 +4700,8 @@
             "title": "为什么你的复盘没有用",
             "subtitle": "三个信号说明复盘变成了形式主义",
             "note": "本章讲清一个问题：复盘的颗粒度",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         },
         {
@@ -4711,8 +4711,8 @@
             "title": "把流程交给系统",
             "subtitle": "固定动作模板化，把注意力留给判断",
             "note": "本章讲清一个动作：建立检查清单",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         }
       ],
@@ -4745,13 +4745,13 @@
           "id": "accent",
           "type": "color",
           "label": "强调色",
-          "default": "#FF5A36"
+          "default": "#FF5A1F"
         },
         {
           "id": "foreground",
           "type": "color",
           "label": "文字色",
-          "default": "#F4EFE7"
+          "default": "#F5F5F2"
         },
         {
           "id": "exportMode",
@@ -4881,10 +4881,10 @@
             "frameSelectors": [
               ".panel"
             ],
-            "measuredOccupancy": 0.572,
+            "measuredOccupancy": 0.558,
             "measuredSpan": {
-              "width": 0.8,
-              "height": 0.715
+              "width": 0.796,
+              "height": 0.701
             },
             "occupancy": {
               "min": 0.42,
@@ -4922,10 +4922,10 @@
             "frameSelectors": [
               ".panel"
             ],
-            "measuredOccupancy": 0.581,
+            "measuredOccupancy": 0.577,
             "measuredSpan": {
               "width": 0.748,
-              "height": 0.777
+              "height": 0.771
             },
             "occupancy": {
               "min": 0.42,
@@ -4976,13 +4976,13 @@
           "id": "accent",
           "type": "color",
           "label": "强调色",
-          "default": "#FF5A36"
+          "default": "#FF5A1F"
         },
         {
           "id": "foreground",
           "type": "color",
           "label": "文字色",
-          "default": "#F4EFE7"
+          "default": "#F5F5F2"
         },
         {
           "id": "exportMode",
@@ -5036,8 +5036,8 @@
             "unit": "%",
             "desc": "由前期准备决定",
             "note": "剩下的部分，才是执行当天能改变的事。",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         },
         {
@@ -5048,8 +5048,8 @@
             "unit": "%",
             "desc": "在前三秒离开",
             "note": "开头不是铺垫，是整个视频最贵的三秒。",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         },
         {
@@ -5060,8 +5060,8 @@
             "unit": "%",
             "desc": "在做重复整理",
             "note": "模板化之后，这部分时间几乎可以全部回收。",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         }
       ],
@@ -5100,13 +5100,13 @@
           "id": "accent",
           "type": "color",
           "label": "强调色",
-          "default": "#FF5A36"
+          "default": "#FF5A1F"
         },
         {
           "id": "foreground",
           "type": "color",
           "label": "文字色",
-          "default": "#F4EFE7"
+          "default": "#F5F5F2"
         },
         {
           "id": "exportMode",
@@ -5180,10 +5180,10 @@
         "frameSelectors": [
           ".card"
         ],
-        "measuredOccupancy": 0.49,
+        "measuredOccupancy": 0.488,
         "measuredSpan": {
-          "width": 0.773,
-          "height": 0.633
+          "width": 0.775,
+          "height": 0.63
         },
         "occupancy": {
           "min": 0.42,
@@ -5236,13 +5236,13 @@
           "id": "accent",
           "type": "color",
           "label": "强调色",
-          "default": "#FF5A36"
+          "default": "#FF5A1F"
         },
         {
           "id": "foreground",
           "type": "color",
           "label": "文字色",
-          "default": "#F4EFE7"
+          "default": "#F5F5F2"
         },
         {
           "id": "exportMode",
@@ -5295,8 +5295,8 @@
             "quote": "我们不是因为知道得少而焦虑，是因为知道得乱。",
             "author": "《卡片笔记写作法》",
             "note": "信息只有进入结构，才会变成知识。",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         },
         {
@@ -5306,8 +5306,8 @@
             "quote": "简单的事重复做，重复的事系统做。",
             "author": "某期播客嘉宾",
             "note": "系统化的本质是让重复变得廉价。",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         },
         {
@@ -5317,8 +5317,8 @@
             "quote": "先做一个能用的版本，再谈做得好看。",
             "author": "本频道观点",
             "note": "完成度是迭代出来的，不是憋出来的。",
-            "accent": "#FF5A36",
-            "foreground": "#F4EFE7"
+            "accent": "#FF5A1F",
+            "foreground": "#F5F5F2"
           }
         }
       ]
@@ -5392,7 +5392,6 @@
   "styleCatalog": {
     "version": "1.0",
     "defaultStyleId": "classic-orange",
-    "source": "https://github.com/nutllwhy/ldd-video-edit",
     "principles": [
       "先选择信息模板，再选择整片画风。",
       "同一项目默认继承一种风格，场景切换必须显式声明。",
@@ -5403,19 +5402,19 @@
       {
         "id": "classic-orange",
         "name": "黑橙经典",
-        "description": "深色底、粗体数字与利落强调线，延续原有动效。",
+        "description": "中性黑底、纯白文字，橙色只做重音；无光晕、无玻璃卡，遮罩升起与擦入。",
         "tags": [
           "数据",
           "科技",
           "通用"
         ],
         "tokens": {
-          "background": "#12100E",
-          "surface": "#211C18",
-          "foreground": "#F4EFE7",
-          "muted": "#B8ADA2",
-          "accent": "#FF5A36",
-          "line": "#57483E"
+          "background": "#0D0D0D",
+          "surface": "#161616",
+          "foreground": "#F5F5F2",
+          "muted": "#9A9A9A",
+          "accent": "#FF5A1F",
+          "line": "#3A3A3A"
         },
         "typography": {
           "heading": "sans-serif",
@@ -5430,7 +5429,7 @@
         },
         "motion": {
           "entry": "原模板编排",
-          "emphasis": "弹性落定",
+          "emphasis": "遮罩升起、利落落定",
           "exit": "快速离场",
           "ease": "template"
         },
@@ -5440,7 +5439,9 @@
           ],
           "forbidden": [
             "额外加入英文编号",
-            "无来源的装饰数据"
+            "无来源的装饰数据",
+            "发光光晕与玻璃卡",
+            "回弹缓动"
           ]
         }
       },

@@ -1,36 +1,38 @@
 <!doctype html>
-<html lang="zh-CN" data-composition-variables='[{"id":"title","type":"string","label":"图表标题","default":"月活跃用户增长趋势"},{"id":"subtitle","type":"string","label":"副标题","default":"2024.01 — 2024.12"},{"id":"labels","type":"string","label":"X轴标签（逗号分隔）","default":"1月,2月,3月,4月,5月,6月,7月,8月,9月,10月,11月,12月"},{"id":"values","type":"string","label":"Y轴数值（逗号分隔）","default":"120,145,180,210,260,340,420,480,510,580,640,720"},{"id":"accent","type":"color","label":"强调色","default":"#FF5A36"},{"id":"background","type":"color","label":"背景色","default":"#12100E"},{"id":"foreground","type":"color","label":"文字色","default":"#F4EFE7"},{"id":"exportMode","type":"enum","label":"导出模式","default":"transparent","hidden":true,"options":[{"value":"transparent","label":"透明背景"},{"value":"mp4","label":"剪映 MP4 深色底"}]},{"id":"styleId","type":"enum","label":"画面风格","default":"classic-orange","hidden":true,"options":[{"value":"classic-orange","label":"黑橙经典"},{"value":"paper-editorial","label":"纸感编辑"},{"value":"sketch-notes","label":"手绘笔记"},{"value":"bold-geometry","label":"几何构成"}]}]'>
+<html lang="zh-CN" data-composition-variables='[{"id":"title","type":"string","label":"图表标题","default":"月活跃用户增长趋势"},{"id":"subtitle","type":"string","label":"副标题","default":"2024.01 — 2024.12"},{"id":"labels","type":"string","label":"X轴标签（逗号分隔）","default":"1月,2月,3月,4月,5月,6月,7月,8月,9月,10月,11月,12月"},{"id":"values","type":"string","label":"Y轴数值（逗号分隔）","default":"120,145,180,210,260,340,420,480,510,580,640,720"},{"id":"accent","type":"color","label":"强调色","default":"#FF5A1F"},{"id":"background","type":"color","label":"背景色","default":"#0D0D0D"},{"id":"foreground","type":"color","label":"文字色","default":"#F5F5F2"},{"id":"exportMode","type":"enum","label":"导出模式","default":"transparent","hidden":true,"options":[{"value":"transparent","label":"透明背景"},{"value":"mp4","label":"剪映 MP4 深色底"}]},{"id":"styleId","type":"enum","label":"画面风格","default":"classic-orange","hidden":true,"options":[{"value":"classic-orange","label":"黑橙经典"},{"value":"paper-editorial","label":"纸感编辑"},{"value":"sketch-notes","label":"手绘笔记"},{"value":"bold-geometry","label":"几何构成"}]}]'>
   <head>
     <meta charset="UTF-8" /><meta name="viewport" content="width=1920, height=1080" />
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
     <style>
       * { box-sizing: border-box; }
       html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: transparent; }
-      html[data-export-mode="mp4"] body, html[data-export-mode="mp4"] #root { background: var(--background, #12100e) !important; }
-      body { font-family: "IBM Plex Mono", monospace; }
-      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: transparent; color: var(--foreground, #f4efe7); }
+      html[data-export-mode="mp4"] body, html[data-export-mode="mp4"] #root { background: var(--background, #0D0D0D) !important; }
+      body { font-family: "PingFang SC", "Source Han Sans SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif; -webkit-font-smoothing: antialiased; }
+      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: transparent; color: var(--foreground, #F5F5F2); }
+      .mask { display: block; overflow: hidden; padding-bottom: .08em; }
+      .mask > span { display: block; }
       .scene { position: absolute; inset: 0; width: 100%; height: 100%; padding: 96px 112px; overflow: hidden; }
-      html[data-export-mode="transparent"] .scene::before { content: ""; position: absolute; inset: 58px 72px; z-index: 0; border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent); border-radius: 34px; background: rgba(18,16,14,.86); }
+      html[data-export-mode="transparent"] .scene::before { content: ""; position: absolute; inset: 58px 72px; z-index: 0; border-radius: 6px; background: rgba(20,20,20,.94); }
       .title-area { position: relative; z-index: 2; margin-bottom: 40px; }
-      .title { margin: 0 0 10px; font-size: 64px; font-weight: 700; line-height: 1.1; letter-spacing: -0.03em; }
-      .subtitle { margin: 0; font-size: 28px; font-weight: 400; color: #b8ada2; line-height: 1.4; }
+      .title { margin: 0 0 12px; font-size: 62px; font-weight: 800; line-height: 1.2; letter-spacing: 0; }
+      .subtitle { margin: 0; font-size: 28px; font-weight: 500; color: #9A9A9A; line-height: 1.4; font-variant-numeric: tabular-nums; }
       .chart-area { position: relative; z-index: 1; width: 100%; height: 660px; }
-      .chart-svg { width: 100%; height: 100%; overflow: visible; }
-      .grid-line { stroke: #3a3029; stroke-width: 1; }
-      .grid-line-strong { stroke: #5a4840; stroke-width: 1.5; }
-      .axis-text { fill: #b8ada2; font-size: 18px; font-family: "IBM Plex Mono", monospace; font-weight: 500; text-anchor: middle; }
+      .chart-svg { width: 100%; height: 100%; overflow: visible; font-family: "PingFang SC", "Source Han Sans SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif; font-variant-numeric: tabular-nums; }
+      .grid-line { stroke: rgba(245,245,242,.08); stroke-width: 1; }
+      .grid-line-strong { stroke: rgba(245,245,242,.08); stroke-width: 1; }
+      .axis-text { fill: #9A9A9A; font-size: 20px; font-weight: 500; text-anchor: middle; }
       .axis-text-y { text-anchor: end; dominant-baseline: middle; }
-      .area-path { fill: var(--accent); opacity: 0.12; }
-      .line-path { fill: none; stroke: var(--accent); stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
-      .data-point { fill: var(--point-fill, #12100e); stroke: var(--accent); stroke-width: 5; }
-      .baseline { stroke: #5a4840; stroke-width: 2; }
+      .line-path { fill: none; stroke: var(--accent); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+      .data-point { fill: var(--accent); }
+      .end-value { fill: var(--accent); font-size: 40px; font-weight: 800; text-anchor: end; }
+      .baseline { stroke: #3A3A3A; stroke-width: 2; }
     </style>
   </head>
   <body>
     <div id="root" data-composition-id="main" data-start="0" data-duration="7" data-width="1920" data-height="1080">
       <section id="scene" class="scene clip" data-start="0" data-duration="7" data-track-index="1">
         <div class="title-area">
-          <h1 class="title" id="title"></h1>
+          <h1 class="title mask"><span id="title"></span></h1>
           <p class="subtitle" id="subtitle"></p>
         </div>
         <div class="chart-area">
@@ -111,7 +113,7 @@ html[data-motion-style="bold-geometry"][data-export-mode="transparent"] .scene::
 /* Filled callouts have their own ink contrast, rather than inheriting muted body text. */
 html:not([data-motion-style="classic-orange"]) [data-style-role~="accent-fill"] { background: var(--style-accent); color: var(--style-on-accent); border-color: var(--style-accent); }
 </style>
-<script data-motion-style-runtime>window.__motionStyleCatalog={"version":"1.0","defaultStyleId":"classic-orange","source":"https://github.com/nutllwhy/ldd-video-edit","principles":["先选择信息模板，再选择整片画风。","同一项目默认继承一种风格，场景切换必须显式声明。","风格可以改变字体、材质、线条与运动，不得添加没有来源的信息。","透明导出只保留信息图形及其必要材质，不铺满不透明画布。"],"styles":[{"id":"classic-orange","name":"黑橙经典","description":"深色底、粗体数字与利落强调线，延续原有动效。","tags":["数据","科技","通用"],"tokens":{"background":"#12100E","surface":"#211C18","foreground":"#F4EFE7","muted":"#B8ADA2","accent":"#FF5A36","line":"#57483E"},"typography":{"heading":"sans-serif","body":"sans-serif","numeric":"sans-serif"},"material":{"texture":"none","edge":"precise","shadow":"soft","radius":"template"},"motion":{"entry":"原模板编排","emphasis":"弹性落定","exit":"快速离场","ease":"template"},"rules":{"required":["保留原模板的信息层级"],"forbidden":["额外加入英文编号","无来源的装饰数据"]}},{"id":"paper-editorial","name":"纸感编辑","description":"暖纸底、衬线标题、细墨线与剪贴纸签，适合深度解读。","tags":["解读","资料","人文"],"tokens":{"background":"#F1E7D6","surface":"#FFFAEE","foreground":"#30271F","muted":"#75634F","accent":"#B64325","line":"#A4947D"},"typography":{"heading":"serif","body":"serif","numeric":"serif"},"material":{"texture":"paper-grain","edge":"square","shadow":"offset-paper","radius":"0px"},"motion":{"entry":"纸片平滑滑入","emphasis":"墨线展开","exit":"平滑收起","ease":"power2.out"},"rules":{"required":["暖纸与墨色对比","清楚的编辑层级"],"forbidden":["发光玻璃效果","弹簧式夸张弹跳"]}},{"id":"sketch-notes","name":"手绘笔记","description":"点阵纸、铅笔虚线、排线阴影与橙色批注，适合讲清步骤。","tags":["教学","流程","复盘"],"tokens":{"background":"#FFF7E6","surface":"#FFFCF3","foreground":"#382F29","muted":"#776658","accent":"#BB4C24","line":"#A1907B"},"typography":{"heading":"sans-serif","body":"sans-serif","numeric":"serif"},"material":{"texture":"dot-grid","edge":"pencil-dashed","shadow":"hatching","radius":"8px 2px 10px 3px"},"motion":{"entry":"逐拍显现","emphasis":"笔迹分段展开","exit":"干净擦出","ease":"steps(12)"},"rules":{"required":["可寻帧的笔触节奏","批注只强化已有信息"],"forbidden":["随机抖动","依赖本机手写字体","装饰性假笔记"]}},{"id":"bold-geometry","name":"几何构成","description":"硬边色块、粗线切分与重字排版，适合观点和强对比。","tags":["观点","对比","快节奏"],"tokens":{"background":"#191715","surface":"#28221D","foreground":"#FFF4E6","muted":"#D1BBA7","accent":"#FF713D","line":"#9B7255"},"typography":{"heading":"sans-serif","body":"sans-serif","numeric":"sans-serif"},"material":{"texture":"none","edge":"hard-cut","shadow":"hard-offset","radius":"0px"},"motion":{"entry":"快速切入","emphasis":"硬边冲击落定","exit":"加速切走","ease":"expo.out"},"rules":{"required":["粗线与色块形成主次","一眼可读的结论"],"forbidden":["柔光渐变","圆润玻璃卡片","额外的装饰数字"]}}]};
+<script data-motion-style-runtime>window.__motionStyleCatalog={"version":"1.0","defaultStyleId":"classic-orange","principles":["先选择信息模板，再选择整片画风。","同一项目默认继承一种风格，场景切换必须显式声明。","风格可以改变字体、材质、线条与运动，不得添加没有来源的信息。","透明导出只保留信息图形及其必要材质，不铺满不透明画布。"],"styles":[{"id":"classic-orange","name":"黑橙经典","description":"中性黑底、纯白文字，橙色只做重音；无光晕、无玻璃卡，遮罩升起与擦入。","tags":["数据","科技","通用"],"tokens":{"background":"#0D0D0D","surface":"#161616","foreground":"#F5F5F2","muted":"#9A9A9A","accent":"#FF5A1F","line":"#3A3A3A"},"typography":{"heading":"sans-serif","body":"sans-serif","numeric":"sans-serif"},"material":{"texture":"none","edge":"precise","shadow":"soft","radius":"template"},"motion":{"entry":"原模板编排","emphasis":"遮罩升起、利落落定","exit":"快速离场","ease":"template"},"rules":{"required":["保留原模板的信息层级"],"forbidden":["额外加入英文编号","无来源的装饰数据","发光光晕与玻璃卡","回弹缓动"]}},{"id":"paper-editorial","name":"纸感编辑","description":"暖纸底、衬线标题、细墨线与剪贴纸签，适合深度解读。","tags":["解读","资料","人文"],"tokens":{"background":"#F1E7D6","surface":"#FFFAEE","foreground":"#30271F","muted":"#75634F","accent":"#B64325","line":"#A4947D"},"typography":{"heading":"serif","body":"serif","numeric":"serif"},"material":{"texture":"paper-grain","edge":"square","shadow":"offset-paper","radius":"0px"},"motion":{"entry":"纸片平滑滑入","emphasis":"墨线展开","exit":"平滑收起","ease":"power2.out"},"rules":{"required":["暖纸与墨色对比","清楚的编辑层级"],"forbidden":["发光玻璃效果","弹簧式夸张弹跳"]}},{"id":"sketch-notes","name":"手绘笔记","description":"点阵纸、铅笔虚线、排线阴影与橙色批注，适合讲清步骤。","tags":["教学","流程","复盘"],"tokens":{"background":"#FFF7E6","surface":"#FFFCF3","foreground":"#382F29","muted":"#776658","accent":"#BB4C24","line":"#A1907B"},"typography":{"heading":"sans-serif","body":"sans-serif","numeric":"serif"},"material":{"texture":"dot-grid","edge":"pencil-dashed","shadow":"hatching","radius":"8px 2px 10px 3px"},"motion":{"entry":"逐拍显现","emphasis":"笔迹分段展开","exit":"干净擦出","ease":"steps(12)"},"rules":{"required":["可寻帧的笔触节奏","批注只强化已有信息"],"forbidden":["随机抖动","依赖本机手写字体","装饰性假笔记"]}},{"id":"bold-geometry","name":"几何构成","description":"硬边色块、粗线切分与重字排版，适合观点和强对比。","tags":["观点","对比","快节奏"],"tokens":{"background":"#191715","surface":"#28221D","foreground":"#FFF4E6","muted":"#D1BBA7","accent":"#FF713D","line":"#9B7255"},"typography":{"heading":"sans-serif","body":"sans-serif","numeric":"sans-serif"},"material":{"texture":"none","edge":"hard-cut","shadow":"hard-offset","radius":"0px"},"motion":{"entry":"快速切入","emphasis":"硬边冲击落定","exit":"加速切走","ease":"expo.out"},"rules":{"required":["粗线与色块形成主次","一眼可读的结论"],"forbidden":["柔光渐变","圆润玻璃卡片","额外的装饰数字"]}}]};
 /* Authored for this project. Embedded into each standalone composition by sync-styles.mjs. */
 (function () {
   "use strict";
@@ -222,13 +224,13 @@ html:not([data-motion-style="classic-orange"]) [data-style-role~="accent-fill"] 
 </script>
 <!-- motion-style:end -->
 <script>
-      const fallback = { title: "月活跃用户增长趋势", subtitle: "2024.01 — 2024.12", labels: "1月,2月,3月,4月,5月,6月,7月,8月,9月,10月,11月,12月", values: "120,145,180,210,260,340,420,480,510,580,640,720", accent: "#FF5A36", background: "#12100E", foreground: "#F4EFE7", exportMode: "transparent" };
+      const fallback = { title: "月活跃用户增长趋势", subtitle: "2024.01 — 2024.12", labels: "1月,2月,3月,4月,5月,6月,7月,8月,9月,10月,11月,12月", values: "120,145,180,210,260,340,420,480,510,580,640,720", accent: "#FF5A1F", background: "#0D0D0D", foreground: "#F5F5F2", exportMode: "transparent" };
       const v = window.__hyperframes?.getVariables ? window.__hyperframes.getVariables() : fallback;
       document.documentElement.dataset.exportMode = v.exportMode || "transparent";
       document.documentElement.style.setProperty("--accent", v.accent);
       document.documentElement.style.setProperty("--background", v.background);
       document.documentElement.style.setProperty("--foreground", v.foreground);
-      document.documentElement.style.setProperty("--point-fill", v.exportMode === "mp4" ? v.background : "rgba(18,16,14,.92)");
+      document.documentElement.style.setProperty("--point-fill", v.exportMode === "mp4" ? v.background : "#141414");
       for (const [id, value] of [["title", v.title], ["subtitle", v.subtitle]]) document.getElementById(id).textContent = value;
 
       const labels = v.labels.split(",");
@@ -268,9 +270,7 @@ html:not([data-motion-style="classic-orange"]) [data-style-role~="accent-fill"] 
         const cp1x = px[i] + (px[i+1] - px[i]) * 0.5, cp1y = py[i], cp2x = px[i] + (px[i+1] - px[i]) * 0.5, cp2y = py[i+1];
         lineD += " C " + cp1x + " " + cp1y + ", " + cp2x + " " + cp2y + ", " + px[i+1] + " " + py[i+1];
       }
-      const areaD = lineD + " L " + px[pointCount-1] + " " + baselineY + " L " + px[0] + " " + baselineY + " Z";
 
-      const areaPath = document.createElementNS("http://www.w3.org/2000/svg", "path"); areaPath.setAttribute("d", areaD); areaPath.setAttribute("class", "area-path"); areaPath.setAttribute("opacity", "0"); svg.appendChild(areaPath);
       const linePath = document.createElementNS("http://www.w3.org/2000/svg", "path"); linePath.setAttribute("d", lineD); linePath.setAttribute("class", "line-path"); svg.appendChild(linePath);
       const pathLength = linePath.getTotalLength ? linePath.getTotalLength() : 2000;
       linePath.style.strokeDasharray = pathLength; linePath.style.strokeDashoffset = pathLength;
@@ -281,21 +281,24 @@ html:not([data-motion-style="classic-orange"]) [data-style-role~="accent-fill"] 
       });
 
       const lastPoint = points[pointCount - 1];
-      const endLabel = document.createElementNS("http://www.w3.org/2000/svg", "text"); endLabel.setAttribute("x", px[pointCount - 1] + 16); endLabel.setAttribute("y", py[pointCount - 1] - 12); endLabel.setAttribute("class", "axis-text"); endLabel.setAttribute("fill", v.accent); endLabel.setAttribute("font-size", "24"); endLabel.setAttribute("font-weight", "700"); endLabel.setAttribute("text-anchor", "start"); endLabel.textContent = lastPoint.y; endLabel.setAttribute("opacity", "0"); svg.appendChild(endLabel);
+      const endLabel = document.createElementNS("http://www.w3.org/2000/svg", "text"); endLabel.setAttribute("x", px[pointCount - 1]); endLabel.setAttribute("y", py[pointCount - 1] - 28); endLabel.setAttribute("class", "end-value"); endLabel.textContent = lastPoint.y; endLabel.setAttribute("opacity", "0"); svg.appendChild(endLabel);
 
       window.__timelines = window.__timelines || {};
       const tl = gsap.timeline({ paused: true });
-      tl.fromTo(".title", { opacity: 0, y: 36 }, { opacity: 1, y: 0, duration: 0.7, ease: MotionStyles.ease("power3.out") }, 0.1);
-      tl.fromTo(".subtitle", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: MotionStyles.ease("power3.out") }, 0.3);
-      tl.fromTo(".grid-line-elem", { opacity: 0 }, { opacity: 1, duration: 0.5, stagger: 0.04, ease: MotionStyles.ease("sine.out") }, 0.4);
-      tl.fromTo(".y-label", { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: 0.35, stagger: 0.04, ease: MotionStyles.ease("power2.out") }, 0.5);
-      tl.fromTo(".baseline", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: MotionStyles.ease("sine.out") }, 0.5);
-      tl.fromTo(".x-label", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.35, stagger: 0.03, ease: MotionStyles.ease("power2.out") }, 0.8);
-      tl.to(linePath, { strokeDashoffset: 0, duration: 2.2, ease: MotionStyles.ease("power2.inOut") }, 0.8);
-      tl.fromTo(areaPath, { opacity: 0 }, { opacity: 0.12, duration: 1.2, ease: MotionStyles.ease("sine.out") }, 1.2);
-      dots.forEach((dot, i) => { const appearTime = 0.8 + (i / (pointCount - 1)) * 2.0; tl.to(dot, { attr: { r: 8 }, opacity: 1, duration: 0.35, ease: MotionStyles.ease("back.out(2)") }, appearTime); });
-      tl.fromTo(endLabel, { opacity: 0, x: 8 }, { opacity: 1, x: 0, duration: 0.5, ease: MotionStyles.ease("back.out(1.5)") }, 2.8);
-      tl.to(".scene", { opacity: 0, scale: 1.01, duration: 0.5, ease: MotionStyles.ease("power2.in") }, 6.3);
+      tl.fromTo("#title", { yPercent: 105 }, { yPercent: 0, duration: 0.62, ease: MotionStyles.ease("expo.out") }, 0.1);
+      tl.fromTo(".subtitle", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.4, ease: MotionStyles.ease("power2.out") }, 0.3);
+      tl.fromTo(".baseline", { attr: { x2: marginLeft } }, { attr: { x2: marginLeft + plotW }, duration: 0.6, ease: MotionStyles.ease("power3.inOut") }, 0.35);
+      tl.set(".baseline", { opacity: 1 }, 0.35);
+      tl.fromTo(".grid-line-elem", { opacity: 0 }, { opacity: 1, duration: 0.4, stagger: 0.04, ease: MotionStyles.ease("none") }, 0.45);
+      tl.fromTo(".y-label", { opacity: 0 }, { opacity: 1, duration: 0.3, stagger: 0.04, ease: MotionStyles.ease("none") }, 0.5);
+      tl.fromTo(".x-label", { opacity: 0 }, { opacity: 1, duration: 0.3, stagger: 0.03, ease: MotionStyles.ease("none") }, 0.7);
+      const drawEase = MotionStyles.ease("power2.inOut"), drawFn = gsap.parseEase(drawEase) || ((t) => t);
+      const lenAtX = (x) => { let lo = 0, hi = pathLength; for (let k = 0; k < 24; k++) { const mid = (lo + hi) / 2; if (linePath.getPointAtLength(mid).x < x) lo = mid; else hi = mid; } return hi; };
+      const timeAtFrac = (f) => { let lo = 0, hi = 1; for (let k = 0; k < 24; k++) { const mid = (lo + hi) / 2; if (drawFn(mid) < f) lo = mid; else hi = mid; } return hi; };
+      tl.to(linePath, { strokeDashoffset: 0, duration: 2.2, ease: drawEase }, 0.8);
+      dots.forEach((dot, i) => { const appearTime = 0.8 + timeAtFrac(Math.min(1, lenAtX(px[i] - .5) / pathLength)) * 2.2; tl.set(dot, { attr: { r: i === pointCount - 1 ? 9 : 4 } }, appearTime); tl.to(dot, { opacity: 1, duration: 0.1, ease: MotionStyles.ease("none") }, appearTime); });
+      tl.fromTo(endLabel, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.4, ease: MotionStyles.ease("power2.out") }, 2.9);
+      tl.to(".scene", { clipPath: "inset(0 0 0 100%)", duration: 0.38, ease: MotionStyles.ease("power3.in") }, 6.5);
       window.__timelines.main = tl; MotionStyles.finish(tl);
     </script>
   </body>

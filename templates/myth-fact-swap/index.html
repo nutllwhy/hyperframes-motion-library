@@ -1,33 +1,34 @@
 <!doctype html>
-<html lang="zh-CN" data-composition-variables='[{"id":"mythLabel","type":"string","label":"误区标签","default":"常见误区"},{"id":"myth","type":"string","label":"误区","default":"AI 会直接替你思考"},{"id":"factLabel","type":"string","label":"事实标签","default":"更准确的说法"},{"id":"fact","type":"string","label":"事实","default":"AI 会放大你的问题定义能力"},{"id":"caption","type":"string","label":"总结","default":"重点不是替代，而是协作结构"},{"id":"accent","type":"color","label":"强调色","default":"#FF5A36"},{"id":"foreground","type":"color","label":"文字色","default":"#F4EFE7"},{"id":"exportMode","type":"enum","label":"导出模式","default":"transparent","hidden":true,"options":[{"value":"transparent","label":"透明背景"},{"value":"mp4","label":"剪映 MP4 深色底"}]},{"id":"styleId","type":"enum","label":"画面风格","default":"classic-orange","hidden":true,"options":[{"value":"classic-orange","label":"黑橙经典"},{"value":"paper-editorial","label":"纸感编辑"},{"value":"sketch-notes","label":"手绘笔记"},{"value":"bold-geometry","label":"几何构成"}]}]'>
+<html lang="zh-CN" data-composition-variables='[{"id":"mythLabel","type":"string","label":"误区标签","default":"常见误区"},{"id":"myth","type":"string","label":"误区","default":"AI 会直接替你思考"},{"id":"factLabel","type":"string","label":"事实标签","default":"更准确的说法"},{"id":"fact","type":"string","label":"事实","default":"AI 会放大你的问题定义能力"},{"id":"caption","type":"string","label":"总结","default":"重点不是替代，而是协作结构"},{"id":"accent","type":"color","label":"强调色","default":"#FF5A1F"},{"id":"foreground","type":"color","label":"文字色","default":"#F5F5F2"},{"id":"exportMode","type":"enum","label":"导出模式","default":"transparent","hidden":true,"options":[{"value":"transparent","label":"透明背景"},{"value":"mp4","label":"剪映 MP4 深色底"}]},{"id":"styleId","type":"enum","label":"画面风格","default":"classic-orange","hidden":true,"options":[{"value":"classic-orange","label":"黑橙经典"},{"value":"paper-editorial","label":"纸感编辑"},{"value":"sketch-notes","label":"手绘笔记"},{"value":"bold-geometry","label":"几何构成"}]}]'>
   <head>
     <meta charset="UTF-8" /><meta name="viewport" content="width=1920, height=1080" />
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
     <style>
-      html[data-export-mode="mp4"] body,html[data-export-mode="mp4"] #root{background:#12100E!important}
+      html[data-export-mode="mp4"] body,html[data-export-mode="mp4"] #root{background:#0D0D0D!important}
       * { box-sizing: border-box; }
       html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: transparent; }
-      body { font-family: "IBM Plex Mono", monospace; }
+      body { font-family: "PingFang SC", "Source Han Sans SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif; -webkit-font-smoothing: antialiased; }
       #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: transparent; color: var(--foreground); }
-      .scene { position: absolute; inset: 0; padding: 82px 108px 78px; perspective: 1200px; }
-      .wrap { position: relative; width: 100%; height:100%;display: grid; grid-template-columns: 1fr 130px 1.12fr; grid-template-rows:1fr auto; gap: 44px 34px; align-items: stretch; }
-      .card { padding: 72px 20px 86px; display:flex;flex-direction:column;justify-content:center; }
-      .myth-card { border-bottom: 4px solid rgba(244,239,231,.28); }
+      .scene { position: absolute; inset: 0; padding: 96px 120px 96px; }
+      .wrap { position: relative; width: 100%; height: 100%; display: grid; grid-template-columns: 1fr 120px 1.12fr; grid-template-rows: 1fr auto; gap: 44px 32px; align-items: stretch; }
+      .card { padding: 72px 0 80px; display: flex; flex-direction: column; justify-content: center; }
+      .myth-card { border-bottom: 2px solid rgba(245,245,242,.24); }
       .fact-card { border-bottom: 8px solid var(--accent); }
-      .label { margin-bottom: 56px; font-family:sans-serif;font-size: 30px; font-weight: 850; color: #B8ADA2; }
-      .myth-card .label,.fact-card .label { color: var(--accent); }
-      .text { margin: 0; max-width: 720px; font-family:sans-serif;font-size: 100px; line-height: 1.12; letter-spacing: -.065em; font-weight: 900; }
-      .myth-text { position: relative; color: rgba(244,239,231,.64); }
-      .strike { position: absolute; left: 58px; right: 58px; top: 55%; height: 6px; border-radius: 99px; background: var(--accent); transform-origin: left center; }
-      .swap { align-self:center;display: grid; place-items: center; width: 108px; height: 108px; border: 3px solid color-mix(in srgb, var(--accent) 62%, transparent); color: var(--accent); font-size: 56px; font-weight: 900; }
-      .caption { grid-column:1/-1;padding:30px 0 8px;border-top:1px solid rgba(244,239,231,.18);color:rgba(244,239,231,.82);font-family:sans-serif;font-size:42px;font-weight:800; }
+      .label { margin-bottom: 44px; font-size: 30px; font-weight: 600; color: #9A9A9A; }
+      .fact-card .label { color: var(--accent); }
+      .text { margin: 0; max-width: 720px; font-size: 100px; line-height: 1.16; letter-spacing: 0; font-weight: 800; }
+      .myth-text { position: relative; color: rgba(245,245,242,.5); }
+      .strike { background-image: linear-gradient(var(--accent), var(--accent)); background-repeat: no-repeat; background-position: 0 58%; background-size: 0% 8px; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+      .swap { align-self: center; display: grid; place-items: center; width: 120px; height: 120px; color: var(--accent); font-size: 72px; font-weight: 600; }
+      .caption { grid-column: 1/-1; padding: 30px 0 0; border-top: 2px solid rgba(245,245,242,.12); color: rgba(245,245,242,.88); font-size: 42px; font-weight: 700; }
+      .caption:empty { display: none; }
     </style>
   </head>
   <body>
     <div id="root" data-composition-id="main" data-start="0" data-duration="5.5" data-width="1920" data-height="1080">
       <section id="myth-fact-scene" class="scene clip" data-start="0" data-duration="5.5" data-track-index="1">
         <div class="wrap" data-layout-allow-overflow>
-          <article class="card myth-card" data-layout-allow-overflow><div class="label" id="mythLabel"></div><p class="text myth-text" id="myth" data-layout-allow-occlusion></p><div class="strike" data-layout-ignore></div></article>
+          <article class="card myth-card" data-layout-allow-overflow><div class="label" id="mythLabel"></div><p class="text myth-text" data-layout-allow-occlusion><span class="strike" id="myth"></span></p></article>
           <div class="swap">→</div>
           <article class="card fact-card"><div class="label" id="factLabel"></div><p class="text fact-text" id="fact"></p></article>
           <div class="caption" id="caption"></div>
@@ -107,7 +108,7 @@ html[data-motion-style="bold-geometry"][data-export-mode="transparent"] .scene::
 /* Filled callouts have their own ink contrast, rather than inheriting muted body text. */
 html:not([data-motion-style="classic-orange"]) [data-style-role~="accent-fill"] { background: var(--style-accent); color: var(--style-on-accent); border-color: var(--style-accent); }
 </style>
-<script data-motion-style-runtime>window.__motionStyleCatalog={"version":"1.0","defaultStyleId":"classic-orange","source":"https://github.com/nutllwhy/ldd-video-edit","principles":["先选择信息模板，再选择整片画风。","同一项目默认继承一种风格，场景切换必须显式声明。","风格可以改变字体、材质、线条与运动，不得添加没有来源的信息。","透明导出只保留信息图形及其必要材质，不铺满不透明画布。"],"styles":[{"id":"classic-orange","name":"黑橙经典","description":"深色底、粗体数字与利落强调线，延续原有动效。","tags":["数据","科技","通用"],"tokens":{"background":"#12100E","surface":"#211C18","foreground":"#F4EFE7","muted":"#B8ADA2","accent":"#FF5A36","line":"#57483E"},"typography":{"heading":"sans-serif","body":"sans-serif","numeric":"sans-serif"},"material":{"texture":"none","edge":"precise","shadow":"soft","radius":"template"},"motion":{"entry":"原模板编排","emphasis":"弹性落定","exit":"快速离场","ease":"template"},"rules":{"required":["保留原模板的信息层级"],"forbidden":["额外加入英文编号","无来源的装饰数据"]}},{"id":"paper-editorial","name":"纸感编辑","description":"暖纸底、衬线标题、细墨线与剪贴纸签，适合深度解读。","tags":["解读","资料","人文"],"tokens":{"background":"#F1E7D6","surface":"#FFFAEE","foreground":"#30271F","muted":"#75634F","accent":"#B64325","line":"#A4947D"},"typography":{"heading":"serif","body":"serif","numeric":"serif"},"material":{"texture":"paper-grain","edge":"square","shadow":"offset-paper","radius":"0px"},"motion":{"entry":"纸片平滑滑入","emphasis":"墨线展开","exit":"平滑收起","ease":"power2.out"},"rules":{"required":["暖纸与墨色对比","清楚的编辑层级"],"forbidden":["发光玻璃效果","弹簧式夸张弹跳"]}},{"id":"sketch-notes","name":"手绘笔记","description":"点阵纸、铅笔虚线、排线阴影与橙色批注，适合讲清步骤。","tags":["教学","流程","复盘"],"tokens":{"background":"#FFF7E6","surface":"#FFFCF3","foreground":"#382F29","muted":"#776658","accent":"#BB4C24","line":"#A1907B"},"typography":{"heading":"sans-serif","body":"sans-serif","numeric":"serif"},"material":{"texture":"dot-grid","edge":"pencil-dashed","shadow":"hatching","radius":"8px 2px 10px 3px"},"motion":{"entry":"逐拍显现","emphasis":"笔迹分段展开","exit":"干净擦出","ease":"steps(12)"},"rules":{"required":["可寻帧的笔触节奏","批注只强化已有信息"],"forbidden":["随机抖动","依赖本机手写字体","装饰性假笔记"]}},{"id":"bold-geometry","name":"几何构成","description":"硬边色块、粗线切分与重字排版，适合观点和强对比。","tags":["观点","对比","快节奏"],"tokens":{"background":"#191715","surface":"#28221D","foreground":"#FFF4E6","muted":"#D1BBA7","accent":"#FF713D","line":"#9B7255"},"typography":{"heading":"sans-serif","body":"sans-serif","numeric":"sans-serif"},"material":{"texture":"none","edge":"hard-cut","shadow":"hard-offset","radius":"0px"},"motion":{"entry":"快速切入","emphasis":"硬边冲击落定","exit":"加速切走","ease":"expo.out"},"rules":{"required":["粗线与色块形成主次","一眼可读的结论"],"forbidden":["柔光渐变","圆润玻璃卡片","额外的装饰数字"]}}]};
+<script data-motion-style-runtime>window.__motionStyleCatalog={"version":"1.0","defaultStyleId":"classic-orange","principles":["先选择信息模板，再选择整片画风。","同一项目默认继承一种风格，场景切换必须显式声明。","风格可以改变字体、材质、线条与运动，不得添加没有来源的信息。","透明导出只保留信息图形及其必要材质，不铺满不透明画布。"],"styles":[{"id":"classic-orange","name":"黑橙经典","description":"中性黑底、纯白文字，橙色只做重音；无光晕、无玻璃卡，遮罩升起与擦入。","tags":["数据","科技","通用"],"tokens":{"background":"#0D0D0D","surface":"#161616","foreground":"#F5F5F2","muted":"#9A9A9A","accent":"#FF5A1F","line":"#3A3A3A"},"typography":{"heading":"sans-serif","body":"sans-serif","numeric":"sans-serif"},"material":{"texture":"none","edge":"precise","shadow":"soft","radius":"template"},"motion":{"entry":"原模板编排","emphasis":"遮罩升起、利落落定","exit":"快速离场","ease":"template"},"rules":{"required":["保留原模板的信息层级"],"forbidden":["额外加入英文编号","无来源的装饰数据","发光光晕与玻璃卡","回弹缓动"]}},{"id":"paper-editorial","name":"纸感编辑","description":"暖纸底、衬线标题、细墨线与剪贴纸签，适合深度解读。","tags":["解读","资料","人文"],"tokens":{"background":"#F1E7D6","surface":"#FFFAEE","foreground":"#30271F","muted":"#75634F","accent":"#B64325","line":"#A4947D"},"typography":{"heading":"serif","body":"serif","numeric":"serif"},"material":{"texture":"paper-grain","edge":"square","shadow":"offset-paper","radius":"0px"},"motion":{"entry":"纸片平滑滑入","emphasis":"墨线展开","exit":"平滑收起","ease":"power2.out"},"rules":{"required":["暖纸与墨色对比","清楚的编辑层级"],"forbidden":["发光玻璃效果","弹簧式夸张弹跳"]}},{"id":"sketch-notes","name":"手绘笔记","description":"点阵纸、铅笔虚线、排线阴影与橙色批注，适合讲清步骤。","tags":["教学","流程","复盘"],"tokens":{"background":"#FFF7E6","surface":"#FFFCF3","foreground":"#382F29","muted":"#776658","accent":"#BB4C24","line":"#A1907B"},"typography":{"heading":"sans-serif","body":"sans-serif","numeric":"serif"},"material":{"texture":"dot-grid","edge":"pencil-dashed","shadow":"hatching","radius":"8px 2px 10px 3px"},"motion":{"entry":"逐拍显现","emphasis":"笔迹分段展开","exit":"干净擦出","ease":"steps(12)"},"rules":{"required":["可寻帧的笔触节奏","批注只强化已有信息"],"forbidden":["随机抖动","依赖本机手写字体","装饰性假笔记"]}},{"id":"bold-geometry","name":"几何构成","description":"硬边色块、粗线切分与重字排版，适合观点和强对比。","tags":["观点","对比","快节奏"],"tokens":{"background":"#191715","surface":"#28221D","foreground":"#FFF4E6","muted":"#D1BBA7","accent":"#FF713D","line":"#9B7255"},"typography":{"heading":"sans-serif","body":"sans-serif","numeric":"sans-serif"},"material":{"texture":"none","edge":"hard-cut","shadow":"hard-offset","radius":"0px"},"motion":{"entry":"快速切入","emphasis":"硬边冲击落定","exit":"加速切走","ease":"expo.out"},"rules":{"required":["粗线与色块形成主次","一眼可读的结论"],"forbidden":["柔光渐变","圆润玻璃卡片","额外的装饰数字"]}}]};
 /* Authored for this project. Embedded into each standalone composition by sync-styles.mjs. */
 (function () {
   "use strict";
@@ -218,22 +219,22 @@ html:not([data-motion-style="classic-orange"]) [data-style-role~="accent-fill"] 
 </script>
 <!-- motion-style:end -->
 <script>
-      const fallback = { mythLabel: "常见误区", myth: "AI 会直接替你思考", factLabel: "更准确的说法", fact: "AI 会放大你的问题定义能力", caption: "重点不是替代，而是协作结构", accent: "#FF5A36", foreground: "#F4EFE7" };
+      const fallback = { mythLabel: "常见误区", myth: "AI 会直接替你思考", factLabel: "更准确的说法", fact: "AI 会放大你的问题定义能力", caption: "重点不是替代，而是协作结构", accent: "#FF5A1F", foreground: "#F5F5F2" };
       const v = window.__hyperframes?.getVariables ? window.__hyperframes.getVariables() : fallback;
       document.documentElement.dataset.exportMode=v.exportMode||"transparent";
       document.documentElement.style.setProperty("--accent", v.accent); document.documentElement.style.setProperty("--foreground", v.foreground);
       for (const id of ["mythLabel","myth","factLabel","fact","caption"]) document.getElementById(id).textContent = v[id];
       window.__timelines = window.__timelines || {}; const tl = gsap.timeline({ paused: true });
-      tl.fromTo(".myth-card", { opacity: 0, x: -70, rotationY: -10 }, { opacity: 1, x: 0, rotationY: 0, duration: .62, ease: MotionStyles.ease("expo.out") }, .18);
-      tl.fromTo(".myth-card .label", { opacity: 0, y: -18 }, { opacity: 1, y: 0, duration: .34, ease: MotionStyles.ease("circ.out") }, .4);
-      tl.fromTo(".myth-text", { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: .45, ease: MotionStyles.ease("power3.out") }, .52);
-      tl.fromTo(".strike", { scaleX: 0, opacity: 0 }, { scaleX: 1, opacity: 1, duration: .36, ease: MotionStyles.ease("power4.out") }, 1.16);
-      tl.fromTo(".swap", { opacity: 0, scale: .6, rotation: -45 }, { opacity: 1, scale: 1, rotation: 0, duration: .48, ease: MotionStyles.ease("back.out(1.8)") }, 1.34);
-      tl.fromTo(".fact-card", { opacity: 0, x: 80, rotationY: 10 }, { opacity: 1, x: 0, rotationY: 0, duration: .68, ease: MotionStyles.ease("power4.out") }, 1.48);
-      tl.fromTo(".fact-card .label", { opacity: 0, x: 24 }, { opacity: 1, x: 0, duration: .36, ease: MotionStyles.ease("sine.out") }, 1.72);
-      tl.fromTo(".fact-text", { opacity: 0, y: 34, scale: .98 }, { opacity: 1, y: 0, scale: 1, duration: .58, ease: MotionStyles.ease("expo.out") }, 1.84);
-      tl.fromTo(".caption", { opacity: 0, y: 18, scale: .92 }, { opacity: 1, y: 0, scale: 1, duration: .44, ease: MotionStyles.ease("back.out(1.4)") }, 2.24);
-      tl.to(".scene", { opacity: 0, scale: 1.015, duration: .4, ease: MotionStyles.ease("power2.in") }, 4.92);
+      tl.fromTo(".myth-card", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: .5, ease: MotionStyles.ease("expo.out") }, .16);
+      tl.fromTo(".myth-card .label", { opacity: 0 }, { opacity: 1, duration: .3, ease: MotionStyles.ease("none") }, .32);
+      tl.fromTo(".myth-text", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: .45, ease: MotionStyles.ease("power2.out") }, .4);
+      tl.fromTo(".strike", { backgroundSize: "0% 8px" }, { backgroundSize: "100% 8px", duration: .5, ease: MotionStyles.ease("power3.inOut") }, 1.08);
+      tl.fromTo(".swap", { opacity: 0, x: -16 }, { opacity: 1, x: 0, duration: .4, ease: MotionStyles.ease("power2.out") }, 1.4);
+      tl.fromTo(".fact-card", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: .55, ease: MotionStyles.ease("expo.out") }, 1.5);
+      tl.fromTo(".fact-card .label", { opacity: 0 }, { opacity: 1, duration: .3, ease: MotionStyles.ease("none") }, 1.66);
+      tl.fromTo(".fact-text", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: .45, ease: MotionStyles.ease("power2.out") }, 1.76);
+      tl.fromTo(".caption", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: .5, ease: MotionStyles.ease("expo.out") }, 2.2);
+      tl.to(".wrap", { opacity: 0, duration: .4, ease: MotionStyles.ease("power2.in") }, 4.92);
       window.__timelines.main = tl; MotionStyles.finish(tl);
     </script>
   </body>
