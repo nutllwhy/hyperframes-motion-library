@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "release": "1.3.0",
+  "release": "1.5.0",
   "templates": [
     {
       "id": "bar-chart-grow",
@@ -118,6 +118,31 @@
             {
               "value": "mp4",
               "label": "剪映 MP4 深色底"
+            }
+          ]
+        },
+        {
+          "id": "styleId",
+          "type": "enum",
+          "label": "画面风格",
+          "default": "classic-orange",
+          "hidden": true,
+          "options": [
+            {
+              "value": "classic-orange",
+              "label": "黑橙经典"
+            },
+            {
+              "value": "paper-editorial",
+              "label": "纸感编辑"
+            },
+            {
+              "value": "sketch-notes",
+              "label": "手绘笔记"
+            },
+            {
+              "value": "bold-geometry",
+              "label": "几何构成"
             }
           ]
         }
@@ -285,6 +310,31 @@
               "label": "剪映 MP4 深色底"
             }
           ]
+        },
+        {
+          "id": "styleId",
+          "type": "enum",
+          "label": "画面风格",
+          "default": "classic-orange",
+          "hidden": true,
+          "options": [
+            {
+              "value": "classic-orange",
+              "label": "黑橙经典"
+            },
+            {
+              "value": "paper-editorial",
+              "label": "纸感编辑"
+            },
+            {
+              "value": "sketch-notes",
+              "label": "手绘笔记"
+            },
+            {
+              "value": "bold-geometry",
+              "label": "几何构成"
+            }
+          ]
         }
       ],
       "presets": [
@@ -439,6 +489,31 @@
             {
               "value": "mp4",
               "label": "剪映 MP4 深色底"
+            }
+          ]
+        },
+        {
+          "id": "styleId",
+          "type": "enum",
+          "label": "画面风格",
+          "default": "classic-orange",
+          "hidden": true,
+          "options": [
+            {
+              "value": "classic-orange",
+              "label": "黑橙经典"
+            },
+            {
+              "value": "paper-editorial",
+              "label": "纸感编辑"
+            },
+            {
+              "value": "sketch-notes",
+              "label": "手绘笔记"
+            },
+            {
+              "value": "bold-geometry",
+              "label": "几何构成"
             }
           ]
         }
@@ -596,6 +671,31 @@
               "label": "剪映 MP4 深色底"
             }
           ]
+        },
+        {
+          "id": "styleId",
+          "type": "enum",
+          "label": "画面风格",
+          "default": "classic-orange",
+          "hidden": true,
+          "options": [
+            {
+              "value": "classic-orange",
+              "label": "黑橙经典"
+            },
+            {
+              "value": "paper-editorial",
+              "label": "纸感编辑"
+            },
+            {
+              "value": "sketch-notes",
+              "label": "手绘笔记"
+            },
+            {
+              "value": "bold-geometry",
+              "label": "几何构成"
+            }
+          ]
         }
       ],
       "presets": [
@@ -749,6 +849,31 @@
             {
               "value": "mp4",
               "label": "剪映 MP4 深色底"
+            }
+          ]
+        },
+        {
+          "id": "styleId",
+          "type": "enum",
+          "label": "画面风格",
+          "default": "classic-orange",
+          "hidden": true,
+          "options": [
+            {
+              "value": "classic-orange",
+              "label": "黑橙经典"
+            },
+            {
+              "value": "paper-editorial",
+              "label": "纸感编辑"
+            },
+            {
+              "value": "sketch-notes",
+              "label": "手绘笔记"
+            },
+            {
+              "value": "bold-geometry",
+              "label": "几何构成"
             }
           ]
         }
@@ -917,6 +1042,31 @@
             {
               "value": "mp4",
               "label": "剪映 MP4 深色底"
+            }
+          ]
+        },
+        {
+          "id": "styleId",
+          "type": "enum",
+          "label": "画面风格",
+          "default": "classic-orange",
+          "hidden": true,
+          "options": [
+            {
+              "value": "classic-orange",
+              "label": "黑橙经典"
+            },
+            {
+              "value": "paper-editorial",
+              "label": "纸感编辑"
+            },
+            {
+              "value": "sketch-notes",
+              "label": "手绘笔记"
+            },
+            {
+              "value": "bold-geometry",
+              "label": "几何构成"
             }
           ]
         }
@@ -1091,6 +1241,31 @@
             {
               "value": "mp4",
               "label": "剪映 MP4 深色底"
+            }
+          ]
+        },
+        {
+          "id": "styleId",
+          "type": "enum",
+          "label": "画面风格",
+          "default": "classic-orange",
+          "hidden": true,
+          "options": [
+            {
+              "value": "classic-orange",
+              "label": "黑橙经典"
+            },
+            {
+              "value": "paper-editorial",
+              "label": "纸感编辑"
+            },
+            {
+              "value": "sketch-notes",
+              "label": "手绘笔记"
+            },
+            {
+              "value": "bold-geometry",
+              "label": "几何构成"
             }
           ]
         }
@@ -1279,6 +1454,31 @@
               "label": "剪映 MP4 深色底"
             }
           ]
+        },
+        {
+          "id": "styleId",
+          "type": "enum",
+          "label": "画面风格",
+          "default": "classic-orange",
+          "hidden": true,
+          "options": [
+            {
+              "value": "classic-orange",
+              "label": "黑橙经典"
+            },
+            {
+              "value": "paper-editorial",
+              "label": "纸感编辑"
+            },
+            {
+              "value": "sketch-notes",
+              "label": "手绘笔记"
+            },
+            {
+              "value": "bold-geometry",
+              "label": "几何构成"
+            }
+          ]
         }
       ],
       "presets": [
@@ -1441,6 +1641,31 @@
               "label": "剪映 MP4 深色底"
             }
           ]
+        },
+        {
+          "id": "styleId",
+          "type": "enum",
+          "label": "画面风格",
+          "default": "classic-orange",
+          "hidden": true,
+          "options": [
+            {
+              "value": "classic-orange",
+              "label": "黑橙经典"
+            },
+            {
+              "value": "paper-editorial",
+              "label": "纸感编辑"
+            },
+            {
+              "value": "sketch-notes",
+              "label": "手绘笔记"
+            },
+            {
+              "value": "bold-geometry",
+              "label": "几何构成"
+            }
+          ]
         }
       ],
       "presets": [
@@ -1596,6 +1821,31 @@
             {
               "value": "mp4",
               "label": "剪映 MP4 深色底"
+            }
+          ]
+        },
+        {
+          "id": "styleId",
+          "type": "enum",
+          "label": "画面风格",
+          "default": "classic-orange",
+          "hidden": true,
+          "options": [
+            {
+              "value": "classic-orange",
+              "label": "黑橙经典"
+            },
+            {
+              "value": "paper-editorial",
+              "label": "纸感编辑"
+            },
+            {
+              "value": "sketch-notes",
+              "label": "手绘笔记"
+            },
+            {
+              "value": "bold-geometry",
+              "label": "几何构成"
             }
           ]
         }
@@ -1785,6 +2035,31 @@
               "label": "剪映 MP4 深色底"
             }
           ]
+        },
+        {
+          "id": "styleId",
+          "type": "enum",
+          "label": "画面风格",
+          "default": "classic-orange",
+          "hidden": true,
+          "options": [
+            {
+              "value": "classic-orange",
+              "label": "黑橙经典"
+            },
+            {
+              "value": "paper-editorial",
+              "label": "纸感编辑"
+            },
+            {
+              "value": "sketch-notes",
+              "label": "手绘笔记"
+            },
+            {
+              "value": "bold-geometry",
+              "label": "几何构成"
+            }
+          ]
         }
       ],
       "presets": [
@@ -1949,6 +2224,31 @@
               "label": "剪映 MP4 深色底"
             }
           ]
+        },
+        {
+          "id": "styleId",
+          "type": "enum",
+          "label": "画面风格",
+          "default": "classic-orange",
+          "hidden": true,
+          "options": [
+            {
+              "value": "classic-orange",
+              "label": "黑橙经典"
+            },
+            {
+              "value": "paper-editorial",
+              "label": "纸感编辑"
+            },
+            {
+              "value": "sketch-notes",
+              "label": "手绘笔记"
+            },
+            {
+              "value": "bold-geometry",
+              "label": "几何构成"
+            }
+          ]
         }
       ],
       "presets": [
@@ -2102,6 +2402,31 @@
               "label": "剪映 MP4 深色底"
             }
           ]
+        },
+        {
+          "id": "styleId",
+          "type": "enum",
+          "label": "画面风格",
+          "default": "classic-orange",
+          "hidden": true,
+          "options": [
+            {
+              "value": "classic-orange",
+              "label": "黑橙经典"
+            },
+            {
+              "value": "paper-editorial",
+              "label": "纸感编辑"
+            },
+            {
+              "value": "sketch-notes",
+              "label": "手绘笔记"
+            },
+            {
+              "value": "bold-geometry",
+              "label": "几何构成"
+            }
+          ]
         }
       ],
       "presets": [
@@ -2249,6 +2574,31 @@
             {
               "value": "mp4",
               "label": "剪映 MP4 深色底"
+            }
+          ]
+        },
+        {
+          "id": "styleId",
+          "type": "enum",
+          "label": "画面风格",
+          "default": "classic-orange",
+          "hidden": true,
+          "options": [
+            {
+              "value": "classic-orange",
+              "label": "黑橙经典"
+            },
+            {
+              "value": "paper-editorial",
+              "label": "纸感编辑"
+            },
+            {
+              "value": "sketch-notes",
+              "label": "手绘笔记"
+            },
+            {
+              "value": "bold-geometry",
+              "label": "几何构成"
             }
           ]
         }
@@ -2415,6 +2765,31 @@
               "label": "剪映 MP4 深色底"
             }
           ]
+        },
+        {
+          "id": "styleId",
+          "type": "enum",
+          "label": "画面风格",
+          "default": "classic-orange",
+          "hidden": true,
+          "options": [
+            {
+              "value": "classic-orange",
+              "label": "黑橙经典"
+            },
+            {
+              "value": "paper-editorial",
+              "label": "纸感编辑"
+            },
+            {
+              "value": "sketch-notes",
+              "label": "手绘笔记"
+            },
+            {
+              "value": "bold-geometry",
+              "label": "几何构成"
+            }
+          ]
         }
       ],
       "presets": [
@@ -2576,6 +2951,31 @@
               "label": "剪映 MP4 深色底"
             }
           ]
+        },
+        {
+          "id": "styleId",
+          "type": "enum",
+          "label": "画面风格",
+          "default": "classic-orange",
+          "hidden": true,
+          "options": [
+            {
+              "value": "classic-orange",
+              "label": "黑橙经典"
+            },
+            {
+              "value": "paper-editorial",
+              "label": "纸感编辑"
+            },
+            {
+              "value": "sketch-notes",
+              "label": "手绘笔记"
+            },
+            {
+              "value": "bold-geometry",
+              "label": "几何构成"
+            }
+          ]
         }
       ],
       "presets": [
@@ -2717,6 +3117,31 @@
               "label": "剪映 MP4 深色底"
             }
           ]
+        },
+        {
+          "id": "styleId",
+          "type": "enum",
+          "label": "画面风格",
+          "default": "classic-orange",
+          "hidden": true,
+          "options": [
+            {
+              "value": "classic-orange",
+              "label": "黑橙经典"
+            },
+            {
+              "value": "paper-editorial",
+              "label": "纸感编辑"
+            },
+            {
+              "value": "sketch-notes",
+              "label": "手绘笔记"
+            },
+            {
+              "value": "bold-geometry",
+              "label": "几何构成"
+            }
+          ]
         }
       ],
       "presets": [
@@ -2856,6 +3281,31 @@
             {
               "value": "mp4",
               "label": "剪映 MP4 深色底"
+            }
+          ]
+        },
+        {
+          "id": "styleId",
+          "type": "enum",
+          "label": "画面风格",
+          "default": "classic-orange",
+          "hidden": true,
+          "options": [
+            {
+              "value": "classic-orange",
+              "label": "黑橙经典"
+            },
+            {
+              "value": "paper-editorial",
+              "label": "纸感编辑"
+            },
+            {
+              "value": "sketch-notes",
+              "label": "手绘笔记"
+            },
+            {
+              "value": "bold-geometry",
+              "label": "几何构成"
             }
           ]
         }
@@ -3021,6 +3471,31 @@
               "label": "剪映 MP4 深色底"
             }
           ]
+        },
+        {
+          "id": "styleId",
+          "type": "enum",
+          "label": "画面风格",
+          "default": "classic-orange",
+          "hidden": true,
+          "options": [
+            {
+              "value": "classic-orange",
+              "label": "黑橙经典"
+            },
+            {
+              "value": "paper-editorial",
+              "label": "纸感编辑"
+            },
+            {
+              "value": "sketch-notes",
+              "label": "手绘笔记"
+            },
+            {
+              "value": "bold-geometry",
+              "label": "几何构成"
+            }
+          ]
         }
       ],
       "presets": [
@@ -3172,6 +3647,31 @@
             {
               "value": "mp4",
               "label": "剪映 MP4 深色底"
+            }
+          ]
+        },
+        {
+          "id": "styleId",
+          "type": "enum",
+          "label": "画面风格",
+          "default": "classic-orange",
+          "hidden": true,
+          "options": [
+            {
+              "value": "classic-orange",
+              "label": "黑橙经典"
+            },
+            {
+              "value": "paper-editorial",
+              "label": "纸感编辑"
+            },
+            {
+              "value": "sketch-notes",
+              "label": "手绘笔记"
+            },
+            {
+              "value": "bold-geometry",
+              "label": "几何构成"
             }
           ]
         }
@@ -3342,6 +3842,31 @@
               "label": "剪映 MP4 深色底"
             }
           ]
+        },
+        {
+          "id": "styleId",
+          "type": "enum",
+          "label": "画面风格",
+          "default": "classic-orange",
+          "hidden": true,
+          "options": [
+            {
+              "value": "classic-orange",
+              "label": "黑橙经典"
+            },
+            {
+              "value": "paper-editorial",
+              "label": "纸感编辑"
+            },
+            {
+              "value": "sketch-notes",
+              "label": "手绘笔记"
+            },
+            {
+              "value": "bold-geometry",
+              "label": "几何构成"
+            }
+          ]
         }
       ],
       "presets": [
@@ -3503,6 +4028,31 @@
             {
               "value": "mp4",
               "label": "剪映 MP4 深色底"
+            }
+          ]
+        },
+        {
+          "id": "styleId",
+          "type": "enum",
+          "label": "画面风格",
+          "default": "classic-orange",
+          "hidden": true,
+          "options": [
+            {
+              "value": "classic-orange",
+              "label": "黑橙经典"
+            },
+            {
+              "value": "paper-editorial",
+              "label": "纸感编辑"
+            },
+            {
+              "value": "sketch-notes",
+              "label": "手绘笔记"
+            },
+            {
+              "value": "bold-geometry",
+              "label": "几何构成"
             }
           ]
         }
@@ -3670,6 +4220,31 @@
               "label": "剪映 MP4 深色底"
             }
           ]
+        },
+        {
+          "id": "styleId",
+          "type": "enum",
+          "label": "画面风格",
+          "default": "classic-orange",
+          "hidden": true,
+          "options": [
+            {
+              "value": "classic-orange",
+              "label": "黑橙经典"
+            },
+            {
+              "value": "paper-editorial",
+              "label": "纸感编辑"
+            },
+            {
+              "value": "sketch-notes",
+              "label": "手绘笔记"
+            },
+            {
+              "value": "bold-geometry",
+              "label": "几何构成"
+            }
+          ]
         }
       ],
       "presets": [
@@ -3708,6 +4283,1040 @@
             "step3": "局部优化",
             "step4": "发布新版",
             "takeaway": "真实使用持续修正产品方向",
+            "accent": "#FF5A36",
+            "foreground": "#F4EFE7"
+          }
+        }
+      ]
+    },
+    {
+      "id": "keyword-blast",
+      "name": "关键词爆破",
+      "description": "巨型关键词从画面中心爆发，配冲击环与光晕，适合开头钩子、观点反转和段落转折。",
+      "path": "templates/keyword-blast",
+      "category": "知识讲解",
+      "tags": [
+        "关键词",
+        "钩子",
+        "爆破",
+        "转折"
+      ],
+      "director": {
+        "defaultMode": "transition",
+        "allowedModes": [
+          "transition",
+          "fullscreen"
+        ],
+        "layoutStatus": "ready",
+        "subjectSelectors": [
+          ".kicker",
+          ".keyword",
+          ".subtitle",
+          ".note"
+        ],
+        "frameSelectors": [
+          ".stack"
+        ],
+        "measuredOccupancy": 0.582,
+        "measuredSpan": {
+          "width": 0.854,
+          "height": 0.681
+        },
+        "occupancy": {
+          "min": 0.42,
+          "max": 0.94
+        },
+        "span": {
+          "minWidth": 0.76,
+          "maxWidth": 0.98,
+          "minHeight": 0.56,
+          "maxHeight": 0.96
+        },
+        "guidance": "关键词是唯一视觉主体，从中心爆发并铺满画面；冲击环与光晕只承担爆发感，不承载信息。"
+      },
+      "duration": 5,
+      "size": "1920×1080",
+      "formats": [
+        "mp4",
+        "mov",
+        "webm"
+      ],
+      "defaultFormat": "mov",
+      "preview": "/renders/keyword-blast/sample.mp4",
+      "status": "ready",
+      "schema": [
+        {
+          "id": "kicker",
+          "type": "string",
+          "label": "提示词",
+          "default": "本期观点"
+        },
+        {
+          "id": "keyword",
+          "type": "string",
+          "label": "关键词",
+          "default": "别再瞎学工具"
+        },
+        {
+          "id": "subtitle",
+          "type": "string",
+          "label": "副标题",
+          "default": "工具永远在换，方法才是可迁移的资产。"
+        },
+        {
+          "id": "note",
+          "type": "string",
+          "label": "注脚",
+          "default": "适合开头钩子 / 段落转折"
+        },
+        {
+          "id": "accent",
+          "type": "color",
+          "label": "强调色",
+          "default": "#FF5A36"
+        },
+        {
+          "id": "foreground",
+          "type": "color",
+          "label": "文字色",
+          "default": "#F4EFE7"
+        },
+        {
+          "id": "exportMode",
+          "type": "enum",
+          "label": "导出模式",
+          "default": "transparent",
+          "hidden": true,
+          "options": [
+            {
+              "value": "transparent",
+              "label": "透明背景"
+            },
+            {
+              "value": "mp4",
+              "label": "剪映 MP4 深色底"
+            }
+          ]
+        },
+        {
+          "id": "styleId",
+          "type": "enum",
+          "label": "画面风格",
+          "default": "classic-orange",
+          "hidden": true,
+          "options": [
+            {
+              "value": "classic-orange",
+              "label": "黑橙经典"
+            },
+            {
+              "value": "paper-editorial",
+              "label": "纸感编辑"
+            },
+            {
+              "value": "sketch-notes",
+              "label": "手绘笔记"
+            },
+            {
+              "value": "bold-geometry",
+              "label": "几何构成"
+            }
+          ]
+        }
+      ],
+      "presets": [
+        {
+          "id": "default",
+          "values": {
+            "kicker": "本期观点",
+            "keyword": "别再瞎学工具",
+            "subtitle": "工具永远在换，方法才是可迁移的资产。",
+            "note": "适合开头钩子 / 段落转折",
+            "accent": "#FF5A36",
+            "foreground": "#F4EFE7"
+          }
+        },
+        {
+          "id": "方法论",
+          "values": {
+            "kicker": "本段结论",
+            "keyword": "先讲清楚再动手",
+            "subtitle": "需求描述精确一分，返工成本就少十分。",
+            "note": "适合方法论引入 / 章节转折",
+            "accent": "#FF5A36",
+            "foreground": "#F4EFE7"
+          }
+        },
+        {
+          "id": "认知反转",
+          "values": {
+            "kicker": "认知反转",
+            "keyword": "努力不等于成长",
+            "subtitle": "没有复盘的重复，只是在原地把错误练熟。",
+            "note": "适合观点反转 / 金句强调",
+            "accent": "#FF5A36",
+            "foreground": "#F4EFE7"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chapter-title",
+      "name": "章节标题",
+      "description": "巨型章节编号加标题区构成完整章节页，用于长视频分段，避免 PPT 页眉感。",
+      "path": "templates/chapter-title",
+      "category": "知识讲解",
+      "tags": [
+        "章节",
+        "标题",
+        "分段",
+        "长视频"
+      ],
+      "director": {
+        "defaultMode": "transition",
+        "allowedModes": [
+          "transition",
+          "fullscreen"
+        ],
+        "layoutStatus": "ready",
+        "subjectSelectors": [
+          ".no",
+          ".title",
+          ".subtitle",
+          ".note"
+        ],
+        "frameSelectors": [
+          ".layout"
+        ],
+        "measuredOccupancy": 0.672,
+        "measuredSpan": {
+          "width": 0.865,
+          "height": 0.778
+        },
+        "occupancy": {
+          "min": 0.42,
+          "max": 0.94
+        },
+        "span": {
+          "minWidth": 0.76,
+          "maxWidth": 0.98,
+          "minHeight": 0.56,
+          "maxHeight": 0.96
+        },
+        "guidance": "章节编号与标题区横向铺满画面构成完整章节页；编号只承担顺序含义，不虚构时间与数据。"
+      },
+      "duration": 4.5,
+      "size": "1920×1080",
+      "formats": [
+        "mp4",
+        "mov",
+        "webm"
+      ],
+      "defaultFormat": "mov",
+      "preview": "/renders/chapter-title/sample.mp4",
+      "status": "ready",
+      "orientations": [
+        "landscape",
+        "portrait"
+      ],
+      "variants": {
+        "landscape": {
+          "path": "",
+          "width": 1920,
+          "height": 1080,
+          "duration": 4.5,
+          "preview": "/renders/chapter-title/sample.mp4",
+          "director": {
+            "defaultMode": "transition",
+            "allowedModes": [
+              "transition",
+              "fullscreen"
+            ],
+            "layoutStatus": "ready",
+            "subjectSelectors": [
+              ".no",
+              ".title",
+              ".subtitle",
+              ".note"
+            ],
+            "frameSelectors": [
+              ".layout"
+            ],
+            "measuredOccupancy": 0.672,
+            "measuredSpan": {
+              "width": 0.865,
+              "height": 0.778
+            },
+            "occupancy": {
+              "min": 0.42,
+              "max": 0.94
+            },
+            "span": {
+              "minWidth": 0.76,
+              "maxWidth": 0.98,
+              "minHeight": 0.56,
+              "maxHeight": 0.96
+            },
+            "guidance": "章节编号与标题区横向铺满画面构成完整章节页；编号只承担顺序含义，不虚构时间与数据。"
+          }
+        },
+        "portrait": {
+          "path": "portrait",
+          "width": 1080,
+          "height": 1920,
+          "duration": 5,
+          "preview": "/renders/chapter-title/portrait-sample.mp4",
+          "director": {
+            "defaultMode": "transition",
+            "allowedModes": [
+              "transition",
+              "fullscreen"
+            ],
+            "layoutStatus": "ready",
+            "subjectSelectors": [
+              ".no",
+              ".title",
+              ".subtitle",
+              ".note"
+            ],
+            "frameSelectors": [
+              ".layout"
+            ],
+            "measuredOccupancy": 0.671,
+            "measuredSpan": {
+              "width": 0.859,
+              "height": 0.781
+            },
+            "occupancy": {
+              "min": 0.42,
+              "max": 0.94
+            },
+            "span": {
+              "minWidth": 0.56,
+              "maxWidth": 0.96,
+              "minHeight": 0.76,
+              "maxHeight": 0.98
+            },
+            "guidance": "章节编号与标题区横向铺满画面构成完整章节页；编号只承担顺序含义，不虚构时间与数据。"
+          }
+        }
+      },
+      "schema": [
+        {
+          "id": "sectionNumber",
+          "type": "string",
+          "label": "章节编号",
+          "default": "02"
+        },
+        {
+          "id": "title",
+          "type": "string",
+          "label": "章节标题",
+          "default": "提示词到底在解决什么"
+        },
+        {
+          "id": "subtitle",
+          "type": "string",
+          "label": "副标题",
+          "default": "从「要结果」到「给约束」的写法差异"
+        },
+        {
+          "id": "note",
+          "type": "string",
+          "label": "要点提示",
+          "default": "本章讲清一个概念：约束条件"
+        },
+        {
+          "id": "accent",
+          "type": "color",
+          "label": "强调色",
+          "default": "#FF5A36"
+        },
+        {
+          "id": "foreground",
+          "type": "color",
+          "label": "文字色",
+          "default": "#F4EFE7"
+        },
+        {
+          "id": "exportMode",
+          "type": "enum",
+          "label": "导出模式",
+          "default": "transparent",
+          "hidden": true,
+          "options": [
+            {
+              "value": "transparent",
+              "label": "透明背景"
+            },
+            {
+              "value": "mp4",
+              "label": "剪映 MP4 深色底"
+            }
+          ]
+        },
+        {
+          "id": "styleId",
+          "type": "enum",
+          "label": "画面风格",
+          "default": "classic-orange",
+          "hidden": true,
+          "options": [
+            {
+              "value": "classic-orange",
+              "label": "黑橙经典"
+            },
+            {
+              "value": "paper-editorial",
+              "label": "纸感编辑"
+            },
+            {
+              "value": "sketch-notes",
+              "label": "手绘笔记"
+            },
+            {
+              "value": "bold-geometry",
+              "label": "几何构成"
+            }
+          ]
+        }
+      ],
+      "presets": [
+        {
+          "id": "default",
+          "values": {
+            "sectionNumber": "02",
+            "title": "提示词到底在解决什么",
+            "subtitle": "从「要结果」到「给约束」的写法差异",
+            "note": "本章讲清一个概念：约束条件",
+            "accent": "#FF5A36",
+            "foreground": "#F4EFE7"
+          }
+        },
+        {
+          "id": "复盘方法",
+          "values": {
+            "sectionNumber": "01",
+            "title": "为什么你的复盘没有用",
+            "subtitle": "三个信号说明复盘变成了形式主义",
+            "note": "本章讲清一个问题：复盘的颗粒度",
+            "accent": "#FF5A36",
+            "foreground": "#F4EFE7"
+          }
+        },
+        {
+          "id": "效率系统",
+          "values": {
+            "sectionNumber": "03",
+            "title": "把流程交给系统",
+            "subtitle": "固定动作模板化，把注意力留给判断",
+            "note": "本章讲清一个动作：建立检查清单",
+            "accent": "#FF5A36",
+            "foreground": "#F4EFE7"
+          }
+        }
+      ],
+      "portraitSchema": [
+        {
+          "id": "sectionNumber",
+          "type": "string",
+          "label": "章节编号",
+          "default": "02"
+        },
+        {
+          "id": "title",
+          "type": "string",
+          "label": "章节标题",
+          "default": "提示词到底在解决什么"
+        },
+        {
+          "id": "subtitle",
+          "type": "string",
+          "label": "副标题",
+          "default": "从「要结果」到「给约束」的写法差异"
+        },
+        {
+          "id": "note",
+          "type": "string",
+          "label": "要点提示",
+          "default": "本章讲清一个概念：约束条件"
+        },
+        {
+          "id": "accent",
+          "type": "color",
+          "label": "强调色",
+          "default": "#FF5A36"
+        },
+        {
+          "id": "foreground",
+          "type": "color",
+          "label": "文字色",
+          "default": "#F4EFE7"
+        },
+        {
+          "id": "exportMode",
+          "type": "enum",
+          "label": "导出模式",
+          "default": "transparent",
+          "hidden": true,
+          "options": [
+            {
+              "value": "transparent",
+              "label": "透明背景"
+            },
+            {
+              "value": "mp4",
+              "label": "剪映 MP4 深色底"
+            }
+          ]
+        },
+        {
+          "id": "styleId",
+          "type": "enum",
+          "label": "画面风格",
+          "default": "classic-orange",
+          "hidden": true,
+          "options": [
+            {
+              "value": "classic-orange",
+              "label": "黑橙经典"
+            },
+            {
+              "value": "paper-editorial",
+              "label": "纸感编辑"
+            },
+            {
+              "value": "sketch-notes",
+              "label": "手绘笔记"
+            },
+            {
+              "value": "bold-geometry",
+              "label": "几何构成"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "donut-progress",
+      "name": "圆环占比",
+      "description": "SVG 圆环扫描至目标百分比，中心数字同步滚动，右侧标签解释含义，适合占比、概率、比例表达。",
+      "path": "templates/donut-progress",
+      "category": "数据可视化",
+      "tags": [
+        "圆环",
+        "百分比",
+        "占比",
+        "数字滚动"
+      ],
+      "director": {
+        "defaultMode": "fullscreen",
+        "allowedModes": [
+          "fullscreen",
+          "data"
+        ],
+        "layoutStatus": "ready",
+        "subjectSelectors": [
+          ".title",
+          ".value",
+          ".unit",
+          ".desc-tag",
+          ".note"
+        ],
+        "frameSelectors": [
+          ".panel"
+        ],
+        "measuredOccupancy": 0.572,
+        "measuredSpan": {
+          "width": 0.8,
+          "height": 0.715
+        },
+        "occupancy": {
+          "min": 0.42,
+          "max": 0.94
+        },
+        "span": {
+          "minWidth": 0.76,
+          "maxWidth": 0.98,
+          "minHeight": 0.56,
+          "maxHeight": 0.96
+        },
+        "guidance": "圆环数字与标签说明共同构成画面主体；百分比必须来自口播或明确数据源，不得超过 100。"
+      },
+      "duration": 5.5,
+      "size": "1920×1080",
+      "formats": [
+        "mp4",
+        "mov",
+        "webm"
+      ],
+      "defaultFormat": "mov",
+      "preview": "/renders/donut-progress/sample.mp4",
+      "status": "ready",
+      "orientations": [
+        "landscape",
+        "portrait"
+      ],
+      "variants": {
+        "landscape": {
+          "path": "",
+          "width": 1920,
+          "height": 1080,
+          "duration": 5.5,
+          "preview": "/renders/donut-progress/sample.mp4",
+          "director": {
+            "defaultMode": "fullscreen",
+            "allowedModes": [
+              "fullscreen",
+              "data"
+            ],
+            "layoutStatus": "ready",
+            "subjectSelectors": [
+              ".title",
+              ".value",
+              ".unit",
+              ".desc-tag",
+              ".note"
+            ],
+            "frameSelectors": [
+              ".panel"
+            ],
+            "measuredOccupancy": 0.572,
+            "measuredSpan": {
+              "width": 0.8,
+              "height": 0.715
+            },
+            "occupancy": {
+              "min": 0.42,
+              "max": 0.94
+            },
+            "span": {
+              "minWidth": 0.76,
+              "maxWidth": 0.98,
+              "minHeight": 0.56,
+              "maxHeight": 0.96
+            },
+            "guidance": "圆环数字与标签说明共同构成画面主体；百分比必须来自口播或明确数据源，不得超过 100。"
+          }
+        },
+        "portrait": {
+          "path": "portrait",
+          "width": 1080,
+          "height": 1920,
+          "duration": 6,
+          "preview": "/renders/donut-progress/portrait-sample.mp4",
+          "director": {
+            "defaultMode": "fullscreen",
+            "allowedModes": [
+              "fullscreen",
+              "data"
+            ],
+            "layoutStatus": "ready",
+            "subjectSelectors": [
+              ".title",
+              ".value",
+              ".unit",
+              ".desc-tag",
+              ".note"
+            ],
+            "frameSelectors": [
+              ".panel"
+            ],
+            "measuredOccupancy": 0.581,
+            "measuredSpan": {
+              "width": 0.748,
+              "height": 0.777
+            },
+            "occupancy": {
+              "min": 0.42,
+              "max": 0.94
+            },
+            "span": {
+              "minWidth": 0.56,
+              "maxWidth": 0.96,
+              "minHeight": 0.76,
+              "maxHeight": 0.98
+            },
+            "guidance": "圆环数字与标签说明共同构成画面主体；百分比必须来自口播或明确数据源，不得超过 100。"
+          }
+        }
+      },
+      "schema": [
+        {
+          "id": "title",
+          "type": "string",
+          "label": "标题",
+          "default": "真正影响结果的变量"
+        },
+        {
+          "id": "value",
+          "type": "number",
+          "label": "百分比数值",
+          "default": 68
+        },
+        {
+          "id": "unit",
+          "type": "string",
+          "label": "单位",
+          "default": "%"
+        },
+        {
+          "id": "desc",
+          "type": "string",
+          "label": "主标签",
+          "default": "由前期准备决定"
+        },
+        {
+          "id": "note",
+          "type": "string",
+          "label": "说明",
+          "default": "剩下的部分，才是执行当天能改变的事。"
+        },
+        {
+          "id": "accent",
+          "type": "color",
+          "label": "强调色",
+          "default": "#FF5A36"
+        },
+        {
+          "id": "foreground",
+          "type": "color",
+          "label": "文字色",
+          "default": "#F4EFE7"
+        },
+        {
+          "id": "exportMode",
+          "type": "enum",
+          "label": "导出模式",
+          "default": "transparent",
+          "hidden": true,
+          "options": [
+            {
+              "value": "transparent",
+              "label": "透明背景"
+            },
+            {
+              "value": "mp4",
+              "label": "剪映 MP4 深色底"
+            }
+          ]
+        },
+        {
+          "id": "styleId",
+          "type": "enum",
+          "label": "画面风格",
+          "default": "classic-orange",
+          "hidden": true,
+          "options": [
+            {
+              "value": "classic-orange",
+              "label": "黑橙经典"
+            },
+            {
+              "value": "paper-editorial",
+              "label": "纸感编辑"
+            },
+            {
+              "value": "sketch-notes",
+              "label": "手绘笔记"
+            },
+            {
+              "value": "bold-geometry",
+              "label": "几何构成"
+            }
+          ]
+        }
+      ],
+      "presets": [
+        {
+          "id": "default",
+          "values": {
+            "title": "真正影响结果的变量",
+            "value": 68,
+            "unit": "%",
+            "desc": "由前期准备决定",
+            "note": "剩下的部分，才是执行当天能改变的事。",
+            "accent": "#FF5A36",
+            "foreground": "#F4EFE7"
+          }
+        },
+        {
+          "id": "完播率",
+          "values": {
+            "title": "用户为什么划走",
+            "value": 73,
+            "unit": "%",
+            "desc": "在前三秒离开",
+            "note": "开头不是铺垫，是整个视频最贵的三秒。",
+            "accent": "#FF5A36",
+            "foreground": "#F4EFE7"
+          }
+        },
+        {
+          "id": "时间盘点",
+          "values": {
+            "title": "重复工作占了多少",
+            "value": 41,
+            "unit": "%",
+            "desc": "在做重复整理",
+            "note": "模板化之后，这部分时间几乎可以全部回收。",
+            "accent": "#FF5A36",
+            "foreground": "#F4EFE7"
+          }
+        }
+      ],
+      "portraitSchema": [
+        {
+          "id": "title",
+          "type": "string",
+          "label": "标题",
+          "default": "真正影响结果的变量"
+        },
+        {
+          "id": "value",
+          "type": "number",
+          "label": "百分比数值",
+          "default": 68
+        },
+        {
+          "id": "unit",
+          "type": "string",
+          "label": "单位",
+          "default": "%"
+        },
+        {
+          "id": "desc",
+          "type": "string",
+          "label": "主标签",
+          "default": "由前期准备决定"
+        },
+        {
+          "id": "note",
+          "type": "string",
+          "label": "说明",
+          "default": "剩下的部分，才是执行当天能改变的事。"
+        },
+        {
+          "id": "accent",
+          "type": "color",
+          "label": "强调色",
+          "default": "#FF5A36"
+        },
+        {
+          "id": "foreground",
+          "type": "color",
+          "label": "文字色",
+          "default": "#F4EFE7"
+        },
+        {
+          "id": "exportMode",
+          "type": "enum",
+          "label": "导出模式",
+          "default": "transparent",
+          "hidden": true,
+          "options": [
+            {
+              "value": "transparent",
+              "label": "透明背景"
+            },
+            {
+              "value": "mp4",
+              "label": "剪映 MP4 深色底"
+            }
+          ]
+        },
+        {
+          "id": "styleId",
+          "type": "enum",
+          "label": "画面风格",
+          "default": "classic-orange",
+          "hidden": true,
+          "options": [
+            {
+              "value": "classic-orange",
+              "label": "黑橙经典"
+            },
+            {
+              "value": "paper-editorial",
+              "label": "纸感编辑"
+            },
+            {
+              "value": "sketch-notes",
+              "label": "手绘笔记"
+            },
+            {
+              "value": "bold-geometry",
+              "label": "几何构成"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "quote-card",
+      "name": "金句引用卡",
+      "description": "大引号、巨型金句、署名与注解组成的引用卡，适合引用书中金句、嘉宾观点与频道立场。",
+      "path": "templates/quote-card",
+      "category": "知识讲解",
+      "tags": [
+        "金句",
+        "引用",
+        "观点",
+        "署名"
+      ],
+      "director": {
+        "defaultMode": "fullscreen",
+        "allowedModes": [
+          "fullscreen",
+          "overlay"
+        ],
+        "layoutStatus": "ready",
+        "subjectSelectors": [
+          ".kicker",
+          ".quote",
+          ".author",
+          ".note"
+        ],
+        "frameSelectors": [
+          ".card"
+        ],
+        "measuredOccupancy": 0.49,
+        "measuredSpan": {
+          "width": 0.773,
+          "height": 0.633
+        },
+        "occupancy": {
+          "min": 0.42,
+          "max": 0.94
+        },
+        "span": {
+          "minWidth": 0.76,
+          "maxWidth": 0.98,
+          "minHeight": 0.56,
+          "maxHeight": 0.96
+        },
+        "guidance": "金句、署名与注解构成引用主体；出处必须真实可溯源，不虚构引用。"
+      },
+      "duration": 5,
+      "size": "1920×1080",
+      "formats": [
+        "mp4",
+        "mov",
+        "webm"
+      ],
+      "defaultFormat": "mov",
+      "preview": "/renders/quote-card/sample.mp4",
+      "status": "ready",
+      "schema": [
+        {
+          "id": "kicker",
+          "type": "string",
+          "label": "来源类型",
+          "default": "书里的一句话"
+        },
+        {
+          "id": "quote",
+          "type": "string",
+          "label": "金句",
+          "default": "我们不是因为知道得少而焦虑，是因为知道得乱。"
+        },
+        {
+          "id": "author",
+          "type": "string",
+          "label": "作者",
+          "default": "《卡片笔记写作法》"
+        },
+        {
+          "id": "note",
+          "type": "string",
+          "label": "注解",
+          "default": "信息只有进入结构，才会变成知识。"
+        },
+        {
+          "id": "accent",
+          "type": "color",
+          "label": "强调色",
+          "default": "#FF5A36"
+        },
+        {
+          "id": "foreground",
+          "type": "color",
+          "label": "文字色",
+          "default": "#F4EFE7"
+        },
+        {
+          "id": "exportMode",
+          "type": "enum",
+          "label": "导出模式",
+          "default": "transparent",
+          "hidden": true,
+          "options": [
+            {
+              "value": "transparent",
+              "label": "透明背景"
+            },
+            {
+              "value": "mp4",
+              "label": "剪映 MP4 深色底"
+            }
+          ]
+        },
+        {
+          "id": "styleId",
+          "type": "enum",
+          "label": "画面风格",
+          "default": "classic-orange",
+          "hidden": true,
+          "options": [
+            {
+              "value": "classic-orange",
+              "label": "黑橙经典"
+            },
+            {
+              "value": "paper-editorial",
+              "label": "纸感编辑"
+            },
+            {
+              "value": "sketch-notes",
+              "label": "手绘笔记"
+            },
+            {
+              "value": "bold-geometry",
+              "label": "几何构成"
+            }
+          ]
+        }
+      ],
+      "presets": [
+        {
+          "id": "default",
+          "values": {
+            "kicker": "书里的一句话",
+            "quote": "我们不是因为知道得少而焦虑，是因为知道得乱。",
+            "author": "《卡片笔记写作法》",
+            "note": "信息只有进入结构，才会变成知识。",
+            "accent": "#FF5A36",
+            "foreground": "#F4EFE7"
+          }
+        },
+        {
+          "id": "访谈观点",
+          "values": {
+            "kicker": "访谈里的观点",
+            "quote": "简单的事重复做，重复的事系统做。",
+            "author": "某期播客嘉宾",
+            "note": "系统化的本质是让重复变得廉价。",
+            "accent": "#FF5A36",
+            "foreground": "#F4EFE7"
+          }
+        },
+        {
+          "id": "频道立场",
+          "values": {
+            "kicker": "本频道的立场",
+            "quote": "先做一个能用的版本，再谈做得好看。",
+            "author": "本频道观点",
+            "note": "完成度是迭代出来的，不是憋出来的。",
             "accent": "#FF5A36",
             "foreground": "#F4EFE7"
           }
@@ -3778,6 +5387,200 @@
       "独立全屏动效必须主动填满安全区；透明叠加才允许为人物和素材预留位置。",
       "装饰的视觉权重不能超过结论、数字、关系和必要解释。",
       "渲染前必须能说明原始口播、表达目的、必要信息和禁止添加的信息。"
+    ]
+  },
+  "styleCatalog": {
+    "version": "1.0",
+    "defaultStyleId": "classic-orange",
+    "source": "https://github.com/nutllwhy/ldd-video-edit",
+    "principles": [
+      "先选择信息模板，再选择整片画风。",
+      "同一项目默认继承一种风格，场景切换必须显式声明。",
+      "风格可以改变字体、材质、线条与运动，不得添加没有来源的信息。",
+      "透明导出只保留信息图形及其必要材质，不铺满不透明画布。"
+    ],
+    "styles": [
+      {
+        "id": "classic-orange",
+        "name": "黑橙经典",
+        "description": "深色底、粗体数字与利落强调线，延续原有动效。",
+        "tags": [
+          "数据",
+          "科技",
+          "通用"
+        ],
+        "tokens": {
+          "background": "#12100E",
+          "surface": "#211C18",
+          "foreground": "#F4EFE7",
+          "muted": "#B8ADA2",
+          "accent": "#FF5A36",
+          "line": "#57483E"
+        },
+        "typography": {
+          "heading": "sans-serif",
+          "body": "sans-serif",
+          "numeric": "sans-serif"
+        },
+        "material": {
+          "texture": "none",
+          "edge": "precise",
+          "shadow": "soft",
+          "radius": "template"
+        },
+        "motion": {
+          "entry": "原模板编排",
+          "emphasis": "弹性落定",
+          "exit": "快速离场",
+          "ease": "template"
+        },
+        "rules": {
+          "required": [
+            "保留原模板的信息层级"
+          ],
+          "forbidden": [
+            "额外加入英文编号",
+            "无来源的装饰数据"
+          ]
+        }
+      },
+      {
+        "id": "paper-editorial",
+        "name": "纸感编辑",
+        "description": "暖纸底、衬线标题、细墨线与剪贴纸签，适合深度解读。",
+        "tags": [
+          "解读",
+          "资料",
+          "人文"
+        ],
+        "tokens": {
+          "background": "#F1E7D6",
+          "surface": "#FFFAEE",
+          "foreground": "#30271F",
+          "muted": "#75634F",
+          "accent": "#B64325",
+          "line": "#A4947D"
+        },
+        "typography": {
+          "heading": "serif",
+          "body": "serif",
+          "numeric": "serif"
+        },
+        "material": {
+          "texture": "paper-grain",
+          "edge": "square",
+          "shadow": "offset-paper",
+          "radius": "0px"
+        },
+        "motion": {
+          "entry": "纸片平滑滑入",
+          "emphasis": "墨线展开",
+          "exit": "平滑收起",
+          "ease": "power2.out"
+        },
+        "rules": {
+          "required": [
+            "暖纸与墨色对比",
+            "清楚的编辑层级"
+          ],
+          "forbidden": [
+            "发光玻璃效果",
+            "弹簧式夸张弹跳"
+          ]
+        }
+      },
+      {
+        "id": "sketch-notes",
+        "name": "手绘笔记",
+        "description": "点阵纸、铅笔虚线、排线阴影与橙色批注，适合讲清步骤。",
+        "tags": [
+          "教学",
+          "流程",
+          "复盘"
+        ],
+        "tokens": {
+          "background": "#FFF7E6",
+          "surface": "#FFFCF3",
+          "foreground": "#382F29",
+          "muted": "#776658",
+          "accent": "#BB4C24",
+          "line": "#A1907B"
+        },
+        "typography": {
+          "heading": "sans-serif",
+          "body": "sans-serif",
+          "numeric": "serif"
+        },
+        "material": {
+          "texture": "dot-grid",
+          "edge": "pencil-dashed",
+          "shadow": "hatching",
+          "radius": "8px 2px 10px 3px"
+        },
+        "motion": {
+          "entry": "逐拍显现",
+          "emphasis": "笔迹分段展开",
+          "exit": "干净擦出",
+          "ease": "steps(12)"
+        },
+        "rules": {
+          "required": [
+            "可寻帧的笔触节奏",
+            "批注只强化已有信息"
+          ],
+          "forbidden": [
+            "随机抖动",
+            "依赖本机手写字体",
+            "装饰性假笔记"
+          ]
+        }
+      },
+      {
+        "id": "bold-geometry",
+        "name": "几何构成",
+        "description": "硬边色块、粗线切分与重字排版，适合观点和强对比。",
+        "tags": [
+          "观点",
+          "对比",
+          "快节奏"
+        ],
+        "tokens": {
+          "background": "#191715",
+          "surface": "#28221D",
+          "foreground": "#FFF4E6",
+          "muted": "#D1BBA7",
+          "accent": "#FF713D",
+          "line": "#9B7255"
+        },
+        "typography": {
+          "heading": "sans-serif",
+          "body": "sans-serif",
+          "numeric": "sans-serif"
+        },
+        "material": {
+          "texture": "none",
+          "edge": "hard-cut",
+          "shadow": "hard-offset",
+          "radius": "0px"
+        },
+        "motion": {
+          "entry": "快速切入",
+          "emphasis": "硬边冲击落定",
+          "exit": "加速切走",
+          "ease": "expo.out"
+        },
+        "rules": {
+          "required": [
+            "粗线与色块形成主次",
+            "一眼可读的结论"
+          ],
+          "forbidden": [
+            "柔光渐变",
+            "圆润玻璃卡片",
+            "额外的装饰数字"
+          ]
+        }
+      }
     ]
   }
 }

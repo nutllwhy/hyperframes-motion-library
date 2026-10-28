@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="zh-CN" data-composition-variables='[{"id":"title","type":"string","label":"图表标题","default":"月活跃用户增长趋势"},{"id":"subtitle","type":"string","label":"副标题","default":"2024.01 — 2024.12"},{"id":"labels","type":"string","label":"X轴标签（逗号分隔）","default":"1月,2月,3月,4月,5月,6月,7月,8月,9月,10月,11月,12月"},{"id":"values","type":"string","label":"Y轴数值（逗号分隔）","default":"120,145,180,210,260,340,420,480,510,580,640,720"},{"id":"accent","type":"color","label":"强调色","default":"#FF5A36"},{"id":"background","type":"color","label":"背景色","default":"#12100E"},{"id":"foreground","type":"color","label":"文字色","default":"#F4EFE7"},{"id":"exportMode","type":"enum","label":"导出模式","default":"transparent","hidden":true,"options":[{"value":"transparent","label":"透明背景"},{"value":"mp4","label":"剪映 MP4 深色底"}]},{"id":"styleId","type":"enum","label":"画面风格","default":"classic-orange","hidden":true,"options":[{"value":"classic-orange","label":"黑橙经典"},{"value":"paper-editorial","label":"纸感编辑"},{"value":"sketch-notes","label":"手绘笔记"},{"value":"bold-geometry","label":"几何构成"}]}]'>
+  <head>
+    <meta charset="UTF-8" /><meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * { box-sizing: border-box; }
+      html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: transparent; }
+      html[data-export-mode="mp4"] body, html[data-export-mode="mp4"] #root { background: var(--background, #12100e) !important; }
+      body { font-family: "IBM Plex Mono", monospace; }
+      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: transparent; color: var(--foreground, #f4efe7); }
+      .scene { position: absolute; inset: 0; width: 100%; height: 100%; padding: 96px 112px; overflow: hidden; }
+      html[data-export-mode="transparent"] .scene::before { content: ""; position: absolute; inset: 58px 72px; z-index: 0; border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent); border-radius: 34px; background: rgba(18,16,14,.86); }
+      .title-area { position: relative; z-index: 2; margin-bottom: 40px; }
+      .title { margin: 0 0 10px; font-size: 64px; font-weight: 700; line-height: 1.1; letter-spacing: -0.03em; }
+      .subtitle { margin: 0; font-size: 28px; font-weight: 400; color: #b8ada2; line-height: 1.4; }
+      .chart-area { position: relative; z-index: 1; width: 100%; height: 660px; }
+      .chart-svg { width: 100%; height: 100%; overflow: visible; }
+      .grid-line { stroke: #3a3029; stroke-width: 1; }
+      .grid-line-strong { stroke: #5a4840; stroke-width: 1.5; }
+      .axis-text { fill: #b8ada2; font-size: 18px; font-family: "IBM Plex Mono", monospace; font-weight: 500; text-anchor: middle; }
+      .axis-text-y { text-anchor: end; dominant-baseline: middle; }
+      .area-path { fill: var(--accent); opacity: 0.12; }
+      .line-path { fill: none; stroke: var(--accent); stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+      .data-point { fill: var(--point-fill, #12100e); stroke: var(--accent); stroke-width: 5; }
+      .baseline { stroke: #5a4840; stroke-width: 2; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="7" data-width="1920" data-height="1080">
+      <section id="scene" class="scene clip" data-start="0" data-duration="7" data-track-index="1">
+        <div class="title-area">
+          <h1 class="title" id="title"></h1>
+          <p class="subtitle" id="subtitle"></p>
+        </div>
+        <div class="chart-area">
+          <svg class="chart-svg" id="chart-svg" viewBox="0 0 1696 660" preserveAspectRatio="xMidYMid meet"></svg>
+        </div>
+      </section>
+    </div>
+
+<!-- motion-style:start -->
+<style data-motion-style-runtime>
+/* Geometry and content stay with the template; materials, ink and type belong to the pack. */
+html:not([data-motion-style="classic-orange"]) body { font-family: sans-serif; }
+html:not([data-motion-style="classic-orange"]) #root { color: var(--style-foreground); }
+html:not([data-motion-style="classic-orange"])[data-export-mode="mp4"] body,
+html:not([data-motion-style="classic-orange"])[data-export-mode="mp4"] #root { background: var(--style-background) !important; }
+html:not([data-motion-style="classic-orange"]) [data-style-role~="heading"] { font-family: sans-serif; color: var(--style-foreground); }
+html:not([data-motion-style="classic-orange"]) [data-style-role~="number"] { font-family: sans-serif; }
+html:not([data-motion-style="classic-orange"]) [data-style-role~="body"] { color: var(--style-muted); }
+html:not([data-motion-style="classic-orange"]) [data-style-role~="decorative"] { display: none; }
+html:not([data-motion-style="classic-orange"]) [data-style-role~="surface"] { backdrop-filter: none; border-color: var(--style-line); box-shadow: none; }
+html:not([data-motion-style="classic-orange"]) [data-style-role~="track"] { background: color-mix(in srgb,var(--style-foreground) 12%,transparent); }
+html:not([data-motion-style="classic-orange"]) .caption-wrap { border-color: var(--style-line); }
+html:not([data-motion-style="classic-orange"]) .fill { border-radius: 0; }
+html:not([data-motion-style="classic-orange"]) .ring-fill { filter: none; }
+html:not([data-motion-style="classic-orange"]) .unit { color: var(--style-accent); }
+html:not([data-motion-style="classic-orange"]) .backdrop { background: var(--style-background); }
+
+/* Paper: warm stock, typeset headlines, offset paper labels and hairline ink rules. */
+html[data-motion-style="paper-editorial"][data-export-mode="mp4"] #root {
+  background-image: repeating-linear-gradient(0deg,transparent 0 5px,#79634209 5px 6px),repeating-linear-gradient(90deg,transparent 0 7px,#79634205 7px 8px) !important;
+}
+html[data-motion-style="paper-editorial"] [data-style-role~="surface"] { background: var(--style-surface); border-radius: 0; box-shadow: 8px 9px 0 #30271F18; }
+html[data-motion-style="paper-editorial"] [data-style-role~="frame"][data-style-role~="surface"] { background: transparent; box-shadow: none; }
+html[data-motion-style="paper-editorial"][data-export-mode="transparent"] :is(.card,.panel,.marker,.cluster) { background: var(--style-surface); box-shadow: 8px 9px 0 #30271F20; }
+html[data-motion-style="paper-editorial"] [data-style-role~="heading"] { font-weight: 700; letter-spacing: -.045em; }
+html[data-motion-style="paper-editorial"] body,
+html[data-motion-style="paper-editorial"] [data-style-role~="heading"],
+html[data-motion-style="paper-editorial"] [data-style-role~="number"] { font-family: serif; }
+html[data-motion-style="paper-editorial"] [data-style-role~="badge"] { color: var(--style-accent); background: var(--style-surface); border-radius: 0; border-color: var(--style-line); box-shadow: 5px 5px 0 #30271F20; }
+html[data-motion-style="paper-editorial"] :is(.card,.panel,.counter-panel,.comparison-panel,.content)::before { height: 3px; background: var(--style-foreground); }
+html[data-motion-style="paper-editorial"] :is(.rail-fill,.scan,.bar,.rule,.footer-rule) { box-shadow: none; background: var(--style-accent); border-radius: 0; }
+html[data-motion-style="paper-editorial"] :is(.line,.line-path) { stroke-width: 5; }
+html[data-motion-style="paper-editorial"] :is(.tag,.index,.no,.verdict,.point) { color: var(--style-surface); background: var(--style-accent); }
+html[data-motion-style="paper-editorial"] .step { border-bottom: 3px solid var(--style-line); }
+html[data-motion-style="paper-editorial"] .chart { border-color: var(--style-line); }
+html[data-motion-style="paper-editorial"][data-export-mode="transparent"] .scene::before { background: var(--style-surface); border-color: var(--style-line); border-radius: 0; }
+
+/* Notebook: dot stock, pencil edges and hatched shadows. No random jitter or fake labels. */
+html[data-motion-style="sketch-notes"][data-export-mode="mp4"] #root { background-image: radial-gradient(#77665838 1.4px,transparent 1.4px) !important; background-size: 26px 26px !important; }
+html[data-motion-style="sketch-notes"] [data-style-role~="surface"] { background: var(--style-surface); border: 3px dashed var(--style-line); border-radius: 8px 2px 10px 3px; box-shadow: 6px 7px 0 var(--style-background),9px 10px 0 var(--style-line); }
+html[data-motion-style="sketch-notes"] [data-style-role~="frame"][data-style-role~="surface"] { border: 0; box-shadow: none; background: transparent; }
+html[data-motion-style="sketch-notes"][data-export-mode="transparent"] :is(.card,.panel,.marker,.cluster) { background: var(--style-surface); border: 3px dashed var(--style-line); box-shadow: 6px 7px 0 var(--style-surface),9px 10px 0 var(--style-line); }
+html[data-motion-style="sketch-notes"] [data-style-role~="heading"] { font-weight: 800; letter-spacing: -.035em; }
+html[data-motion-style="sketch-notes"] [data-style-role~="number"] { font-family: serif; }
+html[data-motion-style="sketch-notes"] [data-style-role~="badge"] { color: var(--style-accent); background: var(--style-surface); border: 2px dashed var(--style-accent); border-radius: 5px 2px 6px 3px; box-shadow: none; }
+html[data-motion-style="sketch-notes"] :is(.card,.panel,.counter-panel,.comparison-panel,.content)::before { height: 6px; background: repeating-linear-gradient(110deg,var(--style-accent) 0 4px,transparent 4px 7px); }
+html[data-motion-style="sketch-notes"] :is(.rail-fill,.scan,.bar,.rule,.footer-rule) { box-shadow: none; background: var(--style-accent); border-radius: 2px; }
+html[data-motion-style="sketch-notes"] .fill { background: repeating-linear-gradient(115deg,transparent 0 8px,var(--style-accent) 8px 12px); border: 3px solid var(--style-accent); }
+html[data-motion-style="sketch-notes"] :is(.line,.line-path) { stroke-width: 7; stroke-linejoin: bevel; }
+html[data-motion-style="sketch-notes"] .ring-track { stroke: var(--style-line); stroke-dasharray: 3 9; }
+html[data-motion-style="sketch-notes"] .chart { border-color: var(--style-line); border-style: dashed; }
+html[data-motion-style="sketch-notes"] .step { padding-left: 22px; padding-right: 22px; }
+html[data-motion-style="sketch-notes"][data-export-mode="transparent"] .scene::before { background: var(--style-surface); border: 3px dashed var(--style-line); border-radius: 8px 2px 10px 3px; }
+
+/* Geometric: sharp cuts, visible thick rules, flat blocks, no glass or glow. */
+html[data-motion-style="bold-geometry"] [data-style-role~="heading"] { font-weight: 950; letter-spacing: -.06em; }
+html[data-motion-style="bold-geometry"] [data-style-role~="surface"] { background: var(--style-surface); border-radius: 0; border: 3px solid var(--style-accent); box-shadow: 10px 10px 0 #00000055; }
+html[data-motion-style="bold-geometry"] [data-style-role~="frame"][data-style-role~="surface"] { background: transparent; border: 0; box-shadow: none; }
+html[data-motion-style="bold-geometry"][data-export-mode="transparent"] :is(.card,.panel,.marker,.cluster) { background: var(--style-surface); border: 3px solid var(--style-accent); }
+html[data-motion-style="bold-geometry"] [data-style-role~="badge"] { color: #191715; background: var(--style-accent); border-radius: 0; border-color: var(--style-accent); font-weight: 900; }
+html[data-motion-style="bold-geometry"] :is(.card,.panel,.counter-panel,.comparison-panel,.content)::before { height: 14px; background: var(--style-accent); }
+html[data-motion-style="bold-geometry"] :is(.rail-fill,.scan,.bar,.rule,.footer-rule) { box-shadow: none; background: var(--style-accent); border-radius: 0; }
+html[data-motion-style="bold-geometry"] :is(.line,.line-path) { stroke-width: 15; stroke-linecap: square; stroke-linejoin: miter; }
+html[data-motion-style="bold-geometry"] .item { border-bottom: 4px solid var(--style-line); }
+html[data-motion-style="bold-geometry"] .step { padding-left: 22px; padding-right: 22px; border-bottom: 8px solid var(--style-accent); }
+html[data-motion-style="bold-geometry"][data-export-mode="transparent"] .scene::before { background: var(--style-surface); border: 3px solid var(--style-accent); border-radius: 0; }
+
+/* Filled callouts have their own ink contrast, rather than inheriting muted body text. */
+html:not([data-motion-style="classic-orange"]) [data-style-role~="accent-fill"] { background: var(--style-accent); color: var(--style-on-accent); border-color: var(--style-accent); }
+</style>
+<script data-motion-style-runtime>window.__motionStyleCatalog={"version":"1.0","defaultStyleId":"classic-orange","source":"https://github.com/nutllwhy/ldd-video-edit","principles":["先选择信息模板，再选择整片画风。","同一项目默认继承一种风格，场景切换必须显式声明。","风格可以改变字体、材质、线条与运动，不得添加没有来源的信息。","透明导出只保留信息图形及其必要材质，不铺满不透明画布。"],"styles":[{"id":"classic-orange","name":"黑橙经典","description":"深色底、粗体数字与利落强调线，延续原有动效。","tags":["数据","科技","通用"],"tokens":{"background":"#12100E","surface":"#211C18","foreground":"#F4EFE7","muted":"#B8ADA2","accent":"#FF5A36","line":"#57483E"},"typography":{"heading":"sans-serif","body":"sans-serif","numeric":"sans-serif"},"material":{"texture":"none","edge":"precise","shadow":"soft","radius":"template"},"motion":{"entry":"原模板编排","emphasis":"弹性落定","exit":"快速离场","ease":"template"},"rules":{"required":["保留原模板的信息层级"],"forbidden":["额外加入英文编号","无来源的装饰数据"]}},{"id":"paper-editorial","name":"纸感编辑","description":"暖纸底、衬线标题、细墨线与剪贴纸签，适合深度解读。","tags":["解读","资料","人文"],"tokens":{"background":"#F1E7D6","surface":"#FFFAEE","foreground":"#30271F","muted":"#75634F","accent":"#B64325","line":"#A4947D"},"typography":{"heading":"serif","body":"serif","numeric":"serif"},"material":{"texture":"paper-grain","edge":"square","shadow":"offset-paper","radius":"0px"},"motion":{"entry":"纸片平滑滑入","emphasis":"墨线展开","exit":"平滑收起","ease":"power2.out"},"rules":{"required":["暖纸与墨色对比","清楚的编辑层级"],"forbidden":["发光玻璃效果","弹簧式夸张弹跳"]}},{"id":"sketch-notes","name":"手绘笔记","description":"点阵纸、铅笔虚线、排线阴影与橙色批注，适合讲清步骤。","tags":["教学","流程","复盘"],"tokens":{"background":"#FFF7E6","surface":"#FFFCF3","foreground":"#382F29","muted":"#776658","accent":"#BB4C24","line":"#A1907B"},"typography":{"heading":"sans-serif","body":"sans-serif","numeric":"serif"},"material":{"texture":"dot-grid","edge":"pencil-dashed","shadow":"hatching","radius":"8px 2px 10px 3px"},"motion":{"entry":"逐拍显现","emphasis":"笔迹分段展开","exit":"干净擦出","ease":"steps(12)"},"rules":{"required":["可寻帧的笔触节奏","批注只强化已有信息"],"forbidden":["随机抖动","依赖本机手写字体","装饰性假笔记"]}},{"id":"bold-geometry","name":"几何构成","description":"硬边色块、粗线切分与重字排版，适合观点和强对比。","tags":["观点","对比","快节奏"],"tokens":{"background":"#191715","surface":"#28221D","foreground":"#FFF4E6","muted":"#D1BBA7","accent":"#FF713D","line":"#9B7255"},"typography":{"heading":"sans-serif","body":"sans-serif","numeric":"sans-serif"},"material":{"texture":"none","edge":"hard-cut","shadow":"hard-offset","radius":"0px"},"motion":{"entry":"快速切入","emphasis":"硬边冲击落定","exit":"加速切走","ease":"expo.out"},"rules":{"required":["粗线与色块形成主次","一眼可读的结论"],"forbidden":["柔光渐变","圆润玻璃卡片","额外的装饰数字"]}}]};
+/* Authored for this project. Embedded into each standalone composition by sync-styles.mjs. */
+(function () {
+  "use strict";
+  const catalog = window.__motionStyleCatalog;
+  const schema = JSON.parse(document.documentElement.getAttribute("data-composition-variables") || "[]");
+  const defaults = Object.fromEntries(schema.map((field) => [field.id, field.default]));
+  const originalGetVariables = window.__hyperframes?.getVariables?.bind(window.__hyperframes);
+  const query = new URLSearchParams(window.location.search);
+  const preview = query.get("motionPreview") === "1";
+  let supplied = originalGetVariables ? originalGetVariables() : {};
+  if (preview) {
+    try { supplied = JSON.parse(query.get("variables") || "{}"); }
+    catch { throw new Error("风格预览参数不是有效 JSON"); }
+  }
+  const styleId = supplied.styleId || catalog.defaultStyleId;
+  const pack = catalog.styles.find((style) => style.id === styleId);
+  if (!pack) throw new Error(`未知画面风格：${styleId}`);
+  const values = { ...defaults, ...supplied, styleId };
+  if (styleId !== catalog.defaultStyleId) {
+    for (const field of schema.filter((item) => item.type === "color")) {
+      const token = field.id === "bg" ? "background" : field.id;
+      if (pack.tokens[token] && (!supplied[field.id] || supplied[field.id].toUpperCase() === String(field.default).toUpperCase())) values[field.id] = pack.tokens[token];
+    }
+    if (typeof defaults.colors === "string" && (!supplied.colors || supplied.colors === defaults.colors)) {
+      values.colors = defaults.colors.split(",").map((color) => color.trim().toUpperCase() === String(defaults.accent).toUpperCase() ? values.accent : pack.tokens.line).join(",");
+    }
+  }
+  window.__hyperframes = window.__hyperframes || {};
+  window.__hyperframes.getVariables = () => ({ ...values });
+  document.documentElement.dataset.motionStyle = styleId;
+  document.documentElement.dataset.exportMode = values.exportMode || "transparent";
+  for (const [key, value] of Object.entries(pack.tokens)) document.documentElement.style.setProperty(`--style-${key}`, value);
+  const colors = { foreground: values.foreground || pack.tokens.foreground, background: values.background || values.bg || pack.tokens.background, accent: values.accent || pack.tokens.accent };
+  for (const [key, value] of Object.entries(colors)) {
+    document.documentElement.style.setProperty(`--style-${key}`, value);
+    document.documentElement.style.setProperty(`--${key}`, value);
+  }
+  document.documentElement.style.setProperty("--fg", colors.foreground);
+  document.documentElement.style.setProperty("--style-on-accent", styleId === "bold-geometry" ? "#191715" : "#FFFCF3");
+  document.documentElement.style.setProperty("--style-heading-font", pack.typography.heading);
+  document.documentElement.style.setProperty("--style-body-font", pack.typography.body);
+  document.documentElement.style.setProperty("--style-number-font", pack.typography.numeric);
+
+  const roles = {
+    heading: ".title,.headline,.prefix,.term,.keyword,.step-title,.option-title,.fact-text,.myth-text,.claim,.quote",
+    number: ".value,.score,.stat-value,.no,.no-text",
+    body: ".caption,.note,.desc,.definition,.subtitle,.option-detail,.meaning,.source,.byline,.author,.name,.tag,.connector-word,.point,.tick-label,.bar-label,.y-label,.x-label",
+    badge: ".eyebrow,.kicker,.meta,.label,.tag,.index,.no,.desc-tag,.verdict,.conclusion,.takeaway",
+    surface: ".box,.option,.step,.myth-card,.fact-card,.quote-panel,.card,.panel,.marker,.cluster,.list .item",
+    frame: ".card,.panel,.comparison-panel,.counter-panel,.content,.statement,.compare,.loop,.layout,.stack,.cluster",
+    line: ".rule,.rail,.rail-fill,.divider,.return-path,.line,.line-path,.footer-rule,.scan,.bar",
+    track: ".track,.ring-track,.meter",
+    decorative: ".glow,.halo,.sheen,.burst"
+  };
+  function markRoles() {
+    for (const [role, selector] of Object.entries(roles)) {
+      document.querySelectorAll(selector).forEach((node) => {
+        const current = new Set((node.dataset.styleRole || "").split(" ").filter(Boolean));
+        current.add(role);
+        node.dataset.styleRole = [...current].join(" ");
+      });
+    }
+    // In these templates .label is the actual title, rather than a small label chip.
+    if (document.querySelector(".comparison-panel,.hero .label")) {
+      document.querySelectorAll(".comparison-panel > .label,.hero .label").forEach((node) => { node.dataset.styleRole = "heading"; });
+    }
+    document.querySelectorAll(".point,.option-detail").forEach((node) => { node.dataset.styleRole = "accent-fill"; });
+    if (document.querySelector(".meter")) document.querySelectorAll(".caption").forEach((node) => { node.dataset.styleRole = "badge accent-fill"; });
+    // Chart text is generated by its template script and must follow the same ink palette.
+    if (styleId !== catalog.defaultStyleId) {
+      document.querySelectorAll("svg text").forEach((node) => {
+        node.style.fill = node.classList.contains("bar-value") ? colors.foreground : pack.tokens.muted;
+        node.style.fontFamily = pack.typography.body;
+      });
+      document.querySelectorAll(".grid-line-elem,.baseline").forEach((node) => { node.style.stroke = pack.tokens.line; });
+      document.querySelectorAll(".bar-rect").forEach((node) => {
+        node.setAttribute("rx", "0");
+        if (styleId === "sketch-notes") {
+          node.style.stroke = colors.accent;
+          node.style.strokeWidth = "3";
+          node.style.strokeDasharray = "8 3";
+          node.style.fillOpacity = ".65";
+        }
+      });
+    }
+  }
+  markRoles();
+  window.MotionStyles = {
+    id: styleId,
+    values,
+    ease(original) {
+      if (styleId === catalog.defaultStyleId || original === "none" || original === "linear") return original;
+      if (styleId === "sketch-notes") return "steps(12)";
+      if (original.includes("inOut")) return styleId === "paper-editorial" ? "power2.inOut" : "expo.inOut";
+      if (original.endsWith(".in")) return styleId === "paper-editorial" ? "power2.in" : "expo.in";
+      return pack.motion.ease;
+    },
+    finish(timeline) {
+      markRoles();
+      if (preview) {
+        const play = () => { if (timeline) timeline.repeat(100).play(0); };
+        if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", play, { once: true });
+        else play();
+      }
+    }
+  };
+})();
+</script>
+<!-- motion-style:end -->
+<script>
+      const fallback = { title: "月活跃用户增长趋势", subtitle: "2024.01 — 2024.12", labels: "1月,2月,3月,4月,5月,6月,7月,8月,9月,10月,11月,12月", values: "120,145,180,210,260,340,420,480,510,580,640,720", accent: "#FF5A36", background: "#12100E", foreground: "#F4EFE7", exportMode: "transparent" };
+      const v = window.__hyperframes?.getVariables ? window.__hyperframes.getVariables() : fallback;
+      document.documentElement.dataset.exportMode = v.exportMode || "transparent";
+      document.documentElement.style.setProperty("--accent", v.accent);
+      document.documentElement.style.setProperty("--background", v.background);
+      document.documentElement.style.setProperty("--foreground", v.foreground);
+      document.documentElement.style.setProperty("--point-fill", v.exportMode === "mp4" ? v.background : "rgba(18,16,14,.92)");
+      for (const [id, value] of [["title", v.title], ["subtitle", v.subtitle]]) document.getElementById(id).textContent = value;
+
+      const labels = v.labels.split(",");
+      const values = v.values.split(",").map(Number);
+      const points = labels.map((label, i) => ({ x: label, y: values[i] || 0 }));
+
+      const svg = document.getElementById("chart-svg");
+      const chartW = 1696, chartH = 660, marginLeft = 90, marginRight = 50, marginTop = 50, marginBottom = 60;
+      const plotW = chartW - marginLeft - marginRight, plotH = chartH - marginTop - marginBottom;
+      const baselineY = marginTop + plotH;
+      const maxValue = Math.max(...points.map(p => p.y)) * 1.15;
+      const pointCount = points.length, stepX = plotW / (pointCount - 1);
+
+      function getX(i) { return marginLeft + i * stepX; }
+      function getY(v) { return baselineY - (v / maxValue) * plotH; }
+
+      const gridCount = 5;
+      for (let i = 0; i <= gridCount; i++) {
+        const val = (maxValue / gridCount) * i, y = baselineY - (val / maxValue) * plotH;
+        const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+        line.setAttribute("x1", marginLeft); line.setAttribute("x2", marginLeft + plotW); line.setAttribute("y1", y); line.setAttribute("y2", y);
+        line.setAttribute("class", i === gridCount ? "grid-line-strong" : "grid-line"); line.setAttribute("opacity", "0"); line.classList.add("grid-line-elem"); svg.appendChild(line);
+        const label = document.createElementNS("http://www.w3.org/2000/svg", "text"); label.setAttribute("x", marginLeft - 16); label.setAttribute("y", y); label.setAttribute("class", "axis-text axis-text-y"); label.textContent = Math.round(val); label.setAttribute("opacity", "0"); label.classList.add("y-label"); svg.appendChild(label);
+      }
+
+      points.forEach((p, i) => {
+        const label = document.createElementNS("http://www.w3.org/2000/svg", "text"); label.setAttribute("x", getX(i)); label.setAttribute("y", baselineY + 32); label.setAttribute("class", "axis-text"); label.textContent = p.x; label.setAttribute("opacity", "0"); label.classList.add("x-label"); svg.appendChild(label);
+      });
+
+      const baseLine = document.createElementNS("http://www.w3.org/2000/svg", "line");
+      baseLine.setAttribute("x1", marginLeft); baseLine.setAttribute("x2", marginLeft + plotW); baseLine.setAttribute("y1", baselineY); baseLine.setAttribute("y2", baselineY); baseLine.setAttribute("class", "baseline"); baseLine.setAttribute("opacity", "0"); svg.appendChild(baseLine);
+
+      const px = points.map((_, i) => getX(i));
+      const py = points.map(p => getY(p.y));
+      let lineD = "M " + px[0] + " " + py[0];
+      for (let i = 0; i < pointCount - 1; i++) {
+        const cp1x = px[i] + (px[i+1] - px[i]) * 0.5, cp1y = py[i], cp2x = px[i] + (px[i+1] - px[i]) * 0.5, cp2y = py[i+1];
+        lineD += " C " + cp1x + " " + cp1y + ", " + cp2x + " " + cp2y + ", " + px[i+1] + " " + py[i+1];
+      }
+      const areaD = lineD + " L " + px[pointCount-1] + " " + baselineY + " L " + px[0] + " " + baselineY + " Z";
+
+      const areaPath = document.createElementNS("http://www.w3.org/2000/svg", "path"); areaPath.setAttribute("d", areaD); areaPath.setAttribute("class", "area-path"); areaPath.setAttribute("opacity", "0"); svg.appendChild(areaPath);
+      const linePath = document.createElementNS("http://www.w3.org/2000/svg", "path"); linePath.setAttribute("d", lineD); linePath.setAttribute("class", "line-path"); svg.appendChild(linePath);
+      const pathLength = linePath.getTotalLength ? linePath.getTotalLength() : 2000;
+      linePath.style.strokeDasharray = pathLength; linePath.style.strokeDashoffset = pathLength;
+
+      const dots = [];
+      points.forEach((p, i) => {
+        const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle"); circle.setAttribute("cx", px[i]); circle.setAttribute("cy", py[i]); circle.setAttribute("r", 0); circle.setAttribute("class", "data-point"); circle.setAttribute("opacity", "0"); svg.appendChild(circle); dots.push(circle);
+      });
+
+      const lastPoint = points[pointCount - 1];
+      const endLabel = document.createElementNS("http://www.w3.org/2000/svg", "text"); endLabel.setAttribute("x", px[pointCount - 1] + 16); endLabel.setAttribute("y", py[pointCount - 1] - 12); endLabel.setAttribute("class", "axis-text"); endLabel.setAttribute("fill", v.accent); endLabel.setAttribute("font-size", "24"); endLabel.setAttribute("font-weight", "700"); endLabel.setAttribute("text-anchor", "start"); endLabel.textContent = lastPoint.y; endLabel.setAttribute("opacity", "0"); svg.appendChild(endLabel);
+
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo(".title", { opacity: 0, y: 36 }, { opacity: 1, y: 0, duration: 0.7, ease: MotionStyles.ease("power3.out") }, 0.1);
+      tl.fromTo(".subtitle", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: MotionStyles.ease("power3.out") }, 0.3);
+      tl.fromTo(".grid-line-elem", { opacity: 0 }, { opacity: 1, duration: 0.5, stagger: 0.04, ease: MotionStyles.ease("sine.out") }, 0.4);
+      tl.fromTo(".y-label", { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: 0.35, stagger: 0.04, ease: MotionStyles.ease("power2.out") }, 0.5);
+      tl.fromTo(".baseline", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: MotionStyles.ease("sine.out") }, 0.5);
+      tl.fromTo(".x-label", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.35, stagger: 0.03, ease: MotionStyles.ease("power2.out") }, 0.8);
+      tl.to(linePath, { strokeDashoffset: 0, duration: 2.2, ease: MotionStyles.ease("power2.inOut") }, 0.8);
+      tl.fromTo(areaPath, { opacity: 0 }, { opacity: 0.12, duration: 1.2, ease: MotionStyles.ease("sine.out") }, 1.2);
+      dots.forEach((dot, i) => { const appearTime = 0.8 + (i / (pointCount - 1)) * 2.0; tl.to(dot, { attr: { r: 8 }, opacity: 1, duration: 0.35, ease: MotionStyles.ease("back.out(2)") }, appearTime); });
+      tl.fromTo(endLabel, { opacity: 0, x: 8 }, { opacity: 1, x: 0, duration: 0.5, ease: MotionStyles.ease("back.out(1.5)") }, 2.8);
+      tl.to(".scene", { opacity: 0, scale: 1.01, duration: 0.5, ease: MotionStyles.ease("power2.in") }, 6.3);
+      window.__timelines.main = tl; MotionStyles.finish(tl);
+    </script>
+  </body>
+</html>

@@ -3,6 +3,7 @@ const state = {
   selected: null,
   values: {},
   format: "mp4",
+  orientation: "landscape",
   output: null,
   previewOutput: null,
   view: "library",
@@ -10,8 +11,12 @@ const state = {
   category: "全部",
   plan: null,
   activeSceneId: null,
-  batchRunning: false
+  batchRunning: false,
+  libraryStyleId: "classic-orange"
 };
+let previewResizeObserver = null;
+let previewRefreshTimer = null;
+let previewRevision = 0;
 const list = document.querySelector("#template-list");
 const workspace = document.querySelector("#workspace");
 const cardTemplate = document.querySelector("#template-card");
@@ -25,7 +30,7 @@ const GITHUB_REPO = "https://github.com/nutllwhy/hyperframes-motion-library";
 const FORMAT_META = {
   mp4: {
     label: "纯色底 MP4（剪映直接使用）",
-    note: "保留模板的黑色背景与橙色设计，兼容性最好。"
+    note: "保留所选风格的纯色背景，兼容剪映等常用剪辑软件。"
   },
   mov: {
     label: "透明 MOV（推荐剪映，文件较大）",
@@ -50,25 +55,35 @@ https://github.com/nutllwhy/hyperframes-motion-library
 6. 先不要修改源码，也不要删除任何模板；如果遇到 Node、npm、Chrome、FFmpeg 或端口占用问题，请先告诉我原因和解决建议。
 
 我希望先体验模板库，之后再让你基于这个项目继续帮我添加新的视频动效模板。`;
-const AGENT_PLAN_PROMPT = `请先阅读这个项目的 catalog.json、director-rules.json、motion-plan.schema.json 和 examples/motion-plan.example.json。
+const AGENT_PLAN_PROMPT = `请先阅读这个项目的 catalog.json、styles/catalog.json、director-rules.json、motion-plan.schema.json 和 examples/motion-plan.example.json。
 
 下面我会提供一段视频口播稿。请帮我找出适合补充数据动效或知识讲解动效的位置，并生成一份可以直接导入视频动效系统的 motion-plan.json。
 
 要求：
 1. 只使用 catalog.json 中已经存在且 status 为 ready 的模板 ID。
-2. 输出 version 为 1.1；每个场景填写准确的 timecode、templateId、variables、format 和 director。
+2. 输出 version 为 1.2；在项目顶层指定 styleId，每个场景填写准确的 timecode、templateId、variables、format 和 director。
 3. director 必须包含 sourceQuote、intent、layoutMode、requiredInformation、forbiddenInformation。
 4. sourceQuote 必须引用对应的原始口播；requiredInformation 只写这条动效必须出现的信息。
 5. 不得添加口播与数据源中没有出现的数字、时间、状态、英文标签或模板编号。
 6. layoutMode 必须符合对应模板的 director.allowedModes；独立全屏使用 fullscreen，透明叠加使用 overlay，数据图表使用 data，章节转折使用 transition。
 7. fullscreen 主体必须铺满安全区，不为人物或其他素材预留半屏；只有 overlay 才能主动避让人物与字幕。
 8. variables 必须符合对应模板在 catalog 或 index.html 中声明的变量类型。
-9. 默认使用黑色背景 + 橙色强调；overlay 优先使用 mov，普通独立画面可使用 mp4 或 mov。
+9. 从 styles/catalog.json 选择整片统一风格：classic-orange 黑橙经典、paper-editorial 纸感编辑、sketch-notes 手绘笔记、bold-geometry 几何构成。默认 classic-orange。场景继承整片 styleId；确实需要转变画风时才单独声明场景 styleId，并说明原因。overlay 优先使用 mov。
 10. 不要为了使用动效而使用动效，只选择真正能帮助观众理解信息的句子。
 11. 最终只输出符合 motion-plan.schema.json 的 JSON，不要添加 Markdown 代码围栏。
 
 口播稿：
 【把带时间码的口播稿粘贴在这里】`;
+const AGENT_STYLE_PROMPT = `请先阅读 styles/README.md、styles/catalog.json、styles/runtime.css、styles/runtime.js 和 SYSTEM.md。
+我要为这套视频动效系统新增一种可反复调用的 MG 画风：
+【在这里描述画风，或提供参考图】
+
+1. 给画风分配稳定的 styleId，登记色板、字体、材质、线条、图形边缘、运动节奏、适用场景与禁用项。
+2. 在统一运行时里实现，保持现有文案、数字与模板 ID；不要仅替换颜色，也不要添加没有来源的装饰文字或假数据。
+3. 让整片 motion-plan V1.2 通过顶层 styleId 统一调用，场景默认继承。
+4. 运行 npm run sync:styles，再运行 npm run check 和 npm run check:styles -- --screenshots。
+5. 至少用大数字、图表、流程三类模板对照样张，检查横竖屏与透明背景。
+6. 不要改动已有预设，也不要直接编辑模板中的生成代码。`;
 
 async function api(url, options) {
   const response = await fetch(url, options);
@@ -100,20 +115,75 @@ function fileExtension(value) {
 }
 
 function downloadName(template) {
-  return `${template.id}-${state.staticDemo ? "sample" : "render"}.${fileExtension(state.output)}`;
+  const orientationPrefix = state.orientation === "portrait" ? "-portrait" : "";
+  return `${template.id}${orientationPrefix}-${state.staticDemo ? "sample" : "render"}.${fileExtension(state.output)}`;
+}
+
+function hasPortrait(template) {
+  return Array.isArray(template.orientations) && template.orientations.includes("portrait");
+}
+
+function variantDuration(template, orientation) {
+  if (orientation === "portrait" && template.variants?.portrait?.duration) return template.variants.portrait.duration;
+  return template.duration;
+}
+
+function variantPreview(template, orientation) {
+  if (orientation === "portrait" && template.variants?.portrait?.preview) return template.variants.portrait.preview;
+  return template.preview;
 }
 
 function previewMarkup(template) {
   if (!state.previewOutput) {
-    return `
-      <div class="preview-placeholder">
-        <strong>修改参数，生成第一条草稿</strong>
-        ${state.staticDemo ? "GitHub Pages 演示页只能查看样片；克隆到本地后可以修改参数并渲染新视频。" : "系统会调用 HyperFrames，把当前文案与数据渲染成可播放的视频。"}
-      </div>`;
+    const portrait = state.orientation === "portrait";
+    const width = portrait ? 1080 : 1920;
+    const height = portrait ? 1920 : 1080;
+    const variant = portrait ? template.variants?.portrait?.path || "portrait" : "";
+    const values = { ...state.values, exportMode: state.format === "mp4" ? "mp4" : "transparent" };
+    const url = `${assetUrl(template.path)}/${variant ? `${variant}/` : ""}index.html?motionPreview=1&variables=${encodeURIComponent(JSON.stringify(values))}`;
+    return `<div class="live-preview ${state.format === "mp4" ? "solid" : "transparent"}"><iframe title="${escapeAttribute(template.name)} · ${escapeAttribute(styleById(values.styleId).name)}实时预览" src="${escapeAttribute(url)}" data-preview-width="${width}" data-preview-height="${height}" style="width:${width}px;height:${height}px" scrolling="no"></iframe></div>`;
   }
   const extension = fileExtension(state.previewOutput);
   const transparent = extension === "webm" || extension === "mov";
   return `<div class="preview-media ${transparent ? "transparent" : "solid"}"><video src="${assetUrl(state.previewOutput)}" controls controlsList="nodownload" autoplay loop></video></div>`;
+}
+
+function disconnectPreview() {
+  previewResizeObserver?.disconnect();
+  previewResizeObserver = null;
+  clearTimeout(previewRefreshTimer);
+}
+
+function mountLivePreview() {
+  previewResizeObserver?.disconnect();
+  const frame = workspace.querySelector(".live-preview iframe");
+  if (!frame) return;
+  const container = frame.parentElement;
+  const fit = () => {
+    const scale = Math.min(container.clientWidth / Number(frame.dataset.previewWidth), container.clientHeight / Number(frame.dataset.previewHeight));
+    frame.style.transform = `scale(${scale})`;
+  };
+  previewResizeObserver = new ResizeObserver(fit);
+  previewResizeObserver.observe(container);
+  fit();
+}
+
+function refreshPreview() {
+  const preview = workspace.querySelector("#preview");
+  if (!preview || !state.selected) return;
+  preview.innerHTML = previewMarkup(state.selected);
+  workspace.querySelector("#preview-download").innerHTML = previewDownloadMarkup(state.selected);
+  mountLivePreview();
+}
+
+function invalidateOutput({ deferred = false } = {}) {
+  previewRevision += 1;
+  state.output = null;
+  state.previewOutput = null;
+  workspace.querySelector("#preview-download")?.replaceChildren();
+  clearTimeout(previewRefreshTimer);
+  if (deferred) previewRefreshTimer = setTimeout(refreshPreview, 240);
+  else refreshPreview();
 }
 
 function previewDownloadMarkup(template) {
@@ -130,12 +200,55 @@ function previewDownloadMarkup(template) {
   return `
     <div class="preview-download-row">
       <a class="button preview-download" href="${assetUrl(state.output)}" download="${downloadName(template)}">${state.staticDemo ? "下载当前样片" : "下载当前视频"}</a>
-      <span>${hint}</span>
+      <span>${hint}${state.orientation === "portrait" ? " 当前为竖屏 9:16 画幅。" : ""}</span>
     </div>`;
 }
 
 function defaults(template) {
   return Object.fromEntries(template.schema.map((item) => [item.id, item.default]));
+}
+
+function availableStyles() {
+  return state.catalog?.styleCatalog?.styles || [{ id: "classic-orange", name: "黑橙经典", description: "黑色底、橙色强调，沿用原有动效设计。", tokens: { background: "#12100E", foreground: "#F4EFE7", accent: "#FF5A36" } }];
+}
+
+function styleById(id) {
+  return availableStyles().find((style) => style.id === id) || availableStyles()[0];
+}
+
+function requireStyleId(id) {
+  if (!availableStyles().some((style) => style.id === id)) throw new Error(`未知的动效风格：${id}`);
+  return id;
+}
+
+function applyStyleValues(template, values, styleId) {
+  const style = styleById(requireStyleId(styleId));
+  const next = { ...values, styleId: style.id };
+  const tokens = style.tokens;
+  for (const key of ["accent", "foreground", "background", "bg"]) {
+    const token = key === "bg" ? tokens.background : tokens[key];
+    if (token && template.schema.some((entry) => entry.id === key)) next[key] = token;
+  }
+  return next;
+}
+
+function effectiveSceneStyle(scene) {
+  return scene.styleId || state.plan?.styleId || "classic-orange";
+}
+
+function styleChooserMarkup(styleId, scope = "template") {
+  return `<section class="style-chooser ${scope === "project" ? "project-style-chooser" : ""}" aria-label="${scope === "project" ? "整片风格" : "动效风格"}">
+    <div class="style-chooser-heading"><h2>${scope === "project" ? "整片统一风格" : "动效风格"}</h2><span>${scope === "project" ? "所有跟随整片的任务会同步切换" : "字体 · 材质 · 图形 · 运动"}</span></div>
+    <div class="style-options" role="group" aria-label="选择风格">${availableStyles().map((style) => `<button type="button" class="style-option ${style.id === styleId ? "active" : ""}" data-style-id="${escapeAttribute(style.id)}" data-style-scope="${scope}" aria-pressed="${style.id === styleId}" ${state.batchRunning ? "disabled" : ""}>
+      <span class="style-swatch ${escapeAttribute(style.id)}" style="--swatch-bg:${escapeAttribute(style.tokens.background)};--swatch-fg:${escapeAttribute(style.tokens.foreground)};--swatch-accent:${escapeAttribute(style.tokens.accent)}" aria-hidden="true"><span>Aa</span><i></i><b></b></span>
+      <strong>${escapeHtml(style.name)}</strong><small>${escapeHtml(style.description)}</small>
+    </button>`).join("")}</div>
+  </section>`;
+}
+
+function sceneStyleMarkup(scene) {
+  if (!scene) return "";
+  return `<section class="scene-style-field"><label for="scene-style">这条动效的风格</label><select id="scene-style"><option value="" ${!scene.styleId ? "selected" : ""}>跟随整片 · ${escapeHtml(styleById(state.plan.styleId).name)}</option>${availableStyles().map((style) => `<option value="${escapeAttribute(style.id)}" ${scene.styleId === style.id ? "selected" : ""}>单独使用 · ${escapeHtml(style.name)}</option>`).join("")}</select><p class="field-note">默认跟随整片。只有内容确实需要切换画风时，才单独指定。</p></section>`;
 }
 
 function escapeHtml(value) {
@@ -169,7 +282,7 @@ function normalizeTextList(value) {
 
 function meaningfulVariableValues(template, variables) {
   return template.schema
-    .filter((item) => !item.hidden && !["color", "boolean"].includes(item.type) && !["accent", "foreground", "exportMode"].includes(item.id))
+    .filter((item) => !item.hidden && !["color", "boolean"].includes(item.type) && !["accent", "foreground", "exportMode", "styleId"].includes(item.id))
     .map((item) => String(variables[item.id] ?? "").trim())
     .filter(Boolean);
 }
@@ -232,11 +345,13 @@ function validateSceneVariables(template, values, index) {
 }
 
 function normalizeMotionPlan(raw) {
-  if (!raw || !["1.0", "1.1"].includes(raw.version)) throw new Error("motion plan 的 version 必须是 1.0 或 1.1");
+  if (!raw || !["1.0", "1.1", "1.2"].includes(raw.version)) throw new Error("motion plan 的 version 必须是 1.0、1.1 或 1.2");
   if (typeof raw.project !== "string" || !raw.project.trim()) throw new Error("motion plan 缺少项目名称 project");
   if (!Array.isArray(raw.scenes) || !raw.scenes.length) throw new Error("motion plan 至少需要一个 scenes 项目");
   if (raw.scenes.length > 50) throw new Error("一次最多导入 50 个动效任务");
   const ids = new Set();
+  if (raw.version === "1.2" && !raw.styleId) throw new Error("V1.2 方案缺少整片风格 styleId");
+  const projectStyleId = requireStyleId(raw.styleId || "classic-orange");
   const planFormat = ["mp4", "mov", "webm"].includes(raw.outputFormat) ? raw.outputFormat : "mp4";
   const scenes = raw.scenes.map((item, index) => {
     const template = templateById(item.templateId);
@@ -245,8 +360,19 @@ function normalizeMotionPlan(raw) {
     const preset = item.preset ? template.presets.find((entry) => entry.id === item.preset) : null;
     if (item.preset && !preset) throw new Error(`第 ${index + 1} 项找不到预设：${item.preset}`);
     const editableDefaults = Object.fromEntries(template.schema.filter((declaration) => !declaration.hidden).map((declaration) => [declaration.id, declaration.default]));
-    const variables = { ...editableDefaults, ...(preset?.values || {}), ...(item.variables || {}) };
-    for (const declaration of template.schema.filter((entry) => entry.hidden)) delete variables[declaration.id];
+    const overrideStyleId = item.styleId ? requireStyleId(item.styleId) : null;
+    const styleId = overrideStyleId || projectStyleId;
+    if (item.variables?.styleId && item.variables.styleId !== styleId) throw new Error(`第 ${index + 1} 项的 variables.styleId 与场景或整片风格不一致`);
+    const variables = { ...editableDefaults, ...(preset?.values || {}), ...(item.variables || {}), styleId };
+    for (const declaration of template.schema.filter((entry) => entry.hidden && entry.id !== "styleId")) delete variables[declaration.id];
+    if (styleId !== "classic-orange") {
+      const tokens = styleById(styleId).tokens;
+      for (const key of ["accent", "foreground", "background", "bg"]) {
+        const declaration = template.schema.find((entry) => entry.id === key);
+        const token = key === "bg" ? tokens.background : tokens[key];
+        if (declaration && token && (variables[key] === undefined || variables[key] === declaration.default)) variables[key] = token;
+      }
+    }
     validateSceneVariables(template, variables, index);
     const format = ["mp4", "mov", "webm"].includes(item.format) ? item.format : planFormat;
     if (!(template.formats || ["mp4"]).includes(format)) throw new Error(`第 ${index + 1} 项的 ${template.name} 不支持 ${format}`);
@@ -254,13 +380,16 @@ function normalizeMotionPlan(raw) {
     if (!id) id = `scene-${index + 1}`;
     if (ids.has(id)) id = `${id}-${index + 1}`;
     ids.add(id);
+    const orientation = hasPortrait(template) && item.orientation === "portrait" ? "portrait" : "landscape";
     return {
       id,
       timecode: item.timecode,
       note: typeof item.note === "string" ? item.note : "",
       director: fallbackDirector(template, item, variables),
       templateId: template.id,
+      ...(overrideStyleId ? { styleId: overrideStyleId } : {}),
       format,
+      orientation,
       variables,
       status: "pending",
       output: null,
@@ -268,14 +397,15 @@ function normalizeMotionPlan(raw) {
       error: null
     };
   });
-  return { version: raw.version, importedVersion: raw.version, project: raw.project.trim(), outputFormat: planFormat, scenes };
+  return { version: raw.version, importedVersion: raw.version, project: raw.project.trim(), styleId: projectStyleId, outputFormat: planFormat, scenes };
 }
 
 function serializablePlan() {
   if (!state.plan) return null;
   return {
-    version: planAudit().ready ? "1.1" : "1.0",
+    version: planAudit().ready ? "1.2" : "1.0",
     project: state.plan.project,
+    styleId: state.plan.styleId,
     outputFormat: state.plan.outputFormat,
     scenes: state.plan.scenes.map((scene) => ({
       id: scene.id,
@@ -283,7 +413,9 @@ function serializablePlan() {
       note: scene.note,
       ...(directorAudit(scene).ready ? { director: scene.director } : {}),
       templateId: scene.templateId,
+      ...(scene.styleId ? { styleId: scene.styleId } : {}),
       format: scene.format,
+      ...(scene.orientation === "portrait" ? { orientation: scene.orientation } : {}),
       variables: scene.variables
     }))
   };
@@ -352,7 +484,8 @@ function renderList(query = "") {
     const mode = layoutModeMeta(template.director.defaultMode).label;
     const span = template.director.measuredSpan;
     const layout = template.director.layoutStatus === "needs-redesign" ? "需重构" : `铺开 ${Math.round(span.width * 100)}×${Math.round(span.height * 100)}%`;
-    fragment.querySelector(".template-meta").textContent = `${template.duration}s · ${template.size} · ${mode} · ${layout} · ${template.presets.length} 个预设`;
+    const orientationLabel = hasPortrait(template) ? " · 横屏+竖屏" : "";
+    fragment.querySelector(".template-meta").textContent = `${variantDuration(template, "landscape")}s · ${template.size}${orientationLabel} · ${mode} · ${layout} · ${template.presets.length} 个预设`;
     button.addEventListener("click", () => selectTemplate(template));
     list.append(fragment);
   });
@@ -410,7 +543,19 @@ function directorEditorMarkup(scene, template) {
     </section>`;
 }
 
+function orientationPillMarkup(template) {
+  if (!hasPortrait(template)) return "";
+  const portraitAvailable = state.orientation === "portrait";
+  return `
+    <div class="orientation-row" role="group" aria-label="画幅切换">
+      <button class="orientation-pill ${state.orientation === "landscape" ? "active" : ""}" type="button" data-orientation="landscape">横屏 16:9</button>
+      <button class="orientation-pill ${state.orientation === "portrait" ? "active" : ""}" type="button" data-orientation="portrait">竖屏 9:16</button>
+      <span class="orientation-note">${portraitAvailable ? "1080×1920" : "1920×1080"} · ${variantDuration(template, state.orientation)}s</span>
+    </div>`;
+}
+
 function renderWorkspace({ planEdit = false } = {}) {
+  disconnectPreview();
   state.view = planEdit ? "plan-edit" : "library";
   updateNav();
   const template = state.selected;
@@ -419,7 +564,7 @@ function renderWorkspace({ planEdit = false } = {}) {
     ${planEdit && scene ? `<div class="plan-edit-banner"><div><strong>正在编辑批量任务</strong><span>${escapeHtml(scene.timecode)} · ${escapeHtml(template.name)}</span></div><button class="button" type="button" id="back-to-plan">返回任务队列</button></div>` : ""}
     <div class="workspace-grid">
       <div class="preview-panel">
-        <div class="preview" id="preview">${previewMarkup(template)}</div>
+        <div class="preview ${state.orientation === "portrait" ? "portrait" : ""}" id="preview">${previewMarkup(template)}</div>
         <div id="preview-download">${previewDownloadMarkup(template)}</div>
         <h2 class="workspace-title">${template.name}</h2>
         <p class="workspace-description">${template.description}</p>
@@ -427,6 +572,8 @@ function renderWorkspace({ planEdit = false } = {}) {
       </div>
       <form class="editor" id="editor">
         ${planEdit && scene ? directorEditorMarkup(scene, template) : ""}
+        ${planEdit && scene ? sceneStyleMarkup(scene) : styleChooserMarkup(state.values.styleId || "classic-orange")}
+        ${orientationPillMarkup(template)}
         <h2>内容与数据</h2>
         <div class="preset-row"><select id="preset" aria-label="载入预设"><option value="">载入预设…</option>${template.presets.map((preset) => `<option value="${escapeAttribute(preset.id)}">${escapeHtml(presetLabel(preset.id))}</option>`).join("")}</select><button class="button" type="button" id="save-preset">保存</button></div>
         <div class="field"><label for="output-format">输出格式</label><select id="output-format">${(template.formats || ["mp4"]).map((format) => formatOption(format, state.format)).join("")}</select><p class="field-note" id="format-note">${formatNote(state.format)}</p></div>
@@ -441,6 +588,7 @@ function renderWorkspace({ planEdit = false } = {}) {
     state.values[declaration.id] = value;
     workspace.querySelectorAll(`[data-key="${declaration.id}"]`).forEach((peer) => { if (peer !== event.target) peer.value = value; });
     markActiveScenePending();
+    invalidateOutput({ deferred: true });
   }));
   workspace.querySelectorAll("[data-director-key]").forEach((input) => input.addEventListener("input", (event) => {
     if (!scene) return;
@@ -461,22 +609,58 @@ function renderWorkspace({ planEdit = false } = {}) {
     scene.preview = null;
     refreshDirectorRenderState();
   }));
+  workspace.querySelectorAll("[data-orientation]").forEach((button) => button.addEventListener("click", () => {
+    const next = button.dataset.orientation;
+    if (next === state.orientation) return;
+    state.orientation = next;
+    invalidateOutput();
+    const scene = activeScene();
+    if (scene) { scene.orientation = next; scene.status = "pending"; scene.output = null; scene.preview = null; }
+    renderWorkspace({ planEdit });
+  }));
   workspace.querySelector("#preset").addEventListener("change", (event) => {
     const preset = template.presets.find((item) => item.id === event.target.value);
-    if (preset) { state.values = { ...defaults(template), ...preset.values }; markActiveScenePending(); renderWorkspace({ planEdit }); }
+    if (preset) {
+      const styleId = planEdit && scene ? effectiveSceneStyle(scene) : preset.values.styleId || state.values.styleId || "classic-orange";
+      if (!planEdit) state.libraryStyleId = styleId;
+      state.values = applyStyleValues(template, { ...defaults(template), ...preset.values }, styleId);
+      // Saved palette edits belong to the preset; only style changes reset them.
+      if (!planEdit && preset.values.styleId === styleId) {
+        for (const declaration of template.schema.filter((entry) => entry.type === "color")) {
+          if (preset.values[declaration.id] !== undefined) state.values[declaration.id] = preset.values[declaration.id];
+        }
+      }
+      markActiveScenePending(); invalidateOutput(); renderWorkspace({ planEdit });
+    }
   });
-  workspace.querySelector("#reset").addEventListener("click", () => { state.values = defaults(template); markActiveScenePending(); renderWorkspace({ planEdit }); });
+  workspace.querySelector("#reset").addEventListener("click", () => {
+    const styleId = planEdit && scene ? effectiveSceneStyle(scene) : state.values.styleId || "classic-orange";
+    state.values = applyStyleValues(template, defaults(template), styleId);
+    markActiveScenePending(); invalidateOutput(); renderWorkspace({ planEdit });
+  });
+  workspace.querySelectorAll('[data-style-scope="template"]').forEach((button) => button.addEventListener("click", () => {
+    state.libraryStyleId = button.dataset.styleId;
+    state.values = applyStyleValues(template, state.values, state.libraryStyleId);
+    invalidateOutput(); renderWorkspace({ planEdit });
+  }));
+  workspace.querySelector("#scene-style")?.addEventListener("change", (event) => {
+    if (event.target.value) scene.styleId = event.target.value;
+    else delete scene.styleId;
+    state.values = applyStyleValues(template, state.values, effectiveSceneStyle(scene));
+    markActiveScenePending(); invalidateOutput(); renderWorkspace({ planEdit });
+  });
   workspace.querySelector("#save-preset").addEventListener("click", savePreset);
   workspace.querySelector("#output-format").addEventListener("change", (event) => {
     state.format = event.target.value;
     markActiveScenePending();
+    invalidateOutput();
     workspace.querySelector("#format-note").textContent = formatNote(event.target.value);
   });
   workspace.querySelector("#editor").addEventListener("submit", renderVideo);
   if (state.staticDemo) {
     workspace.querySelector("#save-preset").disabled = true;
     workspace.querySelector("#render").disabled = true;
-    workspace.querySelector("#status").textContent = "当前是 GitHub Pages 静态演示：可查看模板和样片；生成新视频需要克隆到本地运行。";
+    workspace.querySelector("#status").textContent = "在线可切换风格、修改内容并实时预览；下载重新生成的视频需要在本地运行。";
   }
   function refreshDirectorRenderState() {
     if (!planEdit || !scene || state.staticDemo) return;
@@ -487,6 +671,7 @@ function renderWorkspace({ planEdit = false } = {}) {
     if (readiness) { readiness.className = `director-readiness ${audit.ready ? "ready" : "missing"}`; readiness.textContent = audit.ready ? "可以渲染" : "需要补充"; }
   }
   refreshDirectorRenderState();
+  mountLivePreview();
   workspace.querySelector("#back-to-plan")?.addEventListener("click", renderPlanWorkspace);
 }
 
@@ -498,6 +683,7 @@ function updateNav() {
 }
 
 function renderGuide() {
+  disconnectPreview();
   state.view = "guide";
   updateNav();
   workspace.innerHTML = `
@@ -556,6 +742,12 @@ npm run render -- metric-pulse templates/metric-pulse/presets/default.json</pre>
           </ol>
         </article>
         <article class="guide-card wide">
+          <strong>STYLE</strong>
+          <h3>先选画风，让一条视频保持一致</h3>
+          <p>在模板右侧选择黑橙经典、纸感编辑、手绘笔记或几何构成，可以立即预览同一份内容的不同画风。生成视频前，再选择纯色 MP4 或透明 MOV。</p>
+          <p>一条视频有多个动效时，在批量工作台选择“整片统一风格”。让 Agent 生成 V1.2 方案，并在顶层填写 <code>styleId</code>；所有任务默认跟随，只有明确需要转变画风的场景才单独指定。</p>
+        </article>
+        <article class="guide-card wide">
           <strong>AGENT PROMPT</strong>
           <h3>可以直接复制给 Agent 的任务描述</h3>
           <pre class="guide-prompt">请先阅读这个项目的 README.md、SYSTEM.md 和 director-rules.json，然后检查 catalog.json 与 templates/ 目录。
@@ -567,13 +759,25 @@ npm run render -- metric-pulse templates/metric-pulse/presets/default.json</pre>
 5. 不要添加与表达无关的英文标签、时间、状态或模板编号；编号只有在表达真实步骤、顺序和排名时使用。
 6. 在 catalog.json 的 director 中登记画面模式、主体选择器、占用目标和导演规则。独立全屏主体必须填满安全区，只有透明叠加才为人物和字幕预留位置。
 7. 更新 catalog.json，让模板出现在展示站。
-8. 运行 npm run check，通过结构检查与真实画面占用检查，并尽量为新模板生成 sample 预览。
-9. 不要破坏已有模板和已有预设。</pre>
+8. 阅读 styles/README.md，运行 npm run sync:styles 接入所有画风。
+9. 运行 npm run check 与 npm run check:styles，通过结构、画面占用与风格检查，并尽量为新模板生成 sample 预览。
+10. 不要破坏已有模板和已有预设。</pre>
+        </article>
+        <article class="guide-card wide">
+          <div class="guide-card-top"><strong>NEW STYLE</strong><button class="button guide-copy" type="button" data-copy-prompt="style">复制提示词</button></div>
+          <h3>让 Agent 继续扩展画风</h3>
+          <p>想加入自己的品牌、纸张或插画视觉时，把下面的任务和参考图一起交给 Agent，新画风就可以被整套模板反复调用。</p>
+          <pre class="guide-prompt">${escapeHtml(AGENT_STYLE_PROMPT)}</pre>
         </article>
       </div>
     </section>`;
   workspace.querySelector("[data-copy-prompt='install']")?.addEventListener("click", async (event) => {
     await navigator.clipboard.writeText(AGENT_INSTALL_PROMPT);
+    event.currentTarget.textContent = "已复制";
+    setTimeout(() => { event.currentTarget.textContent = "复制提示词"; }, 1600);
+  });
+  workspace.querySelector("[data-copy-prompt='style']")?.addEventListener("click", async (event) => {
+    await navigator.clipboard.writeText(AGENT_STYLE_PROMPT);
     event.currentTarget.textContent = "已复制";
     setTimeout(() => { event.currentTarget.textContent = "复制提示词"; }, 1600);
   });
@@ -608,7 +812,7 @@ function planSceneMarkup(scene, index) {
           ${audit.warnings.map((item) => `<p class="director-audit-warning">检查一下：${escapeHtml(item)}</p>`).join("")}
         </section>
         <p class="plan-summary">${escapeHtml(sceneSummary(scene))}</p>
-        <div class="plan-scene-meta"><span>${scene.format.toUpperCase()}</span><span>${template.duration}s</span><span>${escapeHtml(scene.templateId)}</span><span>铺开 ${Math.round(template.director.measuredSpan.width * 100)}×${Math.round(template.director.measuredSpan.height * 100)}%</span><span class="${template.director.layoutStatus === "needs-redesign" ? "needs-redesign" : ""}">${template.director.layoutStatus === "needs-redesign" ? "需要重构" : "布局通过"}</span></div>
+        <div class="plan-scene-meta"><span class="scene-style-label">${scene.styleId ? "单独风格" : "跟随整片"} · ${escapeHtml(styleById(effectiveSceneStyle(scene)).name)}</span><span>${scene.format.toUpperCase()}</span><span>${scene.orientation === "portrait" ? "竖屏 9:16" : "横屏 16:9"}</span><span>${variantDuration(template, scene.orientation)}s</span><span>${escapeHtml(scene.templateId)}</span><span>铺开 ${Math.round(template.director.measuredSpan.width * 100)}×${Math.round(template.director.measuredSpan.height * 100)}%</span><span class="${template.director.layoutStatus === "needs-redesign" ? "needs-redesign" : ""}">${template.director.layoutStatus === "needs-redesign" ? "需要重构" : "布局通过"}</span></div>
         ${scene.error ? `<p class="plan-error">${escapeHtml(scene.error)}</p>` : ""}
         ${scene.output ? `<a class="plan-output" href="${assetUrl(scene.output)}" download>下载这条视频</a>` : ""}
       </div>
@@ -622,6 +826,7 @@ function planSceneMarkup(scene, index) {
 }
 
 function renderPlanWorkspace() {
+  disconnectPreview();
   state.view = "plan";
   state.activeSceneId = null;
   updateNav();
@@ -633,7 +838,7 @@ function renderPlanWorkspace() {
         <div>
           <p class="kicker">AGENT TO MOTION QUEUE</p>
           <h2>先理解口播，再开始做动效</h2>
-          <p>每条任务先说明原始口播、表达目的、画面模式与信息边界，通过导演检查后再批量渲染。</p>
+          <p>为整片选好统一风格，再确认每条动效的口播依据、表达目的和信息边界，一次生成可重复调用的素材。</p>
         </div>
         <div class="plan-hero-actions">
           <button class="button" type="button" id="copy-plan-prompt">复制给 Agent 的提示词</button>
@@ -642,6 +847,7 @@ function renderPlanWorkspace() {
         </div>
       </div>
       ${plan ? `
+        ${styleChooserMarkup(plan.styleId, "project")}
         <div class="plan-toolbar">
           <div class="plan-project-field"><label for="plan-project">项目名称</label><input id="plan-project" value="${escapeAttribute(plan.project)}" /></div>
           <div class="plan-metrics"><strong>${plan.scenes.length}</strong><span>条动效任务</span><strong>${plan.scenes.filter((scene) => scene.status === "complete").length}</strong><span>条已完成</span></div>
@@ -701,6 +907,15 @@ function renderPlanWorkspace() {
   });
 
   if (!plan) return;
+  workspace.querySelectorAll('[data-style-scope="project"]').forEach((button) => button.addEventListener("click", () => {
+    if (state.batchRunning || button.dataset.styleId === plan.styleId) return;
+    plan.styleId = requireStyleId(button.dataset.styleId);
+    plan.scenes.filter((scene) => !scene.styleId).forEach((scene) => {
+      scene.variables = applyStyleValues(templateById(scene.templateId), scene.variables, plan.styleId);
+      scene.status = "pending"; scene.error = null; scene.output = null; scene.preview = null;
+    });
+    renderPlanWorkspace();
+  }));
   workspace.querySelector("#plan-project").addEventListener("input", (event) => { state.plan.project = event.target.value; });
   workspace.querySelector("#download-plan").addEventListener("click", downloadMotionPlan);
   workspace.querySelector("#open-plan-folder").addEventListener("click", revealPlanFolder);
@@ -734,13 +949,15 @@ function handlePlanSceneAction(sceneId, action) {
   const index = state.plan.scenes.findIndex((scene) => scene.id === sceneId);
   if (index < 0 || state.batchRunning) return;
   if (action === "edit") {
+    previewRevision += 1;
     const scene = state.plan.scenes[index];
     state.activeSceneId = scene.id;
     state.selected = templateById(scene.templateId);
     state.values = { ...scene.variables };
     state.format = scene.format;
-    state.output = scene.output || state.selected.preview || null;
-    state.previewOutput = scene.preview || scene.output || state.selected.preview || null;
+    state.orientation = scene.orientation === "portrait" && hasPortrait(state.selected) ? "portrait" : "landscape";
+    state.output = scene.output || null;
+    state.previewOutput = scene.preview || scene.output || null;
     renderList(search.value);
     renderWorkspace({ planEdit: true });
     workspace.scrollTo({ top: 0, behavior: "smooth" });
@@ -788,6 +1005,8 @@ async function renderPlanScene(scene, index) {
       variables: scene.variables,
       quality: "draft",
       format: scene.format,
+      orientation: scene.orientation,
+      styleId: effectiveSceneStyle(scene),
       project: state.plan.project,
       outputName: sceneOutputName(scene, index)
     })
@@ -868,12 +1087,14 @@ async function revealPlanFolder() {
 }
 
 function selectTemplate(template) {
+  previewRevision += 1;
   state.activeSceneId = null;
   state.selected = template;
-  state.values = defaults(template);
+  state.values = state.libraryStyleId === "classic-orange" ? { ...defaults(template), styleId: "classic-orange" } : applyStyleValues(template, defaults(template), state.libraryStyleId);
   state.format = template.defaultFormat || template.formats?.[0] || "mp4";
-  state.output = template.preview || null;
-  state.previewOutput = template.preview || null;
+  state.orientation = "landscape";
+  state.output = state.libraryStyleId === "classic-orange" ? template.preview || null : null;
+  state.previewOutput = state.output;
   renderList(search.value);
   renderWorkspace();
   workspace.scrollTo({ top: 0, behavior: "smooth" });
@@ -919,6 +1140,8 @@ async function renderVideo(event) {
   }
   button.disabled = true;
   status.textContent = "正在生成草稿视频…";
+  const renderRevision = previewRevision;
+  const renderTemplateId = state.selected.id;
   try {
     const format = workspace.querySelector("#output-format").value;
     state.format = format;
@@ -933,6 +1156,8 @@ async function renderVideo(event) {
         variables: state.values,
         quality: "draft",
         format,
+        orientation: state.orientation,
+        styleId: state.values.styleId || "classic-orange",
         ...(scene ? { project: state.plan.project, outputName: sceneOutputName(scene, sceneIndex) } : {})
       })
     });
@@ -950,12 +1175,12 @@ async function renderVideo(event) {
         status.textContent = "渲染失败，请查看启动系统的终端信息。";
         return;
       }
+      if (renderRevision !== previewRevision || renderTemplateId !== state.selected.id) return;
       state.output = current.output;
       state.previewOutput = current.preview || current.output;
       if (scene) { scene.status = "complete"; scene.output = current.output; scene.preview = current.preview || current.output; persistMotionPlan().catch(() => {}); }
       status.textContent = "草稿已生成。";
-      document.querySelector("#preview").innerHTML = previewMarkup(state.selected);
-      document.querySelector("#preview-download").innerHTML = previewDownloadMarkup(state.selected);
+      refreshPreview();
     }, 1200);
   } catch (error) {
     const scene = activeScene();

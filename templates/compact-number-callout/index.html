@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="zh-CN" data-composition-variables='[{"id":"eyebrow","type":"string","label":"角标","default":"实测投入"},{"id":"context","type":"string","label":"结论","default":"为了少走弯路"},{"id":"value","type":"number","label":"数字","default":1000},{"id":"unit","type":"string","label":"单位","default":"元"},{"id":"note","type":"string","label":"补充说明","default":"把试错经验做成开源 Skill"},{"id":"position","type":"enum","label":"位置","default":"left","options":[{"value":"left","label":"左侧进入"},{"value":"right","label":"右侧进入"}]},{"id":"accent","type":"color","label":"强调色","default":"#FF5A36"},{"id":"foreground","type":"color","label":"文字色","default":"#F4EFE7"},{"id":"exportMode","type":"enum","label":"导出模式","default":"transparent","hidden":true,"options":[{"value":"transparent","label":"透明背景"},{"value":"mp4","label":"剪映 MP4 深色底"}]},{"id":"styleId","type":"enum","label":"画面风格","default":"classic-orange","hidden":true,"options":[{"value":"classic-orange","label":"黑橙经典"},{"value":"paper-editorial","label":"纸感编辑"},{"value":"sketch-notes","label":"手绘笔记"},{"value":"bold-geometry","label":"几何构成"}]}]'>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * { box-sizing: border-box; }
+      html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: transparent; }
+      body { font-family: sans-serif; }
+      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; color: var(--fg); background: transparent; }
+      .backdrop { position: absolute; inset: 0; opacity: 0; background: #12100e; }
+      html[data-export-mode="mp4"] .backdrop { opacity: 1; }
+      .scene { position: absolute; inset: 0; padding: 82px 108px 78px; }
+      .statement { position: relative; width: 100%; height:100%; display: grid; grid-template-columns: minmax(0, 1.18fr) minmax(500px, .82fr); grid-template-rows: auto 1fr auto; column-gap: 96px; overflow: hidden; }
+      .statement::before { content: ""; position: absolute; left: 0; top: 0; width: 100%; height: 5px; background: linear-gradient(90deg, var(--accent) 0 54%, color-mix(in srgb, var(--accent) 18%, transparent) 54%); }
+      .eyebrow { grid-column: 1 / -1; position: relative; z-index: 2; display: inline-flex; justify-self: start; padding: 12px 20px; border: 2px solid color-mix(in srgb, var(--accent) 72%, transparent); color: var(--accent); font-size: 25px; line-height: 1; font-weight: 850; letter-spacing: .12em; }
+      .main { position: relative; z-index: 2; align-self: center; min-width: 0; }
+      .context { margin-top: 34px; font-size: 74px; line-height: 1.1; font-weight: 900; letter-spacing: -.045em; }
+      .number-row { display: flex; align-items: flex-end; gap: 20px; margin-top: 40px; }
+      .value { display: block; color: var(--accent); font-size: 286px; line-height: .72; font-weight: 950; letter-spacing: -.08em; font-variant-numeric: tabular-nums; }
+      .unit { padding-bottom: 20px; color: var(--accent); font-size: 82px; line-height: 1; font-weight: 900; }
+      .meaning { position: relative; z-index: 2; align-self: end; margin-bottom:28px;padding:38px 0 8px 52px;border-top:2px solid rgba(244,239,231,.24); border-left: 5px solid var(--accent); }
+      .note { max-width: 560px; color: var(--fg); font-size: 56px; line-height: 1.35; font-weight: 800; letter-spacing: -.025em; }
+      .footer-rule { grid-column: 1 / -1; position: relative; z-index: 2; align-self: end; display: block; width: 100%; height: 4px; background: linear-gradient(90deg, var(--accent) 0 24%, color-mix(in srgb, var(--accent) 20%, transparent) 24%); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="3.2" data-width="1920" data-height="1080">
+      <div class="backdrop"></div>
+      <section id="compact-number-scene" class="scene clip" data-start="0" data-duration="3.2" data-track-index="1">
+        <div class="statement">
+          <div id="eyebrow" class="eyebrow"></div>
+          <div class="main"><div id="context" class="context"></div><div class="number-row"><span id="value" class="value"></span><span id="unit" class="unit"></span></div></div>
+          <div class="meaning"><div id="note" class="note"></div></div>
+          <span class="footer-rule"></span>
+        </div>
+      </section>
+    </div>
+
+<!-- motion-style:start -->
+<style data-motion-style-runtime>
+/* Geometry and content stay with the template; materials, ink and type belong to the pack. */
+html:not([data-motion-style="classic-orange"]) body { font-family: sans-serif; }
+html:not([data-motion-style="classic-orange"]) #root { color: var(--style-foreground); }
+html:not([data-motion-style="classic-orange"])[data-export-mode="mp4"] body,
+html:not([data-motion-style="classic-orange"])[data-export-mode="mp4"] #root { background: var(--style-background) !important; }
+html:not([data-motion-style="classic-orange"]) [data-style-role~="heading"] { font-family: sans-serif; color: var(--style-foreground); }
+html:not([data-motion-style="classic-orange"]) [data-style-role~="number"] { font-family: sans-serif; }
+html:not([data-motion-style="classic-orange"]) [data-style-role~="body"] { color: var(--style-muted); }
+html:not([data-motion-style="classic-orange"]) [data-style-role~="decorative"] { display: none; }
+html:not([data-motion-style="classic-orange"]) [data-style-role~="surface"] { backdrop-filter: none; border-color: var(--style-line); box-shadow: none; }
+html:not([data-motion-style="classic-orange"]) [data-style-role~="track"] { background: color-mix(in srgb,var(--style-foreground) 12%,transparent); }
+html:not([data-motion-style="classic-orange"]) .caption-wrap { border-color: var(--style-line); }
+html:not([data-motion-style="classic-orange"]) .fill { border-radius: 0; }
+html:not([data-motion-style="classic-orange"]) .ring-fill { filter: none; }
+html:not([data-motion-style="classic-orange"]) .unit { color: var(--style-accent); }
+html:not([data-motion-style="classic-orange"]) .backdrop { background: var(--style-background); }
+
+/* Paper: warm stock, typeset headlines, offset paper labels and hairline ink rules. */
+html[data-motion-style="paper-editorial"][data-export-mode="mp4"] #root {
+  background-image: repeating-linear-gradient(0deg,transparent 0 5px,#79634209 5px 6px),repeating-linear-gradient(90deg,transparent 0 7px,#79634205 7px 8px) !important;
+}
+html[data-motion-style="paper-editorial"] [data-style-role~="surface"] { background: var(--style-surface); border-radius: 0; box-shadow: 8px 9px 0 #30271F18; }
+html[data-motion-style="paper-editorial"] [data-style-role~="frame"][data-style-role~="surface"] { background: transparent; box-shadow: none; }
+html[data-motion-style="paper-editorial"][data-export-mode="transparent"] :is(.card,.panel,.marker,.cluster) { background: var(--style-surface); box-shadow: 8px 9px 0 #30271F20; }
+html[data-motion-style="paper-editorial"] [data-style-role~="heading"] { font-weight: 700; letter-spacing: -.045em; }
+html[data-motion-style="paper-editorial"] body,
+html[data-motion-style="paper-editorial"] [data-style-role~="heading"],
+html[data-motion-style="paper-editorial"] [data-style-role~="number"] { font-family: serif; }
+html[data-motion-style="paper-editorial"] [data-style-role~="badge"] { color: var(--style-accent); background: var(--style-surface); border-radius: 0; border-color: var(--style-line); box-shadow: 5px 5px 0 #30271F20; }
+html[data-motion-style="paper-editorial"] :is(.card,.panel,.counter-panel,.comparison-panel,.content)::before { height: 3px; background: var(--style-foreground); }
+html[data-motion-style="paper-editorial"] :is(.rail-fill,.scan,.bar,.rule,.footer-rule) { box-shadow: none; background: var(--style-accent); border-radius: 0; }
+html[data-motion-style="paper-editorial"] :is(.line,.line-path) { stroke-width: 5; }
+html[data-motion-style="paper-editorial"] :is(.tag,.index,.no,.verdict,.point) { color: var(--style-surface); background: var(--style-accent); }
+html[data-motion-style="paper-editorial"] .step { border-bottom: 3px solid var(--style-line); }
+html[data-motion-style="paper-editorial"] .chart { border-color: var(--style-line); }
+html[data-motion-style="paper-editorial"][data-export-mode="transparent"] .scene::before { background: var(--style-surface); border-color: var(--style-line); border-radius: 0; }
+
+/* Notebook: dot stock, pencil edges and hatched shadows. No random jitter or fake labels. */
+html[data-motion-style="sketch-notes"][data-export-mode="mp4"] #root { background-image: radial-gradient(#77665838 1.4px,transparent 1.4px) !important; background-size: 26px 26px !important; }
+html[data-motion-style="sketch-notes"] [data-style-role~="surface"] { background: var(--style-surface); border: 3px dashed var(--style-line); border-radius: 8px 2px 10px 3px; box-shadow: 6px 7px 0 var(--style-background),9px 10px 0 var(--style-line); }
+html[data-motion-style="sketch-notes"] [data-style-role~="frame"][data-style-role~="surface"] { border: 0; box-shadow: none; background: transparent; }
+html[data-motion-style="sketch-notes"][data-export-mode="transparent"] :is(.card,.panel,.marker,.cluster) { background: var(--style-surface); border: 3px dashed var(--style-line); box-shadow: 6px 7px 0 var(--style-surface),9px 10px 0 var(--style-line); }
+html[data-motion-style="sketch-notes"] [data-style-role~="heading"] { font-weight: 800; letter-spacing: -.035em; }
+html[data-motion-style="sketch-notes"] [data-style-role~="number"] { font-family: serif; }
+html[data-motion-style="sketch-notes"] [data-style-role~="badge"] { color: var(--style-accent); background: var(--style-surface); border: 2px dashed var(--style-accent); border-radius: 5px 2px 6px 3px; box-shadow: none; }
+html[data-motion-style="sketch-notes"] :is(.card,.panel,.counter-panel,.comparison-panel,.content)::before { height: 6px; background: repeating-linear-gradient(110deg,var(--style-accent) 0 4px,transparent 4px 7px); }
+html[data-motion-style="sketch-notes"] :is(.rail-fill,.scan,.bar,.rule,.footer-rule) { box-shadow: none; background: var(--style-accent); border-radius: 2px; }
+html[data-motion-style="sketch-notes"] .fill { background: repeating-linear-gradient(115deg,transparent 0 8px,var(--style-accent) 8px 12px); border: 3px solid var(--style-accent); }
+html[data-motion-style="sketch-notes"] :is(.line,.line-path) { stroke-width: 7; stroke-linejoin: bevel; }
+html[data-motion-style="sketch-notes"] .ring-track { stroke: var(--style-line); stroke-dasharray: 3 9; }
+html[data-motion-style="sketch-notes"] .chart { border-color: var(--style-line); border-style: dashed; }
+html[data-motion-style="sketch-notes"] .step { padding-left: 22px; padding-right: 22px; }
+html[data-motion-style="sketch-notes"][data-export-mode="transparent"] .scene::before { background: var(--style-surface); border: 3px dashed var(--style-line); border-radius: 8px 2px 10px 3px; }
+
+/* Geometric: sharp cuts, visible thick rules, flat blocks, no glass or glow. */
+html[data-motion-style="bold-geometry"] [data-style-role~="heading"] { font-weight: 950; letter-spacing: -.06em; }
+html[data-motion-style="bold-geometry"] [data-style-role~="surface"] { background: var(--style-surface); border-radius: 0; border: 3px solid var(--style-accent); box-shadow: 10px 10px 0 #00000055; }
+html[data-motion-style="bold-geometry"] [data-style-role~="frame"][data-style-role~="surface"] { background: transparent; border: 0; box-shadow: none; }
+html[data-motion-style="bold-geometry"][data-export-mode="transparent"] :is(.card,.panel,.marker,.cluster) { background: var(--style-surface); border: 3px solid var(--style-accent); }
+html[data-motion-style="bold-geometry"] [data-style-role~="badge"] { color: #191715; background: var(--style-accent); border-radius: 0; border-color: var(--style-accent); font-weight: 900; }
+html[data-motion-style="bold-geometry"] :is(.card,.panel,.counter-panel,.comparison-panel,.content)::before { height: 14px; background: var(--style-accent); }
+html[data-motion-style="bold-geometry"] :is(.rail-fill,.scan,.bar,.rule,.footer-rule) { box-shadow: none; background: var(--style-accent); border-radius: 0; }
+html[data-motion-style="bold-geometry"] :is(.line,.line-path) { stroke-width: 15; stroke-linecap: square; stroke-linejoin: miter; }
+html[data-motion-style="bold-geometry"] .item { border-bottom: 4px solid var(--style-line); }
+html[data-motion-style="bold-geometry"] .step { padding-left: 22px; padding-right: 22px; border-bottom: 8px solid var(--style-accent); }
+html[data-motion-style="bold-geometry"][data-export-mode="transparent"] .scene::before { background: var(--style-surface); border: 3px solid var(--style-accent); border-radius: 0; }
+
+/* Filled callouts have their own ink contrast, rather than inheriting muted body text. */
+html:not([data-motion-style="classic-orange"]) [data-style-role~="accent-fill"] { background: var(--style-accent); color: var(--style-on-accent); border-color: var(--style-accent); }
+</style>
+<script data-motion-style-runtime>window.__motionStyleCatalog={"version":"1.0","defaultStyleId":"classic-orange","source":"https://github.com/nutllwhy/ldd-video-edit","principles":["先选择信息模板，再选择整片画风。","同一项目默认继承一种风格，场景切换必须显式声明。","风格可以改变字体、材质、线条与运动，不得添加没有来源的信息。","透明导出只保留信息图形及其必要材质，不铺满不透明画布。"],"styles":[{"id":"classic-orange","name":"黑橙经典","description":"深色底、粗体数字与利落强调线，延续原有动效。","tags":["数据","科技","通用"],"tokens":{"background":"#12100E","surface":"#211C18","foreground":"#F4EFE7","muted":"#B8ADA2","accent":"#FF5A36","line":"#57483E"},"typography":{"heading":"sans-serif","body":"sans-serif","numeric":"sans-serif"},"material":{"texture":"none","edge":"precise","shadow":"soft","radius":"template"},"motion":{"entry":"原模板编排","emphasis":"弹性落定","exit":"快速离场","ease":"template"},"rules":{"required":["保留原模板的信息层级"],"forbidden":["额外加入英文编号","无来源的装饰数据"]}},{"id":"paper-editorial","name":"纸感编辑","description":"暖纸底、衬线标题、细墨线与剪贴纸签，适合深度解读。","tags":["解读","资料","人文"],"tokens":{"background":"#F1E7D6","surface":"#FFFAEE","foreground":"#30271F","muted":"#75634F","accent":"#B64325","line":"#A4947D"},"typography":{"heading":"serif","body":"serif","numeric":"serif"},"material":{"texture":"paper-grain","edge":"square","shadow":"offset-paper","radius":"0px"},"motion":{"entry":"纸片平滑滑入","emphasis":"墨线展开","exit":"平滑收起","ease":"power2.out"},"rules":{"required":["暖纸与墨色对比","清楚的编辑层级"],"forbidden":["发光玻璃效果","弹簧式夸张弹跳"]}},{"id":"sketch-notes","name":"手绘笔记","description":"点阵纸、铅笔虚线、排线阴影与橙色批注，适合讲清步骤。","tags":["教学","流程","复盘"],"tokens":{"background":"#FFF7E6","surface":"#FFFCF3","foreground":"#382F29","muted":"#776658","accent":"#BB4C24","line":"#A1907B"},"typography":{"heading":"sans-serif","body":"sans-serif","numeric":"serif"},"material":{"texture":"dot-grid","edge":"pencil-dashed","shadow":"hatching","radius":"8px 2px 10px 3px"},"motion":{"entry":"逐拍显现","emphasis":"笔迹分段展开","exit":"干净擦出","ease":"steps(12)"},"rules":{"required":["可寻帧的笔触节奏","批注只强化已有信息"],"forbidden":["随机抖动","依赖本机手写字体","装饰性假笔记"]}},{"id":"bold-geometry","name":"几何构成","description":"硬边色块、粗线切分与重字排版，适合观点和强对比。","tags":["观点","对比","快节奏"],"tokens":{"background":"#191715","surface":"#28221D","foreground":"#FFF4E6","muted":"#D1BBA7","accent":"#FF713D","line":"#9B7255"},"typography":{"heading":"sans-serif","body":"sans-serif","numeric":"sans-serif"},"material":{"texture":"none","edge":"hard-cut","shadow":"hard-offset","radius":"0px"},"motion":{"entry":"快速切入","emphasis":"硬边冲击落定","exit":"加速切走","ease":"expo.out"},"rules":{"required":["粗线与色块形成主次","一眼可读的结论"],"forbidden":["柔光渐变","圆润玻璃卡片","额外的装饰数字"]}}]};
+/* Authored for this project. Embedded into each standalone composition by sync-styles.mjs. */
+(function () {
+  "use strict";
+  const catalog = window.__motionStyleCatalog;
+  const schema = JSON.parse(document.documentElement.getAttribute("data-composition-variables") || "[]");
+  const defaults = Object.fromEntries(schema.map((field) => [field.id, field.default]));
+  const originalGetVariables = window.__hyperframes?.getVariables?.bind(window.__hyperframes);
+  const query = new URLSearchParams(window.location.search);
+  const preview = query.get("motionPreview") === "1";
+  let supplied = originalGetVariables ? originalGetVariables() : {};
+  if (preview) {
+    try { supplied = JSON.parse(query.get("variables") || "{}"); }
+    catch { throw new Error("风格预览参数不是有效 JSON"); }
+  }
+  const styleId = supplied.styleId || catalog.defaultStyleId;
+  const pack = catalog.styles.find((style) => style.id === styleId);
+  if (!pack) throw new Error(`未知画面风格：${styleId}`);
+  const values = { ...defaults, ...supplied, styleId };
+  if (styleId !== catalog.defaultStyleId) {
+    for (const field of schema.filter((item) => item.type === "color")) {
+      const token = field.id === "bg" ? "background" : field.id;
+      if (pack.tokens[token] && (!supplied[field.id] || supplied[field.id].toUpperCase() === String(field.default).toUpperCase())) values[field.id] = pack.tokens[token];
+    }
+    if (typeof defaults.colors === "string" && (!supplied.colors || supplied.colors === defaults.colors)) {
+      values.colors = defaults.colors.split(",").map((color) => color.trim().toUpperCase() === String(defaults.accent).toUpperCase() ? values.accent : pack.tokens.line).join(",");
+    }
+  }
+  window.__hyperframes = window.__hyperframes || {};
+  window.__hyperframes.getVariables = () => ({ ...values });
+  document.documentElement.dataset.motionStyle = styleId;
+  document.documentElement.dataset.exportMode = values.exportMode || "transparent";
+  for (const [key, value] of Object.entries(pack.tokens)) document.documentElement.style.setProperty(`--style-${key}`, value);
+  const colors = { foreground: values.foreground || pack.tokens.foreground, background: values.background || values.bg || pack.tokens.background, accent: values.accent || pack.tokens.accent };
+  for (const [key, value] of Object.entries(colors)) {
+    document.documentElement.style.setProperty(`--style-${key}`, value);
+    document.documentElement.style.setProperty(`--${key}`, value);
+  }
+  document.documentElement.style.setProperty("--fg", colors.foreground);
+  document.documentElement.style.setProperty("--style-on-accent", styleId === "bold-geometry" ? "#191715" : "#FFFCF3");
+  document.documentElement.style.setProperty("--style-heading-font", pack.typography.heading);
+  document.documentElement.style.setProperty("--style-body-font", pack.typography.body);
+  document.documentElement.style.setProperty("--style-number-font", pack.typography.numeric);
+
+  const roles = {
+    heading: ".title,.headline,.prefix,.term,.keyword,.step-title,.option-title,.fact-text,.myth-text,.claim,.quote",
+    number: ".value,.score,.stat-value,.no,.no-text",
+    body: ".caption,.note,.desc,.definition,.subtitle,.option-detail,.meaning,.source,.byline,.author,.name,.tag,.connector-word,.point,.tick-label,.bar-label,.y-label,.x-label",
+    badge: ".eyebrow,.kicker,.meta,.label,.tag,.index,.no,.desc-tag,.verdict,.conclusion,.takeaway",
+    surface: ".box,.option,.step,.myth-card,.fact-card,.quote-panel,.card,.panel,.marker,.cluster,.list .item",
+    frame: ".card,.panel,.comparison-panel,.counter-panel,.content,.statement,.compare,.loop,.layout,.stack,.cluster",
+    line: ".rule,.rail,.rail-fill,.divider,.return-path,.line,.line-path,.footer-rule,.scan,.bar",
+    track: ".track,.ring-track,.meter",
+    decorative: ".glow,.halo,.sheen,.burst"
+  };
+  function markRoles() {
+    for (const [role, selector] of Object.entries(roles)) {
+      document.querySelectorAll(selector).forEach((node) => {
+        const current = new Set((node.dataset.styleRole || "").split(" ").filter(Boolean));
+        current.add(role);
+        node.dataset.styleRole = [...current].join(" ");
+      });
+    }
+    // In these templates .label is the actual title, rather than a small label chip.
+    if (document.querySelector(".comparison-panel,.hero .label")) {
+      document.querySelectorAll(".comparison-panel > .label,.hero .label").forEach((node) => { node.dataset.styleRole = "heading"; });
+    }
+    document.querySelectorAll(".point,.option-detail").forEach((node) => { node.dataset.styleRole = "accent-fill"; });
+    if (document.querySelector(".meter")) document.querySelectorAll(".caption").forEach((node) => { node.dataset.styleRole = "badge accent-fill"; });
+    // Chart text is generated by its template script and must follow the same ink palette.
+    if (styleId !== catalog.defaultStyleId) {
+      document.querySelectorAll("svg text").forEach((node) => {
+        node.style.fill = node.classList.contains("bar-value") ? colors.foreground : pack.tokens.muted;
+        node.style.fontFamily = pack.typography.body;
+      });
+      document.querySelectorAll(".grid-line-elem,.baseline").forEach((node) => { node.style.stroke = pack.tokens.line; });
+      document.querySelectorAll(".bar-rect").forEach((node) => {
+        node.setAttribute("rx", "0");
+        if (styleId === "sketch-notes") {
+          node.style.stroke = colors.accent;
+          node.style.strokeWidth = "3";
+          node.style.strokeDasharray = "8 3";
+          node.style.fillOpacity = ".65";
+        }
+      });
+    }
+  }
+  markRoles();
+  window.MotionStyles = {
+    id: styleId,
+    values,
+    ease(original) {
+      if (styleId === catalog.defaultStyleId || original === "none" || original === "linear") return original;
+      if (styleId === "sketch-notes") return "steps(12)";
+      if (original.includes("inOut")) return styleId === "paper-editorial" ? "power2.inOut" : "expo.inOut";
+      if (original.endsWith(".in")) return styleId === "paper-editorial" ? "power2.in" : "expo.in";
+      return pack.motion.ease;
+    },
+    finish(timeline) {
+      markRoles();
+      if (preview) {
+        const play = () => { if (timeline) timeline.repeat(100).play(0); };
+        if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", play, { once: true });
+        else play();
+      }
+    }
+  };
+})();
+</script>
+<!-- motion-style:end -->
+<script>
+      const fallback = { eyebrow: "实测投入", context: "为了少走弯路", value: 1000, unit: "元", note: "把试错经验做成开源 Skill", position: "left", accent: "#FF5A36", foreground: "#F4EFE7", exportMode: "transparent" };
+      const v = window.__hyperframes?.getVariables ? window.__hyperframes.getVariables() : fallback;
+      document.documentElement.dataset.exportMode = v.exportMode || "transparent";
+      document.documentElement.style.setProperty("--accent", v.accent);
+      document.documentElement.style.setProperty("--fg", v.foreground);
+      for (const id of ["eyebrow", "context", "value", "unit", "note"]) document.getElementById(id).textContent = v[id];
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      const direction = v.position === "right" ? 60 : -60;
+      tl.fromTo(".statement", { opacity: 0, x: direction, scale: .985 }, { opacity: 1, x: 0, scale: 1, duration: .42, ease: MotionStyles.ease("expo.out") }, .12)
+        .fromTo(".eyebrow", { opacity: 0, x: -26 }, { opacity: 1, x: 0, duration: .28, ease: MotionStyles.ease("circ.out") }, .2)
+        .fromTo(".context", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: .36, ease: MotionStyles.ease("power4.out") }, .27)
+        .fromTo(".value", { opacity: 0, scale: .56, transformOrigin: "left bottom" }, { opacity: 1, scale: 1, duration: .5, ease: MotionStyles.ease("expo.out") }, .34)
+        .fromTo(".unit", { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: .3, ease: MotionStyles.ease("back.out(1.35)") }, .55)
+        .fromTo(".meaning", { opacity: 0, x: 34 }, { opacity: 1, x: 0, duration: .36, ease: MotionStyles.ease("power3.out") }, .48)
+        .fromTo(".footer-rule", { scaleX: 0, transformOrigin: "left center" }, { scaleX: 1, duration: .38, ease: MotionStyles.ease("power4.out") }, .66)
+        .to(".footer-rule", { opacity: .52, duration: .68, yoyo: true, repeat: 1, ease: MotionStyles.ease("sine.inOut") }, 1.28)
+        .to(".scene", { opacity: 0, y: -20, duration: .28, ease: MotionStyles.ease("power3.in") }, 2.84)
+        .set(".scene", { opacity: 0 }, 3.12);
+      window.__timelines.main = tl; MotionStyles.finish(tl);
+    </script>
+  </body>
+</html>
